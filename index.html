@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>운동로그 - 루틴 기록</title>
 <style>
 :root{color-scheme:dark;--lift:20px;
@@ -150,6 +150,7 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .lbp{font-weight:800;font-size:13px;white-space:nowrap}
 .lbdots{text-align:center;color:var(--mute);line-height:1}
 .cmpost{margin-bottom:10px}
+.fbi{position:relative;padding:10px 30px 10px 0;border-top:1px solid var(--line)}.fbi .x{position:absolute;right:0;top:8px}.fbt{margin:4px 0;white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.5}
 .cmimp{margin-top:10px;width:100%;background:rgba(48,209,88,.16);color:#6ef09a;border:1.5px solid rgba(48,209,88,.55)}
 .cmimp.done{opacity:.6}
 .cmts{margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
@@ -160,6 +161,7 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .cmit{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:14px}
 .cmmemo{margin-top:8px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.06);font-size:13.5px;line-height:1.5;color:var(--mute)}
 .cmjoin{margin-bottom:14px;border:1.5px solid rgba(48,209,88,.5)}
+.sk-on,.sk-on body{overflow:hidden;overscroll-behavior:none;height:100%;position:fixed;inset:0;width:100%}
 .skw.full{position:fixed;left:0;right:0;top:0;bottom:var(--navh,84px);height:auto;min-height:0;border-radius:0;border:0;z-index:5;background:#1b1b1d;animation:none!important}
 .skhd{position:absolute;left:14px;top:max(12px,env(safe-area-inset-top));display:flex;flex-direction:column;gap:3px;pointer-events:none;color:#fff}
 .skhd b{font-size:20px;letter-spacing:-.01em}.skhd span{font-size:12px;color:var(--mute)}
@@ -937,6 +939,12 @@ function norm(o){
   const ex=(Array.isArray(o.exercises)?o.exercises:[]).filter(x=>x&&x.id&&x.name&&(!x.builtin||String(x.id).startsWith('bw')||used.has(x.id)));
   const have=new Set(ex.map(x=>x.id));
   b.exercises=[...BUILTIN.filter(x=>!have.has(x.id)).map(x=>({...x})),...ex];
+  /* 같은 운동 합치기: 오타·중복 이름을 하나로 */
+  {const ALIAS={'스캠풀라 풀업':'스캐풀라 풀업','스캐풀러 풀업':'스캐풀라 풀업'},keep={},map={};
+   b.exercises.forEach(x=>{const nm=ALIAS[x.name]||x.name;if(!keep[nm]||(x.builtin&&!keep[nm].builtin)){if(keep[nm])map[keep[nm].id]=x.id;keep[nm]=x}else map[x.id]=keep[nm].id});
+   Object.values(keep).forEach(x=>{if(ALIAS[x.name]){x.name=ALIAS[x.name]}});
+   if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
+     b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
   b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12)}:{on:false,nick:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
@@ -1034,7 +1042,7 @@ async function initCloud(){
       if(db)store.db=db;
       if(!db||!user){store.sync='local';ensureSeed();C.why=db?'nouser':'nodb';commStart();break}
       const id=await user.id();if(!id){store.sync='local';ensureSeed();C.why='nouser';commStart();break}
-      store.db=db;store.uid=id;C.subbed=false;commStart();try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm')renderView(false)}).catch(()=>{})}catch(e){}
+      store.db=db;store.uid=id;C.subbed=false;commStart();try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
       store.ai=db.collection('data/users/'+id).doc('ai_sugg');store.cmd=db.collection('data/users/'+id).doc('ai_cmd');const doc=db.collection('data/users/'+id).doc('planlog'),bak=db.collection('data/users/'+id).doc('planlog_bak');
       const g=await cloudGet(doc);
       store.doc=doc;store.bak=bak;store.mode='cloud';
@@ -1532,6 +1540,10 @@ function moreView(){
   <div class="row wrap" style="margin-bottom:10px">${store.mode==='cloud'?'<button class="btn" data-act="sync-now">지금 저장</button><button class="btn" data-act="sync-pull">클라우드에서 불러오기</button><button class="btn" data-act="sync-bak">어제 백업으로 복원</button>':''}</div>
   <div class="row wrap"><button class="btn" data-act="export">내보내기(백업)</button><button class="btn" data-act="import">가져오기</button></div>
   <div class="muted sm" style="margin-top:12px">일지 ${S.sessions.length}개 · 루틴 ${S.routines.length}개 · 체중 ${S.body.length}회</div></div>
+  <div class="card" style="margin-top:14px"><div style="font-weight:700;margin-bottom:4px">💌 제작자에게 건의하기</div><div class="muted sm" style="margin-bottom:10px;line-height:1.5">불편한 점, 원하는 기능, 버그를 알려주세요. 제작자만 볼 수 있어요.</div>
+  <textarea class="inp" id="fbtxt" maxlength="1000" rows="4" placeholder="예) 기술 트리에 ○○ 기술도 넣어주세요" style="min-height:96px;resize:vertical">${esc(U.fbTxt||'')}</textarea>
+  <div class="row between" style="margin-top:10px"><span class="muted sm" id="fbcnt">${(U.fbTxt||'').length}/1000</span><button class="btn pri" data-act="fb-send">보내기</button></div></div>
+  ${C.admin?`<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:8px"><b>📥 받은 건의사항 <span class="chip">관리자</span></b><button class="btn sm" data-act="fb-load">${U.fbList?'새로고침':'열기'}</button></div>${U.fbList?(U.fbList.length?U.fbList.map(f=>`<div class="fbi"><div class="row between"><b class="sm">${esc(String(f.nick||'익명').slice(0,20))}</b><span class="muted sm">${new Date(f.ts||0).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="fbt">${esc(String(f.text||'').slice(0,1000))}</div>${f.email?`<div class="muted sm">${esc(String(f.email).slice(0,60))}</div>`:''}<button class="x" data-act="fb-del" data-id="${esc(f.id)}">✕</button></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">아직 받은 건의사항이 없어요.</div>'):''}</div>`:''}
   ${window.FB_MODE?`<div class="card" style="margin-top:14px"><div class="row between"><span class="muted sm">${esc((window.FB_USER&&(window.FB_USER.email||window.FB_USER.displayName))||"")}</span><button class="btn sm bad" onclick="fbLogout()">로그아웃</button></div></div>`:""}<div class="wm">made by @bbi2ne</div>`;
 }
 
@@ -1723,6 +1735,15 @@ function cmtHtml(key){
   const inp=S.comm&&S.comm.on?`<div class="row cmin"><input class="inp" maxlength="200" placeholder="댓글 달기…" data-bind="cmt" data-k="${esc(key)}" value="${esc(C.txt[key]||'')}"><button class="btn pri sm" data-act="cmt-add" data-k="${esc(key)}">등록</button></div>`:`<div class="muted sm" style="padding:6px 2px">참여하면 댓글을 달 수 있어요</div>`;
   return `<div class="cmts">${rows||'<div class="muted sm" style="padding:6px 2px">첫 댓글을 남겨보세요</div>'}${inp}</div>`;
 }
+async function fbSend(){
+  const t=String(($('#fbtxt')||{}).value||'').trim();if(t.length<2){toast('내용을 적어 주세요',true);return}
+  if(!store.db||!store.uid){toast('로그인한 상태에서만 보낼 수 있어요',true);return}
+  const u=window.FB_USER||{};
+  try{await store.db.collection('fb').add({uid:store.uid,nick:cnick()||u.displayName||'',email:u.email||'',text:t.slice(0,1000),ts:Date.now()});
+    U.fbTxt='';const el=$('#fbtxt');if(el)el.value='';const c=$('#fbcnt');if(c)c.textContent='0/1000';toast('건의사항을 보냈어요. 고마워요!');sfx('success')}
+  catch(e){toast('보내지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
+}
+async function fbLoad(){try{const q=await store.db.collection('fb').orderBy('ts','desc').limit(50).get();U.fbList=q.docs.map(d=>Object.assign({id:d.id},d.data()||{}));renderView(false)}catch(e){toast('불러오지 못했어요',true)}}
 async function commPost(sid){
   const s=S.sessions.find(x=>x.id===sid);if(!s||!commAvail())return;
   const items=s.items.map(it=>{const e=exById(it.exId);return {n:e?e.name:'?',t:e&&e.type==='time'?1:0,r:it.sets.filter(x=>x.done).map(x=>x.r).filter(v=>v!==''&&v!=null).slice(0,12)}}).filter(x=>x.r.length).slice(0,14);
@@ -1752,6 +1773,7 @@ function renderView(anim){
   if(anim){[...el.children].forEach((c,i)=>c.style.setProperty('--i',Math.min(i,9)));el.classList.remove('enter');void el.offsetWidth;el.classList.add('enter')}
   else el.classList.remove('enter');
   if(FRESH){const f=$(FRESH);FRESH=null;if(f)f.classList.add('fresh')}
+  document.documentElement.classList.toggle('sk-on',U.tab==='skill');window.scrollTo&&U.tab==='skill'&&window.scrollTo(0,0);
   if(U.tab==='skill'){if(SK_PREV!=='skill')SKV.k=0;skInit();setTimeout(()=>{if(U.tab==='skill')skApply()},60)}SK_PREV=U.tab;
 }
 function renderNav(){
@@ -2091,6 +2113,9 @@ function skStart(){const w=$('#skw');if(!w)return;const lv=skLevels();let ps=SKN
   const cx=ps.reduce((a,p)=>a+p.x,0)/ps.length,cy=ps.reduce((a,p)=>a+p.y,0)/ps.length,k=Math.min(1,Math.max(.6,w.clientWidth/560));SKV.k=k;SKV.x=w.clientWidth/2-cx*k;SKV.y=w.clientHeight/2-cy*k;skApply()}
 let SK_PREV='';try{window.addEventListener('resize',()=>{if(U.tab==='skill')skApply()})}catch(e){}
 try{
+['gesturestart','gesturechange','gestureend'].forEach(n=>document.addEventListener(n,e=>{if(U.tab==='skill'||(e.target.closest&&e.target.closest('#skw')))e.preventDefault()},{passive:false}));
+document.addEventListener('touchmove',e=>{if(e.target.closest&&e.target.closest('#skw'))e.preventDefault()},{passive:false});
+let SK_LT=0;document.addEventListener('touchend',e=>{if(!(e.target.closest&&e.target.closest('#skw')))return;const n=Date.now();if(n-SK_LT<300)e.preventDefault();SK_LT=n},{passive:false});
 document.addEventListener('pointerdown',e=>{const w=e.target.closest&&e.target.closest('#skw');if(!w||e.target.closest('.skz'))return;
   SKP.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(SKP.size===1)SKD={m:0,sx:e.clientX,sy:e.clientY,ox:SKV.x,oy:SKV.y};
@@ -2124,19 +2149,21 @@ const LVP=['가슴','등','어깨','하체','팔','복근'];
 const setXP=(type,r)=>10+Math.min(30,type==='time'?r/3:r);
 const lvFromXP=xp=>Math.max(1,Math.floor((1+Math.sqrt(1+.08*xp))/2));
 /* 부위별 티어: 특정 기술·횟수를 달성해야 올라가요 (한 세트 최고 기록 기준) */
+/* 부위 티어 조건: 기술 트리 기술 [기술 id, 목표 값(회·초)] 9단계 */
 const ACH={
- '가슴':[[['bw0'],10],[['bw0'],20],[['bw5'],8],[['bw2'],20],[['bw5'],15],[['bw51'],5],[['bw52'],5],[['bw53'],1],[['bw53'],5]],
- '등':[[['bw11'],10],[['bw9'],5],[['bw7'],3],[['bw7'],6],[['bw7'],10],[['bw47'],5],[['bw48'],3],[['bw49'],1],[['bw49'],5]],
- '어깨':[[['bw22'],20],[['bw13'],10],[['bw23'],15],[['bw15'],30],[['bw24'],5],[['bw20','bw18','bw19'],5],[['bw25'],5],[['bw26'],3],[['bw27'],3]],
- '하체':[[['bw28'],20],[['bw32'],20],[['bw29'],15],[['bw30'],10],[['bw33'],30],[['bw30'],15],[['bw31'],1],[['bw31'],3],[['bw31'],5]],
- '팔':[[['bw45'],8],[['bw44'],10],[['bw2'],10],[['bw8'],3],[['bw45'],15],[['bw5'],12],[['bw8'],8],[['bw4'],10],[['bw53'],1]],
- '복근':[[['bw35'],30],[['bw35'],60],[['bw36'],30],[['bw37'],10],[['bw40'],30],[['bw41'],15],[['bw38'],10],[['bw42'],10],[['bw43'],10]]
+ '가슴':[['hp2',10],['hp2',20],['vp11',5],['hp3',12],['hp5',6],['vp11',12],['hp6',6],['hp7',3],['hp7',6]],
+ '등':[['vl2',10],['hl2',10],['vl3',5],['vl4',5],['vl4',10],['vl7',5],['vl9',3],['vl10',1],['vl10',5]],
+ '어깨':[['vp1',10],['hp10',20],['vp3',30],['hp9',15],['vp4',5],['hp11',10],['vp6',5],['hp12',10],['vp8',3]],
+ '하체':[['l1',20],['l3',20],['l2',12],['l4',10],['l5',30],['l4',15],['l7',3],['l8',3],['l8',6]],
+ '팔':[['hp3',6],['vp10',5],['hp3',15],['vl5',8],['vp11',10],['hl3',5],['vl8',3],['vp13',3],['vl12',1]],
+ '복근':[['c1',60],['c2',30],['c3',10],['c6',15],['c4',8],['c7',10],['c8',6],['c10',3],['c9',3]]
 };
-const goalUnit=m=>{const e=exById(m[0][0]);return e&&e.type==='time'?'초':'회'};
-const goalLabel=m=>m[0].map(id=>{const e=exById(id);return e?e.name.replace(' (현재 단계)',''):'?'}).join(' / ')+' '+m[1]+goalUnit(m);
+const goalUnit=m=>{const x=SKBY[m[0]];return x&&x.t==='h'?'초':'회'};
+const goalLabel=m=>{const x=SKBY[m[0]];return (x?x.n:'?')+' '+m[1]+goalUnit(m)};
 function levelData(excl){
-  const best={};records().forEach(r=>{if(excl&&r.sid===excl)return;best[r.exId]=Math.max(best[r.exId]||0,r.r)});
-  const mv=m=>Math.max(0,...m[0].map(id=>best[id]||0)),o={};
+  const best={};records().forEach(r=>{if(excl&&r.sid===excl)return;const e=exById(r.exId);if(e)best[e.name]=Math.max(best[e.name]||0,r.r)});
+  const M=S.skLv||{};
+  const mv=m=>{const x=SKBY[m[0]];if(!x)return 0;const man=M[x.id]!=null?(x.t==='h'?[0,2,6,12]:[0,1,3,6])[M[x.id]]||0:0;return Math.max(man,x.ex?(best[x.ex]||0):0)},o={};
   LVP.forEach(p=>{const L=ACH[p];let k=0;while(k<L.length&&mv(L[k])>=L[k][1])k++;
     const g=k<L.length?L[k]:null,cur=g?mv(g):0;
     o[p]={t:{i:k,t:TIERS[k],div:''},goal:g,cur,p:g?Math.min(1,cur/g[1]):1,k,mv}});
@@ -2165,7 +2192,7 @@ function muscleCard(){
     <div style="margin:8px 0 0 48px"><div class="muted sm">${r.none?'🔥 회복도 · 기록 없음':`🔥 회복도 ${r.pct}% · ${r.days===0?'오늘':r.days+'일 전'} ${r.n}세트`}</div>${r.none?'':`<div class="bar" style="margin-top:4px"><div style="width:${Math.max(3,r.pct)}%;background:${recColor(r.pct).replace(/,[\d.]+\)$/,',1)')}"></div></div>`}</div></div>`}).join('');
   return `<div class="card"><div class="ctitle">내 근육은 어느 티어고<br>지금 얼마나 불타고 있을까?</div><div class="muted sm c" style="margin:-8px 0 6px">색은 회복도, 배지는 부위별 티어예요</div>${bodySvg(rd,ld)}<div style="margin:6px 14px 0"><div class="grad"></div><div class="row between sm muted" style="margin-top:6px"><span>회복도 ${mn}%</span><span>100%</span></div></div>
   <div class="ovt" data-act="rank-open"><div class="c" style="display:flex;justify-content:center">${emblem(ov.i,64)}</div><div class="c" style="font-weight:800;font-size:19px;color:${ov.t.c}">${tierName(ov)}</div><div class="muted sm c">${ov.s>=30?'최고 티어!':`${ov.nl}까지 달성 ${ov.left}개`} · 조건 보기 ›</div></div>
-  <div>${rows}</div><div class="muted sm c" style="margin-top:8px;line-height:1.5">특정 기술이나 횟수를 한 세트에 달성하면 부위 티어가 올라가요. 회복도는 마지막 운동일과 세트 수로 계산한 추정치예요.</div></div>`;
+  <div>${rows}</div><div class="muted sm c" style="margin-top:8px;line-height:1.5">기술 트리의 기술을 목표 횟수·시간만큼 한 세트에 해내면 부위 티어가 올라가요. 기록이 없는 기술은 기술 트리에서 단계를 직접 정하면 반영돼요. 회복도는 마지막 운동일과 세트 수로 계산한 추정치예요.</div></div>`;
 }
 
 /* ---------- tiers ---------- */
@@ -2851,6 +2878,9 @@ document.addEventListener('click',e=>{
     case 'cm-del':confirmAsk('이 공유 기록을 지울까요?',()=>commDel(d.p));break;
     case 'cm-like':commLike(d.k);break;
     case 'cm-copy':copyRoutine(d.k);break;
+    case 'fb-send':fbSend();break;
+    case 'fb-load':fbLoad();break;
+    case 'fb-del':{const id=d.id;confirmAsk('이 건의사항을 지울까요?',async()=>{try{await store.db.collection('fb').doc(id).delete();U.fbList=(U.fbList||[]).filter(x=>x.id!==id);renderView(false)}catch(e){toast('지우지 못했어요',true)}});break}
     case 'cmt-open':C.open[d.k]=!C.open[d.k];commRefresh(true);break;
     case 'cmt-add':cmtAdd(d.k);break;
     case 'cmt-del':confirmAsk('이 댓글을 지울까요?',()=>cmtDel(d.u,d.i));break;
@@ -2905,6 +2935,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('visibilitychange',()=>bgmUpdate());
 document.addEventListener('keydown',e=>{const t=e.target;if(e.key==='Enter'&&!e.isComposing&&t&&t.dataset&&t.dataset.bind==='cmt'){e.preventDefault();cmtAdd(t.dataset.k)}});
 document.addEventListener('input',e=>{
+  if(e.target&&e.target.id==='fbtxt'){U.fbTxt=e.target.value;const c=$('#fbcnt');if(c)c.textContent=e.target.value.length+'/1000';return}
   const t=e.target,b=t.dataset&&t.dataset.bind;if(!b)return;
   const d=t.dataset;
   if(b==='set'){const o=owner(d.k,d.o);if(!o)return;const it=o.items[+d.i],j0=+d.j,val=t.value===''?'':parseFloat(t.value);it.sets[j0][d.f]=val;
