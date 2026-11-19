@@ -199,6 +199,27 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .aiop{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.06);font-size:14px}
 .aiop>span{width:18px;text-align:center;font-weight:800;color:var(--acc)}.aiop.add>span{color:#30d158}.aiop.rm>span{color:var(--bad)}
 .aiop b{flex:1;min-width:0}.aiop em{font-style:normal;color:var(--mute);white-space:nowrap}.aiop strong{color:var(--ink)}
+#tut{position:fixed;inset:0;z-index:2000;pointer-events:none}
+#tutov{position:fixed;inset:0;background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);pointer-events:auto;transition:clip-path .35s cubic-bezier(.3,.8,.3,1)}
+#tutblk{position:fixed;pointer-events:auto;display:none}
+#tutring{position:fixed;display:none;border-radius:16px;box-shadow:0 0 0 2px var(--acc),0 0 22px 4px rgba(10,132,255,.55);pointer-events:none;transition:left .35s,top .35s,width .35s,height .35s}
+#tutring.tap{animation:tutpulse 1.4s ease-in-out infinite}
+@keyframes tutpulse{0%,100%{box-shadow:0 0 0 2px var(--acc),0 0 16px 2px rgba(10,132,255,.45)}50%{box-shadow:0 0 0 4px #5ac8fa,0 0 30px 10px rgba(90,200,250,.6)}}
+#tutb{position:fixed;pointer-events:auto;background:rgba(28,28,32,.96);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:14px 16px 12px;box-shadow:0 12px 40px rgba(0,0,0,.6);color:#fff;opacity:0;transition:opacity .25s,top .3s,left .3s}
+#tutb.center{padding:22px 20px 16px;text-align:center}
+.tuth{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tutsec{font-size:11.5px;color:var(--acc);font-weight:700;letter-spacing:.02em}
+.tutsk{background:none;border:0;color:var(--mute);font:inherit;font-size:13px;padding:4px 2px;cursor:pointer}
+.tutdots{display:flex;gap:4px;margin-bottom:10px}.tutdots i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.15)}.tutdots i.d{background:rgba(10,132,255,.6)}.tutdots i.on{background:var(--acc)}
+#tutb.center .tutdots{display:none}
+.tutt{display:block;font-size:18px;margin-bottom:6px}#tutb.center .tutt{font-size:24px;margin-bottom:10px}
+.tutx{font-size:14.5px;line-height:1.6;color:rgba(235,235,245,.85)}
+.tutf{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px}
+#tutb.center .tutf{justify-content:center}
+.tutnx{border:0;border-radius:14px;background:var(--acc);color:#fff;font:inherit;font-weight:700;font-size:15px;padding:10px 20px;cursor:pointer;min-width:96px}
+.tutnx.ghost{background:rgba(255,255,255,.1);color:var(--mute);font-weight:500;font-size:13.5px;min-width:0;padding:8px 14px}
+.tutbk{border:0;background:none;color:var(--mute);font:inherit;font-size:14px;padding:8px 4px;cursor:pointer}
+.tutrp{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1px solid rgba(10,132,255,.4)}
 .halo{position:relative;width:230px;height:176px;margin:4px auto 0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .halo>*{position:absolute;left:50%;top:50%}
 .halo .emb{position:relative;left:auto;top:auto;z-index:3;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
@@ -931,7 +952,7 @@ const TIPS={
 const tipsHtml=n=>{const t=TIPS[n];return t?`<div class="tips"><div class="tt">운동 팁</div>${t.map(x=>`<div class="tp"><i></i><span>${esc(x)}</span></div>`).join('')}</div>`:''};
 const exThumb=(ex,cls,tap)=>{const a=exArt(ex,false,cls||'sm');return a?`<span class="thumb ${cls||''}"${tap?` data-act="art-view" data-ex="${ex.id}"`:''}>${a}</span>`:''};
 
-const blank=()=>({v:2,updated:0,rest:60,vol:50,restDays:[],restDates:[],skillDone:{},skLv:{},goal:'planche',sound:true,seeded:false,exercises:BUILTIN.map(x=>({...x})),routines:[],sessions:[],body:[],sugg:[],sugDone:[],cmdDone:[],comm:{on:false,nick:''},bgm:true,bgmv:45});
+const blank=()=>({v:2,updated:0,rest:60,vol:50,restDays:[],restDates:[],skillDone:{},skLv:{},tutDone:0,goal:'planche',sound:true,seeded:false,exercises:BUILTIN.map(x=>({...x})),routines:[],sessions:[],body:[],sugg:[],sugDone:[],cmdDone:[],comm:{on:false,nick:''},bgm:true,bgmv:45});
 function norm(o){
   const b=blank();if(!o||typeof o!=='object')return b;
   const routines=Array.isArray(o.routines)?o.routines:[],sessions=Array.isArray(o.sessions)?o.sessions:[];
@@ -946,7 +967,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12)}:{on:false,nick:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12)}:{on:false,nick:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -998,6 +1019,7 @@ function mergeState(L,R){
   o.routines=uni(L.routines,R.routines,x=>x.id);
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
+  o.tutDone=(L.tutDone||R.tutDone)?1:0;
   if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
@@ -1035,7 +1057,7 @@ async function initCloud(){
   store.sync='loading';refreshSyncUI();
   for(let i=0;i<20&&!(window.claude&&window.claude.use);i++)await sleep(250);
   if(window.FB_MODE)store.sync='loading';
-  if(!(window.claude&&window.claude.use)){store.sync='local';ensureSeed();refreshSyncUI();render();return}
+  if(!(window.claude&&window.claude.use)){store.sync='local';ensureSeed();refreshSyncUI();render();setTimeout(()=>{try{tutMaybe()}catch(e){}},900);return}
   for(let attempt=0;attempt<4;attempt++){
     try{
       const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
@@ -1066,12 +1088,127 @@ async function initCloud(){
   }
   refreshSyncUI();render();
   if(store.doc){store.poll=setInterval(pollCloud,30000)}
+  setTimeout(()=>{try{tutMaybe()}catch(e){}},900);
 }
 try{
   document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave();else pollCloud()});
   window.addEventListener('pagehide',flushSave);
 }catch(e){}
 
+/* ---------- 튜토리얼 (직접 눌러보며 배우는 안내) ---------- */
+/* 튜토리얼 효과음: 부드러운 실로폰·차임 계열 */
+function tutSfx(k){SFX_N++;try{const c=ac();if(!c)return;
+  const N=n=>440*Math.pow(2,(n-69)/12);
+  if(k==='start'){[72,76,79,84].forEach((n,i)=>{tone(N(n),i*.09,.5,'sine',.08);tone(N(n+12),i*.09,.25,'triangle',.025)});tone(N(91),.42,.7,'sine',.04)}
+  else if(k==='next'){tone(N(79),0,.22,'sine',.07);tone(N(84),.07,.32,'sine',.07);tone(N(96),.07,.16,'triangle',.02)}
+  else if(k==='back'){tone(N(84),0,.2,'sine',.06);tone(N(79),.07,.28,'sine',.06)}
+  else if(k==='tap'){tone(N(88),0,.18,'sine',.06);tone(N(88),.16,.18,'sine',.05);tone(N(100),.16,.12,'triangle',.02)}
+  else if(k==='good'){[76,80,83,88].forEach((n,i)=>tone(N(n),i*.055,.22+i*.04,'sine',.07));tone(N(100),.22,.3,'triangle',.025)}
+  else if(k==='skip'){tone(N(79),0,.16,'sine',.06);tone(N(72),.08,.22,'sine',.05);tone(N(67),.16,.3,'sine',.04)}
+  else if(k==='end'){[72,76,79,84,88,91].forEach((n,i)=>tone(N(n),i*.08,.45+i*.05,'sine',.07));[84,88,91].forEach(n=>tone(N(n),.55,1.1,'triangle',.035))}
+}catch(e){}}
+const TUTSEC=['인사','기록','루틴','AI 루틴','커뮤니티','캘린더','기술 트리','분석','더보기','마무리'];
+const tutGo=v=>{const b=$(`nav [data-v="${v}"]`);if(b)b.click();else{U.tab=v;render(true)}window.scrollTo(0,0)};
+const tutCard=sel=>()=>{const e=$(sel);return e&&e.closest('.card')};
+const TUT=[
+ {s:0,c:1,t:'반가워요! 👋',x:'<b>운동로그</b>는 맨몸운동 기록, 티어, 기술 트리, 친구들과의 커뮤니티를 한곳에 모은 앱이에요.<br><br>직접 눌러보면서 1분만 같이 둘러볼까요?',btn:'시작하기',pre:()=>{closeModal();U.wiz=null;tutGo('log')}},
+ {s:1,sel:()=>{const b=$('[data-act="new-session"]');return b&&b.parentElement},t:'운동 기록하기',x:'오늘 운동은 여기서 시작해요.<br><b>+ 새 일지</b>로 빈 일지를 만들거나, <b>루틴 불러오기</b>로 저장해 둔 루틴을 한 번에 가져와요. 일지에서 <b>운동 시작</b>을 누르면 세트마다 휴식 타이머가 돌아가요.'},
+ {s:1,sel:['#streakcard .stk-top','#streakcard .wk7'],t:'🔥 스트릭',x:'운동한 날이 이어지면 스트릭이 쌓여요. <b>쉬는 날</b>을 정해두면 그날은 쉬어도 스트릭이 끊기지 않아요.'},
+ {s:1,sel:'#streakcard .rank',tap:1,act:()=>openModal({type:'rank'}),t:'내 티어',x:'실력은 <b>아이언</b>부터 시작하는 티어로 보여줘요.<br>👆 <b>눌러서</b> 티어 조건을 확인해 보세요.'},
+ {s:1,sel:'#modal .sheet',t:'티어 올리는 법',x:'부위마다 정해진 기술·횟수를 <b>한 세트에</b> 해내면 티어가 올라가요. 목록을 펼치면 단계별 조건이 보여요.',post:()=>closeModal()},
+ {s:2,sel:'nav [data-v="routine"]',tap:1,act:()=>tutGo('routine'),t:'루틴',x:'이번엔 아래 <b>루틴</b> 탭을 눌러보세요.'},
+ {s:2,sel:'[data-act="routine-new"]',t:'루틴 만들기',x:'<b>+ 새 루틴</b>으로 요일별 루틴을 만들고 종목·세트·횟수를 정해요. 만든 루틴은 기록 화면에서 바로 불러올 수 있어요.'},
+ {s:2,sel:tutCard('[data-act="ai-run"]'),t:'📈 점진적 과부하 검토',x:'루틴 맨 아래 <b>AI 루틴 분석</b>은 최근 기록을 보고 너무 쉽거나 어려운 운동, 부족한 부위를 찾아줘요. 고치기 전엔 항상 <b>허락을 받고</b> 바꿔요.'},
+ {s:3,sel:'[data-act="ai-plan-open"]',tap:1,act:()=>{U.wiz={step:0,freq:0,goal:'',focus:[],per:'',weeks:4,end:''};render(true)},t:'✨ AI 추천 루틴',x:'루틴 짜기가 막막하면 맡겨 주세요.<br>👆 <b>눌러보세요!</b>'},
+ {s:3,sel:'.wz',t:'질문 4개면 끝',x:'주 몇 회 · 목표 · 집중 부위 · 기간만 고르면 맞춤 루틴이 <b>AI 생성 플랜</b>으로 만들어져요. 지금은 구경만 하고 나갈게요.',post:()=>{U.wiz=null;render(true);window.scrollTo(0,0)}},
+ {s:4,sel:'nav [data-v="comm"]',tap:1,act:()=>tutGo('comm'),t:'커뮤니티',x:'<b>커뮤니티</b> 탭을 눌러보세요.'},
+ {s:4,sel:'.cmrank',t:'🏆 랭킹',x:'함께 쓰는 친구들과 티어 순위를 비교해요. <b>종합</b>과 <b>부위별</b>로 볼 수 있어요.'},
+ {s:4,sel:['.cmjoin','#view h2'],t:'공유 · 댓글',x:'닉네임을 정해 참여하면 운동 기록과 루틴을 피드에 올리고, 좋아요·댓글을 남기고, 친구 루틴을 <b>내 루틴으로 불러올</b> 수 있어요.'},
+ {s:5,sel:'nav [data-v="cal"]',tap:1,act:()=>tutGo('cal'),t:'캘린더',x:'<b>캘린더</b> 탭을 눌러보세요.'},
+ {s:5,sel:'.cal',t:'한 달 한눈에',x:'운동한 날은 <b>🔥 불꽃</b>, 스트릭이 이어지는 쉬는 날은 <b>🌿 초록 원</b>이에요. 날짜를 누르면 그날 기록을 보고 바로 공유할 수 있어요.'},
+ {s:6,sel:'nav [data-v="skill"]',tap:1,act:()=>tutGo('skill'),t:'기술 트리',x:'<b>기술</b> 탭을 눌러보세요.'},
+ {s:6,sel:'#skw',pad:-6,t:'74개 기술 지도',x:'푸쉬업부터 플란체·프론트 레버·머슬업까지 이어진 지도예요. <b>끌어서</b> 움직이고 <b>두 손가락</b>으로 확대해요.'},
+ {s:6,sel:'.skz',t:'확대 · 축소',x:'버튼으로도 확대·축소하고, <b>⛶</b>를 누르면 전체가 한 화면에 보여요.'},
+ {s:6,sel:'#skw',pad:-6,tap:'.skn',act:()=>openModal({type:'sk',id:'hp2'}),t:'기술 눌러보기',x:'👆 아무 <b>원</b>이나 눌러보세요. 동작 애니메이션과 팁이 나와요.'},
+ {s:6,sel:'#modal .sheet',t:'원 색의 의미',x:'회색 잠김 → 흰색 해금 → 분홍 진행 중 → 연두 마스터.<br>기록이 쌓이면 자동으로 올라가고, 기록이 없는 기술은 여기서 직접 정할 수 있어요.',post:()=>closeModal()},
+ {s:7,sel:'nav [data-v="ana"]',tap:1,act:()=>tutGo('ana'),t:'분석',x:'<b>분석</b> 탭을 눌러보세요.'},
+ {s:7,sel:'#view .card',t:'내 몸 분석',x:'부위별 <b>티어 배지</b>와 <b>회복도</b>를 몸 그림으로 보여줘요. 빨갛게 불타는 곳은 아직 회복 중이에요. 아래로 내리면 운동량 그래프도 있어요.'},
+ {s:8,sel:'nav [data-v="more"]',tap:1,act:()=>tutGo('more'),t:'더보기',x:'마지막으로 <b>더보기</b>를 눌러보세요.'},
+ {s:8,sel:'[data-act="tut-replay"]',t:'다시 보기',x:'이 안내는 여기서 <b>언제든 다시</b> 볼 수 있어요.'},
+ {s:8,sel:tutCard('#fbtxt'),t:'💌 건의하기',x:'불편한 점이나 원하는 기능은 제작자에게 바로 보내 주세요. 효과음·배경음악·체중·백업 설정도 더보기에 있어요.'},
+ {s:9,c:1,t:'준비 끝! 💪',x:'이제 첫 운동을 기록해 볼까요?<br>꾸준함이 최고의 기술이에요.',btn:'운동하러 가기',pre:()=>{closeModal();tutGo('log')}}
+];
+let TU=null;
+function tutMaybe(){if(S.tutDone||TU||(window.WK&&WK.open))return;tutStart()}
+function tutStart(){
+  if(TU)tutEnd(false);
+  TU={i:-1,raf:0};
+  const o=document.createElement('div');o.id='tut';o.innerHTML=`<div id="tutov"></div><div id="tutblk"></div><div id="tutring"></div><div id="tutb"></div>`;document.body.appendChild(o);
+  tutStep(0);TU.raf=requestAnimationFrame(tutFrame);
+}
+function tutEnd(done){
+  if(!TU)return;cancelAnimationFrame(TU.raf);clearTimeout(TU.to);TU=null;const o=$('#tut');if(o)o.remove();
+  if(done!==false&&!S.tutDone){S.tutDone=1;save()}
+}
+function tutStep(i){
+  if(!TU)return;if(i>=TUT.length){tutEnd(true);return}
+  const prev=TUT[TU.i];if(prev&&prev.post)try{prev.post()}catch(e){}
+  TU.i=i;const st=TUT[i];if(st.pre)try{st.pre()}catch(e){}
+  TU.shown=0;TU.wait=Date.now();
+  const b=$('#tutb');
+  const dots=TUTSEC.map((n,k)=>`<i class="${k<st.s?'d':k===st.s?'on':''}"></i>`).join('');
+  b.innerHTML=`<div class="tuth"><span class="tutsec">${st.s+1}/10 · ${TUTSEC[st.s]}</span><button class="tutsk" data-tut="skip">건너뛰기</button></div><div class="tutdots">${dots}</div><b class="tutt">${st.t}</b><div class="tutx">${st.x}</div>
+  <div class="tutf">${i>0&&!st.c?`<button class="tutbk" data-tut="back">이전</button>`:'<span></span>'}${st.tap?`<button class="tutnx ghost" data-tut="force">넘어가기</button>`:`<button class="tutnx" data-tut="next">${st.btn||(i===TUT.length-2?'마지막으로':'다음')}</button>`}</div>`;
+  b.className='show '+(st.c?'center':'');b.style.opacity='0';
+  setTimeout(()=>{if(TU&&TU.i===i)b.style.opacity='1'},st.c?60:260);
+  tutFrame(true);if(!TU.quiet)tutSfx(i===0?'start':i===TUT.length-1?'end':st.tap?'tap':(TU.dir==='back'?'back':'next'));TU.dir='';TU.quiet=0;
+}
+function tutEl(st){
+  const one=s=>typeof s==='function'?s():$(s);
+  const L=(Array.isArray(st.sel)?st.sel:[st.sel]).map(one).filter(e=>e&&e.getClientRects().length);
+  return L;
+}
+function tutFrame(force){
+  if(!TU)return;const st=TUT[TU.i],ov=$('#tutov'),ring=$('#tutring'),blk=$('#tutblk'),b=$('#tutb');if(!ov)return;
+  const W=window.innerWidth,H=window.innerHeight;
+  let r=null;
+  if(!st.c&&st.sel){const L=tutEl(st);if(L.length){
+    if(!TU.scrolled){TU.scrolled=1;const e=L[0],rc=e.getBoundingClientRect(),fixed=getComputedStyle(e).position==='fixed'||e.closest('nav,#modal,.skw.full');if(!fixed&&(rc.top<70||rc.bottom>H-110))e.scrollIntoView({block:'center',behavior:'smooth'})}
+    const rs=L.map(e=>e.getBoundingClientRect()),p=st.pad!=null?st.pad:8;
+    r={x1:Math.max(4,Math.min(...rs.map(a=>a.left))-p),y1:Math.max(4,Math.min(...rs.map(a=>a.top))-p),x2:Math.min(W-4,Math.max(...rs.map(a=>a.right))+p),y2:Math.min(H-4,Math.max(...rs.map(a=>a.bottom))+p)};
+  }else if(Date.now()-TU.wait>2500&&!TU.skipped){TU.skipped=1;TU.to=setTimeout(()=>{if(TU&&TUT[TU.i]===st)tutStep(TU.i+1)},50)}}
+  if(st.c||!st.sel)r=null;
+  if(r){
+    ov.style.clipPath=`polygon(0 0,0 100%,${r.x1}px 100%,${r.x1}px ${r.y1}px,${r.x2}px ${r.y1}px,${r.x2}px ${r.y2}px,${r.x1}px ${r.y2}px,${r.x1}px 100%,100% 100%,100% 0)`;
+    Object.assign(ring.style,{display:'block',left:r.x1+'px',top:r.y1+'px',width:(r.x2-r.x1)+'px',height:(r.y2-r.y1)+'px'});
+    Object.assign(blk.style,{display:st.tap?'none':'block',left:r.x1+'px',top:r.y1+'px',width:(r.x2-r.x1)+'px',height:(r.y2-r.y1)+'px'});
+    ring.className=st.tap?'tap':'';
+    const bw=Math.min(340,W-24),bh=b.offsetHeight||180,below=H-r.y2,above=r.y1;
+    let top=below>=bh+20||below>=above?r.y2+12:r.y1-bh-12;top=Math.max(10,Math.min(H-bh-10,top));
+    let left=(r.x1+r.x2)/2-bw/2;left=Math.max(12,Math.min(W-bw-12,left));
+    Object.assign(b.style,{width:bw+'px',left:left+'px',top:top+'px',transform:''});
+  }else{
+    ov.style.clipPath='none';ring.style.display='none';blk.style.display='none';
+    const bw=Math.min(340,W-24);Object.assign(b.style,{width:bw+'px',left:(W-bw)/2+'px',top:'50%',transform:'translateY(-50%)'});
+  }
+  if(force!==true)TU.raf=requestAnimationFrame(()=>tutFrame());
+}
+try{
+document.addEventListener('click',e=>{
+  if(!TU)return;const tb=e.target.closest&&e.target.closest('[data-tut]');
+  if(tb){e.stopPropagation();e.preventDefault();const k=tb.dataset.tut,st=TUT[TU.i];
+    if(k==='skip'){tutSfx('skip');tutEnd(true);toast('튜토리얼은 더보기에서 다시 볼 수 있어요')}
+    else if(k==='next'){TU.scrolled=0;TU.skipped=0;tutStep(TU.i+1)}
+    else if(k==='back'){TU.dir='back';let j=TU.i-1;while(j>0&&TUT[j].tap)j--;if(TUT[TU.i].post)try{TUT[TU.i].post()}catch(e){};closeModal();U.wiz=null;const s=TUT[j];if(s&&s.s!==TUT[TU.i].s){const m={1:'log',2:'routine',3:'routine',4:'comm',5:'cal',6:'skill',7:'ana',8:'more'}[s.s];if(m)tutGo(m)}TU.i=-1;TU.scrolled=0;TU.skipped=0;tutStep(Math.max(0,j))}
+    else if(k==='force'){try{st.act&&st.act()}catch(e){}TU.scrolled=0;TU.skipped=0;setTimeout(()=>tutStep(TU.i+1),350)}
+    return}
+  const st=TUT[TU.i];if(!st||!st.tap)return;
+  const L=tutEl(st);if(!L.some(el=>el.contains(e.target)))return;
+  if(typeof st.tap==='string'&&!e.target.closest(st.tap))return;
+  const i=TU.i;TU.scrolled=0;TU.skipped=0;setTimeout(()=>{if(TU&&TU.i===i){tutSfx('good');TU.quiet=1;tutStep(i+1)}},450);
+},true);
+window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
+}catch(e){}
 /* ---------- ui state ---------- */
 const now=new Date();
 const U={tab:'log',date:today(),routineId:null,calY:now.getFullYear(),calM:now.getMonth(),
@@ -1512,6 +1649,7 @@ function moreView(){
   const bpts=body.slice(-30).map(b=>({x:shortDate(b.date),y:b.kg}));
   const custom=S.exercises.filter(x=>!x.builtin);
   return `<h1>더보기</h1><p class="sub">체중, 종목, 설정, 백업</p>
+  <button class="card tutrp" data-act="tut-replay"><span style="font-size:24px">📘</span><span style="flex:1;text-align:left"><b>튜토리얼 다시보기</b><span class="muted sm" style="display:block;margin-top:2px">앱 기능을 직접 눌러보며 다시 둘러봐요</span></span><span class="muted">›</span></button>
   <h2>설정</h2>
   <div class="card"><div class="row between"><span>효과음</span><button class="sw ${S.sound?'on':''}" data-act="sound-toggle" aria-label="효과음"></button></div>
   <div class="vol"><span class="vi">🔈</span><input type="range" min="0" max="100" step="1" value="${S.vol==null?50:S.vol}" data-bind="vol" style="--p:${S.vol==null?50:S.vol}%" aria-label="효과음 크기"><span class="vi">🔊</span><b id="volv">${S.vol==null?50:S.vol}</b></div></div>
@@ -1543,7 +1681,7 @@ function moreView(){
   <div class="card" style="margin-top:14px"><div style="font-weight:700;margin-bottom:4px">💌 제작자에게 건의하기</div><div class="muted sm" style="margin-bottom:10px;line-height:1.5">불편한 점, 원하는 기능, 버그를 알려주세요. 제작자만 볼 수 있어요.</div>
   <textarea class="inp" id="fbtxt" maxlength="1000" rows="4" placeholder="예) 기술 트리에 ○○ 기술도 넣어주세요" style="min-height:96px;resize:vertical">${esc(U.fbTxt||'')}</textarea>
   <div class="row between" style="margin-top:10px"><span class="muted sm" id="fbcnt">${(U.fbTxt||'').length}/1000</span><button class="btn pri" data-act="fb-send">보내기</button></div></div>
-  ${C.admin?`<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:8px"><b>📥 받은 건의사항 <span class="chip">관리자</span></b><button class="btn sm" data-act="fb-load">${U.fbList?'새로고침':'열기'}</button></div>${U.fbList?(U.fbList.length?U.fbList.map(f=>`<div class="fbi"><div class="row between"><b class="sm">${esc(String(f.nick||'익명').slice(0,20))}</b><span class="muted sm">${new Date(f.ts||0).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="fbt">${esc(String(f.text||'').slice(0,1000))}</div>${f.email?`<div class="muted sm">${esc(String(f.email).slice(0,60))}</div>`:''}<button class="x" data-act="fb-del" data-id="${esc(f.id)}">✕</button></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">아직 받은 건의사항이 없어요.</div>'):''}</div>`:''}
+  ${C.admin?`<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:8px"><b>📥 받은 건의사항 <span class="chip">관리자</span></b><button class="btn sm" data-act="fb-load">${U.fbList?'새로고침':'열기'}</button></div>${U.fbList?(U.fbList.length?U.fbList.map(f=>`<div class="fbi"><div class="row between"><b class="sm">${esc(String(f.nick||'익명').slice(0,20))}</b><span class="muted sm">${new Date(f.ts||0).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="fbt">${esc(String(f.text||'').slice(0,1000))}</div>${f.email?`<div class="muted sm">${esc(String(f.email).slice(0,60))}</div>`:''}<button class="x" data-act="fb-del" data-u="${esc(f.u)}" data-id="${esc(f.id)}">✕</button></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">아직 받은 건의사항이 없어요.</div>'):''}</div>`:''}
   ${window.FB_MODE?`<div class="card" style="margin-top:14px"><div class="row between"><span class="muted sm">${esc((window.FB_USER&&(window.FB_USER.email||window.FB_USER.displayName))||"")}</span><button class="btn sm bad" onclick="fbLogout()">로그아웃</button></div></div>`:""}<div class="wm">made by @bbi2ne</div>`;
 }
 
@@ -1739,11 +1877,12 @@ async function fbSend(){
   const t=String(($('#fbtxt')||{}).value||'').trim();if(t.length<2){toast('내용을 적어 주세요',true);return}
   if(!store.db||!store.uid){toast('로그인한 상태에서만 보낼 수 있어요',true);return}
   const u=window.FB_USER||{};
-  try{await store.db.collection('fb').add({uid:store.uid,nick:cnick()||u.displayName||'',email:u.email||'',text:t.slice(0,1000),ts:Date.now()});
+  try{const ref=store.db.collection('fb').doc(store.uid),g=await ref.get(),old=(g.exists&&g.data()&&Array.isArray(g.data().items))?g.data().items:[];
+    await ref.set({uid:store.uid,nick:cnick()||u.displayName||'',email:u.email||'',items:[...old,{id:uid(),text:t.slice(0,1000),ts:Date.now()}].slice(-30)});
     U.fbTxt='';const el=$('#fbtxt');if(el)el.value='';const c=$('#fbcnt');if(c)c.textContent='0/1000';toast('건의사항을 보냈어요. 고마워요!');sfx('success')}
   catch(e){toast('보내지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 }
-async function fbLoad(){try{const q=await store.db.collection('fb').orderBy('ts','desc').limit(50).get();U.fbList=q.docs.map(d=>Object.assign({id:d.id},d.data()||{}));renderView(false)}catch(e){toast('불러오지 못했어요',true)}}
+async function fbLoad(){try{const q=await store.db.collection('fb').get(),L=[];q.docs.forEach(d=>{const v=d.data()||{};(Array.isArray(v.items)?v.items:[]).forEach(it=>L.push({u:d.id,id:it.id,text:it.text,ts:it.ts,nick:v.nick,email:v.email}))});U.fbList=L.sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,100);renderView(false)}catch(e){toast('불러오지 못했어요',true)}}
 async function commPost(sid){
   const s=S.sessions.find(x=>x.id===sid);if(!s||!commAvail())return;
   const items=s.items.map(it=>{const e=exById(it.exId);return {n:e?e.name:'?',t:e&&e.type==='time'?1:0,r:it.sets.filter(x=>x.done).map(x=>x.r).filter(v=>v!==''&&v!=null).slice(0,12)}}).filter(x=>x.r.length).slice(0,14);
@@ -2878,9 +3017,10 @@ document.addEventListener('click',e=>{
     case 'cm-del':confirmAsk('이 공유 기록을 지울까요?',()=>commDel(d.p));break;
     case 'cm-like':commLike(d.k);break;
     case 'cm-copy':copyRoutine(d.k);break;
+    case 'tut-replay':tutStart();break;
     case 'fb-send':fbSend();break;
     case 'fb-load':fbLoad();break;
-    case 'fb-del':{const id=d.id;confirmAsk('이 건의사항을 지울까요?',async()=>{try{await store.db.collection('fb').doc(id).delete();U.fbList=(U.fbList||[]).filter(x=>x.id!==id);renderView(false)}catch(e){toast('지우지 못했어요',true)}});break}
+    case 'fb-del':{const id=d.id,u=d.u;confirmAsk('이 건의사항을 지울까요?',async()=>{try{const ref=store.db.collection('fb').doc(u),g=await ref.get(),v=g.exists?(g.data()||{}):{};await ref.set(Object.assign({},v,{items:(v.items||[]).filter(x=>x.id!==id)}));U.fbList=(U.fbList||[]).filter(x=>x.id!==id);renderView(false)}catch(e){toast('지우지 못했어요',true)}});break}
     case 'cmt-open':C.open[d.k]=!C.open[d.k];commRefresh(true);break;
     case 'cmt-add':cmtAdd(d.k);break;
     case 'cmt-del':confirmAsk('이 댓글을 지울까요?',()=>cmtDel(d.u,d.i));break;
