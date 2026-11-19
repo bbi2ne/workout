@@ -220,6 +220,16 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .tutnx.ghost{background:rgba(255,255,255,.1);color:var(--mute);font-weight:500;font-size:13.5px;min-width:0;padding:8px 14px}
 .tutbk{border:0;background:none;color:var(--mute);font:inherit;font-size:14px;padding:8px 4px;cursor:pointer}
 .tutrp{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1px solid rgba(10,132,255,.4)}
+.lbr{cursor:pointer}
+.mtw{margin-top:10px;padding:8px;border-radius:16px;background:#1b1b1d;border:1px solid var(--gb)}
+.mtree{display:block;width:100%;height:auto}
+.pfh{margin:16px 2px 8px;font-weight:700;font-size:14px;color:var(--mute)}
+.pfps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pfp{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:14px;background:rgba(255,255,255,.06);font-size:13px}
+.pfe{display:inline-flex;width:26px;height:26px}.pfe svg{max-width:100%;max-height:100%}
+.pfrs{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.pfr{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.pfr span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .halo{position:relative;width:230px;height:176px;margin:4px auto 0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .halo>*{position:absolute;left:50%;top:50%}
 .halo .emb{position:relative;left:auto;top:auto;z-index:3;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
@@ -567,6 +577,7 @@ window.FB_MODE=true;
 </head>
 <body>
 <div id="fblogin"><div style="font-size:54px">🔥</div><h1>운동로그</h1><p>맨몸운동 기록 · 티어 · 기술 트리 · 커뮤니티<br>구글 계정으로 로그인하면 기록이 저장돼요</p><button onclick="fbLogin()"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Google로 로그인</button><div id="fberr"></div></div>
+
 <div class="bg"><i></i><i></i><i></i><i></i></div>
 <div id="app"><div id="view"></div></div>
 <nav><div class="in" id="nav"></div></nav>
@@ -967,7 +978,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12)}:{on:false,nick:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1064,7 +1075,7 @@ async function initCloud(){
       if(db)store.db=db;
       if(!db||!user){store.sync='local';ensureSeed();C.why=db?'nouser':'nodb';commStart();break}
       const id=await user.id();if(!id){store.sync='local';ensureSeed();C.why='nouser';commStart();break}
-      store.db=db;store.uid=id;C.subbed=false;commStart();try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
+      store.db=db;store.uid=id;C.subbed=false;commStart();setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
       store.ai=db.collection('data/users/'+id).doc('ai_sugg');store.cmd=db.collection('data/users/'+id).doc('ai_cmd');const doc=db.collection('data/users/'+id).doc('planlog'),bak=db.collection('data/users/'+id).doc('planlog_bak');
       const g=await cloudGet(doc);
       store.doc=doc;store.bak=bak;store.mode='cloud';
@@ -1703,6 +1714,8 @@ function modalHtml(){
   }else if(m.type==='session'){
     const l=[...S.sessions].filter(s=>s.items.length).sort((a,b)=>b.date.localeCompare(a.date)||(b.created||0)-(a.created||0)).slice(0,15);
     body=`<h3>지난 일지 복사</h3><div class="muted sm" style="margin-bottom:4px">종목과 세트 값을 복사하고 완료 표시는 비워요.</div>`+(l.length?l.map(s=>`<div class="li" data-act="use-session" data-id="${s.id}"><div><b>${esc(s.title||'운동 일지')}</b><div class="muted sm">${longDate(s.date)} · ${s.items.length}종목</div></div><span class="muted">›</span></div>`).join(''):'<div class="empty">복사할 일지가 없어요</div>');
+  }else if(m.type==='prof'){
+    body=profHtml(m);
   }else if(m.type==='cmshare'){
     body=cmShareHtml(m.d);
   }else if(m.type==='wu'){
@@ -1772,12 +1785,17 @@ function commStart(){
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
 function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={};LVP.forEach(p=>{parts[p]=ld[p].k});const si=streakInfo();
-  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,streak:si.cur,days:si.total,upd:Date.now()}}
+  const b={};records().forEach(r=>{const e=exById(r.exId);if(e&&PROF_EX.includes(e.name))b[e.name]=Math.max(b[e.name]||0,r.r)});
+  const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
+  const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>[x.id,lv[x.id].lv]);
+  const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
+  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lv:SKN.map(x=>lv[x.id].lv).join(''),since:(S.sessions.map(x=>x.date).sort()[0])||'',upd:Date.now()}}
+const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
 let LBT=null,LBSIG='';
 function commSync(force){
   if(!S.comm||!S.comm.on||!commAvail())return;
   clearTimeout(LBT);
-  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.streak,d.days]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
+  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lv]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
 }
 function commErr(e){toast(e&&e.code==='invalid_argument'?'공유 권한이 없어요. 앱을 만든 사람에게 참여자(Contributor) 초대를 요청해 주세요.':'커뮤니티에 저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 const lbSorted=part=>{
@@ -1790,7 +1808,40 @@ function lbRow(x,n,part){
   const me=x.id===store.uid,medal=['🥇','🥈','🥉'][n]||n+1,tk=part==='종합'?stTier(Math.max(0,Math.min(37,x.s|0))):{i:Math.min(9,((x.parts||{})[part]||0)),div:''},
     nm=part==='종합'?stName(Math.max(0,Math.min(37,x.s|0))):TIERS[tk.i].n,sub=part==='종합'?`달성 ${x.sum|0}/54 · 🔥 ${x.streak|0}일`:`${part} ${(x.parts||{})[part]|0}/9단계 · ${stName(Math.max(0,Math.min(37,x.s|0)))}`;
   const act=Date.now()-(x.upd||0)<864e5*3;
-  return `<div class="lbr ${me?'me':''}"><span class="lbn">${medal}</span><span class="lbe">${emblem(tk.i,34)}</span><span class="lbm"><b>${esc(String(x.nick).slice(0,12))}${me?' <span class="chip">나</span>':''}</b><span class="muted sm">${sub}</span></span><span class="lbp" style="color:${TIERS[tk.i].c}">${nm}</span>${C.admin&&!me?`<button class="x" data-act="cm-kick" data-u="${esc(x.id)}" data-n="${esc(String(x.nick).slice(0,12))}">✕</button>`:''}</div>`;
+  return `<div class="lbr ${me?'me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="lbn">${medal}</span><span class="lbe">${emblem(tk.i,34)}</span><span class="lbm"><b>${esc(String(x.nick).slice(0,12))}${me?' <span class="chip">나</span>':''}</b><span class="muted sm">${sub}</span></span><span class="lbp" style="color:${TIERS[tk.i].c}">${nm}</span>${C.admin&&!me?`<button class="x" data-act="cm-kick" data-u="${esc(x.id)}" data-n="${esc(String(x.nick).slice(0,12))}">✕</button>`:''}</div>`;
+}
+function miniTree(lvs){
+  const {P,lab,W,H}=SKG,L={};SKN.forEach((x,i)=>{L[x.id]=+(String(lvs||'')[i]||0)||0});
+  let e='',n='',t='';
+  SKN.forEach(x=>x.rq.forEach(r=>{const a=P[r],b=P[x.id],on=L[r]>=2&&L[x.id]>=1;e+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${on?'rgba(181,204,142,.75)':'rgba(255,255,255,.16)'}" stroke-width="${on?3:2}"/>`}));
+  SKN.forEach(x=>{const p=P[x.id],l=L[x.id],c=SKLV[l][1];
+    n+=`<circle cx="${p.x}" cy="${p.y}" r="${l?20:15}" fill="${l?c:'#2a2a2e'}" fill-opacity="${l?(l===1?.85:.95):1}" stroke="${l?c:'#4a4a50'}" stroke-width="3"${l===3?` style="filter:drop-shadow(0 0 10px ${c})"`:''}/>${x.fin?`<text x="${p.x+18}" y="${p.y-10}" style="font-size:34px">🏁</text>`:''}`});
+  SKCAT.forEach(c=>{const l=lab[c.id];t+=`<text x="${l.x}" y="${l.y+6}" text-anchor="middle" style="font-size:56px;font-weight:800;fill:${c.c}">${c.n}</text>`});
+  return `<svg class="mtree" viewBox="0 -30 ${W} ${H-30}" preserveAspectRatio="xMidYMid meet">${e}${t}${n}</svg>`;
+}
+function profHtml(m){
+  let x=C.lb.find(y=>y.id===m.u);
+  if(m.u&&m.u===store.uid&&S.comm&&S.comm.on){try{x=Object.assign({},x||{},lbDoc(),{id:store.uid})}catch(e){}}
+  if(!x)return `<h3 class="c">프로필</h3><div class="muted c" style="padding:16px 0">${m.u===store.uid?'커뮤니티에 참여하면 프로필이 생겨요.':'랭킹에 참여하지 않은 사람이에요.'}</div><div class="row" style="justify-content:center"><button class="btn" data-act="modal-close">닫기</button></div>`;
+  const me=x.id===store.uid,s=Math.max(0,Math.min(37,x.s|0)),tk=stTier(s),list=lbSorted('종합'),rank=list.findIndex(y=>y.id===x.id)+1;
+  const parts=LVP.map(p=>{const k=Math.max(0,Math.min(9,(x.parts||{})[p]|0));return `<div class="pfp"><span class="pfe">${emblem(k,26)}</span><span class="muted sm">${p}</span><b style="color:${TIERS[k].c}">${TIERS[k].n}</b></div>`}).join('');
+  const rec=Object.entries(x.rec||{}).filter(([n,v])=>+v>0).slice(0,8).map(([n,v])=>{const e=S.exercises.find(y=>y.name===n);return `<div class="pfr"><span>${esc(String(n).replace(' (현재 단계)','').slice(0,20))}</span><b>${+v}${e&&e.type==='time'?'초':'회'}</b></div>`}).join('');
+  const sk=Array.isArray(x.sk)?x.sk:[0,0,0,0],top=(Array.isArray(x.top)?x.top:[]).filter(t=>SKBY[t[0]]).map(t=>`<span class="chip" style="border:1px solid ${SKLV[t[1]][1]}66"><i class="skdot" style="background:${SKLV[t[1]][1]}"></i>${esc(SKBY[t[0]].n)}</span>`).join('');
+  const posts=((C.feed.find(d=>d.id===x.id)||{}).posts||[]).length;
+  const ago=x.upd?Math.floor((Date.now()-x.upd)/864e5):null;
+  return `<div class="c">${halo(tk.i,s,84)}</div>
+  <h3 class="c" style="margin:0">${esc(String(x.nick||'?').slice(0,12))}${me?' <span class="chip">나</span>':''}</h3>
+  <div class="c" style="font-weight:800;color:${TIERS[tk.i].c};margin-top:4px">${stName(s)}${rank?` · <span class="muted" style="font-weight:600">${rank}위 / ${list.length}명</span>`:''}</div>
+  ${x.bio?`<div class="c muted sm" style="margin-top:6px">“${esc(x.bio)}”</div>`:''}
+  <div class="tiles" style="margin-top:14px"><div class="tile"><b>🔥 ${x.streak|0}</b><span class="muted sm">연속 일수</span></div><div class="tile"><b>${x.days|0}</b><span class="muted sm">총 운동일</span></div><div class="tile"><b>${x.sum|0}<span class="muted sm">/54</span></b><span class="muted sm">달성 조건</span></div></div>
+  <div class="pfh">부위 티어</div><div class="pfps">${parts}</div>
+  ${rec?`<div class="pfh">최고 기록 (한 세트)</div><div class="pfrs">${rec}</div>`:''}
+  <div class="pfh">기술 트리</div><div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="chip"><i class="skdot" style="background:${SKLV[3][1]}"></i>마스터 ${sk[3]|0}</span><span class="chip"><i class="skdot" style="background:${SKLV[2][1]}"></i>진행 중 ${sk[2]|0}</span><span class="chip"><i class="skdot" style="background:${SKLV[1][1]}"></i>해금 ${sk[1]|0}</span></div>
+  ${top?`<div class="row" style="gap:6px;flex-wrap:wrap">${top}</div>`:''}
+  ${x.lv?`<div class="mtw">${miniTree(x.lv)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
+  <div class="muted sm c" style="margin-top:14px">${x.since?`${shortDate(x.since)}부터 기록 · `:''}공유한 글 ${posts}개${ago!=null?` · ${ago?ago+'일 전':'오늘'} 업데이트`:''}</div>
+  ${me?`<div class="row" style="gap:8px;margin-top:12px"><input class="inp" maxlength="60" placeholder="한 줄 소개 (예: 플란체 정복 중)" data-bind="cm-bio" value="${esc((S.comm&&S.comm.bio)||'')}"><button class="btn pri" style="white-space:nowrap" data-act="cm-biosave">저장</button></div>`:''}
+  <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`;
 }
 function commView(){
   commStart();
@@ -1802,7 +1853,7 @@ function commView(){
   let top=list.slice(0,10).map((x,i)=>lbRow(x,i,C.part)).join('');
   if(mine>=10)top+=`<div class="lbdots">⋮</div>`+lbRow(list[mine],mine,C.part);
   const status=C.err?`<div class="muted sm c" style="margin:8px 0">불러오지 못했어요. 잠시 뒤 다시 열어주세요.</div>`:(!C.got.lb?`<div class="muted sm c" style="margin:12px 0">${C.late?'아직 불러오지 못했어요. 연결을 확인해 주세요.':'불러오는 중…'}</div>`:'');
-  const join=ro?`<div class="card cmjoin" style="line-height:1.65"><b>지금은 보기만 할 수 있어요</b><div class="muted sm" style="margin-top:6px">이 앱을 만든 사람이 이메일로 초대해야 랭킹 참여·공유·댓글을 할 수 있어요. 앱 주인에게 초대를 요청해 주세요.</div></div>`:joined?`<div class="card" style="margin-bottom:14px"><div class="row between"><span>내 닉네임 <b>${esc(cnick())}</b></span><span class="row"><button class="btn sm" data-act="cm-nick">${U.cmEdit?'취소':'변경'}</button><button class="btn sm bad" data-act="cm-leave">나가기</button></span></div>${U.cmEdit?`<div class="row" style="margin-top10px;margin-top:10px"><input class="inp" maxlength="12" data-bind="cm-nick" value="${esc(U.cmNick||cnick())}"><button class="btn pri" data-act="cm-nicksave">저장</button></div>`:''}</div>`
+  const join=ro?`<div class="card cmjoin" style="line-height:1.65"><b>지금은 보기만 할 수 있어요</b><div class="muted sm" style="margin-top:6px">이 앱을 만든 사람이 이메일로 초대해야 랭킹 참여·공유·댓글을 할 수 있어요. 앱 주인에게 초대를 요청해 주세요.</div></div>`:joined?`<div class="card" style="margin-bottom:14px"><div class="row between"><span>내 닉네임 <b>${esc(cnick())}</b></span><span class="row"><button class="btn sm soft" data-act="cm-prof" data-u="${esc(store.uid)}">내 프로필</button><button class="btn sm" data-act="cm-nick">${U.cmEdit?'취소':'변경'}</button><button class="btn sm bad" data-act="cm-leave">나가기</button></span></div>${U.cmEdit?`<div class="row" style="margin-top10px;margin-top:10px"><input class="inp" maxlength="12" data-bind="cm-nick" value="${esc(U.cmNick||cnick())}"><button class="btn pri" data-act="cm-nicksave">저장</button></div>`:''}</div>`
    :`<div class="card cmjoin"><b style="font-size:17px">랭킹에 참여하기</b><div class="muted sm" style="margin:6px 0 12px;line-height:1.6">참여하면 닉네임, 티어, 그리고 내가 직접 공유한 기록만 앱을 쓰는 다른 사람에게 보여요. 언제든 나갈 수 있어요.</div><div class="row"><input class="inp" maxlength="12" placeholder="닉네임 (최대 12자)" data-bind="cm-nick" value="${esc(U.cmNick||'')}"><button class="btn pri" data-act="cm-join">참여</button></div></div>`;
   const posts=[];C.feed.forEach(d=>(Array.isArray(d.posts)?d.posts:[]).forEach(p=>{if(p&&p.id)posts.push({uid:d.id,nick:d.nick||'?',p})}));
   posts.sort((a,b)=>(b.p.ts||0)-(a.p.ts||0));
@@ -1811,7 +1862,7 @@ function commView(){
       likes=Object.values(C.likes).filter(a=>a.includes(key)).length,liked=(C.likes[store.uid]||[]).includes(key);
     const rt=p.kind==='routine';
     const its=(Array.isArray(p.items)?p.items:[]).slice(0,14).map(it=>{const rr=(Array.isArray(it.r)?it.r:[]).slice(0,12);return `<div class="cmit"><span>${esc(String(it.n||'').slice(0,30))}</span><span class="muted">${rt?`${rr.length}세트 × ${(+rr[0]||0)}${it.t?'초':'회'}`:rr.map(v=>(+v||0)+(it.t?'초':'')).join(' · ')}</span></div>`}).join('');
-    return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b>${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div><div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':''}${esc(String(p.title||'운동').slice(0,40))}</div>${its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
+    return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b data-act="cm-prof" data-u="${esc(uid)}" style="cursor:pointer">${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div><div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':''}${esc(String(p.title||'운동').slice(0,40))}</div>${its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
   return `<h1>커뮤니티</h1><p class="sub">랭킹을 비교하고 운동 기록을 나눠요${C.admin?' · <span class="chip">관리자</span>':''}</p>
   <div class="card cmrank"><div class="row between" style="margin-bottom:10px"><b style="font-size:18px">🏆 랭킹</b><span class="muted sm">${list.length}명 참여</span></div>
   <div class="seg" style="margin-bottom:8px;overflow-x:auto;flex-wrap:nowrap">${parts.map(p=>`<button class="btn ${C.part===p?'on':''}" data-act="cm-part" data-v="${p}">${p}</button>`).join('')}</div>
@@ -3017,6 +3068,8 @@ document.addEventListener('click',e=>{
     case 'cm-del':confirmAsk('이 공유 기록을 지울까요?',()=>commDel(d.p));break;
     case 'cm-like':commLike(d.k);break;
     case 'cm-copy':copyRoutine(d.k);break;
+    case 'cm-prof':if(d.u){const x=C.lb.find(y=>y.id===d.u);if(x)rankSfx(stTier(Math.max(0,Math.min(37,x.s|0))).i);openModal({type:'prof',u:d.u})}break;
+    case 'cm-biosave':{S.comm=Object.assign({},S.comm||{},{bio:String(U.cmBio!=null?U.cmBio:(S.comm&&S.comm.bio)||'').trim().slice(0,60)});save();commSync(true);const x=C.lb.find(y=>y.id===store.uid);if(x)x.bio=S.comm.bio;renderModal();toast('소개를 저장했어요');break}
     case 'tut-replay':tutStart();break;
     case 'fb-send':fbSend();break;
     case 'fb-load':fbLoad();break;
@@ -3092,6 +3145,7 @@ document.addEventListener('input',e=>{
   else if(b==='bgmv'){S.bgmv=+t.value;t.style.setProperty('--p',t.value+'%');const v=document.getElementById('bgmvv');if(v)v.textContent=t.value;save();bgmUpdate()}
   else if(b==='vol'){S.vol=+t.value;t.style.setProperty('--p',t.value+'%');const v=document.getElementById('volv');if(v)v.textContent=t.value;save();if(Date.now()-lastTick>140){lastTick=Date.now();sfx('tick')}}
   else if(b==='cm-nick')U.cmNick=t.value;
+  else if(b==='cm-bio')U.cmBio=t.value;
   else if(b==='cmt')C.txt[t.dataset.k]=t.value;
   else if(b==='bw-kg')U.bwKg=t.value;
   else if(b==='nx-name')U.newEx.name=t.value;
