@@ -1787,7 +1787,7 @@ function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElem
 function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={};LVP.forEach(p=>{parts[p]=ld[p].k});const si=streakInfo();
   const b={};records().forEach(r=>{const e=exById(r.exId);if(e&&PROF_EX.includes(e.name))b[e.name]=Math.max(b[e.name]||0,r.r)});
   const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
-  const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>[x.id,lv[x.id].lv]);
+  const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>({id:x.id,l:lv[x.id].lv}));
   const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
   return {nick:cnick(),s:ov.s,sum:ov.sum,parts,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lv:SKN.map(x=>lv[x.id].lv).join(''),since:(S.sessions.map(x=>x.date).sort()[0])||'',upd:Date.now()}}
 const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
@@ -1826,7 +1826,7 @@ function profHtml(m){
   const me=x.id===store.uid,s=Math.max(0,Math.min(37,x.s|0)),tk=stTier(s),list=lbSorted('종합'),rank=list.findIndex(y=>y.id===x.id)+1;
   const parts=LVP.map(p=>{const k=Math.max(0,Math.min(9,(x.parts||{})[p]|0));return `<div class="pfp"><span class="pfe">${emblem(k,26)}</span><span class="muted sm">${p}</span><b style="color:${TIERS[k].c}">${TIERS[k].n}</b></div>`}).join('');
   const rec=Object.entries(x.rec||{}).filter(([n,v])=>+v>0).slice(0,8).map(([n,v])=>{const e=S.exercises.find(y=>y.name===n);return `<div class="pfr"><span>${esc(String(n).replace(' (현재 단계)','').slice(0,20))}</span><b>${+v}${e&&e.type==='time'?'초':'회'}</b></div>`}).join('');
-  const sk=Array.isArray(x.sk)?x.sk:[0,0,0,0],top=(Array.isArray(x.top)?x.top:[]).filter(t=>SKBY[t[0]]).map(t=>`<span class="chip" style="border:1px solid ${SKLV[t[1]][1]}66"><i class="skdot" style="background:${SKLV[t[1]][1]}"></i>${esc(SKBY[t[0]].n)}</span>`).join('');
+  const sk=Array.isArray(x.sk)?x.sk:[0,0,0,0],top=(Array.isArray(x.top)?x.top:[]).map(t=>Array.isArray(t)?t:[t&&t.id,t&&t.l|0]).filter(t=>SKBY[t[0]]&&SKLV[t[1]]).map(t=>`<span class="chip" style="border:1px solid ${SKLV[t[1]][1]}66"><i class="skdot" style="background:${SKLV[t[1]][1]}"></i>${esc(SKBY[t[0]].n)}</span>`).join('');
   const posts=((C.feed.find(d=>d.id===x.id)||{}).posts||[]).length;
   const ago=x.upd?Math.floor((Date.now()-x.upd)/864e5):null;
   return `<div class="c">${halo(tk.i,s,84)}</div>
@@ -1861,7 +1861,7 @@ function commView(){
     const lbx=C.lb.find(x=>x.id===uid),tkn=lbx&&typeof lbx.s==='number'?stTier(Math.max(0,Math.min(37,lbx.s|0))).i:null,key=uid+':'+p.id,
       likes=Object.values(C.likes).filter(a=>a.includes(key)).length,liked=(C.likes[store.uid]||[]).includes(key);
     const rt=p.kind==='routine';
-    const its=(Array.isArray(p.items)?p.items:[]).slice(0,14).map(it=>{const rr=(Array.isArray(it.r)?it.r:[]).slice(0,12);return `<div class="cmit"><span>${esc(String(it.n||'').slice(0,30))}</span><span class="muted">${rt?`${rr.length}세트 × ${(+rr[0]||0)}${it.t?'초':'회'}`:rr.map(v=>(+v||0)+(it.t?'초':'')).join(' · ')}</span></div>`}).join('');
+    const its=(Array.isArray(p.items)?p.items:[]).slice(0,14).map(it=>{const rr=(Array.isArray(it.r)?it.r:[]).slice(0,12);return `<div class="cmit"><span>${esc(String(it.n||'').replace('스캠풀라','스캐풀라').slice(0,30))}</span><span class="muted">${rt?`${rr.length}세트 × ${(+rr[0]||0)}${it.t?'초':'회'}`:rr.map(v=>(+v||0)+(it.t?'초':'')).join(' · ')}</span></div>`}).join('');
     return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b data-act="cm-prof" data-u="${esc(uid)}" style="cursor:pointer">${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div><div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':''}${esc(String(p.title||'운동').slice(0,40))}</div>${its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
   return `<h1>커뮤니티</h1><p class="sub">랭킹을 비교하고 운동 기록을 나눠요${C.admin?' · <span class="chip">관리자</span>':''}</p>
   <div class="card cmrank"><div class="row between" style="margin-bottom:10px"><b style="font-size:18px">🏆 랭킹</b><span class="muted sm">${list.length}명 참여</span></div>
