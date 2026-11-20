@@ -567,7 +567,7 @@ window.FB_MODE=true;
   auth.getRedirectResult().catch(e=>{window.FB_ERR=e&&e.code});
   window.fbLogin=async()=>{const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
     try{await auth.signInWithPopup(p)}catch(e){const c=e&&e.code||'';if(/popup-blocked|operation-not-supported|web-storage/.test(c))await auth.signInWithRedirect(p);else if(!/popup-closed|cancelled-popup/.test(c)){const m=document.getElementById('fberr');if(m)m.textContent='로그인하지 못했어요 ('+c+')'}}};
-  window.fbLogout=async()=>{try{await auth.signOut()}catch(e){}try{localStorage.removeItem('planlog.v1');localStorage.removeItem('planlog.v1.bak')}catch(e){}location.reload()};
+  window.fbLogout=async()=>{window.FB_OUT=true;try{await auth.signOut()}catch(e){}try{['planlog.v1','planlog.v1.bak','planlog.live','planlog_fold2'].forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()};
   const isAdmin=async()=>{if(adminP)return adminP;return adminP=(async()=>{const u=await readyP,ref=fs.collection('meta').doc('admin');
     try{const g=await ref.get();if(!g.exists){await ref.set({uid:u.uid,at:Date.now()});return true}return (g.data()||{}).uid===u.uid}catch(e){return false}})()};
   const user={id:async()=>(await readyP).uid,isOwner:isAdmin,canEdit:isAdmin,can:()=>true,me:async()=>{const u=await readyP;return {id:u.uid,name:u.displayName||''}}};
@@ -998,7 +998,7 @@ let saveT=null;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const tmo=ms=>new Promise((_,r)=>setTimeout(()=>r(new Error('시간 초과')),ms));
 const errMsg=e=>String(e&&e.message||e);
-function localWrite(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+function localWrite(){if(window.FB_OUT)return;try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
 function save(){S.updated=Date.now();store.dirty=true;clearTimeout(saveT);saveT=setTimeout(flushSave,500);refreshSyncUI();try{commSync()}catch(e){}}
 function flushSave(){clearTimeout(saveT);saveT=null;localWrite();if(store.doc&&store.sync!=='loading')cloudPush()}
 async function cloudPush(){
@@ -1075,6 +1075,10 @@ async function initCloud(){
       if(db)store.db=db;
       if(!db||!user){store.sync='local';ensureSeed();C.why=db?'nouser':'nodb';commStart();break}
       const id=await user.id();if(!id){store.sync='local';ensureSeed();C.why='nouser';commStart();break}
+      /* 다른 계정으로 바뀌었으면 이 기기에 남은 이전 계정 데이터는 버려요 */
+      {let lu=null;try{lu=localStorage.getItem('planlog_uid')}catch(e){}
+       if((lu&&lu!==id)||(!lu&&window.FB_MODE)){S=norm({});store.dirty=false;W=null;U.fold=null;try{[LS,LSB,LSW,'planlog_fold2'].forEach(k=>localStorage.removeItem(k))}catch(e){}}
+       try{localStorage.setItem('planlog_uid',id)}catch(e){}}
       store.db=db;store.uid=id;C.subbed=false;commStart();setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
       store.ai=db.collection('data/users/'+id).doc('ai_sugg');store.cmd=db.collection('data/users/'+id).doc('ai_cmd');const doc=db.collection('data/users/'+id).doc('planlog'),bak=db.collection('data/users/'+id).doc('planlog_bak');
       const g=await cloudGet(doc);
@@ -1221,8 +1225,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.20';
-const APP_NEWS=['기술 트리 113개로 세분화 (쉬운 동작부터)','티어 조건 108개 · 상위 기술을 하면 아래 단계 자동 인정','커뮤니티 프로필 카드와 기술 트리 지도','처음 쓰는 사람을 위한 튜토리얼'];
+const APP_VER='2026.11.20b';
+const APP_NEWS=['같은 기기에서 계정을 바꾸면 기록이 섞이던 문제 수정','기술 트리 113개로 세분화 (쉬운 동작부터)','티어 조건 108개 · 상위 기술을 하면 아래 단계 자동 인정','커뮤니티 프로필 카드와 기술 트리 지도','처음 쓰는 사람을 위한 튜토리얼'];
 function verCheck(){
   if(!window.FB_MODE)return;let prev=null;try{prev=localStorage.getItem('planlog_ver');localStorage.setItem('planlog_ver',APP_VER)}catch(e){}
   if(prev&&prev!==APP_VER&&S.tutDone&&!U.modal)openModal({type:'upd'});
