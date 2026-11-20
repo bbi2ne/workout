@@ -236,6 +236,11 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .wzft{padding:12px 18px calc(env(safe-area-inset-bottom) + 18px);background:linear-gradient(transparent,#000 30%);flex:none}
 .wzbar{height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:4px}.wzbar i{display:block;height:100%;background:#30d158;border-radius:2px;transition:width .3s}
 @keyframes wzin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.presbar{display:flex;align-items:center;gap:8px;margin:-4px 0 12px;padding:9px 14px;border-radius:14px;background:rgba(48,209,88,.08);border:1px solid rgba(48,209,88,.25);font-size:14px}
+.presbar:empty{display:none}
+.pdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#30d158;box-shadow:0 0 0 0 rgba(48,209,88,.6);animation:pdot 2s infinite;flex:none}
+.pdot.wk{background:#ff9f0a;box-shadow:0 0 0 0 rgba(255,159,10,.6)}
+@keyframes pdot{0%{box-shadow:0 0 0 0 rgba(48,209,88,.55)}70%{box-shadow:0 0 0 7px rgba(48,209,88,0)}100%{box-shadow:0 0 0 0 rgba(48,209,88,0)}}
 .halo{position:relative;width:230px;height:176px;margin:4px auto 0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .halo>*{position:absolute;left:50%;top:50%}
 .halo .emb{position:relative;left:auto;top:auto;z-index:3;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
@@ -1098,7 +1103,7 @@ async function initCloud(){
       {let lu=null;try{lu=localStorage.getItem('planlog_uid')}catch(e){}
        if((lu&&lu!==id)||(!lu&&window.FB_MODE)){S=norm({});store.dirty=false;W=null;U.fold=null;try{[LS,LSB,LSW,'planlog_fold2'].forEach(k=>localStorage.removeItem(k))}catch(e){}}
        try{localStorage.setItem('planlog_uid',id)}catch(e){}}
-      store.db=db;store.uid=id;C.subbed=false;commStart();setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
+      store.db=db;store.uid=id;C.subbed=false;commStart();try{presStart()}catch(e){}setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(v)presAdmin();if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
       store.ai=db.collection('data/users/'+id).doc('ai_sugg');store.cmd=db.collection('data/users/'+id).doc('ai_cmd');const doc=db.collection('data/users/'+id).doc('planlog'),bak=db.collection('data/users/'+id).doc('planlog_bak');
       const g=await cloudGet(doc);
       store.doc=doc;store.bak=bak;store.mode='cloud';
@@ -1244,8 +1249,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.20e';
-const APP_NEWS=['앱 아이콘과 링크 미리보기 이미지가 생겼어요','새 버전이 올라오면 앱이 알아서 알려주고 버튼 한 번에 업데이트돼요','AI 추천 루틴: 운동 경험·나이·키·체중을 묻고 몸에 맞게 짜줘요','AI 추천 루틴 화면을 전체 화면으로, 다음 버튼은 항상 아래에','같은 기기에서 계정을 바꾸면 기록이 섞이던 문제 수정'];
+const APP_VER='2026.11.20f';
+const APP_NEWS=['홈 화면에 지금 운동 중·접속 중인 인원이 보여요','앱 아이콘과 링크 미리보기 이미지가 생겼어요','새 버전이 올라오면 앱이 알아서 알려주고 버튼 한 번에 업데이트돼요','AI 추천 루틴: 운동 경험·나이·키·체중을 묻고 몸에 맞게 짜줘요'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1271,6 +1276,53 @@ function updHtml(){
   <div class="aiops" style="margin:12px 0 14px">${APP_NEWS.map(n=>`<div class="aiop add"><span>✓</span><b style="font-weight:600">${esc(n)}</b></div>`).join('')}</div>
   <div class="card" style="padding:12px 14px;margin-bottom:12px"><b>📲 홈 화면 바로가기를 다시 만들어 주세요</b><div class="muted sm" style="margin-top:6px;line-height:1.65">${ios?`1. 홈 화면의 <b>운동로그</b> 아이콘을 길게 눌러 <b>삭제</b>해요<br>2. 사파리에서 앱 주소를 열어요<br>3. 아래 <b>공유(□↑) → 홈 화면에 추가</b>`:`1. 홈 화면의 <b>운동로그</b> 아이콘을 길게 눌러 삭제해요<br>2. 크롬에서 앱 주소를 열어요<br>3. 오른쪽 위 <b>⋮ → 홈 화면에 추가</b>`}<br>기록은 계정에 저장돼 있어서 사라지지 않아요.</div></div>
   ${standalone?'':''}<div class="row" style="gap:10px"><button class="btn" style="flex:1;min-height:50px" data-act="upd-copy">주소 복사</button><button class="btn pri" style="flex:1.3;min-height:50px" data-act="modal-close">확인</button></div>`;
+}
+/* ---------- 접속 현황 (지금 운동 중 · 접속 중) ---------- */
+const PRES={on:[],who:[],today:[],t:0};
+const presWk=()=>!!(window.WK&&WK.open&&W);
+async function presTick(off){
+  if(!store.db||!store.uid)return;
+  try{await store.db.collection('on').doc(store.uid).set({ts:off?Date.now()-600000:Date.now(),day:today(),wk:off?false:presWk()})}catch(e){}
+}
+async function presWho(){
+  if(!store.db||!store.uid)return;const u=window.FB_USER||{};
+  let nm=u.displayName||'',em=u.email||'';
+  if(!nm){try{const us=await window.claude.use('user');const me=us&&us.me&&await us.me();nm=(me&&me.name)||''}catch(e){}}
+  try{await store.db.collection('who').doc(store.uid).set({name:String(nm).slice(0,40),email:String(em).slice(0,80),nick:cnick(),last:Date.now()})}catch(e){}
+}
+async function presPull(){
+  if(!store.db)return;const now=Date.now();
+  try{const q=await store.db.collection('on').where('ts','>',now-150000).get();PRES.on=q.docs.map(d=>Object.assign({id:d.id},d.data()||{}));PRES.t=now;
+    if(U.tab==='log'){const el=$('#presbar');if(el)el.outerHTML=presBar()}}catch(e){}
+}
+async function presAdmin(){
+  if(!C.admin||!store.db)return;
+  try{const [w,t]=await Promise.all([store.db.collection('who').get(),store.db.collection('on').where('day','==',today()).get()]);
+    PRES.who=w.docs.map(d=>Object.assign({id:d.id},d.data()||{}));PRES.today=t.docs.map(d=>Object.assign({id:d.id},d.data()||{}));
+    if(U.tab==='more')renderView(false)}catch(e){}
+}
+function presBar(){
+  if(!store.db||!PRES.t)return '<div id="presbar"></div>';
+  const on=PRES.on.length,wk=PRES.on.filter(x=>x.wk).length;
+  return `<div id="presbar" class="presbar"><i class="pdot ${wk?'wk':''}"></i><span>${wk?`지금 <b>${wk}명</b>이 운동 중이에요 🔥<span class="muted"> · ${on}명 접속 중</span>`:`지금 <b>${on}명</b>이 접속 중이에요`}</span></div>`;
+}
+function presAdminHtml(){
+  if(!C.admin)return '';
+  const now=Date.now(),on=PRES.on,wk=on.filter(x=>x.wk).length,whoBy={};PRES.who.forEach(w=>whoBy[w.id]=w);
+  const nameOf=id=>{const w=whoBy[id]||{},l=C.lb.find(x=>x.id===id);return esc(String((l&&l.nick)||w.nick||w.name||'이름 없음').slice(0,20))};
+  const subOf=id=>{const w=whoBy[id]||{},shown=String((C.lb.find(x=>x.id===id)||{}).nick||w.nick||w.name||'');return esc([w.name&&w.name!==shown?w.name:'',w.email].filter(Boolean).join(' · ').slice(0,60))};
+  const ago=ts=>{const m=Math.floor((now-ts)/60000);return m<1?'방금':m+'분 전'};
+  const list=on.length?on.sort((a,b)=>(b.wk?1:0)-(a.wk?1:0)||b.ts-a.ts).map(x=>`<div class="pfr" style="align-items:center"><span><i class="pdot ${x.wk?'wk':''}" style="margin-right:6px"></i><b>${nameOf(x.id)}</b>${x.id===store.uid?' <span class="chip">나</span>':''}<span class="muted sm" style="display:block;margin-left:16px">${subOf(x.id)}</span></span><span class="muted sm">${x.wk?'운동 중':'접속 중'} · ${ago(x.ts)}</span></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">지금 접속한 사람이 없어요</div>';
+  return `<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:10px"><b>📊 접속 현황 <span class="chip">관리자</span></b><button class="btn sm" data-act="pres-refresh">새로고침</button></div>
+  <div class="tiles" style="grid-template-columns:repeat(4,1fr);display:grid;gap:8px"><div class="tile"><b style="color:#30d158">${on.length}</b><span class="muted sm">지금 접속</span></div><div class="tile"><b style="color:#ff9f0a">${wk}</b><span class="muted sm">운동 중</span></div><div class="tile"><b>${PRES.today.length||'–'}</b><span class="muted sm">오늘 방문</span></div><div class="tile"><b>${PRES.who.length||'–'}</b><span class="muted sm">전체 가입</span></div></div>
+  <div class="muted sm" style="margin:12px 2px 4px;font-weight:600">지금 접속 중인 사람</div>${list}
+  ${PRES.today.length?`<details style="margin-top:10px"><summary class="muted sm" style="cursor:pointer">오늘 방문한 사람 ${PRES.today.length}명 보기</summary>${PRES.today.sort((a,b)=>b.ts-a.ts).map(x=>`<div class="pfr"><span>${nameOf(x.id)}<span class="muted sm"> ${subOf(x.id)}</span></span><span class="muted sm">${new Date(x.ts>now-600000*2?x.ts:x.ts).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}</span></div>`).join('')}</details>`:''}</div>`;
+}
+function presStart(){
+  presTick();presWho();setTimeout(presPull,1500);setTimeout(presAdmin,2500);
+  setInterval(()=>{if(!document.hidden){presTick();presPull();if(U.tab==='more')presAdmin()}},60000);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)presTick(true);else{presTick();presPull()}});
+  window.addEventListener('pagehide',()=>presTick(true));
 }
 /* ---------- ui state ---------- */
 const now=new Date();
@@ -1379,7 +1431,7 @@ function logView(){
       <div class="row wrap" style="margin-top:10px"><button class="btn sm" data-act="save-routine" data-o="${s.id}">루틴으로 저장</button><button class="btn sm bad" data-act="del-session" data-o="${s.id}">일지 삭제</button></div></div>
     </div></div>
   </div>`).join('');
-  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${streakCard()}
+  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${presBar()}${streakCard()}
   <div class="card"><div class="row between">
     <button class="btn ic" data-act="date-prev">‹</button>
     <input type="date" class="inp c" style="max-width:190px;background:none;font-weight:600" data-bind="date" value="${U.date}">
@@ -1761,6 +1813,7 @@ function moreView(){
   <div class="card" style="margin-top:14px"><div style="font-weight:700;margin-bottom:4px">💌 제작자에게 건의하기</div><div class="muted sm" style="margin-bottom:10px;line-height:1.5">불편한 점, 원하는 기능, 버그를 알려주세요. 제작자만 볼 수 있어요.</div>
   <textarea class="inp" id="fbtxt" maxlength="1000" rows="4" placeholder="예) 기술 트리에 ○○ 기술도 넣어주세요" style="min-height:96px;resize:vertical">${esc(U.fbTxt||'')}</textarea>
   <div class="row between" style="margin-top:10px"><span class="muted sm" id="fbcnt">${(U.fbTxt||'').length}/1000</span><button class="btn pri" data-act="fb-send">보내기</button></div></div>
+  ${presAdminHtml()}
   ${C.admin?`<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:8px"><b>📥 받은 건의사항 <span class="chip">관리자</span></b><button class="btn sm" data-act="fb-load">${U.fbList?'새로고침':'열기'}</button></div>${U.fbList?(U.fbList.length?U.fbList.map(f=>`<div class="fbi"><div class="row between"><b class="sm">${esc(String(f.nick||'익명').slice(0,20))}</b><span class="muted sm">${new Date(f.ts||0).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="fbt">${esc(String(f.text||'').slice(0,1000))}</div>${f.email?`<div class="muted sm">${esc(String(f.email).slice(0,60))}</div>`:''}<button class="x" data-act="fb-del" data-u="${esc(f.u)}" data-id="${esc(f.id)}">✕</button></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">아직 받은 건의사항이 없어요.</div>'):''}</div>`:''}
   ${window.FB_MODE?`<div class="card" style="margin-top:14px"><div class="row between"><span class="muted sm">${esc((window.FB_USER&&(window.FB_USER.email||window.FB_USER.displayName))||"")}</span><button class="btn sm bad" onclick="fbLogout()">로그아웃</button></div></div>`:""}<div class="wm">made by @bbi2ne</div>`;
 }
@@ -2736,8 +2789,8 @@ function startWorkout(sid,force){
   if(!W||W.sid!==sid){W={sid,view:'list',idx:wkCurIdx(s),start:Date.now(),acc:0,paused:false,since:Date.now(),edit:false,reorder:false};saveW()}
   openWk();
 }
-function openWk(){WK.open=true;const el=$('#wk');el.classList.remove('out');el.classList.add('show');document.body.style.overflow='hidden';renderWk(true);updPill()}
-function closeWk(){WK.open=false;const el=$('#wk');el.classList.add('out');document.body.style.overflow='';setTimeout(()=>{if(!WK.open){el.classList.remove('show','out');el.innerHTML=''}},290);updPill()}
+function openWk(){WK.open=true;setTimeout(()=>{try{presTick()}catch(e){}},300);const el=$('#wk');el.classList.remove('out');el.classList.add('show');document.body.style.overflow='hidden';renderWk(true);updPill()}
+function closeWk(){WK.open=false;setTimeout(()=>{try{presTick()}catch(e){}},300);const el=$('#wk');el.classList.add('out');document.body.style.overflow='';setTimeout(()=>{if(!WK.open){el.classList.remove('show','out');el.innerHTML=''}},290);updPill()}
 function updPill(){const p=$('#wkpill');p.innerHTML=(W&&!WK.open)?`<button class="wkpill" data-act="wk-start" data-o="${W.sid}"><i></i><span id="pill-tm">${clock(wElapsed())}</span><b>운동 이어하기 ›</b></button>`:''}
 function tickWk(){if(!W)return;const c=clock(wElapsed());['wk-tm','wk-tm2','pill-tm'].forEach(id=>{const e=document.getElementById(id);if(e&&e.textContent!==c)e.textContent=c})}
 const wkHead=()=>`<div class="wkh"><button class="btn" data-act="wk-back">‹</button><div class="wkt ${W.paused?'paused':''}"><i></i><span id="wk-tm" class="tapt" data-act="wk-time">${clock(wElapsed())}</span><button class="pz" data-act="wk-pause">${W.paused?'▶':'❚❚'}</button></div><button class="btn" data-act="wk-menu">⋯</button></div>`;
@@ -3203,6 +3256,7 @@ document.addEventListener('click',e=>{
     case 'cm-prof':if(d.u){const x=C.lb.find(y=>y.id===d.u);if(x)rankSfx(stTier(Math.max(0,Math.min(37,x.s|0))).i);openModal({type:'prof',u:d.u})}break;
     case 'cm-biosave':{S.comm=Object.assign({},S.comm||{},{bio:String(U.cmBio!=null?U.cmBio:(S.comm&&S.comm.bio)||'').trim().slice(0,60)});save();commSync(true);const x=C.lb.find(y=>y.id===store.uid);if(x)x.bio=S.comm.bio;renderModal();toast('소개를 저장했어요');break}
     case 'tut-replay':tutStart();break;
+    case 'pres-refresh':presPull().then(presAdmin);break;
     case 'fb-send':fbSend();break;
     case 'fb-load':fbLoad();break;
     case 'fb-del':{const id=d.id,u=d.u;confirmAsk('이 건의사항을 지울까요?',async()=>{try{const ref=store.db.collection('fb').doc(u),g=await ref.get(),v=g.exists?(g.data()||{}):{};await ref.set(Object.assign({},v,{items:(v.items||[]).filter(x=>x.id!==id)}));U.fbList=(U.fbList||[]).filter(x=>x.id!==id);renderView(false)}catch(e){toast('지우지 못했어요',true)}});break}
