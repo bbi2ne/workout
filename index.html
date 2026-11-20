@@ -1138,7 +1138,7 @@ const TUT=[
  {s:5,sel:'nav [data-v="cal"]',tap:1,act:()=>tutGo('cal'),t:'캘린더',x:'<b>캘린더</b> 탭을 눌러보세요.'},
  {s:5,sel:'.cal',t:'한 달 한눈에',x:'운동한 날은 <b>🔥 불꽃</b>, 스트릭이 이어지는 쉬는 날은 <b>🌿 초록 원</b>이에요. 날짜를 누르면 그날 기록을 보고 바로 공유할 수 있어요.'},
  {s:6,sel:'nav [data-v="skill"]',tap:1,act:()=>tutGo('skill'),t:'기술 트리',x:'<b>기술</b> 탭을 눌러보세요.'},
- {s:6,sel:'#skw',pad:-6,t:'74개 기술 지도',x:'푸쉬업부터 플란체·프론트 레버·머슬업까지 이어진 지도예요. <b>끌어서</b> 움직이고 <b>두 손가락</b>으로 확대해요.'},
+ {s:6,sel:'#skw',pad:-6,t:'기술 지도',x:'푸쉬업부터 플란체·프론트 레버·머슬업까지 이어진 지도예요. <b>끌어서</b> 움직이고 <b>두 손가락</b>으로 확대해요.'},
  {s:6,sel:'.skz',t:'확대 · 축소',x:'버튼으로도 확대·축소하고, <b>⛶</b>를 누르면 전체가 한 화면에 보여요.'},
  {s:6,sel:'#skw',pad:-6,tap:'.skn',act:()=>openModal({type:'sk',id:'hp2'}),t:'기술 눌러보기',x:'👆 아무 <b>원</b>이나 눌러보세요. 동작 애니메이션과 팁이 나와요.'},
  {s:6,sel:'#modal .sheet',t:'원 색의 의미',x:'회색 잠김 → 흰색 해금 → 분홍 진행 중 → 연두 마스터.<br>기록이 쌓이면 자동으로 올라가고, 기록이 없는 기술은 여기서 직접 정할 수 있어요.',post:()=>closeModal()},
@@ -1784,18 +1784,18 @@ function commStart(){
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
-function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={};LVP.forEach(p=>{parts[p]=ld[p].k});const si=streakInfo();
+function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={},pk={};LVP.forEach(p=>{parts[p]=ld[p].t.i;pk[p]=ld[p].k});const si=streakInfo();
   const b={};records().forEach(r=>{const e=exById(r.exId);if(e&&PROF_EX.includes(e.name))b[e.name]=Math.max(b[e.name]||0,r.r)});
   const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
   const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>({id:x.id,l:lv[x.id].lv}));
   const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
-  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lv:SKN.map(x=>lv[x.id].lv).join(''),since:(S.sessions.map(x=>x.date).sort()[0])||'',upd:Date.now()}}
+  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',upd:Date.now()}}
 const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
 let LBT=null,LBSIG='';
 function commSync(force){
   if(!S.comm||!S.comm.on||!commAvail())return;
   clearTimeout(LBT);
-  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lv]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
+  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
 }
 function commErr(e){toast(e&&e.code==='invalid_argument'?'공유 권한이 없어요. 앱을 만든 사람에게 참여자(Contributor) 초대를 요청해 주세요.':'커뮤니티에 저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 const lbSorted=part=>{
@@ -1806,12 +1806,12 @@ const lbSorted=part=>{
 };
 function lbRow(x,n,part){
   const me=x.id===store.uid,medal=['🥇','🥈','🥉'][n]||n+1,tk=part==='종합'?stTier(Math.max(0,Math.min(37,x.s|0))):{i:Math.min(9,((x.parts||{})[part]||0)),div:''},
-    nm=part==='종합'?stName(Math.max(0,Math.min(37,x.s|0))):TIERS[tk.i].n,sub=part==='종합'?`달성 ${x.sum|0}/54 · 🔥 ${x.streak|0}일`:`${part} ${(x.parts||{})[part]|0}/9단계 · ${stName(Math.max(0,Math.min(37,x.s|0)))}`;
+    nm=part==='종합'?stName(Math.max(0,Math.min(37,x.s|0))):TIERS[tk.i].n,sub=part==='종합'?`달성 ${x.sum|0}/${ACH_N} · 🔥 ${x.streak|0}일`:`${part} ${x.pk?((x.pk[part]|0)+'/'+ACH_P+'개'):TIERS[Math.min(9,(x.parts||{})[part]|0)].n} · ${stName(Math.max(0,Math.min(37,x.s|0)))}`;
   const act=Date.now()-(x.upd||0)<864e5*3;
   return `<div class="lbr ${me?'me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="lbn">${medal}</span><span class="lbe">${emblem(tk.i,34)}</span><span class="lbm"><b>${esc(String(x.nick).slice(0,12))}${me?' <span class="chip">나</span>':''}</b><span class="muted sm">${sub}</span></span><span class="lbp" style="color:${TIERS[tk.i].c}">${nm}</span>${C.admin&&!me?`<button class="x" data-act="cm-kick" data-u="${esc(x.id)}" data-n="${esc(String(x.nick).slice(0,12))}">✕</button>`:''}</div>`;
 }
 function miniTree(lvs){
-  const {P,lab,W,H}=SKG,L={};SKN.forEach((x,i)=>{L[x.id]=+(String(lvs||'')[i]||0)||0});
+  const {P,lab,W,H}=SKG,L={};SKN.forEach(x=>{L[x.id]=Math.max(0,Math.min(3,+((lvs||{})[x.id])||0))});
   let e='',n='',t='';
   SKN.forEach(x=>x.rq.forEach(r=>{const a=P[r],b=P[x.id],on=L[r]>=2&&L[x.id]>=1;e+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${on?'rgba(181,204,142,.75)':'rgba(255,255,255,.16)'}" stroke-width="${on?3:2}"/>`}));
   SKN.forEach(x=>{const p=P[x.id],l=L[x.id],c=SKLV[l][1];
@@ -1833,12 +1833,12 @@ function profHtml(m){
   <h3 class="c" style="margin:0">${esc(String(x.nick||'?').slice(0,12))}${me?' <span class="chip">나</span>':''}</h3>
   <div class="c" style="font-weight:800;color:${TIERS[tk.i].c};margin-top:4px">${stName(s)}${rank?` · <span class="muted" style="font-weight:600">${rank}위 / ${list.length}명</span>`:''}</div>
   ${x.bio?`<div class="c muted sm" style="margin-top:6px">“${esc(x.bio)}”</div>`:''}
-  <div class="tiles" style="margin-top:14px"><div class="tile"><b>🔥 ${x.streak|0}</b><span class="muted sm">연속 일수</span></div><div class="tile"><b>${x.days|0}</b><span class="muted sm">총 운동일</span></div><div class="tile"><b>${x.sum|0}<span class="muted sm">/54</span></b><span class="muted sm">달성 조건</span></div></div>
+  <div class="tiles" style="margin-top:14px"><div class="tile"><b>🔥 ${x.streak|0}</b><span class="muted sm">연속 일수</span></div><div class="tile"><b>${x.days|0}</b><span class="muted sm">총 운동일</span></div><div class="tile"><b>${x.sum|0}<span class="muted sm">/${ACH_N}</span></b><span class="muted sm">달성 조건</span></div></div>
   <div class="pfh">부위 티어</div><div class="pfps">${parts}</div>
   ${rec?`<div class="pfh">최고 기록 (한 세트)</div><div class="pfrs">${rec}</div>`:''}
   <div class="pfh">기술 트리</div><div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:8px"><span class="chip"><i class="skdot" style="background:${SKLV[3][1]}"></i>마스터 ${sk[3]|0}</span><span class="chip"><i class="skdot" style="background:${SKLV[2][1]}"></i>진행 중 ${sk[2]|0}</span><span class="chip"><i class="skdot" style="background:${SKLV[1][1]}"></i>해금 ${sk[1]|0}</span></div>
   ${top?`<div class="row" style="gap:6px;flex-wrap:wrap">${top}</div>`:''}
-  ${x.lv?`<div class="mtw">${miniTree(x.lv)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
+  ${x.lvm&&typeof x.lvm==='object'?`<div class="mtw">${miniTree(x.lvm)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
   <div class="muted sm c" style="margin-top:14px">${x.since?`${shortDate(x.since)}부터 기록 · `:''}공유한 글 ${posts}개${ago!=null?` · ${ago?ago+'일 전':'오늘'} 업데이트`:''}</div>
   ${me?`<div class="row" style="gap:8px;margin-top:12px"><input class="inp" maxlength="60" placeholder="한 줄 소개 (예: 플란체 정복 중)" data-bind="cm-bio" value="${esc((S.comm&&S.comm.bio)||'')}"><button class="btn pri" style="white-space:nowrap" data-act="cm-biosave">저장</button></div>`:''}
   <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`;
@@ -2147,94 +2147,142 @@ const SKCAT=[
  {id:'hl',n:'수평 당기기',en:'HORIZONTAL PULL',c:'#9cf0b8'},
  {id:'vl',n:'수직 당기기',en:'VERTICAL PULL',c:'#ffa3c8'}];
 const SKN=[
- ['hp1','인클라인 푸쉬업','pui',[],'r','손을 높은 곳에 올려 부담을 낮춘 푸쉬업','몸을 일직선으로, 높이를 점점 낮춰가요','인클라인 푸쉬업','hp'],
- ['hp2','푸쉬업','pu',['hp1'],'r','모든 밀기 기술의 기본','팔꿈치 45°, 엉덩이가 처지지 않게','푸쉬업','hp'],
+ ['hp0','벽 푸쉬업','pui',[],'r','벽을 짚고 서서 하는 가장 쉬운 푸쉬업','몸을 곧게 펴고 가슴을 벽에 가까이','','hp'],
+ ['hp00','무릎 푸쉬업','pu',['hp0'],'r','무릎을 바닥에 대고 하는 푸쉬업','무릎부터 머리까지 일직선 유지',"",'hp'],
+ ['hp1','인클라인 푸쉬업','pui',['hp0'],'r','손을 높은 곳에 올려 부담을 낮춘 푸쉬업','몸을 일직선으로, 높이를 점점 낮춰가요','인클라인 푸쉬업','hp'],
+ ['hp2','푸쉬업','pu',['hp1','hp00'],'r','모든 밀기 기술의 기본','팔꿈치 45°, 엉덩이가 처지지 않게','푸쉬업','hp'],
+ ['hpw','와이드 푸쉬업','pu',['hp2'],'r','손을 넓게 짚어 가슴을 더 쓰는 푸쉬업','손은 어깨너비의 1.5배 정도','','hp'],
  ['hp3','다이아몬드 푸쉬업','pud',['hp2'],'r','손을 모아 삼두를 더 쓰는 푸쉬업','팔꿈치를 몸에 붙여 내려가요','다이아몬드 푸쉬업','hp'],
  ['hp4','디클라인 푸쉬업','pudc',['hp2'],'r','발을 올려 어깨 비중을 높여요','허리가 꺾이지 않게 배에 힘','디클라인 푸쉬업','hp'],
- ['hp5','아처 푸쉬업','pua',['hp3','hp4'],'r','한쪽 팔에 체중을 싣는 연습','펴진 팔은 보조만, 좌우 번갈아','아처 푸쉬업','hp'],
+ ['hp5','아처 푸쉬업','pua',['hp3','hp4','hpw'],'r','한쪽 팔에 체중을 싣는 연습','펴진 팔은 보조만, 좌우 번갈아','아처 푸쉬업','hp'],
+ ['hpt','타이프라이터 푸쉬업','pua',['hp5'],'r','내려간 채로 좌우로 체중을 옮겨요','가슴 높이를 바닥 가까이 유지','','hp'],
  ['hp6','원암 인클라인 푸쉬업','pui',['hp5'],'r','높은 곳에 손을 짚고 한 팔로','다리를 넓게 벌리면 균형이 쉬워요','원암 푸쉬업 (인클라인)','hp'],
- ['hp7','원암 푸쉬업','pu',['hp6'],'r','한 팔로 바닥에서 밀어 올려요','몸통이 돌아가지 않게 코어를 조여요','원암 푸쉬업','hp',1],
- ['hp8','슈도 플란체 푸쉬업','lean',['hp2'],'r','손을 허리 쪽에 두고 앞으로 기울인 푸쉬업','어깨를 손보다 앞에 둔 채 내려가요','','hp'],
- ['hp9','플란체 린','lean',['hp8'],'h','팔을 편 채 어깨를 앞으로 기울여 버텨요','손목을 충분히 풀고 시작해요','플란체 린','hp'],
+ ['hp6b','원암 푸쉬업 네거티브','pu',['hp6','hpt'],'r','한 팔로 천천히 내려가요','3~5초, 올라올 땐 두 손 OK','원암 푸쉬업 네거티브','hp'],
+ ['hp7','원암 푸쉬업','pu',['hp6b'],'r','한 팔로 바닥에서 밀어 올려요','몸통이 돌아가지 않게 코어를 조여요','원암 푸쉬업','hp',1],
+ ['hp9','플란체 린','lean',['hp2'],'h','팔을 편 채 어깨를 앞으로 기울여 버텨요','손목을 충분히 풀고 시작해요','플란체 린','hp'],
+ ['hp8','슈도 플란체 푸쉬업','lean',['hp9'],'r','손을 허리 쪽에 두고 앞으로 기울인 푸쉬업','어깨를 손보다 앞에 둔 채 내려가요','','hp'],
  ['hp10','프로그 스탠드','frog',['hp2'],'h','팔꿈치에 무릎을 얹어 몸을 띄우는 균형','시선은 살짝 앞, 손가락으로 균형','프로그 스탠드','hp'],
  ['hp11','턱 플란체','tuck',['hp9','hp10'],'h','무릎을 당긴 채 몸을 띄워요','팔을 완전히 펴고 등을 둥글게','턱 플란체','hp'],
  ['hp12','어드밴스드 턱 플란체','atuck',['hp11'],'h','등을 평평하게 펴 지렛대를 늘려요','엉덩이를 어깨 높이로 올려요','어드밴스드 턱 플란체','hp'],
- ['hp13','턱 플란체 푸쉬업','tuck',['hp11'],'r','턱 플란체 자세로 푸쉬업','내려갈 때도 엉덩이 높이 유지','','hp'],
- ['hp14','스트래들 플란체','strad',['hp12'],'h','다리를 벌린 채 몸을 수평으로','다리를 넓게 벌릴수록 쉬워요','스트래들 플란체','hp'],
+ ['hp13','턱 플란체 푸쉬업','tuck',['hp11','hp8'],'r','턱 플란체 자세로 푸쉬업','내려갈 때도 엉덩이 높이 유지','','hp'],
+ ['hp12b','하프 레이 플란체','strad',['hp12'],'h','한쪽 다리를 펴거나 무릎만 살짝 편 중간 단계','어드밴스드 턱에서 다리를 조금씩 펴요','','hp'],
+ ['hp14','스트래들 플란체','strad',['hp12b'],'h','다리를 벌린 채 몸을 수평으로','다리를 넓게 벌릴수록 쉬워요','스트래들 플란체','hp'],
  ['hp15','풀 플란체','full',['hp14'],'h','몸 전체를 일직선으로 띄워요','골반을 말고 다리를 모아요','풀 플란체','hp',1],
  ['hp16','플란체 푸쉬업','full',['hp15','hp13'],'r','풀 플란체 자세로 푸쉬업','최정상급 기술, 부상에 주의','','hp',1],
 
- ['vp1','파이크 푸쉬업','pike',[],'r','엉덩이를 들어 어깨로 미는 푸쉬업','머리가 손 앞쪽 삼각형 꼭짓점으로','파이크 푸쉬업','vp'],
+ ['vph1','파이크 홀드','pike',[],'h','엉덩이를 높이 든 ㅅ자 자세로 버텨요','어깨로 바닥을 밀어 귀 옆에 팔을','','vp'],
+ ['vp1','파이크 푸쉬업','pike',['vph1'],'r','엉덩이를 들어 어깨로 미는 푸쉬업','머리가 손 앞쪽 삼각형 꼭짓점으로','파이크 푸쉬업','vp'],
  ['vp2','발 올린 파이크 푸쉬업','pikf',['vp1'],'r','발을 높여 거꾸로에 가까운 각도로','엉덩이를 어깨 위에 쌓아요','발 올린 파이크 푸쉬업','vp'],
- ['vp3','벽 핸드스탠드','hsw',['vp1'],'h','벽에 발을 대고 거꾸로 버텨요','손가락을 펴고 어깨를 귀 쪽으로','벽 핸드스탠드 홀드','vp'],
+ ['vph2','월 워크','hsw',['vph1'],'r','엎드린 자세에서 발로 벽을 타고 올라갔다 내려와요','손을 벽 쪽으로 조금씩 옮기며 천천히','','vp'],
+ ['vp3','벽 핸드스탠드','hsw',['vph2'],'h','배가 벽을 보게 서서 거꾸로 버텨요','손가락을 펴고 어깨를 귀 쪽으로','벽 핸드스탠드 홀드','vp'],
+ ['vph3','벽 핸드스탠드 숄더 탭','hsw',['vp3'],'r','벽 핸드스탠드에서 한 손씩 어깨를 터치','몸이 흔들리지 않게 코어를 조여요','','vp'],
+ ['vph4','벽에서 발 떼기','hsf',['vp3'],'h','벽 핸드스탠드에서 발끝을 벽에서 살짝 떼 균형','손가락으로 바닥을 눌러 균형을 잡아요','','vp'],
+ ['vph5','킥업 연습','hsf',['vph4'],'r','벽 없이 차올라 거꾸로 서는 연습','넘어질 땐 손을 옮겨 옆으로 굴러 내려와요','','vp'],
+ ['vph6','프리스탠딩 5초','hsf',['vph5','vph3'],'h','벽 없이 5초 균형','쓰러지는 쪽 손가락/손바닥으로 버텨요','','vp'],
+ ['vp7','프리스탠딩 핸드스탠드','hsf',['vph6'],'h','벽 없이 길게 균형을 잡고 버텨요','몸을 일자로, 엉덩이를 조여요','프리스탠딩 핸드스탠드 홀드','vp'],
+ ['vph7','핸드스탠드 워크','hsf',['vp7'],'r','거꾸로 선 채 손으로 걸어요','작은 보폭으로, 기울어진 방향으로 걸어요','','vp'],
+ ['vph8','스트래들 프레스','hsf',['vp7'],'r','다리를 벌린 채 힘으로 핸드스탠드까지 올라가요','어깨를 손보다 앞으로 기울이며 들어 올려요','','vp',1],
  ['vp4','벽 네거티브','wneg',['vp2','vp3'],'r','거꾸로 선 채 천천히 내려와요','3~5초 동안 통제하며 내려가요','벽 네거티브','vp'],
  ['vp5','파셜 핸드스탠드 푸쉬업','hspu',['vp4'],'r','일부 구간만 내렸다 올려요','머리 아래 쿠션으로 깊이 조절','파트 푸쉬업','vp'],
  ['vp6','벽 핸드스탠드 푸쉬업','hspu',['vp5'],'r','머리가 닿을 때까지 내렸다 밀어요','팔꿈치가 너무 벌어지지 않게','벽 풀 레인지 푸쉬업','vp'],
- ['vp7','프리스탠딩 핸드스탠드','hsf',['vp3'],'h','벽 없이 균형을 잡고 버텨요','손가락과 손바닥 뒤꿈치로 균형','프리스탠딩 핸드스탠드 홀드','vp'],
  ['vp8','프리스탠딩 HSPU','hspuf',['vp6','vp7'],'r','벽 없이 거꾸로 푸쉬업','내려갈 때 몸을 살짝 앞으로','프리스탠딩 핸드스탠드 푸쉬업','vp',1],
+ ['vpd0','벤치 딥스','dip',[],'r','의자나 벤치에 손을 짚고 하는 쉬운 딥스','엉덩이를 의자 가까이, 어깨는 내려요','','vp'],
  ['vp9','서포트 홀드','support',[],'h','봉 위에서 팔을 펴고 버텨요','어깨를 내리고 팔꿈치를 잠가요','서포트 홀드','vp'],
- ['vp10','딥스 네거티브','dip',['vp9'],'r','올라선 자세에서 천천히 내려가요','3~5초, 어깨가 말리지 않게','딥스 네거티브','vp'],
+ ['vp10','딥스 네거티브','dip',['vp9','vpd0'],'r','올라선 자세에서 천천히 내려가요','3~5초, 어깨가 말리지 않게','딥스 네거티브','vp'],
  ['vp11','딥스','dip',['vp10'],'r','팔을 굽혔다 펴며 가슴·삼두를 써요','가슴을 살짝 앞으로, 너무 깊이 X','딥스','vp'],
  ['vp12','코리안 딥스','dip',['vp11'],'r','봉을 등 뒤로 잡고 하는 딥스','어깨 유연성이 먼저 필요해요','','vp'],
  ['vp13','러시안 딥스','dip',['vp11'],'r','바닥점에서 팔뚝을 봉에 댔다 올라와요','팔꿈치 통증이 있으면 쉬어요','','vp'],
  ['vp14','임파서블 딥스','dip',['vp12','vp13'],'r','팔꿈치가 봉 위까지 내려갔다 올라와요','최상급, 천천히 진행','','vp',1],
 
- ['c1','플랭크','plank',[],'h','팔꿈치로 지탱해 몸을 일직선으로','엉덩이를 조이고 배꼽을 당겨요','플랭크','core'],
+ ['c0','데드버그','hollow',[],'r','누워서 팔·다리를 번갈아 뻗어요','허리를 바닥에 붙인 채 천천히','','core'],
+ ['c00','크런치','hollow',[],'r','누워서 상체를 말아 올려요','목이 아니라 배로 말아요','크런치','core'],
+ ['c1','플랭크','plank',['c0'],'h','팔꿈치로 지탱해 몸을 일직선으로','엉덩이를 조이고 배꼽을 당겨요','플랭크','core'],
+ ['cs','사이드 플랭크','plank',['c1'],'h','옆으로 누워 한 팔로 지탱해요','골반이 처지지 않게 들어 올려요','','core'],
  ['c2','할로우 홀드','hollow',['c1'],'h','허리를 바닥에 붙인 바나나 자세','허리가 뜨면 무릎을 굽혀요','할로우 홀드','core'],
- ['c3','행잉 니 레이즈','hknee',['c2'],'r','매달려 무릎을 가슴 쪽으로','반동 없이 천천히','행잉 니 레이즈','core'],
+ ['ca','할로우 락','hollow',['c2'],'r','할로우 자세로 앞뒤로 흔들어요','모양이 무너지지 않게 버텨요','','core'],
+ ['c3b','레그 레이즈','hollow',['c00','c0'],'r','누워서 다리를 편 채 들어 올려요','허리가 뜨기 직전까지만 내려요','','core'],
+ ['c3','행잉 니 레이즈','hknee',['c2','c3b'],'r','매달려 무릎을 가슴 쪽으로','반동 없이 천천히','행잉 니 레이즈','core'],
  ['c4','행잉 레그 레이즈','hleg',['c3'],'r','다리를 편 채 수평 이상으로','골반을 말아 올리는 느낌','행잉 레그 레이즈','core'],
+ ['cw','윈드실드 와이퍼','hleg',['c4'],'r','매달려 다리를 들고 좌우로 돌려요','어깨로 봉을 눌러 몸을 고정','','core'],
  ['c5','토스 투 바','hleg',['c4'],'r','발끝이 봉에 닿을 만큼 올려요','어깨로 봉을 누르며 올려요','','core',1],
- ['c6','턱 엘싯','tuckl',['c2'],'h','무릎을 접어 들어 버텨요','어깨를 내리고 팔을 잠가요','턱 엘싯','core'],
+ ['c6a','바닥 서포트 홀드','support',['c1'],'h','바닥이나 푸쉬업 바에서 팔을 펴고 몸을 띄워요','어깨를 내리고 팔꿈치를 잠가요','','core'],
+ ['c6','턱 엘싯','tuckl',['c2','c6a'],'h','무릎을 접어 들어 버텨요','어깨를 내리고 팔을 잠가요','턱 엘싯','core'],
  ['c7','한 다리 엘싯','onel',['c6'],'h','한 다리를 펴서 버텨요','펴는 다리를 번갈아요','한 다리 엘싯','core'],
  ['c8','풀 엘싯','fulll',['c7'],'h','두 다리를 펴 L자로 버텨요','허벅지에 힘을 주고 발끝을 펴요','풀 엘싯','core'],
  ['c9','브이싯','fulll',['c8'],'h','다리를 L보다 더 높이 들어요','어깨를 강하게 눌러 엉덩이를 뒤로','','core',1],
  ['c10','드래곤 플래그 네거티브','hollow',['c4'],'r','어깨로 지탱해 몸을 천천히 내려요','몸이 접히지 않게 일직선','','core'],
  ['c11','드래곤 플래그','hollow',['c10'],'r','몸을 일직선으로 올렸다 내려요','허리가 꺾이면 범위를 줄여요','','core',1],
 
- ['l1','스쿼트','squat',[],'r','하체의 기본','무릎은 발끝 방향, 가슴을 펴요','스쿼트','legs'],
- ['l2','런지','lunge',['l1'],'r','한 발 내디뎌 앉았다 돌아와요','앞 무릎이 안쪽으로 무너지지 않게','런지','legs'],
- ['l3','글루트 브릿지','bridge',['l1'],'r','누워 엉덩이를 들어 올려요','정점에서 엉덩이를 꽉 조여요','글루트 브릿지','legs'],
- ['l4','불가리안 스플릿 스쿼트','bulg',['l2'],'r','뒷발을 올리고 한 다리로','상체를 살짝 앞으로 기울여요','불가리안 스플릿 스쿼트','legs'],
+ ['l0','의자 스쿼트','squat',[],'r','의자에 살짝 앉았다 일어나요','무릎과 발끝 방향을 맞춰요','','legs'],
+ ['l1','스쿼트','squat',['l0'],'r','하체의 기본','무릎은 발끝 방향, 가슴을 펴요','스쿼트','legs'],
+ ['l3','글루트 브릿지','bridge',['l0'],'r','누워 엉덩이를 들어 올려요','정점에서 엉덩이를 꽉 조여요','글루트 브릿지','legs'],
+ ['lw','월 싯','squat',['l1'],'h','벽에 등을 대고 의자에 앉은 자세로 버텨요','허벅지가 바닥과 평행하게','','legs'],
  ['l5','카프 레이즈','calf',['l1'],'r','발뒤꿈치를 높이 들었다 내려요','맨 위에서 1초 멈춰요','카프 레이즈','legs'],
- ['l6','쉬림프 스쿼트','lunge',['l4'],'r','뒷발을 손으로 잡고 한 다리로 앉아요','무릎이 바닥에 살짝 닿을 때까지','','legs'],
+ ['l2','런지','lunge',['l1'],'r','한 발 내디뎌 앉았다 돌아와요','앞 무릎이 안쪽으로 무너지지 않게','런지','legs'],
+ ['lsu','스텝업','lunge',['l1'],'r','의자에 한 발씩 올라섰다 내려와요','뒷발로 차지 말고 앞다리로 올라가요','','legs'],
+ ['lj','점프 스쿼트','squat',['l1'],'r','앉았다가 힘껏 뛰어올라요','착지는 무릎을 굽혀 부드럽게','','legs'],
+ ['lsl','싱글 레그 브릿지','bridge',['l3'],'r','한 다리로 엉덩이를 들어 올려요','골반이 기울지 않게','','legs'],
+ ['l4','불가리안 스플릿 스쿼트','bulg',['l2','lsu'],'r','뒷발을 올리고 한 다리로','상체를 살짝 앞으로 기울여요','불가리안 스플릿 스쿼트','legs'],
+ ['l6','쉬림프 스쿼트','lunge',['l4'],'r','뒷발을 손으로 잡고 한 다리로 앉아요','무릎이 바닥에 살짝 닿을 때까지','','legs',1],
  ['l7','피스톨 스쿼트 네거티브','pistol',['l4'],'r','한 다리로 천천히 앉아요','팔을 앞으로 뻗어 균형','','legs'],
- ['l8','피스톨 스쿼트','pistol',['l7'],'r','한 다리로 깊게 앉았다 일어나요','뒤꿈치가 뜨지 않게','피스톨 스쿼트','legs',1],
- ['l9','노르딕 컬 네거티브','nord',['l3'],'r','상체를 천천히 앞으로 눕혀요','엉덩이를 편 채 무릎만 축으로','','legs'],
+ ['l7b','박스 피스톨','pistol',['l7'],'r','의자까지만 한 다리로 앉았다 일어나요','의자를 점점 낮춰가요','','legs'],
+ ['l8','피스톨 스쿼트','pistol',['l7b'],'r','한 다리로 깊게 앉았다 일어나요','뒤꿈치가 뜨지 않게','피스톨 스쿼트','legs',1],
+ ['l9','노르딕 컬 네거티브','nord',['lsl'],'r','상체를 천천히 앞으로 눕혀요','엉덩이를 편 채 무릎만 축으로','','legs'],
  ['l10','노르딕 컬','nord',['l9'],'r','내려간 뒤 햄스트링으로 올라와요','처음엔 손으로 살짝 밀어 보조','노르딕 컬','legs',1],
 
- ['hl1','인버티드 로우 (무릎)','row',[],'r','무릎을 굽혀 쉽게 하는 로우','몸을 곧게, 가슴을 봉으로','','hl'],
+ ['hl0','높은 인버티드 로우','row',[],'r','몸을 많이 세운 채 봉이나 탁자를 당겨요','몸을 곧게, 날개뼈를 모아요','','hl'],
+ ['hl1','인버티드 로우 (무릎)','row',['hl0'],'r','무릎을 굽혀 쉽게 하는 로우','몸을 곧게, 가슴을 봉으로','','hl'],
  ['hl2','인버티드 로우','row',['hl1'],'r','몸을 일직선으로 당겨 올려요','어깨뼈를 모으며 당겨요','인버티드 로우','hl'],
- ['hl3','아처 로우','row',['hl2'],'r','한쪽 팔 위주로 당겨요','펴진 팔은 보조만','','hl'],
+ ['hlf','발 올린 인버티드 로우','row',['hl2'],'r','발을 높여 몸을 수평에 가깝게','가슴이 봉에 닿을 때까지','','hl'],
+ ['hl3','아처 로우','row',['hlf'],'r','한쪽 팔 위주로 당겨요','펴진 팔은 보조만','','hl'],
  ['hl4','원암 로우','row',['hl3'],'r','한 팔로 몸을 당겨 올려요','몸통이 돌아가지 않게','','hl',1],
- ['hl5','턱 프론트 레버','fl_t',['hl2'],'h','매달려 무릎을 당기고 몸을 수평으로','팔을 펴고 봉을 아래로 눌러요','','hl'],
+ ['hl5a','턱 레버 래프트','fl_t',['hl2'],'h','매달려 무릎을 가슴으로 당긴 채 몸을 뒤로 눕혀요','팔을 편 채 봉을 아래로 눌러요','','hl'],
+ ['hl5','턱 프론트 레버','fl_t',['hl5a'],'h','매달려 무릎을 당기고 몸을 수평으로','팔을 펴고 봉을 아래로 눌러요','','hl'],
  ['hl6','어드밴스드 턱 프론트 레버','fl_a',['hl5'],'h','등을 펴서 지렛대를 늘려요','엉덩이를 어깨 높이로','','hl'],
  ['hl7','턱 프론트 레버 로우','fl_t',['hl5','hl3'],'r','턱 자세에서 봉 쪽으로 당겨요','수평을 유지한 채 당기기','','hl'],
- ['hl8','스트래들 프론트 레버','fl_s',['hl6'],'h','다리를 벌린 채 수평으로','골반을 말고 다리에 힘','','hl'],
+ ['hl8a','원 레그 프론트 레버','fl_s',['hl6'],'h','한 다리는 펴고 한 다리는 접은 채 수평','펴는 다리를 번갈아요','','hl'],
+ ['hl8','스트래들 프론트 레버','fl_s',['hl8a'],'h','다리를 벌린 채 수평으로','골반을 말고 다리에 힘','','hl'],
  ['hl9','풀 프론트 레버','fl_f',['hl8'],'h','몸 전체를 수평 일직선으로','배꼽을 당기고 다리를 모아요','','hl',1],
- ['hl10','턱 백 레버','bl_t',['hl2'],'h','뒤로 돌아 엎드린 자세로 수평','어깨 앞쪽 부담, 천천히 진입','','hl'],
- ['hl11','풀 백 레버','bl_f',['hl10'],'h','몸을 엎드린 수평 일직선으로','팔꿈치를 펴고 가슴을 내밀어요','','hl',1],
+ ['hl10a','스킨 더 캣','bl_t',['hl2'],'r','매달려 다리를 뒤로 넘겼다 돌아와요','어깨 앞쪽이 늘어나는 만큼만 천천히','','hl'],
+ ['hl10','턱 백 레버','bl_t',['hl10a'],'h','뒤로 돌아 엎드린 자세로 수평','어깨 앞쪽 부담, 천천히 진입','','hl'],
+ ['hl10b','어드밴스드 턱 백 레버','bl_t',['hl10'],'h','등을 펴고 무릎만 굽힌 채 수평','엉덩이가 처지지 않게','','hl'],
+ ['hl11','풀 백 레버','bl_f',['hl10b'],'h','몸을 엎드린 수평 일직선으로','팔꿈치를 펴고 가슴을 내밀어요','','hl',1],
 
  ['vl1','데드 행','sca',[],'h','봉에 매달려 버텨요','어깨 힘을 빼지 말고 살짝 고정','','vl'],
- ['vl2','스캐풀라 풀업','sca',['vl1'],'r','팔은 편 채 날개뼈만 내렸다 올려요','풀업 첫 동작이 부드러워져요','스캐풀라 풀업','vl'],
- ['vl3','네거티브 풀업','pull',['vl2'],'r','위에서 시작해 천천히 내려와요','3~5초, 끝까지 팔을 펴요','네거티브 풀업','vl'],
- ['vl4','풀업','pull',['vl3'],'r','턱이 봉 위로 오게 당겨요','어깨를 먼저 내리고 당기기','풀업','vl'],
+ ['vla','액티브 행','sca',['vl1'],'h','매달린 채 날개뼈를 내려 몸을 살짝 끌어올려요','팔은 편 채, 어깨를 귀에서 멀리','','vl'],
+ ['vl2','스캐풀라 풀업','sca',['vla'],'r','팔은 편 채 날개뼈만 내렸다 올려요','풀업 첫 동작이 부드러워져요','스캐풀라 풀업','vl'],
+ ['vlb','점프 풀업','pull',['vl2'],'r','점프해서 턱을 봉 위로 올려요','올라간 뒤 천천히 내려와요','','vl'],
+ ['vlc','플렉스 행','pull',['vlb'],'h','턱이 봉 위에 있는 상태로 버텨요','가슴을 봉 쪽으로, 어깨를 내려요','','vl'],
+ ['vl3','네거티브 풀업','pull',['vlb'],'r','위에서 시작해 천천히 내려와요','3~5초, 끝까지 팔을 펴요','네거티브 풀업','vl'],
+ ['vl4','풀업','pull',['vl3','vlc'],'r','턱이 봉 위로 오게 당겨요','어깨를 먼저 내리고 당기기','풀업','vl'],
  ['vl5','친업','pull',['vl3'],'r','손바닥이 나를 향하게 당겨요','이두 비중이 커요','친업','vl'],
+ ['vlw','와이드 풀업','pull',['vl4'],'r','손을 넓게 잡고 당겨요','팔꿈치를 옆구리로 끌어내려요','','vl'],
  ['vl6','엘싯 풀업','pull',['vl4'],'r','다리를 L자로 든 채 풀업','다리가 내려가지 않게 코어','','vl'],
  ['vl7','하이 풀업','hip',['vl4'],'r','가슴이 봉에 닿을 만큼 높이','봉을 몸 쪽으로 끌어내려요','하이 풀업','vl'],
- ['vl8','아처 풀업','pull',['vl4'],'r','한쪽 팔 위주로 당겨 올려요','펴진 팔은 보조만','','vl'],
+ ['vl8','아처 풀업','pull',['vlw'],'r','한쪽 팔 위주로 당겨 올려요','펴진 팔은 보조만','','vl'],
+ ['vlt','타이프라이터 풀업','pull',['vl8'],'r','올라간 채 좌우로 몸을 옮겨요','턱 높이를 봉 위로 유지','','vl'],
  ['vl9','머슬업 네거티브','mu',['vl7'],'r','봉 위에서 천천히 내려와요','전환 구간을 느리게','머슬업 네거티브','vl'],
  ['vl10','머슬업','mu',['vl9'],'r','당긴 뒤 봉 위로 넘어가요','손목을 봉 위로 빠르게 돌려요','머슬업','vl',1],
- ['vl11','원암 풀업 네거티브','pull',['vl8'],'r','한 팔로 천천히 내려와요','반대 손으로 손목을 보조해도 OK','','vl'],
+ ['vl11','원암 풀업 네거티브','pull',['vlt'],'r','한 팔로 천천히 내려와요','반대 손으로 손목을 보조해도 OK','','vl'],
  ['vl12','원암 풀업','pull',['vl11'],'r','한 팔로 끌어 올려요','몸통 회전을 최소로','','vl',1]
-].map(a=>({id:a[0],n:a[1],k:a[2],rq:a[3],t:a[4],d:a[5],tip:a[6],ex:a[7],c:a[8],fin:!!a[9]}));
+
+].map(a=>({id:a[0],n:a[1],k:a[2],rq:a[3],t:a[4],d:a[5],tip:a[6],ex:a[7]||a[1],c:a[8],fin:!!a[9]}));
 const SKBY={};SKN.forEach(x=>SKBY[x.id]=x);
 const SKLV=[['잠김','#5a5a5e'],['해금','#ffffff'],['진행 중','#c77dbb'],['마스터','#b5cc8e']];
 const skNeed=(x,l)=>x.t==='h'?[0,2,6,12][l]+'초':[0,1,3,6][l]+'회';
 function skBest(){const b={};records().forEach(r=>{const e=exById(r.exId);if(e)b[e.name]=Math.max(b[e.name]||0,r.r)});return b}
+/* 상위 기술을 해냈으면 아래 단계 기술은 자동으로 인정: 상위가 진행 중 이상이면 선행은 마스터, 해금이면 선행은 진행 중 */
+function skImply(o){
+  const order=[...SKN].reverse();
+  for(let pass=0;pass<3;pass++)order.forEach(x=>{const l=o[x.id].lv;if(l<1)return;const need=l>=2?3:2;
+    x.rq.forEach(r=>{if(o[r].lv<need){o[r].lv=need;o[r].implied=1}})});
+  return o;
+}
 function skLevels(){
   const b=skBest(),M=S.skLv||{},o={};
   SKN.forEach(x=>{const v=x.ex?(b[x.ex]||0):0,auto=x.t==='h'?(v>=12?3:v>=6?2:v>=2?1:0):(v>=6?3:v>=3?2:v>=1?1:0);
     o[x.id]={lv:M[x.id]!=null?M[x.id]:auto,best:v,auto}});
+  skImply(o);
   SKN.forEach(x=>{o[x.id].open=o[x.id].lv===0&&x.rq.every(r=>o[r].lv>=2)});
   return o;
 }
@@ -2329,7 +2377,7 @@ function skModal(m){
   <div class="sktip">💡 ${esc(x.tip)}</div>
   <div class="tiles" style="margin-top:12px"><div class="tile"><b style="color:${SKLV[s.lv][1]};font-size:19px;line-height:29px">${SKLV[s.lv][0]}</b><span class="muted sm">현재 단계</span></div><div class="tile"><b>${x.ex?(s.best||'–')+(s.best?(x.t==='h'?'초':'회'):''):'–'}</b><span class="muted sm">내 최고</span></div><div class="tile"><b style="font-size:16px;line-height:29px">${skNeed(x,3)}</b><span class="muted sm">마스터 기준</span></div></div>
   ${x.rq.length?`<div class="muted sm" style="margin:0 2px 6px;font-weight:600">먼저 필요한 기술</div><div class="row wrap" style="margin-bottom:12px">${x.rq.map(r=>{const q=skLevels()[r];return `<span class="chip ${q.lv>=2?'':'off'}" data-act="sk-node" data-id="${r}">${q.lv>=2?'✓ ':''}${esc(SKBY[r].n)}</span>`}).join('')}</div>`:''}
-  <div class="muted sm" style="margin:0 2px 6px;font-weight:600">단계 직접 설정 ${man?'<span class="chip" style="margin-left:4px">직접 설정됨</span>':`<span class="muted" style="font-weight:400">· ${x.ex?'기록으로 자동 계산 중':'기록 연동 없음'}</span>`}</div>
+  <div class="muted sm" style="margin:0 2px 6px;font-weight:600">단계 직접 설정 ${s.implied&&!man?'<span class="chip" style="margin-left:4px">상위 기술로 자동 인정</span>':''}${man?'<span class="chip" style="margin-left:4px">직접 설정됨</span>':`<span class="muted" style="font-weight:400">· ${x.ex?'기록으로 자동 계산 중':'기록 연동 없음'}</span>`}</div>
   <div class="seg" style="margin-bottom:12px">${SKLV.map((v,i)=>`<button class="btn ${s.lv===i?'on':''}" data-act="sk-set" data-id="${x.id}" data-v="${i}">${v[0]}</button>`).join('')}</div>
   ${man?`<button class="btn sm" style="margin-bottom:10px" data-act="sk-set" data-id="${x.id}" data-v="auto">기록 기준으로 되돌리기</button>`:''}
   <div class="row" style="gap:10px"><button class="btn" style="flex:1" data-act="modal-close">닫기</button><button class="btn pri" style="flex:1.4" data-act="sk-add" data-id="${x.id}">오늘 일지에 추가</button></div>`;
@@ -2341,26 +2389,32 @@ const lvFromXP=xp=>Math.max(1,Math.floor((1+Math.sqrt(1+.08*xp))/2));
 /* 부위별 티어: 특정 기술·횟수를 달성해야 올라가요 (한 세트 최고 기록 기준) */
 /* 부위 티어 조건: 기술 트리 기술 [기술 id, 목표 값(회·초)] 9단계 */
 const ACH={
- '가슴':[['hp2',10],['hp2',20],['vp11',5],['hp3',12],['hp5',6],['vp11',12],['hp6',6],['hp7',3],['hp7',6]],
- '등':[['vl2',10],['hl2',10],['vl3',5],['vl4',5],['vl4',10],['vl7',5],['vl9',3],['vl10',1],['vl10',5]],
- '어깨':[['vp1',10],['hp10',20],['vp3',30],['hp9',15],['vp4',5],['hp11',10],['vp6',5],['hp12',10],['vp8',3]],
- '하체':[['l1',20],['l3',20],['l2',12],['l4',10],['l5',30],['l4',15],['l7',3],['l8',3],['l8',6]],
- '팔':[['hp3',6],['vp10',5],['hp3',15],['vl5',8],['vp11',10],['hl3',5],['vl8',3],['vp13',3],['vl12',1]],
- '복근':[['c1',60],['c2',30],['c3',10],['c6',15],['c4',8],['c7',10],['c8',6],['c10',3],['c9',3]]
+ '가슴':[['hp0',15],['hp00',10],['hp1',12],['hp2',5],['hp2',10],['hpw',10],['hp2',20],['vp11',3],['hp3',10],['hp4',12],['vp11',8],['hp5',5],['hp2',35],['vp11',15],['hpt',5],['hp6',6],['hp6b',3],['hp7',5]],
+ '등':[['vl1',20],['hl0',12],['hl1',10],['vla',15],['hl2',8],['vl2',10],['vlb',6],['vl3',3],['vlc',10],['vl4',3],['hl2',15],['vl4',8],['hlf',10],['vl5',10],['vlw',6],['vl4',15],['vl7',5],['vl10',3]],
+ '어깨':[['vph1',20],['vp1',5],['vph2',3],['vp1',10],['vp3',20],['vp2',8],['vp3',45],['vph3',10],['hp10',15],['vph4',10],['hp9',20],['vp4',5],['vph6',5],['vp5',5],['vp7',10],['hp11',10],['vp6',5],['vp8',3]],
+ '하체':[['l0',15],['l1',15],['l3',15],['l5',20],['lw',45],['l1',30],['l2',10],['lsu',12],['lj',10],['lsl',10],['l4',8],['l4',15],['l9',3],['l7b',5],['l6',3],['l7',5],['l8',3],['l10',3]],
+ '팔':[['vpd0',10],['hp00',15],['hp3',3],['vp10',3],['hl2',10],['vp11',5],['hp3',8],['vl5',5],['hp3',15],['vp11',12],['vl5',10],['hl3',5],['vp12',3],['vl8',3],['vp13',3],['vlt',3],['vl11',3],['vl12',1]],
+ '복근':[['c0',20],['c00',20],['c1',30],['cs',30],['c2',20],['c3b',10],['c1',60],['ca',15],['c6a',15],['c3',10],['c2',45],['c6',10],['c4',6],['cw',6],['c7',10],['c8',10],['c10',5],['c9',3]]
 };
+const ACH_N=Object.values(ACH).reduce((a,L)=>a+L.length,0),ACH_P=18;
+/* 부위 티어: 조건 2개마다 한 티어 (18개 = 챌린저) */
+const partTier=k=>Math.min(9,Math.floor(k*9/ACH_P));
 const goalUnit=m=>{const x=SKBY[m[0]];return x&&x.t==='h'?'초':'회'};
 const goalLabel=m=>{const x=SKBY[m[0]];return (x?x.n:'?')+' '+m[1]+goalUnit(m)};
 function levelData(excl){
   const best={};records().forEach(r=>{if(excl&&r.sid===excl)return;const e=exById(r.exId);if(e)best[e.name]=Math.max(best[e.name]||0,r.r)});
-  const M=S.skLv||{};
-  const mv=m=>{const x=SKBY[m[0]];if(!x)return 0;const man=M[x.id]!=null?(x.t==='h'?[0,2,6,12]:[0,1,3,6])[M[x.id]]||0:0;return Math.max(man,x.ex?(best[x.ex]||0):0)},o={};
-  LVP.forEach(p=>{const L=ACH[p];let k=0;while(k<L.length&&mv(L[k])>=L[k][1])k++;
+  const M=S.skLv||{},sl={};
+  SKN.forEach(x=>{const v=best[x.ex]||0,auto=x.t==='h'?(v>=12?3:v>=6?2:v>=2?1:0):(v>=6?3:v>=3?2:v>=1?1:0);sl[x.id]={lv:Math.max(M[x.id]!=null?M[x.id]:0,auto)}});
+  skImply(sl);
+  const mv=m=>{const x=SKBY[m[0]];if(!x)return 0;const man=(x.t==='h'?[0,2,6,12]:[0,1,3,6])[sl[x.id].lv]||0;return Math.max(man,x.ex?(best[x.ex]||0):0)},o={};
+  /* 위쪽 단계를 해냈으면 그 아래 단계는 모두 달성으로 쳐요 */
+  LVP.forEach(p=>{const L=ACH[p];let k=0;for(let j=L.length-1;j>=0;j--)if(mv(L[j])>=L[j][1]){k=j+1;break}
     const g=k<L.length?L[k]:null,cur=g?mv(g):0;
-    o[p]={t:{i:k,t:TIERS[k],div:''},goal:g,cur,p:g?Math.min(1,cur/g[1]):1,k,mv}});
+    const ti=partTier(k);o[p]={t:{i:ti,t:TIERS[ti],div:''},goal:g,cur,p:g?Math.min(1,cur/g[1]):1,k,mv}});
   return o;
 }
-/* 내 티어: 달성한 조건 개수(최대 54)로 정해져요. 아이언~다이아몬드는 IV~I 구간이 있어요 */
-const OVT=(()=>{const a=[];for(let i=0;i<=30;i++){let v=Math.round(54*Math.pow(i/30,1.35));if(i&&v<=a[i-1])v=a[i-1]+1;a.push(v)}a[30]=54;return a})();
+/* 내 티어: 달성한 조건 개수(최대 ACH_N개)로 정해져요. 아이언~다이아몬드는 IV~I 구간이 있어요 */
+const OVT=(()=>{const a=[];for(let i=0;i<=30;i++){let v=Math.round(ACH_N*Math.pow(i/30,1.35));if(i&&v<=a[i-1])v=a[i-1]+1;a.push(v)}a[30]=ACH_N;return a})();
 const stTier=st=>st<28?{i:Math.floor(st/4),div:DIVN[st%4]}:{i:st-21,div:''};
 const stName=st=>{const o=stTier(st);return TIERS[o.i].n+(o.div?' '+o.div:'')};
 function overallTier(ld){
@@ -2436,11 +2490,11 @@ function rankBar(){
 function rankModal(){
   const ld=levelData(),ov=overallTier(ld);
   const det=LVP.map(p=>{const d=ld[p],L=ACH[p];
-    const rows=L.map((m,k)=>{const ok=k<d.k,cur=k===d.k;return `<div class="rk ${ok?'ok':cur?'now':'lock'}" style="padding:6px 6px"><span>${emblem(k+1,24)}</span><div style="flex:1;min-width:0"><b style="color:${TIERS[k+1].c};font-size:14px">${TIERS[k+1].n}</b><div class="muted sm">${esc(goalLabel(m))}${cur?` · 내 최고 ${d.cur}${goalUnit(m)}`:''}</div></div>${ok?'<span class="ok">✓</span>':cur?'<span class="chip">도전 중</span>':'<span class="muted">🔒</span>'}</div>`}).join('');
+    const rows=L.map((m,k)=>{const ok=k<d.k,cur=k===d.k,ti=partTier(k+1),up=ti>partTier(k);return `<div class="rk ${ok?'ok':cur?'now':'lock'}" style="padding:6px 6px"><span>${emblem(ti,24)}</span><div style="flex:1;min-width:0"><b style="color:${TIERS[ti].c};font-size:14px">${k+1}단계${up?` · ${TIERS[ti].n} 승급`:''}</b><div class="muted sm">${esc(goalLabel(m))}${cur?` · 내 최고 ${d.cur}${goalUnit(m)}`:''}</div></div>${ok?'<span class="ok">✓</span>':cur?'<span class="chip">도전 중</span>':'<span class="muted">🔒</span>'}</div>`}).join('');
     return `<details class="tdet"><summary><span>${emblem(d.t.i,28)}</span><div style="flex:1;min-width:0"><div><b>${pname(p)}</b> <b style="color:${d.t.t.c}">${tierName(d.t)}</b></div><div class="muted sm">${d.goal?`다음 · ${esc(goalLabel(d.goal))}`:'최고 티어 달성!'}</div></div><span class="muted tdc">⌄</span></summary><div style="padding:2px 0 8px">${rows}</div></details>`}).join('');
   const tbl=TIERS.map((t,i)=>{const dv=i<7,sts=dv?[0,1,2,3].map(d=>i*4+d):[i+21];return `<div class="rk" style="padding:6px 6px"><span>${emblem(i,22)}</span><div style="flex:1;min-width:0"><b style="color:${t.c};font-size:14px">${t.n}</b><div class="muted sm">${sts.map(x=>`${dv?DIVN[x%4]+' ':''}${OVT[x]}개`).join(' · ')}</div></div></div>`}).join('');
   return `<h3 class="c">내 티어</h3>${halo(ov.i,ov.s,92)}<div class="c" style="font-size:22px;font-weight:800;color:${ov.t.c}">${tierName(ov)}</div>
-  <div class="muted sm c" style="margin:4px 0 8px;line-height:1.6">아래 조건을 한 세트에 달성할 때마다<br>달성 개수가 올라가고, 개수에 따라 티어가 정해져요.<br><b style="color:var(--ink)">달성 ${ov.sum} / 54개</b></div>
+  <div class="muted sm c" style="margin:4px 0 8px;line-height:1.6">아래 조건을 한 세트에 달성할 때마다<br>달성 개수가 올라가고, 개수에 따라 티어가 정해져요.<br><b style="color:var(--ink)">달성 ${ov.sum} / ${ACH_N}개</b></div>
   <div class="bar" style="margin:0 6px"><div style="width:${Math.max(4,ov.p*100)}%;background:linear-gradient(90deg,${ov.t.c2},${ov.t.c})"></div></div>
   <div class="muted sm c" style="margin:6px 0 10px">${ov.s>=30?'최고 티어예요!':`${ov.nl}까지 달성 ${ov.left}개`}</div>
   <div class="rklist" style="max-height:46vh"><details class="tdet"><summary><span style="font-size:22px">🏅</span><div style="flex:1"><b>티어별 필요 달성 개수</b></div><span class="muted tdc">⌄</span></summary><div style="padding:2px 0 8px">${tbl}</div></details>${det}</div>
@@ -2503,7 +2557,7 @@ function showRankUp(from,to){
     <div class="rings"><i></i><i></i><i></i></div>
     <div class="rparts">${parts}</div><div class="rembers">${embers}</div>
     <div class="rstage"><div class="remb old">${emblem(from.i,150)}</div><div class="remb new">${emblem(to.i,200)}</div></div>
-    <div class="rtxt"><div class="rlab">${tierUp?'TIER UP':'RANK UP'}</div><div class="rname">${esc(tierName(to))}</div><div class="rdiv">${esc(tierName(from))} <span>→</span> ${esc(tierName(to))}</div><div class="rsub">달성 ${to.sum} / 54개</div></div>
+    <div class="rtxt"><div class="rlab">${tierUp?'TIER UP':'RANK UP'}</div><div class="rname">${esc(tierName(to))}</div><div class="rdiv">${esc(tierName(from))} <span>→</span> ${esc(tierName(to))}</div><div class="rsub">달성 ${to.sum} / ${ACH_N}개</div></div>
     <div class="ruflash"></div>
     <button class="btn pri big rbtn" data-cel="close">계속하기</button></div></div>`;
   fx.classList.add('show');
