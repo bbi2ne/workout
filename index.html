@@ -283,6 +283,9 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .toast.out{animation:toastout .23s forwards}
 @keyframes toastout{to{opacity:0;transform:translate(-50%,10px)}}
 .fchl{text-align:center;font-size:17px;font-weight:700;margin:2px 0 4px;line-height:1.4}.fcr{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1px solid var(--line)}.fcr.big{background:linear-gradient(90deg,rgba(255,255,255,.06),transparent);border-radius:10px}.fcw{font-size:13px;font-weight:700;text-align:right;white-space:nowrap}
+.asymbtn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
+.asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
+.asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
 .rkch.big .rkt{display:flex;align-items:center;gap:6px}.rkch.big span{color:#1a1a1a}
 .rkfx{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%);transform:translateX(-100%);animation:rkshine 2.2s ease-in-out infinite;pointer-events:none}
@@ -786,7 +789,8 @@ const BUILTIN=[
 ['손목 돌리기','기타'],
 ['하이 풀업','등'],['머슬업 네거티브','등'],['머슬업','등'],['인클라인 푸쉬업','가슴'],['원암 푸쉬업 (인클라인)','가슴'],['원암 푸쉬업 네거티브','가슴'],['원암 푸쉬업','가슴'],['프리스탠딩 핸드스탠드 홀드','어깨',T],
 ['러닝','유산소','run'],['걷기','유산소','run'],
-['벽 푸쉬업','가슴'],['무릎 푸쉬업','가슴'],['와이드 푸쉬업','가슴'],['타이프라이터 푸쉬업','가슴'],['슈도 플란체 푸쉬업','어깨'],['턱 플란체 푸쉬업','어깨'],['하프 레이 플란체','어깨',T],['플란체 푸쉬업','어깨'],['파이크 홀드','어깨',T],['월 워크','어깨'],['벽 핸드스탠드 숄더 탭','어깨'],['벽에서 발 떼기','어깨',T],['킥업 연습','어깨'],['프리스탠딩 5초','어깨',T],['핸드스탠드 워크','어깨'],['스트래들 프레스','어깨'],['벤치 딥스','가슴'],['코리안 딥스','가슴'],['러시안 딥스','가슴'],['임파서블 딥스','가슴'],['데드버그','복근'],['사이드 플랭크','복근',T],['할로우 락','복근'],['레그 레이즈','복근'],['윈드실드 와이퍼','복근'],['토스 투 바','복근'],['바닥 서포트 홀드','복근',T],['브이싯','복근',T],['드래곤 플래그 네거티브','복근'],['드래곤 플래그','복근'],['의자 스쿼트','하체'],['월 싯','하체',T],['스텝업','하체'],['점프 스쿼트','하체'],['싱글 레그 브릿지','하체'],['쉬림프 스쿼트','하체'],['피스톨 스쿼트 네거티브','하체'],['박스 피스톨','하체'],['노르딕 컬 네거티브','하체'],['높은 인버티드 로우','등'],['인버티드 로우 (무릎)','등'],['발 올린 인버티드 로우','등'],['아처 로우','등'],['원암 로우','등'],['턱 레버 래프트','등',T],['턱 프론트 레버','등',T],['어드밴스드 턱 프론트 레버','등',T],['턱 프론트 레버 로우','등'],['원 레그 프론트 레버','등',T],['스트래들 프론트 레버','등',T],['풀 프론트 레버','등',T],['스킨 더 캣','등'],['턱 백 레버','등',T],['어드밴스드 턱 백 레버','등',T],['풀 백 레버','등',T],['데드 행','등',T],['액티브 행','등',T],['점프 풀업','등'],['플렉스 행','등',T],['와이드 풀업','등'],['엘싯 풀업','등'],['아처 풀업','등'],['타이프라이터 풀업','등'],['원암 풀업 네거티브','등'],['원암 풀업','등']
+['벽 푸쉬업','가슴'],['무릎 푸쉬업','가슴'],['와이드 푸쉬업','가슴'],['타이프라이터 푸쉬업','가슴'],['슈도 플란체 푸쉬업','어깨'],['턱 플란체 푸쉬업','어깨'],['하프 레이 플란체','어깨',T],['플란체 푸쉬업','어깨'],['파이크 홀드','어깨',T],['월 워크','어깨'],['벽 핸드스탠드 숄더 탭','어깨'],['벽에서 발 떼기','어깨',T],['킥업 연습','어깨'],['프리스탠딩 5초','어깨',T],['핸드스탠드 워크','어깨'],['스트래들 프레스','어깨'],['벤치 딥스','가슴'],['코리안 딥스','가슴'],['러시안 딥스','가슴'],['임파서블 딥스','가슴'],['데드버그','복근'],['사이드 플랭크','복근',T],['할로우 락','복근'],['레그 레이즈','복근'],['윈드실드 와이퍼','복근'],['토스 투 바','복근'],['바닥 서포트 홀드','복근',T],['브이싯','복근',T],['드래곤 플래그 네거티브','복근'],['드래곤 플래그','복근'],['의자 스쿼트','하체'],['월 싯','하체',T],['스텝업','하체'],['점프 스쿼트','하체'],['싱글 레그 브릿지','하체'],['쉬림프 스쿼트','하체'],['피스톨 스쿼트 네거티브','하체'],['박스 피스톨','하체'],['노르딕 컬 네거티브','하체'],['높은 인버티드 로우','등'],['인버티드 로우 (무릎)','등'],['발 올린 인버티드 로우','등'],['아처 로우','등'],['원암 로우','등'],['턱 레버 래프트','등',T],['턱 프론트 레버','등',T],['어드밴스드 턱 프론트 레버','등',T],['턱 프론트 레버 로우','등'],['원 레그 프론트 레버','등',T],['스트래들 프론트 레버','등',T],['풀 프론트 레버','등',T],['스킨 더 캣','등'],['턱 백 레버','등',T],['어드밴스드 턱 백 레버','등',T],['풀 백 레버','등',T],['데드 행','등',T],['액티브 행','등',T],['점프 풀업','등'],['플렉스 행','등',T],['와이드 풀업','등'],['엘싯 풀업','등'],['아처 풀업','등'],['타이프라이터 풀업','등'],['원암 풀업 네거티브','등'],['원암 풀업','등'],
+['프론 Y 레이즈','등'],['밴드 풀 어파트','등'],['밴드 서라터스 펀치','어깨'],['밴드 페이스 풀','어깨'],['월 슬라이드','어깨'],['버드독','복근'],['스캐풀라 푸쉬업','가슴']
 ].map((a,i)=>({id:'bw'+i,name:a[0],part:a[1],type:a[2]||'wr',builtin:true}));
 const SEED=[
  {name:'월 · 가슴',items:[['프로그 스탠드',3,20,'기술 · 목표 20초'],['플란체 린',5,10,'기술 · 목표 10~15초'],['딥스 네거티브',4,3,'기본기 · 목표 3~4개'],['푸쉬업 변형',3,8,'기본기 · 목표 8~12개']]},
@@ -797,6 +801,7 @@ const SEED=[
  {name:'워밍업 (3~5분)',items:[['손목 돌리기',1,'','10회 정도'],['견갑 푸쉬업',1,'','가볍게'],['할로우 홀드',1,20,'20초']]}
 ];
 /* ---------- exercise illustrations ---------- */
+const ff=(n,h,a1,a2,l1,l2)=>{l1=l1||[54,58,52,68];l2=l2||[66,58,68,68];return {h:[n[0],n[1]-8],b:99,p:[[h[0],h[1],n[0],n[1]],[n[0],n[1],...a1],[n[0],n[1],...a2],[h[0],h[1],...l1],[h[0],h[1],...l2]]}};
 const fg=(n,h,e,w,k,f,o)=>{o=o||{};const dx=n[0]-h[0],dy=n[1]-h[1],L=Math.hypot(dx,dy)||1;
   const p=[[h[0],h[1],n[0],n[1]],[n[0],n[1],e[0],e[1],w[0],w[1]],[h[0],h[1],k[0],k[1],f[0],f[1]]];
   const fr={h:[+(n[0]+dx/L*8).toFixed(1),+(n[1]+dy/L*8).toFixed(1)],p,b:3};
@@ -900,9 +905,17 @@ const ART={
  pspu:{f:[fg([84,46],[52,52],[78,58],[72,68],[33,56],[14,60]),fg([84,58],[52,60],[70,63],[72,68],[33,62],[14,64])]},
  run:{f:[fg([62,22],[60,42],[70,32],[76,26],[72,52],[68,64],{l2:[52,54,40,58]}),fg([62,24],[60,44],[52,34],[48,42],[52,56],[42,62],{l2:[70,52,68,66]})]},
  walk:{f:[fg([60,22],[60,42],[64,32],[66,42],[66,56],[68,68],{l2:[56,56,52,68]}),fg([60,21],[60,41],[56,32],[54,42],[56,55],[52,68],{l2:[64,55,68,68]})]},
+ pyr:{f:[fg([38,62],[64,65],[26,62],[14,62],[86,66],[106,66]),fg([38,58],[64,64],[26,52],[14,46],[86,66],[106,66])]},
+ bpa:{f:[ff([60,24],[60,46],[54,30,60,32],[66,30,60,32]),ff([60,24],[60,46],[45,25,30,25],[75,25,90,25])],pr:'<path d="M30 25H90" stroke-dasharray="2 3" opacity=".5"/>'},
+ spunch:{f:[fg([60,22],[60,44],[72,26],[84,26],[62,56],[60,68],{l2:[58,56,56,68]}),fg([64,23],[60,44],[77,26],[91,26],[62,56],[60,68],{l2:[58,56,56,68]})],pr:'<path d="M18 8V70"/><path d="M18 26H40" stroke-dasharray="2 3" opacity=".6"/>'},
+ fpull:{f:[fg([58,22],[58,44],[72,22],[86,20],[60,56],[58,68],{l2:[56,56,54,68]}),fg([58,22],[58,44],[50,16],[64,12],[60,56],[58,68],{l2:[56,56,54,68]})],pr:'<path d="M104 8V70"/><path d="M86 20L104 18" stroke-dasharray="2 3" opacity=".6"/>'},
+ wslide:{f:[ff([60,30],[60,52],[46,34,44,22],[74,34,76,22]),ff([60,30],[60,52],[49,20,42,8],[71,20,78,8])],pr:'<rect x="30" y="4" width="60" height="66" rx="3" opacity=".25"/>'},
+ birddog:{f:[fg([40,44],[70,46],[40,56],[40,68],[72,68],[90,68],{l2:[72,68,90,68]}),fg([40,44],[70,46],[28,42],[14,40],[90,44],[108,42],{l2:[72,68,90,68]})]},
+ scpu:{f:[fg([36,50],[66,54],[36,59],[36,68],[86,58],[104,62]),fg([36,55],[66,56],[36,61],[36,68],[86,59],[104,62])]},
  wrist:{custom:'<path class="fg" d="M20 62L58 42"/><path class="fg" d="M58 42l12-6m-12 6l10 8m-10-8l4-12"/><path d="M78 24a16 16 0 1 1-6 18m0 0l-2-8m2 8l8-2" style="stroke:var(--acc);stroke-width:3"/>'}
 };
 const ARTMAP={
+'프론 Y 레이즈':['pyr','엎드려서 팔을 Y자로 뻗고 날개뼈를 아래로 내리며 들어올려요'],'밴드 풀 어파트':['bpa','밴드를 어깨 높이로 잡고 날개뼈를 모으며 양옆으로 벌려요'],'밴드 서라터스 펀치':['spunch','밴드를 등 뒤에 걸고 팔꿈치를 편 채 날개뼈를 앞으로 밀어내요'],'밴드 페이스 풀':['fpull','밴드를 얼굴 높이에 걸고 팔꿈치를 높게 벌리며 얼굴 쪽으로 당겨요'],'월 슬라이드':['wslide','등과 팔을 벽에 붙인 채 W에서 Y 모양으로 밀어올려요'],'버드독':['birddog','네발 자세에서 반대쪽 팔과 다리를 골반 수평을 유지하며 뻗어요'],'스캐풀라 푸쉬업':['scpu','팔을 편 채 날개뼈만 모았다가 바닥을 밀어 벌려요'],
 '러닝':['run','팔을 리듬 있게 흔들며 가볍게 달려요'],'걷기':['walk','허리를 펴고 보폭을 일정하게 걸어요'],
 '벽 푸쉬업':['pui','벽을 짚고 서서 하는 가장 쉬운 푸쉬업'],
 '무릎 푸쉬업':['pu','무릎을 바닥에 대고 하는 푸쉬업'],
@@ -1045,6 +1058,7 @@ function exArt(ex,anim,cls){
   return wrap(s);
 }
 const TIPS={
+'프론 Y 레이즈':['허리로 들지 말고 엄지를 위로, 목은 길게','엎드려서 팔을 Y자로 들어올려요'],'밴드 풀 어파트':['어깨가 귀로 올라가지 않게 내리고 천천히 돌아와요','날개뼈를 모으는 운동이에요'],'밴드 서라터스 펀치':['팔꿈치는 굽히지 말고 날개뼈로만 밀어요. 튀어나온 쪽을 먼저','날개뼈를 갈비뼈에 붙여주는 근육(전거근)을 키워요'],'밴드 페이스 풀':['손이 귀 옆까지 오게, 마지막에 1초 멈춰요','말린 어깨를 펴줘요'],'월 슬라이드':['허리가 벽에서 뜨지 않게 갈비뼈를 내려요','어깨 가동성과 하부 승모근'],'버드독':['등 위에 컵이 있다고 생각하고 골반이 돌아가지 않게','몸통 안정성과 좌우 균형'],'스캐풀라 푸쉬업':['팔꿈치는 끝까지 편 상태로, 날개뼈만 움직여요','날개뼈 조절 능력을 길러요'],
 '벽 푸쉬업':['몸을 곧게 펴고 가슴을 벽에 가까이','벽을 짚고 서서 하는 가장 쉬운 푸쉬업'],
 '무릎 푸쉬업':['무릎부터 머리까지 일직선 유지','무릎을 바닥에 대고 하는 푸쉬업'],
 '와이드 푸쉬업':['손은 어깨너비의 1.5배 정도','손을 넓게 짚어 가슴을 더 쓰는 푸쉬업'],
@@ -1195,7 +1209,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[]}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1248,7 +1262,7 @@ function mergeState(L,R){
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
   o.tutDone=(L.tutDone||R.tutDone)?1:0;
-  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof'].forEach(k=>{o[k]=L[k]})}
+  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
   o.seeded=!!(L.seeded||R.seeded);o.updated=Math.max(L.updated||0,R.updated||0)+1;
@@ -1296,7 +1310,7 @@ async function initCloud(){
       {let lu=null;try{lu=localStorage.getItem('planlog_uid')}catch(e){}
        if((lu&&lu!==id)||(!lu&&window.FB_MODE)){S=norm({});store.dirty=false;W=null;U.fold=null;try{[LS,LSB,LSW,'planlog_fold2'].forEach(k=>localStorage.removeItem(k))}catch(e){}}
        try{localStorage.setItem('planlog_uid',id)}catch(e){}}
-      store.db=db;store.uid=id;C.subbed=false;commStart();try{presStart()}catch(e){}setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(v)presAdmin();if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
+      store.db=db;store.uid=id;C.subbed=false;commStart();setTimeout(()=>{try{commSync(true)}catch(e){}},4000);try{Promise.resolve(user.isOwner&&user.isOwner()).then(v=>{C.admin=!!v;if(v)presAdmin();if(U.tab==='comm'||U.tab==='more')renderView(false)}).catch(()=>{})}catch(e){}
       store.ai=db.collection('data/users/'+id).doc('ai_sugg');store.cmd=db.collection('data/users/'+id).doc('ai_cmd');const doc=db.collection('data/users/'+id).doc('planlog'),bak=db.collection('data/users/'+id).doc('planlog_bak');
       const g=await cloudGet(doc);
       store.doc=doc;store.bak=bak;store.mode='cloud';
@@ -1442,8 +1456,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.21f';
-const APP_NEWS=['🔮 티어 예측: 분석 탭에서 지금 속도라면 언제 어떤 티어가 되는지 알려줘요','⚖️ 승급 심사: 티어 화면에서 누르면 다음 승급에 가장 가까운 운동으로 심사 일지를 만들어줘요','아이언→브론즈처럼 티어가 바뀌는 심사는 버튼이 특별하게 빛나요','종목 선택 목록을 비슷한 운동끼리 묶어서 정렬했어요'];
+const APP_VER='2026.11.21g';
+const APP_NEWS=['⚖️ 좌우 비대칭 교정: 더보기에서 고민을 고르면 Y 레이즈·밴드 날개뼈 운동 등으로 교정 루틴을 짜줘요','새 운동 7개: 프론 Y 레이즈, 밴드 풀 어파트, 밴드 서라터스 펀치, 밴드 페이스 풀, 월 슬라이드, 버드독, 스캐풀라 푸쉬업','홈 화면 접속 인원 표시를 뺐어요','🔮 분석 탭 티어 도달 예측'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1628,7 +1642,7 @@ function logView(){
       <div class="row wrap" style="margin-top:10px"><button class="btn sm" data-act="save-routine" data-o="${s.id}">루틴으로 저장</button><button class="btn sm bad" data-act="del-session" data-o="${s.id}">일지 삭제</button></div></div>
     </div></div>
   </div>`).join('');
-  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${presBar()}${streakCard()}
+  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${streakCard()}
   <div class="card"><div class="row between">
     <button class="btn ic" data-act="date-prev">‹</button>
     <input type="date" class="inp c" style="max-width:190px;background:none;font-weight:600" data-bind="date" value="${U.date}">
@@ -1974,12 +1988,39 @@ function anaView(){
   <div class="card">${exHtml}</div>
   <h2>주간 완료 세트 (최근 8주)</h2><div class="card">${barChart(wk)}</div>`;
 }
+/* 좌우 비대칭 교정 프로그램 */
+const ASYM_C=[['sh','어깨 높이가 달라요','👔'],['wing','날개뼈가 튀어나와요','🪽'],['round','어깨가 앞으로 말렸어요','🐢'],['pel','골반·허리가 틀어졌어요','🦴'],['weak','한쪽 힘이 약해요','💪']];
+const ASYM_EX={sh:['프론 Y 레이즈','사이드 플랭크','스캐풀라 풀업'],wing:['밴드 서라터스 펀치','스캐풀라 푸쉬업','월 슬라이드'],round:['밴드 페이스 풀','밴드 풀 어파트','프론 Y 레이즈','월 슬라이드'],pel:['버드독','싱글 레그 브릿지','사이드 플랭크'],weak:['싱글 레그 브릿지','사이드 플랭크','버드독']};
+const ASYM_UNI=new Set(['사이드 플랭크','싱글 레그 브릿지','버드독','밴드 서라터스 펀치']);
+const ASYM_R={'프론 Y 레이즈':10,'밴드 풀 어파트':15,'밴드 서라터스 펀치':12,'밴드 페이스 풀':15,'월 슬라이드':10,'버드독':8,'스캐풀라 푸쉬업':12,'스캐풀라 풀업':10,'사이드 플랭크':25,'싱글 레그 브릿지':12};
+function asymList(){const A=S.asym||{},c=(A.c&&A.c.length)?A.c:['wing','round','pel'],out=[];
+  c.forEach(k=>(ASYM_EX[k]||[]).forEach(n=>{if(!out.includes(n))out.push(n)}));return out.slice(0,6)}
+function asymItems(){const A=S.asym||{},sd=A.side==='L'?'왼쪽':A.side==='R'?'오른쪽':'',ot=A.side==='L'?'오른쪽':'왼쪽';
+  return asymList().map(n=>{const ex0=S.exercises.find(e=>e.name===n),id=exId(n,ex0?ex0.part:'기타',ex0?ex0.type:'wr'),r=ASYM_R[n]||10,uni=ASYM_UNI.has(n);
+    const note=uni?(sd?`한쪽씩 · 약한 ${sd} 먼저, 마지막 세트는 ${sd}만 한 번 더`:'한쪽씩 · 양쪽 똑같이, 더 힘든 쪽을 먼저'):'천천히, 끝에서 1초 멈추기 · 양쪽 날개뼈 높이를 맞춘다는 느낌으로';
+    return {exId:id,note,sets:[r,r,r].map(x=>({w:'',r:x}))}})}
+function asymHtml(){
+  const A=S.asym||{},c=A.c||[],L=asymList();
+  return `<h3 class="c">⚖️ 좌우 비대칭 교정</h3>
+  <div class="muted sm c" style="line-height:1.55;margin:-4px 0 14px">습관으로 생긴 비대칭은 약한 쪽을 먼저, 조금 더 많이 해서 맞춰가요.<br>하루 10~15분, 주 3~5회가 좋아요.</div>
+  <div class="asq">1. 더 약하거나 처진 쪽은?</div>
+  <div class="seg">${[['L','왼쪽'],['R','오른쪽'],['','잘 모르겠어요']].map(([v,t])=>`<button class="btn ${(A.side||'')===v?'on':''}" data-act="asym-side" data-v="${v}">${t}</button>`).join('')}</div>
+  <div class="asq">2. 해당하는 고민을 골라 주세요 <span class="muted sm">(여러 개)</span></div>
+  <div class="asc">${ASYM_C.map(([k,t,e])=>`<button class="asb ${c.includes(k)?'on':''}" data-act="asym-c" data-v="${k}"><span>${e}</span>${t}</button>`).join('')}</div>
+  <div class="asq">3. 추천 교정 운동 <span class="muted sm">${c.length?'':'(기본 구성)'}</span></div>
+  <div class="card" style="padding:6px 10px">${L.map(n=>{const ex=S.exercises.find(e=>e.name===n)||{name:n},t=TIPS[n],uni=ASYM_UNI.has(n);return `<div class="asx"${ex.id?` data-act="art-view" data-ex="${ex.id}"`:''}>${exArt(ex,true,'sm')}<div style="flex:1;min-width:0"><b>${esc(n)}</b>${uni?' <span class="chip">한쪽씩</span>':''}<div class="muted sm">${esc(t?t[1]:'')}</div><div class="sm" style="color:#ff8a8a;margin-top:2px">${esc(t?t[0]:'')}</div></div><span class="muted sm" style="white-space:nowrap">3×${ASYM_R[n]||10}${S.exercises.find(e=>e.name===n&&e.type==='time')?'초':'회'}</span></div>`}).join('')}</div>
+  <div class="row" style="gap:8px;margin-top:12px"><button class="btn pri asgo" data-act="asym-today" style="flex:1">오늘 일지에 넣기</button><button class="btn" data-act="asym-routine" style="flex:1">루틴으로 저장</button></div>
+  <div class="card" style="margin-top:14px;line-height:1.6"><b>🔁 습관도 같이 바꿔요</b><div class="muted sm" style="margin-top:4px">· 가방은 양쪽 번갈아 메거나 백팩으로<br>· 다리 꼬기, 한쪽으로 기대 앉기 줄이기<br>· 휴대폰은 눈높이로, 턱 당기기<br>· 잘 때 한쪽으로만 눕지 않기</div></div>
+  <div class="muted sm c" style="margin-top:12px;line-height:1.5">통증이 있거나 비대칭이 심하면 운동 전에 정형외과·물리치료사에게 먼저 확인받으세요.</div>`;
+}
+function asymRefresh(){const b=$('#mbody')||document.querySelector('.modal .mb');if(U.modal&&U.modal.type==='asym')renderModal()}
 function moreView(){
   const body=[...S.body].sort((a,b)=>a.date.localeCompare(b.date));
   const bpts=body.slice(-30).map(b=>({x:shortDate(b.date),y:b.kg}));
   const custom=S.exercises.filter(x=>!x.builtin);
   return `<h1>더보기</h1><p class="sub">체중, 종목, 설정, 백업</p>
   <button class="card tutrp" data-act="tut-replay"><span style="font-size:24px">📘</span><span style="flex:1;text-align:left"><b>튜토리얼 다시보기</b><span class="muted sm" style="display:block;margin-top:2px">앱 기능을 직접 눌러보며 다시 둘러봐요</span></span><span class="muted">›</span></button>
+  <button class="card asymbtn" data-act="asym-open"><span style="font-size:24px">⚖️</span><span style="flex:1;text-align:left"><b>좌우 비대칭 교정</b><span class="muted sm" style="display:block;margin-top:2px">Y 레이즈·밴드 날개뼈 운동으로 약한 쪽을 맞춰요</span></span><span style="color:#ff5a5a;font-size:20px">›</span></button>
   <h2>설정</h2>
   <div class="card"><div class="row between"><span>효과음</span><button class="sw ${S.sound?'on':''}" data-act="sound-toggle" aria-label="효과음"></button></div>
   <div class="vol"><span class="vi">🔈</span><input type="range" min="0" max="100" step="1" value="${S.vol==null?50:S.vol}" data-bind="vol" style="--p:${S.vol==null?50:S.vol}%" aria-label="효과음 크기"><span class="vi">🔊</span><b id="volv">${S.vol==null?50:S.vol}</b></div></div>
@@ -2011,7 +2052,6 @@ function moreView(){
   <div class="card" style="margin-top:14px"><div style="font-weight:700;margin-bottom:4px">💌 제작자에게 건의하기</div><div class="muted sm" style="margin-bottom:10px;line-height:1.5">불편한 점, 원하는 기능, 버그를 알려주세요. 제작자만 볼 수 있어요.</div>
   <textarea class="inp" id="fbtxt" maxlength="1000" rows="4" placeholder="예) 기술 트리에 ○○ 기술도 넣어주세요" style="min-height:96px;resize:vertical">${esc(U.fbTxt||'')}</textarea>
   <div class="row between" style="margin-top:10px"><span class="muted sm" id="fbcnt">${(U.fbTxt||'').length}/1000</span><button class="btn pri" data-act="fb-send">보내기</button></div></div>
-  ${presAdminHtml()}
   ${C.admin?`<div class="card" style="margin-top:14px"><div class="row between" style="margin-bottom:8px"><b>📥 받은 건의사항 <span class="chip">관리자</span></b><button class="btn sm" data-act="fb-load">${U.fbList?'새로고침':'열기'}</button></div>${U.fbList?(U.fbList.length?U.fbList.map(f=>`<div class="fbi"><div class="row between"><b class="sm">${esc(String(f.nick||'익명').slice(0,20))}</b><span class="muted sm">${new Date(f.ts||0).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span></div><div class="fbt">${esc(String(f.text||'').slice(0,1000))}</div>${f.email?`<div class="muted sm">${esc(String(f.email).slice(0,60))}</div>`:''}<button class="x" data-act="fb-del" data-u="${esc(f.u)}" data-id="${esc(f.id)}">✕</button></div>`).join(''):'<div class="muted sm c" style="padding:10px 0">아직 받은 건의사항이 없어요.</div>'):''}</div>`:''}
   ${window.FB_MODE?`<div class="card" style="margin-top:14px"><div class="row between"><span class="muted sm">${esc((window.FB_USER&&(window.FB_USER.email||window.FB_USER.displayName))||"")}</span><button class="btn sm bad" onclick="fbLogout()">로그아웃</button></div></div>`:""}<div class="wm">made by @bbi2ne</div>`;
 }
@@ -2067,6 +2107,8 @@ function modalHtml(){
     body=suggModal(m);
   }else if(m.type==='aiimp'){
     body=`<h3>AI 제안 붙여넣기</h3><div class="muted sm" style="margin-bottom:8px">AI가 알려준 JSON을 붙여넣으면, 해당 운동의 세트 화면에서 변경 제안 창이 떠요.</div><textarea class="inp" id="aita" placeholder="여기에 붙여넣기"></textarea><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="ai-imp-run">등록</button></div>`;
+  }else if(m.type==='asym'){
+    body=asymHtml();
   }else if(m.type==='rank'){
     body=rankModal();
   }else if(m.type==='restdays'){
@@ -3495,6 +3537,14 @@ document.addEventListener('click',e=>{
     case 'sync-now':{if(!store.doc){toast('클라우드에 연결되지 않았어요',true);break}store.sync='ok';flushSave();toast('저장했어요');break}
     case 'sync-pull':{if(!store.doc)break;confirmAsk('클라우드에 저장된 데이터로 이 기기를 덮어쓸까요?\n(저장되지 않은 변경은 사라져요)',async()=>{closeModal();try{const g=await cloudGet();if(!g){toast('클라우드에 저장된 데이터가 없어요',true);return}S=g.r;store.base=g.r.updated||0;store.dirty=false;localWrite();render(true);updPill();toast('클라우드에서 불러왔어요')}catch(e){toast('불러오지 못했어요: '+errMsg(e),true)}});break}
     case 'sync-bak':{if(!store.bak)break;confirmAsk('하루 전 자동 백업으로 되돌릴까요?\n(현재 데이터는 덮어써져요)',async()=>{closeModal();try{const g=await cloudGet(store.bak);if(!g){toast('백업이 아직 없어요',true);return}S=g.r;S.updated=Date.now();store.dirty=true;localWrite();flushSave();render(true);updPill();toast('백업에서 복원했어요')}catch(e){toast('복원하지 못했어요: '+errMsg(e),true)}});break}
+    case 'asym-open':openModal({type:'asym'});break;
+    case 'asym-side':S.asym=Object.assign({},S.asym,{side:d.v});save();renderModal();break;
+    case 'asym-c':{const A=Object.assign({c:[]},S.asym),c=[...(A.c||[])],i=c.indexOf(d.v);i>=0?c.splice(i,1):c.push(d.v);A.c=c;S.asym=A;save();renderModal();break}
+    case 'asym-today':{const dt=today(),title='<좌우 비대칭 교정>';let s=S.sessions.find(x=>x.date===dt&&x.title===title);
+      if(!s){s=newSession(dt,asymItems(),title);s.memo='약한 쪽을 먼저, 거울을 보며 양쪽 높이를 맞춰요.';save();toast('오늘 일지에 교정 운동을 넣었어요')}else toast('오늘 교정 일지가 이미 있어요');
+      closeModal();U.date=dt;FRESH=`[data-skey="${s.id}"]`;tutGo('log');break}
+    case 'asym-routine':{const name='⚖️ 좌우 비대칭 교정',r=S.routines.find(x=>x.name===name),items=asymItems().map(i=>({exId:i.exId,note:i.note,sets:i.sets}));
+      if(r)r.items=items;else S.routines.push({id:uid(),name,items});save();toast(r?'교정 루틴을 새로 고쳤어요':'루틴 탭에 교정 루틴을 저장했어요');closeModal();renderView(false);break}
     case 'rank-ch':rankChallenge();break;
     case 'rank-open':rankSfx(overallTier().i);openModal({type:'rank'});break;
     case 'streak-set':openModal({type:'restdays'});break;
