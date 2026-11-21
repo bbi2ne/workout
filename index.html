@@ -285,6 +285,14 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .fchl{text-align:center;font-size:17px;font-weight:700;margin:2px 0 4px;line-height:1.4}.fcr{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1px solid var(--line)}.fcr.big{background:linear-gradient(90deg,rgba(255,255,255,.06),transparent);border-radius:10px}.fcw{font-size:13px;font-weight:700;text-align:right;white-space:nowrap}
 .asymbtn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
 .card.asymcard{border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
+.pkcard{margin-top:16px;padding:12px;border-radius:14px;border:1px solid rgba(255,214,10,.35);background:rgba(255,214,10,.06)}.pkchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pkc{cursor:pointer;font:inherit;font-size:13px;padding:7px 10px;color:var(--ink);background:rgba(255,255,255,.07);border:1px solid var(--line)}.pkc:active{transform:scale(.94)}.pkchips.sent{animation:pkbump .4s}
+@keyframes pkbump{30%{transform:translateX(6px)}60%{transform:translateX(-4px)}}
+.pkov{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fadein .2s}
+.pkbox{width:min(320px,86vw);padding:22px 18px 16px;border-radius:24px;text-align:center;background:rgba(40,40,44,.92);border:1px solid rgba(255,214,10,.45);box-shadow:0 0 40px rgba(255,214,10,.25);animation:pkshake .6s .1s}
+.pkf{font-size:64px;line-height:1;animation:pkpoke .7s ease-in-out 3}.pkt{font-size:18px;margin-top:10px}.pkt b{color:#ffd60a}.pkm{margin-top:6px;font-size:15px;color:var(--ink)}
+@keyframes pkpoke{0%,100%{transform:translateX(-14px) rotate(-8deg)}45%{transform:translateX(16px) rotate(0)}55%{transform:translateX(10px) scale(1.1)}}
+@keyframes pkshake{20%{transform:rotate(-3deg)}40%{transform:rotate(3deg)}60%{transform:rotate(-2deg)}80%{transform:rotate(1deg)}}
+@keyframes fadein{from{opacity:0}}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -676,6 +684,8 @@ function tone(f,t0,dur,type,vol){
 }
 const SFX={
   tap:[[1180,0,.05,'sine',.10]],
+  poke:[[880,0,.06,'square',.07],[1320,.08,.07,'square',.07],[880,.2,.06,'square',.06],[1320,.28,.12,'sine',.1]],
+  pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
   fold:[[540,0,.08,'sine',.11],[400,.06,.1,'sine',.10],[290,.12,.16,'triangle',.09]],
   unfold:[[290,0,.08,'sine',.11],[430,.06,.1,'sine',.11],[640,.12,.18,'triangle',.10]],
   tick:[[1500,0,.035,'triangle',.08]],
@@ -1457,8 +1467,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.21i';
-const APP_NEWS=['비대칭 교정 루틴과 일지에도 빨간 테두리가 표시돼요','⚖️ 비대칭 교정에 "짧게 · 10분 워밍업" 옵션 추가','⚖️ 좌우 비대칭 교정: 더보기에서 고민을 고르면 교정 루틴을 짜줘요','홈 화면 접속 인원 표시를 뺐어요'];
+const APP_VER='2026.11.21k';
+const APP_NEWS=['🔔 푸쉬 알림: 더보기 → 설정에서 켜면 친구가 콕 찌를 때 앱을 닫아도 알림이 와요','👉 콕 찌르기: 랭킹에서 친구 프로필을 눌러 살짝 깨울 수 있어요','비대칭 교정 루틴과 일지에 빨간 테두리'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2029,6 +2039,7 @@ function moreView(){
   <button class="card tutrp" data-act="tut-replay"><span style="font-size:24px">📘</span><span style="flex:1;text-align:left"><b>튜토리얼 다시보기</b><span class="muted sm" style="display:block;margin-top:2px">앱 기능을 직접 눌러보며 다시 둘러봐요</span></span><span class="muted">›</span></button>
   <button class="card asymbtn" data-act="asym-open"><span style="font-size:24px">⚖️</span><span style="flex:1;text-align:left"><b>좌우 비대칭 교정</b><span class="muted sm" style="display:block;margin-top:2px">Y 레이즈·밴드 날개뼈 운동으로 약한 쪽을 맞춰요</span></span><span style="color:#ff5a5a;font-size:20px">›</span></button>
   <h2>설정</h2>
+  ${puCard()}
   <div class="card"><div class="row between"><span>효과음</span><button class="sw ${S.sound?'on':''}" data-act="sound-toggle" aria-label="효과음"></button></div>
   <div class="vol"><span class="vi">🔈</span><input type="range" min="0" max="100" step="1" value="${S.vol==null?50:S.vol}" data-bind="vol" style="--p:${S.vol==null?50:S.vol}%" aria-label="효과음 크기"><span class="vi">🔊</span><b id="volv">${S.vol==null?50:S.vol}</b></div></div>
   <div class="card"><div class="row between"><span>배경음악 <span class="muted sm">운동 중에는 꺼져요</span></span><button class="sw ${S.bgm?'on':''}" data-act="bgm-toggle" aria-label="배경음악"></button></div>
@@ -2161,7 +2172,7 @@ const commAvail=()=>!!(store.db&&store.uid);
 function commStart(){
   if(C.subbed||!store.db)return;C.subbed=true;
   const un=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>{try{fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{})))}catch(e){}C.got[name]=true;C.err='';commRefresh()},e=>{C.err=(e&&e.code)||'err';commRefresh()})}catch(e){C.err='err'}};
-  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});
+  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{puLoad()}catch(e){}
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
@@ -2202,6 +2213,87 @@ function miniTree(lvs){
   SKCAT.forEach(c=>{const l=lab[c.id];t+=`<text x="${l.x}" y="${l.y+6}" text-anchor="middle" style="font-size:56px;font-weight:800;fill:${c.c}">${c.n}</text>`});
   return `<svg class="mtree" viewBox="0 -30 ${W} ${H-30}" preserveAspectRatio="xMidYMid meet">${e}${t}${n}</svg>`;
 }
+/* ---------- 콕 찌르기 (친구 깨우기) ---------- */
+const PK={all:[],last:{}};
+const PK_MSG=['운동할 시간이야! 💪','오늘 운동 했어? 👀','같이 운동하자 🔥','플랭크 1분만 하자 😆'];
+const pkKey=()=>'planlog_pk_'+(store.uid||'');
+function pkSnap(a){PK.all=a;const me=store.uid;if(!me)return;let seen=0;try{seen=+localStorage.getItem(pkKey())||0}catch(e){}
+  if(!seen)seen=Date.now()-864e5;
+  const news=[];a.forEach(d=>{if(d.id===me)return;(Array.isArray(d.items)?d.items:[]).forEach(it=>{if(it&&it.to===me&&+it.ts>seen)news.push({from:d.id,nick:String(d.nick||'친구').slice(0,12),ts:+it.ts,m:String(it.m||'').slice(0,40)})})});
+  if(!news.length){try{if(!localStorage.getItem(pkKey()))localStorage.setItem(pkKey(),String(seen))}catch(e){}return}
+  news.sort((x,y)=>x.ts-y.ts);try{localStorage.setItem(pkKey(),String(news[news.length-1].ts))}catch(e){}
+  pkShow(news);
+}
+function pkShow(news){
+  const n=news[news.length-1],more=news.length-1;
+  if(document.hidden&&!puOn()){try{if('Notification' in window&&Notification.permission==='granted')new Notification(`👉 ${n.nick}님이 콕 찔렀어요`,{body:n.m||'운동할 시간이에요!',icon:'icon-192.png',tag:'pk'})}catch(e){}}
+  const old=$('#pkov');if(old)old.remove();
+  const el=document.createElement('div');el.id='pkov';el.className='pkov';
+  el.innerHTML=`<div class="pkbox"><div class="pkf">👉</div><div class="pkt"><b>${esc(n.nick)}</b>님이 콕 찔렀어요!</div><div class="pkm">${esc(n.m||'운동할 시간이에요!')}</div>${more?`<div class="muted sm" style="margin-top:4px">그 외 ${more}번 더 찔렸어요</div>`:''}<div class="row" style="gap:8px;margin-top:16px"><button class="btn" data-pk="back" style="flex:1">나도 콕 👉</button><button class="btn pri" data-pk="go" style="flex:1">운동하러 가기</button></div></div>`;
+  document.body.appendChild(el);
+  const go=()=>{sfx('poke');try{navigator.vibrate&&navigator.vibrate([90,60,90,60,160])}catch(e){}};
+  if(document.hidden){const f=()=>{if(!document.hidden){document.removeEventListener('visibilitychange',f);go()}};document.addEventListener('visibilitychange',f)}else go();
+  el.addEventListener('click',e=>{const b=e.target.closest('[data-pk]');if(!b&&e.target!==el)return;el.remove();
+    if(b&&b.dataset.pk==='back')pkSend(n.from,'나도 운동할게! 💪');
+    if(b&&b.dataset.pk==='go'){closeModal&&U.modal&&closeModal();tutGo('log')}});
+}
+/* ---------- 푸쉬 알림 (Cloudflare Workers 서버로 보내요, 사이트에서만) ---------- */
+const VAPID_PUB='BMTZrZ9u2Azhw_sscFpmp5GT5IUc0jitAHDQTBzwgd4wcpaRcSuCCO9RNcADKo6stn2hi5DRb9kG38L2dVSy68k';
+const PSH={url:'',st:'',busy:false};
+const puKey=()=>'planlog_push_'+(store.uid||'');
+const puOn=()=>{try{return localStorage.getItem(puKey())==='1'}catch(e){return false}};
+const puOK=()=>!!(window.FB_MODE&&'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window);
+const puIOSNeedHome=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)&&!(navigator.standalone||matchMedia('(display-mode: standalone)').matches);
+const u8=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s);return Uint8Array.from(b,c=>c.charCodeAt(0))};
+async function puLoad(){if(!window.FB_MODE||!store.db)return;try{const g=await store.db.collection('meta').doc('push').get();PSH.url=(g.exists&&g.data()&&String(g.data().url||''))||''}catch(e){}
+  if(puOn()&&Notification.permission==='granted')puEnable(true)}
+async function puEnable(silent){
+  if(!puOK()){if(!silent)toast(puIOSNeedHome()?'아이폰은 홈 화면에 추가한 앱에서 켤 수 있어요':'이 브라우저는 푸쉬 알림을 지원하지 않아요');return}
+  if(!store.uid){if(!silent)toast('로그인하면 켤 수 있어요');return}
+  PSH.busy=true;if(!silent)renderView(false);
+  try{const perm=silent?Notification.permission:await Notification.requestPermission();
+    if(perm!=='granted'){if(!silent)toast('알림이 차단돼 있어요. 브라우저 설정에서 이 사이트 알림을 허용해 주세요');return}
+    const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;
+    let sub=await reg.pushManager.getSubscription();
+    if(sub&&sub.options&&sub.options.applicationServerKey){const k=new Uint8Array(sub.options.applicationServerKey);if(btoa(String.fromCharCode(...k)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')!==VAPID_PUB){await sub.unsubscribe();sub=null}}
+    if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID_PUB)});
+    await store.db.collection('ps').doc(store.uid).set({sub:JSON.parse(JSON.stringify(sub)),ts:Date.now()});
+    try{localStorage.setItem(puKey(),'1')}catch(e){}
+    if(!silent){toast('🔔 푸쉬 알림을 켰어요');sfx('on')}
+  }catch(e){if(!silent)toast('알림을 켜지 못했어요: '+((e&&e.message)||'오류').slice(0,40))}
+  finally{PSH.busy=false;if(!silent&&U.tab==='more')renderView(false)}
+}
+async function puDisable(){
+  try{localStorage.removeItem(puKey())}catch(e){}
+  try{const reg=await navigator.serviceWorker.getRegistration();const sub=reg&&await reg.pushManager.getSubscription();if(sub)await sub.unsubscribe()}catch(e){}
+  try{await store.db.collection('ps').doc(store.uid).delete()}catch(e){}
+  toast('푸쉬 알림을 껐어요');if(U.tab==='more')renderView(false);
+}
+async function puSend(to,title,body){
+  if(!window.FB_MODE||!PSH.url||!store.db)return 'nourl';
+  try{const g=await store.db.collection('ps').doc(to).get();const d=g.exists&&g.data();if(!d||!d.sub)return 'off';
+    const r=await fetch(PSH.url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({sub:d.sub,title,body,tag:'pk'})});
+    const j=await r.json().catch(()=>({}));return j.ok?'sent':j.gone?'off':'fail'}catch(e){return 'fail'}
+}
+function puCard(){
+  if(!window.FB_MODE)return '';
+  const on=puOn()&&puOK()&&Notification.permission==='granted';
+  const why=!puOK()?(puIOSNeedHome()?'아이폰은 사파리 공유 버튼 → 홈 화면에 추가 → 그 아이콘으로 열면 켤 수 있어요':'이 브라우저는 푸쉬 알림을 지원하지 않아요'):(Notification.permission==='denied'?'브라우저 설정에서 이 사이트 알림이 차단돼 있어요':'친구가 콕 찌르면 앱을 닫아도 알림이 와요');
+  return `<div class="card"><div class="row between"><span>🔔 푸쉬 알림 <span class="muted sm" style="display:block;margin-top:2px;line-height:1.4">${why}</span></span><button class="sw ${on?'on':''}" data-act="push-tg" aria-label="푸쉬 알림"${PSH.busy?' disabled':''}></button></div>
+  ${C.admin?`<div class="muted sm" style="margin-top:10px">관리자 · 푸쉬 서버 주소 ${PSH.url?'✅':'(아직 없음)'}</div><div class="row" style="gap:8px;margin-top:6px"><input class="inp" id="puurl" placeholder="https://….workers.dev" value="${esc(PSH.url)}" style="flex:1;min-width:0"><button class="btn sm pri" data-act="push-url">저장</button></div>`:''}</div>`;
+}
+async function pkSend(to,m){
+  if(needJoin())return;const me=store.uid;if(!me||to===me)return;
+  const now=Date.now();if(PK.last[to]&&now-PK.last[to]<60000){toast('방금 찔렀어요. 1분 뒤에 다시 찔러주세요');return}
+  PK.last[to]=now;
+  const x=C.lb.find(y=>y.id===to),mine=PK.all.find(d=>d.id===me),items=((mine&&Array.isArray(mine.items))?mine.items:[]).filter(it=>it&&now-(+it.ts)<7*864e5).concat({to,ts:now,m:String(m||'').slice(0,40)}).slice(-30);
+  sfx('pokesend');try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
+  const btn=$('.pkchips');if(btn){btn.classList.remove('sent');void btn.offsetWidth;btn.classList.add('sent')}
+  const fn=x?String(x.nick||'친구').slice(0,12):'친구';
+  try{await store.db.collection('pk').doc(me).set({nick:cnick(),items})}catch(e){PK.last[to]=0;commErr(e);return}
+  const r=await puSend(to,`👉 ${cnick()||'친구'}님이 콕 찔렀어요`,String(m||'운동할 시간이야!').slice(0,40));
+  toast(r==='sent'?`👉 ${fn}님을 콕 찔렀어요 · 🔔 알림 보냄`:r==='off'?`👉 ${fn}님을 콕 찔렀어요 · 친구가 앱을 열면 보여요`:`👉 ${fn}님을 콕 찔렀어요`);
+}
 function profHtml(m){
   let x=C.lb.find(y=>y.id===m.u);
   if(m.u&&m.u===store.uid&&S.comm&&S.comm.on){try{x=Object.assign({},x||{},lbDoc(),{id:store.uid})}catch(e){}}
@@ -2223,6 +2315,7 @@ function profHtml(m){
   ${top?`<div class="row" style="gap:6px;flex-wrap:wrap">${top}</div>`:''}
   ${x.lvm&&typeof x.lvm==='object'?`<div class="mtw">${miniTree(x.lvm)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
   <div class="muted sm c" style="margin-top:14px">${x.since?`${shortDate(x.since)}부터 기록 · `:''}공유한 글 ${posts}개${ago!=null?` · ${ago?ago+'일 전':'오늘'} 업데이트`:''}</div>
+  ${!me&&store.uid&&S.comm&&S.comm.on?`<div class="pkcard"><div class="pfh" style="margin-top:0">👉 콕 찌르기 <span class="muted sm" style="font-weight:500">살짝 깨워서 운동시키기</span></div><div class="pkchips">${PK_MSG.map(t=>`<button class="chip pkc" data-act="pk-send" data-u="${esc(x.id)}" data-v="${esc(t)}">${esc(t)}</button>`).join('')}</div></div>`:''}
   ${me?`<div class="row" style="gap:8px;margin-top:12px"><input class="inp" maxlength="60" placeholder="한 줄 소개 (예: 플란체 정복 중)" data-bind="cm-bio" value="${esc((S.comm&&S.comm.bio)||'')}"><button class="btn pri" style="white-space:nowrap" data-act="cm-biosave">저장</button></div>`:''}
   <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`;
 }
@@ -3660,6 +3753,9 @@ document.addEventListener('click',e=>{
     case 'cm-copy':copyRoutine(d.k);break;
     case 'ver-go':{try{flushSave()}catch(e){}const go=()=>location.replace(location.pathname+'?v='+encodeURIComponent(d.v||Date.now()));try{if(window.caches&&caches.keys)caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))).finally(go);else go()}catch(e){go()}break}
     case 'upd-copy':{const u=location.href.split('?')[0].split('#')[0];try{navigator.clipboard.writeText(u).then(()=>toast('주소를 복사했어요'),()=>toast(u))}catch(e){toast(u)}break}
+    case 'push-tg':if(PSH.busy)break;if(puOn()&&'Notification' in window&&Notification.permission==='granted')puDisable();else puEnable();break;
+    case 'push-url':{const v=(($('#puurl')||{}).value||'').trim();if(v&&!/^https:\/\/[\w.-]+(\/.*)?$/.test(v)){toast('https:// 로 시작하는 주소를 넣어주세요');break}store.db.collection('meta').doc('push').set({url:v}).then(()=>{PSH.url=v;toast(v?'푸쉬 서버 주소를 저장했어요':'푸쉬 서버 주소를 지웠어요');renderView(false)}).catch(e=>toast('저장하지 못했어요 (규칙을 먼저 게시했는지 확인)'));break}
+    case 'pk-send':if(d.u)pkSend(d.u,d.v);break;
     case 'cm-prof':if(d.u){const x=C.lb.find(y=>y.id===d.u);if(x)rankSfx(stTier(Math.max(0,Math.min(37,x.s|0))).i);openModal({type:'prof',u:d.u})}break;
     case 'cm-biosave':{S.comm=Object.assign({},S.comm||{},{bio:String(U.cmBio!=null?U.cmBio:(S.comm&&S.comm.bio)||'').trim().slice(0,60)});save();commSync(true);const x=C.lb.find(y=>y.id===store.uid);if(x)x.bio=S.comm.bio;renderModal();toast('소개를 저장했어요');break}
     case 'tut-replay':tutStart();break;
