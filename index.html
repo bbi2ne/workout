@@ -284,6 +284,9 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 @keyframes toastout{to{opacity:0;transform:translate(-50%,10px)}}
 .fchl{text-align:center;font-size:17px;font-weight:700;margin:2px 0 4px;line-height:1.4}.fcr{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1px solid var(--line)}.fcr.big{background:linear-gradient(90deg,rgba(255,255,255,.06),transparent);border-radius:10px}.fcw{font-size:13px;font-weight:700;text-align:right;white-space:nowrap}
 .asymbtn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
+.brkcard{display:flex;align-items:center;gap:12px;width:100%;color:var(--ink);font:inherit;cursor:pointer;border:1px solid rgba(100,210,255,.4)!important;background:linear-gradient(120deg,rgba(100,210,255,.12),rgba(255,255,255,.03))!important}.brki{font-size:26px}.brkgo{padding:7px 12px;border-radius:999px;background:#64d2ff;color:#00222e;font-weight:800;font-size:13px}
+.brkx{display:flex;justify-content:flex-end}.brkart{position:relative;width:200px;height:200px;margin:12px auto 4px;display:flex;align-items:center;justify-content:center}.brkart .art{width:180px;height:120px}.brkring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.brkbg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:6}.brkfg{fill:none;stroke:#64d2ff;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .2s linear}
+.brkn{font-size:20px;font-weight:800}.brkv{font-size:42px;font-weight:900;color:#64d2ff;line-height:1.1;margin-top:4px}.brkv small{font-size:16px;font-weight:700;margin-left:2px}.brkt{font-size:40px;font-weight:900;margin-top:10px;font-variant-numeric:tabular-nums}
 .card.asymcard{border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
 .pkcard{margin-top:16px;padding:12px;border-radius:14px;border:1px solid rgba(255,214,10,.35);background:rgba(255,214,10,.06)}.pkchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pkc{cursor:pointer;font:inherit;font-size:13px;padding:7px 10px;color:var(--ink);background:rgba(255,255,255,.07);border:1px solid var(--line)}.pkc:active{transform:scale(.94)}.pkchips.sent{animation:pkbump .4s}
 @keyframes pkbump{30%{transform:translateX(6px)}60%{transform:translateX(-4px)}}
@@ -685,6 +688,7 @@ function tone(f,t0,dur,type,vol){
 const SFX={
   tap:[[1180,0,.05,'sine',.10]],
   poke:[[880,0,.06,'square',.07],[1320,.08,.07,'square',.07],[880,.2,.06,'square',.06],[1320,.28,.12,'sine',.1]],
+  brk:[[660,0,.14,'sine',.12],[880,.16,.14,'sine',.12],[1320,.32,.4,'sine',.1]],
   pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
   fold:[[540,0,.08,'sine',.11],[400,.06,.1,'sine',.10],[290,.12,.16,'triangle',.09]],
   unfold:[[290,0,.08,'sine',.11],[430,.06,.1,'sine',.11],[640,.12,.18,'triangle',.10]],
@@ -1220,7 +1224,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1273,7 +1277,7 @@ function mergeState(L,R){
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
   o.tutDone=(L.tutDone||R.tutDone)?1:0;
-  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym'].forEach(k=>{o[k]=L[k]})}
+  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
   o.seeded=!!(L.seeded||R.seeded);o.updated=Math.max(L.updated||0,R.updated||0)+1;
@@ -1467,8 +1471,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.21k';
-const APP_NEWS=['🔔 푸쉬 알림: 더보기 → 설정에서 켜면 친구가 콕 찌를 때 앱을 닫아도 알림이 와요','👉 콕 찌르기: 랭킹에서 친구 프로필을 눌러 살짝 깨울 수 있어요','비대칭 교정 루틴과 일지에 빨간 테두리'];
+const APP_VER='2026.11.22a';
+const APP_NEWS=['📚 공부하다 1분 운동: 기록 탭 맨 위에서 누르면 자리에서 바로 할 한 세트를 골라주고 1분 타이머를 돌려줘요','🔔 푸쉬 알림: 더보기 → 설정에서 켜면 콕 찌르기를 앱 밖에서도 받아요','👉 콕 찌르기: 랭킹에서 친구 프로필을 눌러 살짝 깨울 수 있어요'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1638,6 +1642,42 @@ const foldMap=()=>{if(!U.fold){try{U.fold=JSON.parse(localStorage.getItem('planl
 const isShut=(fm,id)=>fm[id]!==0;
 const foldSave=()=>{try{localStorage.setItem('planlog_fold2',JSON.stringify(U.fold||{}))}catch(e){}};
 const foldNames=s=>s.items.map(it=>exOf(it).name.replace(' (현재 단계)','')).join(' · ')||'종목 없음';
+/* ---------- 📚 공부 쉬는 시간 1분 운동 ---------- */
+// [이름, 장소(s=서서/f=바닥), 기본 횟수·초, 한쪽씩?, 한마디]
+const BRK=[['스쿼트','s',20,0,'의자에서 일어나서 바로! 무릎은 발끝 방향으로'],['의자 스쿼트','s',15,0,'의자에 엉덩이만 살짝 닿고 일어나요'],['벽 푸쉬업','s',15,0,'벽에 손 짚고 가슴이 벽에 닿을 듯이'],['인클라인 푸쉬업','s',12,0,'책상 모서리를 잡고 몸은 일자로'],['카프 레이즈','s',30,0,'발뒤꿈치를 최대한 높이, 천천히 내려요'],['월 싯','s',45,0,'벽에 등 대고 의자에 앉은 자세로 버티기'],['런지','s',10,1,'한쪽씩 번갈아, 상체는 곧게'],['월 슬라이드','s',12,0,'오래 앉아 굽은 어깨를 펴줘요'],
+ ['플랭크','f',45,0,'엉덩이가 처지지 않게 배에 힘'],['글루트 브릿지','f',20,0,'오래 앉아 굳은 엉덩이를 깨워요'],['사이드 플랭크','f',25,1,'한쪽씩, 골반을 높이'],['버드독','f',8,1,'반대 팔다리를 천천히 뻗어요'],['데드버그','f',12,0,'허리를 바닥에 붙인 채로'],['스캐풀라 푸쉬업','f',12,0,'팔 편 채 날개뼈만 움직여요']];
+let BK=null;
+const brkPl=()=>(S.brk&&S.brk.pl)||'s';
+function brkPick(){const pl=brkPl(),pool=BRK.filter(b=>pl==='f'||b[1]==='s').filter(b=>!BK||b[0]!==BK.n);
+  const b=pool[Math.floor(Math.random()*pool.length)],ex=S.exercises.find(e=>e.name===b[0]),isT=ex&&ex.type==='time';
+  let best=0;if(ex)records().forEach(r=>{if(r.exId===ex.id&&+r.r>best)best=+r.r});
+  let v=b[2];if(best)v=isT?Math.min(60,Math.max(15,Math.round(best*.7/5)*5)):Math.min(Math.round(b[2]*1.6),Math.max(Math.ceil(b[2]*.5),Math.round(best*.6)));
+  BK={n:b[0],ex,v,u:isT?'초':'회',uni:b[3],tip:b[4],t0:0,left:60,done:false,timer:null};}
+function brkCount(){const d=today(),s=S.sessions.find(x=>x.date===d&&x.title==='<공부 쉬는 시간>');return s?s.items.reduce((a,i)=>a+i.sets.filter(x=>x.done).length,0):0}
+function brkCard(){const n=brkCount();
+  return `<button class="card brkcard" data-act="brk-open"><span class="brki">📚</span><span style="flex:1;text-align:left"><b>공부하다 지쳤다면? 1분 운동</b><span class="muted sm" style="display:block;margin-top:2px">${n?`오늘 쉬는 시간 운동 ${n}번 했어요 👍`:'자리에서 바로 하는 한 세트를 골라줄게요'}</span></span><span class="brkgo">시작</span></button>`}
+function brkHtml(){
+  const B=BK,run=B.t0&&!B.done,R=2*Math.PI*54,pct=B.left/60;
+  return `<div class="brkx"><button class="ibtn" data-act="brk-close" aria-label="닫기">✕</button></div>
+  <div class="c muted sm" style="margin-top:-8px">📚 공부 쉬는 시간 · 1분</div>
+  ${run||B.done?'':`<div class="seg" style="margin:12px 0 0">${[['s','🏫 서서만 (교실·독서실)'],['f','🏠 바닥도 OK']].map(([v,t])=>`<button class="btn ${brkPl()===v?'on':''}" data-act="brk-pl" data-v="${v}">${t}</button>`).join('')}</div>`}
+  <div class="brkart">${run?`<svg class="brkring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="brkbg"/><circle cx="60" cy="60" r="54" class="brkfg" id="brkfg" style="stroke-dasharray:${R};stroke-dashoffset:${R*(1-pct)}"/></svg>`:''}${exArt(B.ex||{name:B.n},true,'lg')}</div>
+  <div class="c"><div class="brkn">${esc(B.n)}</div><div class="brkv">${B.v}<small>${B.u}</small>${B.uni?'<small> 씩 (양쪽)</small>':''}</div><div class="muted sm" style="margin-top:6px">${esc(B.tip)}</div></div>
+  ${B.done?`<div class="c" style="margin-top:14px"><div style="font-size:30px">🎉</div><b>끝! 다시 집중하러 가요</b></div>
+    <div class="row" style="gap:8px;margin-top:16px"><button class="btn" data-act="brk-again" style="flex:1">한 세트 더</button><button class="btn pri" data-act="brk-log" style="flex:1">기록하고 닫기</button></div>`
+  :run?`<div class="c brkt" id="brkt">${Math.ceil(B.left)}</div><div class="row" style="gap:8px;margin-top:10px"><button class="btn" data-act="brk-stop" style="flex:1">그만하기</button><button class="btn pri" data-act="brk-end" style="flex:1">다 했어요</button></div>`
+  :`<div class="row" style="gap:8px;margin-top:18px"><button class="btn" data-act="brk-next" style="flex:1">🔀 다른 운동</button><button class="btn pri" data-act="brk-start" style="flex:1.4">▶ 1분 시작</button></div>`}`;
+}
+function brkStop(){if(BK&&BK.timer){clearInterval(BK.timer);BK.timer=null}}
+function brkFinish(){brkStop();if(!BK||BK.done)return;BK.done=true;sfx('brk');try{navigator.vibrate&&navigator.vibrate([60,80,60])}catch(e){}renderModal()}
+function brkStart(){BK.t0=Date.now();BK.left=60;BK.done=false;sfx('on');renderModal();const R=2*Math.PI*54;
+  BK.timer=setInterval(()=>{if(!BK)return brkStop();BK.left=Math.max(0,60-(Date.now()-BK.t0)/1000);const t=$('#brkt'),f=$('#brkfg');if(t)t.textContent=Math.ceil(BK.left);if(f)f.style.strokeDashoffset=R*(1-BK.left/60);
+    if(BK.left<=3&&BK.left>0&&Math.ceil(BK.left)!==BK.lt){BK.lt=Math.ceil(BK.left);sfx('tap')}
+    if(BK.left<=0)brkFinish();if(!U.modal||U.modal.type!=='brk')brkStop()},200)}
+function brkLog(){const d=today(),title='<공부 쉬는 시간>';let s=S.sessions.find(x=>x.date===d&&x.title===title);
+  if(!s){s=newSession(d,[],title);s.memo='공부하다 1분씩 한 운동이에요'}
+  const id=BK.ex?BK.ex.id:exId(BK.n,'기타','wr');let it=s.items.find(i=>i.exId===id);if(!it){it={exId:id,sets:[]};s.items.push(it)}
+  it.sets.push({w:'',r:BK.v,done:true});save();toast(`기록했어요 · 오늘 ${brkCount()}번째 쉬는 시간 운동 💪`)}
 function logView(){
   const list=S.sessions.filter(s=>s.date===U.date).sort((a,b)=>(a.created||0)-(b.created||0));
   const fm=foldMap(),allShut=list.length>0&&list.every(s=>isShut(fm,s.id));
@@ -1653,7 +1693,7 @@ function logView(){
       <div class="row wrap" style="margin-top:10px"><button class="btn sm" data-act="save-routine" data-o="${s.id}">루틴으로 저장</button><button class="btn sm bad" data-act="del-session" data-o="${s.id}">일지 삭제</button></div></div>
     </div></div>
   </div>`).join('');
-  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${streakCard()}
+  return `<h1>운동 기록</h1><p class="sub">${longDate(U.date)}</p>${streakCard()}${U.date===today()?brkCard():''}
   <div class="card"><div class="row between">
     <button class="btn ic" data-act="date-prev">‹</button>
     <input type="date" class="inp c" style="max-width:190px;background:none;font-weight:600" data-bind="date" value="${U.date}">
@@ -2125,6 +2165,8 @@ function modalHtml(){
     body=suggModal(m);
   }else if(m.type==='aiimp'){
     body=`<h3>AI 제안 붙여넣기</h3><div class="muted sm" style="margin-bottom:8px">AI가 알려준 JSON을 붙여넣으면, 해당 운동의 세트 화면에서 변경 제안 창이 떠요.</div><textarea class="inp" id="aita" placeholder="여기에 붙여넣기"></textarea><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="ai-imp-run">등록</button></div>`;
+  }else if(m.type==='brk'){
+    if(!BK)brkPick();body=brkHtml();
   }else if(m.type==='asym'){
     body=asymHtml();
   }else if(m.type==='rank'){
@@ -3637,6 +3679,15 @@ document.addEventListener('click',e=>{
     case 'sync-now':{if(!store.doc){toast('클라우드에 연결되지 않았어요',true);break}store.sync='ok';flushSave();toast('저장했어요');break}
     case 'sync-pull':{if(!store.doc)break;confirmAsk('클라우드에 저장된 데이터로 이 기기를 덮어쓸까요?\n(저장되지 않은 변경은 사라져요)',async()=>{closeModal();try{const g=await cloudGet();if(!g){toast('클라우드에 저장된 데이터가 없어요',true);return}S=g.r;store.base=g.r.updated||0;store.dirty=false;localWrite();render(true);updPill();toast('클라우드에서 불러왔어요')}catch(e){toast('불러오지 못했어요: '+errMsg(e),true)}});break}
     case 'sync-bak':{if(!store.bak)break;confirmAsk('하루 전 자동 백업으로 되돌릴까요?\n(현재 데이터는 덮어써져요)',async()=>{closeModal();try{const g=await cloudGet(store.bak);if(!g){toast('백업이 아직 없어요',true);return}S=g.r;S.updated=Date.now();store.dirty=true;localWrite();flushSave();render(true);updPill();toast('백업에서 복원했어요')}catch(e){toast('복원하지 못했어요: '+errMsg(e),true)}});break}
+    case 'brk-open':brkStop();BK=null;brkPick();openModal({type:'brk'});break;
+    case 'brk-close':brkStop();BK=null;closeModal();break;
+    case 'brk-pl':S.brk=Object.assign({},S.brk,{pl:d.v==='f'?'f':'s'});save();BK=null;brkPick();renderModal();break;
+    case 'brk-next':brkPick();sfx('tap');renderModal();break;
+    case 'brk-start':brkStart();break;
+    case 'brk-stop':brkStop();BK.t0=0;BK.done=false;renderModal();break;
+    case 'brk-end':brkFinish();break;
+    case 'brk-again':brkPick();brkStart();break;
+    case 'brk-log':brkLog();brkStop();BK=null;closeModal();if(U.tab==='log')renderView(false);break;
     case 'asym-open':openModal({type:'asym'});break;
     case 'asym-m':S.asym=Object.assign({},S.asym,{m:d.v==='s'?'s':'f'});save();renderModal();break;
     case 'asym-side':S.asym=Object.assign({},S.asym,{side:d.v});save();renderModal();break;
