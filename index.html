@@ -296,6 +296,23 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 @keyframes pkpoke{0%,100%{transform:translateX(-14px) rotate(-8deg)}45%{transform:translateX(16px) rotate(0)}55%{transform:translateX(10px) scale(1.1)}}
 @keyframes pkshake{20%{transform:rotate(-3deg)}40%{transform:rotate(3deg)}60%{transform:rotate(-2deg)}80%{transform:rotate(1deg)}}
 @keyframes fadein{from{opacity:0}}
+.wzslots{display:flex;justify-content:space-around;gap:8px;margin:4px 0 2px}
+.wzslot{position:relative;width:88px;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:var(--mute);font:inherit;cursor:pointer;padding:0}
+.wzslot::before{content:'';width:72px;height:72px;border-radius:50%;border:2px dashed rgba(255,255,255,.25);box-sizing:border-box;transition:.25s}
+.wzslot .wzsn{position:absolute;top:22px;font-size:22px;font-weight:900;color:rgba(255,255,255,.3)}
+.wzslot b{font-size:12px;line-height:1.25;text-align:center;max-width:88px;word-break:keep-all}
+.wzslot .art{position:absolute;top:14px;width:58px;height:44px}
+.wzslot.on::before{border:2.5px solid var(--sc);background:radial-gradient(circle,color-mix(in srgb,var(--sc) 30%,transparent),rgba(255,255,255,.04) 70%);box-shadow:0 0 18px color-mix(in srgb,var(--sc) 55%,transparent)}
+.wzslot.on .wzsn{top:-6px;left:4px;font-size:12px;width:20px;height:20px;border-radius:50%;background:var(--sc);color:#111;display:flex;align-items:center;justify-content:center}
+.wzslot.on b{color:var(--ink)}.wzsx{position:absolute;top:-4px;right:2px;font-style:normal;font-size:11px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center}
+.wzslot.pop::before{animation:wzpop .5s cubic-bezier(.3,1.8,.5,1)}.wzslot.pop .art{animation:wzpop .5s cubic-bezier(.3,1.8,.5,1)}
+@keyframes wzpop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+.wzskbox{margin-top:14px}.skw.wzsk{height:min(56vh,440px);min-height:300px;border-radius:20px}
+.wzsklab{position:absolute;left:14px;top:10px;font-weight:800;font-size:13px;color:var(--mute);pointer-events:none}
+#sksvg .skn.wzsel .skb{stroke-width:5;filter:drop-shadow(0 0 10px #ffd60a)}#sksvg .skn.wzsel .skb{stroke:#ffd60a!important}
+.wzfly{position:fixed;z-index:9999;width:56px;height:56px;border-radius:50%;background:#1b1b1d;border:2.5px solid var(--sc);box-shadow:0 0 22px var(--sc);display:flex;align-items:center;justify-content:center;pointer-events:none}.wzfly .art{width:44px;height:32px}
+.wzspk{position:fixed;z-index:9999;width:6px;height:6px;border-radius:50%;pointer-events:none;animation:wzspk .6s ease-out forwards}
+@keyframes wzspk{to{transform:translate(var(--dx),var(--dy));opacity:0}}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -719,6 +736,9 @@ const SFX={
   ignite:[[90,0,.5,'sawtooth',.05],[140,.05,.5,'triangle',.06],[220,.35,.25,'sine',.06],[330,.45,.3,'sine',.07],[520,.6,.35,'sine',.08]],
   flip:[[784,0,.12,'sine',.12],[1046,.12,.14,'sine',.12],[1568,.26,.4,'sine',.1]],
   brk:[[660,0,.14,'sine',.12],[880,.16,.14,'sine',.12],[1320,.32,.4,'sine',.1]],
+  slot1:[[1047,0,.18,'sine',.16],[2093,.02,.25,'sine',.05]],
+  slot2:[[1319,0,.18,'sine',.16],[2637,.02,.25,'sine',.05]],
+  slot3:[[1568,0,.2,'sine',.16],[3136,.02,.3,'sine',.05],[2093,.12,.3,'sine',.07]],
   pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
   fold:[[540,0,.08,'sine',.11],[400,.06,.1,'sine',.10],[290,.12,.16,'triangle',.09]],
   unfold:[[290,0,.08,'sine',.11],[430,.06,.1,'sine',.11],[640,.12,.18,'triangle',.10]],
@@ -1410,7 +1430,7 @@ const TUT=[
  {s:2,sel:'nav [data-v="routine"]',tap:1,act:()=>tutGo('routine'),t:'루틴',x:'이번엔 아래 <b>루틴</b> 탭을 눌러보세요.'},
  {s:2,sel:'[data-act="routine-new"]',t:'루틴 만들기',x:'<b>+ 새 루틴</b>으로 요일별 루틴을 만들고 종목·세트·횟수를 정해요. 만든 루틴은 기록 화면에서 바로 불러올 수 있어요.'},
  {s:2,sel:tutCard('[data-act="ai-run"]'),t:'📈 점진적 과부하 검토',x:'루틴 맨 아래 <b>AI 루틴 분석</b>은 최근 기록을 보고 너무 쉽거나 어려운 운동, 부족한 부위를 찾아줘요. 고치기 전엔 항상 <b>허락을 받고</b> 바꿔요.'},
- {s:3,sel:'[data-act="ai-plan-open"]',tap:1,act:()=>{U.wiz={step:0,exp:'',freq:0,goal:'',focus:[],per:'',weeks:4,end:''};render(true)},t:'✨ AI 추천 루틴',x:'루틴 짜기가 막막하면 맡겨 주세요.<br>👆 <b>눌러보세요!</b>'},
+ {s:3,sel:'[data-act="ai-plan-open"]',tap:1,act:()=>{U.wiz={step:0,exp:'',freq:0,goal:'',focus:[],sk:[],per:'',weeks:4,end:''};render(true)},t:'✨ AI 추천 루틴',x:'루틴 짜기가 막막하면 맡겨 주세요.<br>👆 <b>눌러보세요!</b>'},
  {s:3,sel:'.wz',t:'질문 6개면 끝',x:'운동 경험 · 나이·키·체중 · 주 몇 회 · 목표 · 집중 부위 · 기간만 고르면 맞춤 루틴이 <b>AI 생성 플랜</b>으로 만들어져요. 지금은 구경만 하고 나갈게요.',post:()=>{U.wiz=null;render(true);window.scrollTo(0,0)}},
  {s:4,sel:'nav [data-v="comm"]',tap:1,act:()=>tutGo('comm'),t:'커뮤니티',x:'<b>커뮤니티</b> 탭을 눌러보세요.'},
  {s:4,sel:'.cmrank',t:'🏆 랭킹',x:'함께 쓰는 친구들과 티어 순위를 비교해요. <b>종합</b>과 <b>부위별</b>로 볼 수 있어요.'},
@@ -1501,8 +1521,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.22b';
-const APP_NEWS=['🔥 그날 첫 운동을 마치면 스트릭에 불을 지피는 애니메이션이 나와요','📚 1분 운동도 끝나면 운동 완료 축하 화면이 떠요','📚 공부하다 1분 운동: 기록 탭 맨 위에서 시작'];
+const APP_VER='2026.11.22c';
+const APP_NEWS=['🤸 AI 추천 루틴에 "맨몸운동 기술 만들기" 목표 추가: 기술 트리에서 하고 싶은 기술을 3개까지 고르면 단계별 플랜을 짜줘요','🔥 그날 첫 운동을 마치면 스트릭 점화 애니메이션','📚 1분 운동 완료 축하 화면'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1741,7 +1761,7 @@ function logView(){
 /* ---------- AI 추천 루틴 만들기 ---------- */
 const WZ_FREQ=[6,5,4,3,2,1];
 const WZ_EXP=[['intro','🌱','입문자','운동을 거의 해본 적이 없어요'],['begin','🔰','초보자','푸쉬업·스쿼트 정도는 해봤어요 (6개월 미만)'],['mid','💪','중급자','꾸준히 운동해 왔고 풀업·딥스도 할 수 있어요'],['pro','🔥','전문가','고난도 기술(플란체·머슬업 등)을 연습하고 있어요']];
-const WZ_GOALS=[['start','🔰','웨이트 트레이닝 시작','웨이트 트레이닝을 시작하는데 필요한 기초를 다져요'],['muscle','💪','근육량 증가','근육을 키워 더 강하고 균형 잡힌 몸을 만들어요'],['diet','🔥','다이어트','체중을 감량하고 건강한 체형을 만들어요'],['target','🎯','특정 부위 공략','특정 부위를 집중적으로 강화하고 개선해요'],['habit','🌱','건강한 습관 만들기','꾸준히 실천할 수 있는 건강한 습관을 만들어요'],['fit','⚡','체력 향상','근력과 지구력을 고르게 끌어올려요']];
+const WZ_GOALS=[['skill','🤸','맨몸운동 기술 만들기','플란체·머슬업·핸드스탠드 같은 기술을 단계별로 만들어요'],['muscle','💪','근육량 증가','근육을 키워 더 강하고 균형 잡힌 몸을 만들어요'],['diet','🔥','다이어트','체중을 감량하고 건강한 체형을 만들어요'],['target','🎯','특정 부위 공략','특정 부위를 집중적으로 강화하고 개선해요'],['habit','🌱','건강한 습관 만들기','꾸준히 실천할 수 있는 건강한 습관을 만들어요'],['fit','⚡','체력 향상','근력과 지구력을 고르게 끌어올려요']];
 const WZ_FOCUS=[['평생 숙제 다이어트','전신','cut'],['뱃살, 옆구리살 빼기','복근','cut'],['팔뚝 군살 제거','팔','cut'],['슬림한 하체 라인 만들기','하체','cut'],['벌크업 하기','전신','bulk'],['넓은 어깨 갖기','어깨',''],['마른 몸 벗어나기','전신','bulk'],['굵고 큰 팔 만들기','팔',''],['탄탄한 몸 만들기','전신',''],['힙업','하체',''],['하체 근력 강화','하체',''],['직각 어깨 갖기','어깨',''],['두꺼운 가슴 갖기','가슴',''],['가슴 볼륨 업','가슴',''],['등 라인 정리','등',''],['넓은 등 갖기','등',''],['전체적인 근육량 증가','전신','bulk'],['선명한 복근 만들기','복근',''],['체력 향상','전신',''],['체지방 제거','전신','cut'],['체중 증가','전신','bulk'],['민첩성 향상','전신',''],['유연성 향상','전신',''],['근력 향상','전신',''],['지구력 향상','전신','cut'],['신체 균형 향상','전신',''],['심폐 지구력 향상','전신','cut']];
 const WZ_POOL={
   '가슴':['인클라인 푸쉬업','푸쉬업','푸쉬업 변형','다이아몬드 푸쉬업','디클라인 푸쉬업','아처 푸쉬업'],
@@ -1768,7 +1788,7 @@ function wzValid(w){
   if(w.step===1)return wzBodyOk(w);
   if(w.step===2)return !!w.freq;
   if(w.step===3)return !!w.goal;
-  if(w.step===4)return w.focus.length>=2;
+  if(w.step===4)return w.goal==='skill'?(w.sk||[]).length>=1:w.focus.length>=2;
   return w.per==='12'||w.per==='8'||w.per==='6'||w.per==='weeks'||(w.per==='end'&&w.end>addDays(today(),0));
 }
 function wizView(){
@@ -1785,6 +1805,8 @@ function wizView(){
     body=WZ_FREQ.map(n=>`<button class="wopt ${w.freq===n?'on':''}" data-act="wz-pick" data-f="freq" data-v="${n}"><b>${n}회</b></button>`).join('')}
   else if(w.step===3){title='가장 중요한 목표는 무엇인가요?';sub='적절한 운동 추천에 필요해요! 외부에 공개되지 않아요.';
     body=WZ_GOALS.map(g=>`<button class="wopt ${w.goal===g[0]?'on':''}" data-act="wz-pick" data-f="goal" data-v="${g[0]}"><span class="wi">${g[1]}</span><span><b>${g[2]}</b><span class="muted sm" style="display:block;margin-top:3px">${g[3]}</span></span></button>`).join('')}
+  else if(w.step===4&&w.goal==='skill'){title='가장 하고 싶은 기술을 골라주세요';sub='최대 3개 · 먼저 고른 기술을 가장 집중해서 훈련해요';
+    body=wzSkHtml(w)}
   else if(w.step===4){title='어떤 부분에 초점을 맞춰 운동하고 싶으신가요?';sub='여러 목표를 선택하면, 구체적인 운동 추천에 도움이 돼요';
     body=`<div class="wchips">${WZ_FOCUS.map(f=>`<button class="wchip ${w.focus.includes(f[0])?'on':''}" data-act="wz-focus" data-v="${esc(f[0])}">${f[0]}</button>`).join('')}</div><div class="muted sm c" style="margin-top:14px">${w.focus.length>=2?`${w.focus.length}개 선택했어요`:'2개 이상 선택해 주세요'}</div>`}
   else{title='원하는 플랜 기간을 선택해 주세요';sub='언제든지 변경할 수 있어요.';
@@ -1796,6 +1818,75 @@ function wizView(){
   return `<div class="wzfull ${an?'an':''}"><div class="wzsc"><div class="wzbar"><i style="width:${(w.step+1)/N*100}%"></i></div><h1 style="font-size:26px;line-height:1.3;margin:14px 0 6px">${title}</h1><p class="sub" style="margin-bottom:18px">${sub}</p><div class="wz">${body}</div></div>
   <div class="wzft">${w.err?`<div class="muted sm c" style="color:var(--bad,#ff453a);margin-bottom:10px">${esc(w.err)}</div>`:''}
   <div class="row" style="gap:10px;flex-wrap:nowrap"><button class="btn big" style="margin:0;flex:0 0 30%;background:rgba(255,255,255,.1)" data-act="wz-back">${w.step?'이전':'닫기'}</button><button class="btn pri big" style="margin:0;flex:1;background:#30d158;color:#04230f;${wzValid(w)?'':'opacity:.4;pointer-events:none'}" data-act="wz-next" id="wznext">${w.step===5?'✨ AI 루틴 만들기':'다음'}</button></div></div></div>`;
+}
+/* ---------- 기술 목표 고르기 (최대 3개) ---------- */
+function wzSkHtml(w){
+  const sk=w.sk||[],lv=skLevels();
+  const slots=[0,1,2].map(i=>{const x=sk[i]&&SKBY[sk[i]],cat=x&&SKCAT.find(c=>c.id===x.c);
+    return `<button class="wzslot ${x?'on':''} ${w._pop===i?'pop':''}" id="wzslot${i}" data-act="wz-slot" data-v="${i}" ${x?`style="--sc:${cat.c}"`:''}><span class="wzsn">${i+1}</span>${x?`<svg class="art" viewBox="0 0 120 80">${skArtInner(x.k)}</svg>`:''}<b>${x?esc(x.n):['1순위','2순위','3순위'][i]}</b>${x?`<i class="wzsx">✕</i>`:''}</button>`}).join('');
+  w._pop=-1;
+  const info=sk.length?`<div class="muted sm c" style="margin-top:8px">${sk.map((id,i)=>{const n=wzSkPath(id).length;return `${i+1}. ${esc(SKBY[id].n)} ${lv[id].lv>=3?'(이미 마스터)':`· 지금부터 ${n}단계`}`}).join('<br>')}</div>`:'<div class="muted sm c" style="margin-top:8px">아래 트리에서 원을 눌러 목표 기술을 골라요 · 칸을 누르면 빠져요</div>';
+  return `<div class="wzslots">${slots}</div>${info}
+  <div class="wzskbox"><div class="skw wzsk" id="skw"><div class="skc" id="skc">${skSvg()}</div><div class="skz"><button data-act="sk-zoom" data-v="1.3" aria-label="확대">＋</button><button data-act="sk-zoom" data-v="0.77" aria-label="축소">－</button><button data-act="sk-fit" aria-label="전체 보기">⛶</button></div><div class="wzsklab">기술 트리</div></div></div>`;
+}
+function wzSkStart(){const w=$('#skw');if(!w)return;const ps=Object.values(SKG.P),minY=Math.min(...ps.map(p=>p.y)),minX=Math.min(...ps.map(p=>p.x));
+  const k=.8;SKV.k=k;SKV.x=30-(minX-30)*k;SKV.y=70-(minY-60)*k;skApply()}
+function wzSkMark(){const w=U.wiz;if(!w)return;document.querySelectorAll('#sksvg .skn').forEach(g=>{const i=(w.sk||[]).indexOf(g.dataset.id);g.classList.toggle('wzsel',i>=0);g.setAttribute('data-rank',i>=0?i+1:'')})}
+let WZ_FLY=false;
+function wzSkPick(id){
+  const w=U.wiz;if(!w||WZ_FLY)return;w.sk=w.sk||[];
+  const at=w.sk.indexOf(id);if(at>=0){w.sk.splice(at,1);sfx('tap');render();return}
+  if(w.sk.length>=3){toast('최대 3개까지 고를 수 있어요. 위 칸을 눌러 빼주세요');sfx('err');return}
+  const i=w.sk.length,g=document.querySelector(`#sksvg .skn[data-id="${id}"] .skb`),slot=$('#wzslot'+i),x=SKBY[id];
+  const lv=skLevels()[id];if(lv&&lv.lv>=3)toast('이미 마스터한 기술이에요. 유지 훈련으로 넣을게요');
+  sfx('slot'+(i+1));try{navigator.vibrate&&navigator.vibrate(25)}catch(e){}
+  if(!g||!slot){w.sk.push(id);w._pop=i;render();return}
+  const a=g.getBoundingClientRect(),b=slot.getBoundingClientRect(),cat=SKCAT.find(c=>c.id===x.c);
+  const f=document.createElement('div');f.className='wzfly';f.style.cssText=`left:${a.left+a.width/2-28}px;top:${a.top+a.height/2-28}px;--sc:${cat.c}`;
+  f.innerHTML=`<svg class="art" viewBox="0 0 120 80">${skArtInner(x.k)}</svg>`;document.body.appendChild(f);
+  const dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
+  WZ_FLY=true;
+  const anim=f.animate([{transform:'translate(0,0) scale(.6)',opacity:.6},{transform:`translate(${dx*.5}px,${dy*.5-70}px) scale(1.35)`,opacity:1,offset:.55},{transform:`translate(${dx}px,${dy}px) scale(1)`,opacity:1}],{duration:650,easing:'cubic-bezier(.3,.7,.3,1)',fill:'forwards'});
+  const done=()=>{f.remove();WZ_FLY=false;if(!U.wiz)return;w.sk.push(id);w._pop=i;render();
+    const s2=$('#wzslot'+i);if(s2){const r=s2.getBoundingClientRect();for(let k=0;k<12;k++){const p=document.createElement('i');p.className='wzspk';const an=k/12*Math.PI*2;p.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${(Math.cos(an)*46).toFixed(0)}px;--dy:${(Math.sin(an)*46).toFixed(0)}px;background:${cat.c}`;document.body.appendChild(p);setTimeout(()=>p.remove(),700)}}};
+  anim.onfinish=done;setTimeout(()=>{if(WZ_FLY&&f.isConnected)done()},900);
+}
+/* 목표까지 남은 단계: 아직 마스터 안 한 선행 기술을 따라 내려가요 */
+const SK_DEP={};const skDep=id=>SK_DEP[id]!=null?SK_DEP[id]:(SK_DEP[id]=(()=>{const x=SKBY[id],rq=x.rq.filter(r=>SKBY[r]&&SKBY[r].c===x.c);return rq.length?1+Math.max(...rq.map(skDep)):0})());
+/* 경험에 따라 기본 단계는 이미 된다고 봐요 (기록이 있으면 기록이 우선) */
+function wzDone(id,lv){const l=lv[id];if(l.lv>=3)return true;if(l.best>0||(S.skLv||{})[id]!=null)return false;const w=U.wiz,X=(w&&w.exp)||(S.prof&&S.prof.exp)||'begin',D={intro:-1,begin:1,mid:3,pro:5}[X];return skDep(id)<=D&&!SKBY[id].fin}
+function wzSkPath(id){const lv=skLevels(),path=[];let cur=SKBY[id],guard=0;
+  while(cur&&guard++<30){if(!wzDone(cur.id,lv)||cur.id===id)path.unshift(cur.id);else break;
+    const rq=cur.rq.map(r=>SKBY[r]).filter(Boolean);if(!rq.length||rq.every(r=>wzDone(r.id,lv)))break;
+    cur=rq.filter(r=>!wzDone(r.id,lv)).sort((a,b)=>(b.c===cur.c)-(a.c===cur.c)||lv[b.id].lv-lv[a.id].lv)[0]}
+  return path}
+const WZ_SUP={hp:['딥스','푸쉬업','다이아몬드 푸쉬업'],vp:['파이크 푸쉬업','딥스','벽 핸드스탠드 홀드'],hl:['인버티드 로우','풀업','스캐풀라 풀업'],vl:['풀업','딥스','스캐풀라 풀업'],core:['할로우 홀드','행잉 니 레이즈','플랭크'],legs:['스쿼트','불가리안 스플릿 스쿼트','글루트 브릿지']};
+function wzSkItem(x,sets,role,goal,left){
+  const e=S.exercises.find(y=>y.name===(x.ex||x.n))||S.exercises.find(y=>y.name===x.n);if(!e)return null;
+  const tm=e.type==='time';let best=0;records().forEach(r=>{if(r.exId===e.id&&+r.r>best)best=+r.r});
+  let r=role==='try'?(tm?3:2):best?(tm?Math.max(5,Math.min(60,Math.round(best*.8))):Math.max(2,Math.round(best*.75))):(tm?8:4);
+  const note=role==='try'?`🧗 다음 단계 맛보기 · 안 되면 건너뛰어도 돼요`:role==='sup'?`💪 ${goal} 보조 근력`:`🎯 ${goal}까지 ${left}단계 · 매주 ${tm?'+2초':'+1회'}씩 늘려요`;
+  return {exId:e.id,note,sets:Array.from({length:sets},()=>({w:'',r}))};
+}
+function wzSkillPlan(w){
+  const F=w.freq||3,ids=(w.sk||[]).slice(0,3),X=w.exp||'begin',hi=X==='pro'||X==='mid';
+  const plans=ids.map(id=>{const p=wzSkPath(id),g=SKBY[id];return {g,main:SKBY[p[0]||id],next:p[1]?SKBY[p[1]]:null,left:Math.max(1,p.length),sup:(WZ_SUP[g.c]||[]).map(n=>S.exercises.find(e=>e.name===n)).filter(Boolean)}});
+  const out=[];
+  for(let d=0;d<F;d++){
+    const items=[],seen=new Set(),add=it=>{if(it&&!seen.has(it.exId)&&items.length<6){seen.add(it.exId);items.push(it)}};
+    plans.forEach((P,i)=>{
+      const on=i===0||F<=2||(i===1?d%2===0||F>=5:d%3===(F>=3?2:0)||F>=5);if(!on)return;
+      const sets=i===0?(hi?5:4):i===1?3:2;
+      add(wzSkItem(P.main,sets,'main',P.g.n,P.left));
+      if(i===0&&P.next&&d%2===1)add(wzSkItem(P.next,2,'try',P.g.n));
+    });
+    const P0=plans[d%plans.length]||plans[0],sup=P0&&P0.sup[d%Math.max(1,P0.sup.length)];
+    if(sup)add({exId:sup.id,note:`💪 ${P0.g.n} 보조 근력`,sets:Array.from({length:3},()=>({w:'',r:sup.type==='time'?(hi?30:20):(hi?10:8)}))});
+    if(items.length<3&&plans[0])plans[0].sup.forEach(s=>{if(items.length<3)add({exId:s.id,note:`💪 ${plans[0].g.n} 보조 근력`,sets:Array.from({length:3},()=>({w:'',r:s.type==='time'?20:8}))})});
+    const nm=plans.filter((P,i)=>items.some(it=>it.note.includes(P.g.n))).map(P=>P.g.n).slice(0,2).join(' + ')||'기술';
+    out.push({name:nm,items});
+  }
+  return out;
 }
 function wzPrompt(w){
   const g=WZ_GOALS.find(x=>x[0]===w.goal)[2],ex=S.exercises.filter(e=>e.builtin&&Object.values(WZ_POOL).some(p=>p.includes(e.name))||e.name==='손목 돌리기').map(e=>`${e.name}(${e.part},${uT(e.type)})`).join(', ');
@@ -1846,7 +1937,7 @@ async function wzGenerate(){
   const w=U.wiz;w.busy=true;w.err='';render();window.scrollTo(0,0);
   let list=null;
   try{
-    const sm=window.claude&&window.claude.use?await window.claude.use('sample'):null;
+    const sm=w.goal!=='skill'&&window.claude&&window.claude.use?await window.claude.use('sample'):null;
     if(sm){
       const r=await Promise.race([sm(wzPrompt(w),{modelTier:'default',cache:false}),new Promise((_,j)=>setTimeout(()=>j(new Error('to')),30000))]);
       const mm=String(r&&r.text||'').match(/\{[\s\S]*\}/);let o=null;try{o=mm&&JSON.parse(mm[0])}catch(e){}
@@ -1859,10 +1950,11 @@ async function wzGenerate(){
       }
     }
   }catch(e){}
+  if(w.goal==='skill')list=wzSkillPlan(w);
   if(!list)list=wzRule(w);
   S.prof=Object.assign({},S.prof||{},{exp:w.exp,age:+w.age,h:+w.h});
   if(+w.kg&&!S.body.some(b=>b.date===today()))S.body.push({date:today(),kg:+w.kg});
-  const pid=uid(),start=today(),end=wzEnd(w),meta={id:pid,weeks:wzWeeks(w),start,end,exp:w.exp,freq:w.freq,goal:w.goal,focus:w.focus.slice()};
+  const pid=uid(),start=today(),end=wzEnd(w),meta={id:pid,weeks:wzWeeks(w),start,end,exp:w.exp,freq:w.freq,goal:w.goal,focus:w.focus.slice(),sk:(w.sk||[]).slice()};
   list.forEach((r,i)=>S.routines.push({id:uid(),name:`AI ${i+1}일차 · ${r.name}`,items:r.items,ai:meta}));
   save();U.wiz=null;render(true);window.scrollTo(0,0);sfx('success');toast('AI 루틴을 만들었어요');
 }
@@ -2513,6 +2605,7 @@ function renderView(anim){
   if(FRESH){const f=$(FRESH);FRESH=null;if(f)f.classList.add('fresh')}
   document.documentElement.classList.toggle('sk-on',U.tab==='skill');window.scrollTo&&U.tab==='skill'&&window.scrollTo(0,0);
   if(U.tab==='comm'&&SK_PREV!=='comm'){try{commSync()}catch(e){}}
+  if(U.tab==='routine'&&U.wiz&&U.wiz.step===4&&$('#skw')){if(!SKV.k)wzSkStart();else skApply();wzSkMark()}
   if(U.tab==='skill'){if(SK_PREV!=='skill')SKV.k=0;skInit();setTimeout(()=>{if(U.tab==='skill')skApply()},60)}SK_PREV=U.tab;
 }
 function renderNav(){
@@ -3769,7 +3862,7 @@ document.addEventListener('click',e=>{
     case 'rd-del':{S.restDates=(S.restDates||[]).filter(x=>x!==d.d);save();render();break}
     case 'rd-today':{const a=S.restDates||(S.restDates=[]),td=today(),i=a.indexOf(td);if(i<0)a.push(td);else a.splice(i,1);save();t.textContent=i<0?'오늘 쉬는 날 해제':'오늘 하루 쉬는 날로 지정';refreshStreak();break}
     case 'skill-goal':{sfx('whoosh');S.goal=d.v;save();document.querySelectorAll('.goals .btn').forEach(b=>b.classList.toggle('on',b.dataset.v===d.v));const b=$('#skillbody');if(b){b.innerHTML=skillBody();b.classList.remove('swap');void b.offsetWidth;b.classList.add('swap')}break}
-    case 'sk-node':{const x=SKBY[d.id];if(!x)break;const l=skLevels()[x.id];skillSfx(x.n,l.lv>=3?'done':(l.lv||l.open)?'cur':'lock');openModal({type:'sk',id:x.id});snd=null;break}
+    case 'sk-node':{const x=SKBY[d.id];if(!x)break;if(U.wiz&&U.wiz.step===4&&U.wiz.goal==='skill'){wzSkPick(x.id);snd=null;break}const l=skLevels()[x.id];skillSfx(x.n,l.lv>=3?'done':(l.lv||l.open)?'cur':'lock');openModal({type:'sk',id:x.id});snd=null;break}
     case 'sk-zoom':skZoom(+d.v);break;
     case 'sk-fit':skFit();break;
     case 'sk-set':{S.skLv=S.skLv||{};if(d.v==='auto')delete S.skLv[d.id];else S.skLv[d.id]=+d.v;save();renderModal();const c=$('#skc');if(c){c.innerHTML=skSvg();skApply()}break}
@@ -3849,12 +3942,13 @@ document.addEventListener('click',e=>{
     case 'routine-dup':{const r=S.routines.find(x=>x.id===d.o);if(r){const c=JSON.parse(JSON.stringify(r));c.id=uid();c.name=(r.name||'루틴')+' 복사';S.routines.splice(S.routines.indexOf(r)+1,0,c);U.routineId=c.id;save();render(true);window.scrollTo(0,0);toast('복제했어요')}break}
     case 'routine-mv':{const L=S.routines.filter(x=>!x.ai),r=S.routines.find(x=>x.id===d.o),i=L.indexOf(r),j=i+(+d.v);if(i>=0&&j>=0&&j<L.length){const a1=S.routines.indexOf(L[i]),b1=S.routines.indexOf(L[j]);[S.routines[a1],S.routines[b1]]=[S.routines[b1],S.routines[a1]];save();render()}break}
     case 'swap-r':openModal({type:'ex',k:'r',o:d.o,q:'',part:'전체',swap:+d.i});break;
-    case 'ai-plan-open':U.wiz={step:0,exp:(S.prof&&S.prof.exp)||'',age:(S.prof&&S.prof.age)||'',h:(S.prof&&S.prof.h)||'',kg:(()=>{const b=[...S.body].sort((x,y)=>x.date.localeCompare(y.date)).pop();return b?b.kg:''})(),freq:0,goal:'',focus:[],per:'',weeks:4,end:''};render(true);window.scrollTo(0,0);break;
+    case 'ai-plan-open':U.wiz={step:0,exp:(S.prof&&S.prof.exp)||'',age:(S.prof&&S.prof.age)||'',h:(S.prof&&S.prof.h)||'',kg:(()=>{const b=[...S.body].sort((x,y)=>x.date.localeCompare(y.date)).pop();return b?b.kg:''})(),freq:0,goal:'',focus:[],sk:[],per:'',weeks:4,end:''};render(true);window.scrollTo(0,0);break;
     case 'wz-back':{const w=U.wiz;if(!w||w.busy)break;if(w.step>0)w.step--;else U.wiz=null;render(true);window.scrollTo(0,0);break}
     case 'wz-pick':{const w=U.wiz;if(!w)break;w[d.f]=d.f==='freq'?+d.v:d.v;render();break}
     case 'wz-focus':{const w=U.wiz;if(!w)break;const i=w.focus.indexOf(d.v);if(i>=0)w.focus.splice(i,1);else w.focus.push(d.v);render();break}
     case 'wz-weeks':{const w=U.wiz;if(!w)break;w.weeks=Math.max(1,Math.min(24,w.weeks+(+d.v)));e.stopPropagation();render();break}
-    case 'wz-next':{const w=U.wiz;if(!w||w.busy||!wzValid(w)){snd='err';break}if(w.step<5){w.step++;render(true);window.scrollTo(0,0)}else wzGenerate();break}
+    case 'wz-slot':{const w=U.wiz;if(!w||!w.sk)break;const i=+d.v;if(w.sk[i]){w.sk.splice(i,1);sfx('tap');render()}snd=null;break}
+    case 'wz-next':{const w=U.wiz;if(!w||w.busy||!wzValid(w)){snd='err';break}if(w.step<5){w.step++;if(w.step===4)SKV.k=0;render(true);window.scrollTo(0,0)}else wzGenerate();break}
     case 'plan-del':{const pid=d.p;confirmAsk('이 AI 플랜의 루틴을 모두 삭제할까요? (기록한 일지는 그대로예요)',()=>{S.routines=S.routines.filter(r=>!(r.ai&&r.ai.id===pid));save();render()});break}
     case 'cm-part':C.part=d.v;renderView(false);break;
     case 'cm-nick':U.cmEdit=!U.cmEdit;U.cmNick=cnick();render();break;
