@@ -545,6 +545,34 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .vol input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:0}
 .restday{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 12px;padding:14px;border-radius:20px;background:rgba(48,209,88,.12);border:1px solid rgba(48,209,88,.35);color:var(--ok);font-weight:700;font-size:16px;animation:popin .4s cubic-bezier(.2,1.1,.4,1) both}
 /* ---- rank-up cinematic ---- */
+.sfire{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 70%,#2a0d00 0%,#000 60%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;animation:celin .35s both}
+.sfire.out{animation:celout .38s ease forwards}
+.sfglow{position:absolute;left:50%;top:48%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,rgba(255,140,0,.45),rgba(255,60,0,.12) 40%,transparent 70%);opacity:0;animation:sfglow 1.2s .5s ease-out forwards,sfpulse 2.4s 1.8s ease-in-out infinite}
+@keyframes sfglow{to{opacity:1}}@keyframes sfpulse{50%{transform:scale(1.08);opacity:.85}}
+.sfemb i{background:#ff9f0a;box-shadow:0 0 8px #ff6a00}
+.sfstage{position:relative;width:200px;height:230px;margin-top:-30px}
+.sflogs{position:absolute;left:30px;bottom:0;width:140px;height:40px;animation:sflog .5s both}
+@keyframes sflog{from{transform:translateY(20px);opacity:0}}
+.sfflame{position:absolute;left:40px;bottom:22px;width:120px;height:150px;transform-origin:50% 100%;transform:scale(0);animation:sfign 1.1s .55s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes sfign{0%{transform:scale(0)}35%{transform:scale(.35,.25)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.sfl{transform-origin:60px 140px;animation:sfflick 1.6s ease-in-out infinite}.sfl.m{animation-duration:1.1s;animation-delay:-.3s}.sfl.i{animation-duration:.8s;animation-delay:-.5s}
+@keyframes sfflick{0%,100%{transform:scale(1,1) skewX(0)}25%{transform:scale(.96,1.05) skewX(2deg)}50%{transform:scale(1.03,.96) skewX(-2deg)}75%{transform:scale(.98,1.04) skewX(1deg)}}
+.sfsparks{position:absolute;left:100px;bottom:40px}.sfsparks b{position:absolute;width:4px;height:4px;border-radius:50%;background:#ffd60a;box-shadow:0 0 8px #ff9f0a;opacity:0;animation:sfspark .9s var(--bd) ease-out forwards}
+@keyframes sfspark{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--bx),var(--by))}}
+.sftxt{position:relative;text-align:center;margin-top:6px}
+.sflab{font-size:15px;font-weight:800;letter-spacing:.06em;color:#ffb340;opacity:0;animation:sfrise .5s 1.1s forwards}
+.sfnum{position:relative;height:84px;overflow:hidden;font-size:76px;font-weight:900;line-height:84px;color:#fff;text-shadow:0 0 24px rgba(255,140,0,.8)}
+.sfnum span{display:block}.sfnum .old{animation:sfout .5s 1.5s forwards}.sfnum .new{animation:sfin .5s 1.5s both;position:absolute;inset:0;background:linear-gradient(#fff6c2,#ff9f0a);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes sfout{to{transform:translateY(-100%);opacity:0}}@keyframes sfin{from{transform:translateY(100%);opacity:0}}
+.sfunit{font-size:16px;font-weight:700;opacity:0;animation:sfrise .5s 1.7s forwards}.sfunit b{color:#ffd60a}
+.sfwk{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.sfd{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--mute);opacity:0;animation:sfrise .35s calc(1.9s + var(--j)*.06s) forwards}
+.sfd i{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px}
+.sfd.on i{border-color:#ff9f0a;background:rgba(255,140,0,.15)}.sfd.now i{box-shadow:0 0 0 3px rgba(255,159,10,.35),0 0 18px #ff9f0a;animation:sfnow 1.4s 2.4s ease-in-out infinite}
+@keyframes sfnow{50%{box-shadow:0 0 0 6px rgba(255,159,10,.15),0 0 26px #ff9f0a}}
+.sfsub{margin-top:16px;font-size:14px;color:#ffd8a8;opacity:0;animation:sfrise .5s 2.4s forwards}
+.sfbtn{position:relative;margin-top:26px;width:min(320px,80vw);background:linear-gradient(135deg,#ff9f0a,#ff453a)!important;border:0!important;opacity:0;animation:sfrise .5s 2.6s forwards}
+@keyframes sfrise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .rup{position:absolute;inset:0;background:#000;overflow:hidden;animation:celin .4s both}
 .rup.out{animation:celout .38s ease forwards}
 .shake{position:absolute;inset:0;animation:shk .7s 1.4s both}
@@ -688,6 +716,8 @@ function tone(f,t0,dur,type,vol){
 const SFX={
   tap:[[1180,0,.05,'sine',.10]],
   poke:[[880,0,.06,'square',.07],[1320,.08,.07,'square',.07],[880,.2,.06,'square',.06],[1320,.28,.12,'sine',.1]],
+  ignite:[[90,0,.5,'sawtooth',.05],[140,.05,.5,'triangle',.06],[220,.35,.25,'sine',.06],[330,.45,.3,'sine',.07],[520,.6,.35,'sine',.08]],
+  flip:[[784,0,.12,'sine',.12],[1046,.12,.14,'sine',.12],[1568,.26,.4,'sine',.1]],
   brk:[[660,0,.14,'sine',.12],[880,.16,.14,'sine',.12],[1320,.32,.4,'sine',.1]],
   pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
   fold:[[540,0,.08,'sine',.11],[400,.06,.1,'sine',.10],[290,.12,.16,'triangle',.09]],
@@ -1471,8 +1501,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.22a';
-const APP_NEWS=['📚 공부하다 1분 운동: 기록 탭 맨 위에서 누르면 자리에서 바로 할 한 세트를 골라주고 1분 타이머를 돌려줘요','🔔 푸쉬 알림: 더보기 → 설정에서 켜면 콕 찌르기를 앱 밖에서도 받아요','👉 콕 찌르기: 랭킹에서 친구 프로필을 눌러 살짝 깨울 수 있어요'];
+const APP_VER='2026.11.22b';
+const APP_NEWS=['🔥 그날 첫 운동을 마치면 스트릭에 불을 지피는 애니메이션이 나와요','📚 1분 운동도 끝나면 운동 완료 축하 화면이 떠요','📚 공부하다 1분 운동: 기록 탭 맨 위에서 시작'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1674,10 +1704,10 @@ function brkStart(){BK.t0=Date.now();BK.left=60;BK.done=false;sfx('on');renderMo
   BK.timer=setInterval(()=>{if(!BK)return brkStop();BK.left=Math.max(0,60-(Date.now()-BK.t0)/1000);const t=$('#brkt'),f=$('#brkfg');if(t)t.textContent=Math.ceil(BK.left);if(f)f.style.strokeDashoffset=R*(1-BK.left/60);
     if(BK.left<=3&&BK.left>0&&Math.ceil(BK.left)!==BK.lt){BK.lt=Math.ceil(BK.left);sfx('tap')}
     if(BK.left<=0)brkFinish();if(!U.modal||U.modal.type!=='brk')brkStop()},200)}
-function brkLog(){const d=today(),title='<공부 쉬는 시간>';let s=S.sessions.find(x=>x.date===d&&x.title===title);
+function brkLog(){const pre=workDays().has(today()),d=today(),title='<공부 쉬는 시간>';let s=S.sessions.find(x=>x.date===d&&x.title===title);
   if(!s){s=newSession(d,[],title);s.memo='공부하다 1분씩 한 운동이에요'}
   const id=BK.ex?BK.ex.id:exId(BK.n,'기타','wr');let it=s.items.find(i=>i.exId===id);if(!it){it={exId:id,sets:[]};s.items.push(it)}
-  it.sets.push({w:'',r:BK.v,done:true});save();toast(`기록했어요 · 오늘 ${brkCount()}번째 쉬는 시간 운동 💪`)}
+  it.sets.push({w:'',r:BK.v,done:true});s.finished=true;save();return {s,pre}}
 function logView(){
   const list=S.sessions.filter(s=>s.date===U.date).sort((a,b)=>(a.created||0)-(b.created||0));
   const fm=foldMap(),allShut=list.length>0&&list.every(s=>isShut(fm,s.id));
@@ -3104,12 +3134,13 @@ function celStats(s){
   let reps=0,secs=0;sets.forEach(x=>{const e=exById(x.exId);if(e&&e.type==='time')secs+=x.r;else if(e&&e.type==='run'){}else reps+=x.r});
   return {sets:sets.length,reps,secs,ex:new Set(sets.map(x=>x.exId)).size};
 }
-function showCelebrate(s,sec){
+function showCelebrate(s,sec,pre){
   const fx=$('#fx');if(!fx||!s)return;
   const cs=celStats(s),st=streakInfo(),after=levelData(),before=levelData(s.id),sessXP={};
   records().forEach(r=>{if(r.sid===s.id&&before[r.part])sessXP[r.part]=(sessXP[r.part]||0)+1});
   const tNow=overallTier(after),tPrev=overallTier(before),rankUp=tNow.s>tPrev.s;
   PEND_RANK=rankUp?{from:tPrev,to:tNow}:null;
+  PEND_STK=(pre===false&&s.date===today()&&st.done.has(s.date))?{n:st.cur,best:st.best}:null;
   const parts=LVP.filter(p=>sessXP[p]>0);
   const lvUps=parts.filter(p=>after[p].k>before[p].k);
   const prs=[];
@@ -3138,8 +3169,40 @@ function showCelebrate(s,sec){
   setTimeout(()=>{if(lvUps.length||rankUp||prs.length)sfx('levelup')},1500);
   try{navigator.vibrate&&navigator.vibrate([60,40,60,40,160])}catch(e){}
 }
+/* ---------- 스트릭 점화 애니메이션 ---------- */
+function showStreakFire(k){
+  const fx=$('#fx');if(!fx)return;
+  const n=k.n,first=n<=1,best=n>=k.best&&n>1;
+  const embers=Array.from({length:40},()=>`<i style="--l:${(30+Math.random()*40).toFixed(0)}%;--w:${(2+Math.random()*4).toFixed(0)}px;--t:${(2.5+Math.random()*2.5).toFixed(1)}s;--d:${(1+Math.random()*3).toFixed(1)}s;--dx:${(Math.random()*160-80).toFixed(0)}px"></i>`).join('');
+  const sparks=Array.from({length:18},(_,i)=>{const a=-Math.PI/2+(Math.random()-.5)*2.2,d=60+Math.random()*110;return `<b style="--bx:${(Math.cos(a)*d).toFixed(0)}px;--by:${(Math.sin(a)*d).toFixed(0)}px;--bd:${(.9+Math.random()*.2).toFixed(2)}s"></b>`}).join('');
+  const mon=thisMonday(),st=streakInfo(),t=today();
+  const wk=[0,1,2,3,4,5,6].map(i=>{const d=addDays(mon,i),dn=st.done.has(d),isT=d===t;return `<div class="sfd ${dn?'on':''} ${isT?'now':''}" style="--j:${i}"><i>${dn?'🔥':''}</i>${WDN[(i+1)%7]}</div>`}).join('');
+  fx.innerHTML=`<div class="sfire"><div class="sfglow"></div><div class="rembers sfemb">${embers}</div>
+   <div class="sfstage">
+    <div class="sfsparks">${sparks}</div>
+    <svg class="sfflame" viewBox="0 0 120 150"><defs>
+     <radialGradient id="sfg1" cx=".5" cy=".75" r=".7"><stop offset="0" stop-color="#fff6c2"/><stop offset=".35" stop-color="#ffd60a"/><stop offset=".7" stop-color="#ff9f0a"/><stop offset="1" stop-color="#ff453a"/></radialGradient>
+     <linearGradient id="sfg2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff453a"/><stop offset="1" stop-color="#ff2d55" stop-opacity=".2"/></linearGradient></defs>
+     <g class="sfl o"><path d="M60 8C70 34 98 52 98 92a38 38 0 0 1-76 0c0-20 10-30 18-40 2 12 8 18 14 20C52 54 50 30 60 8z" fill="url(#sfg2)"/></g>
+     <g class="sfl m"><path d="M60 30c8 22 30 36 30 64a30 30 0 0 1-60 0c0-14 7-22 13-30 2 9 6 13 11 15-2-16-1-32 6-49z" fill="url(#sfg1)"/></g>
+     <g class="sfl i"><path d="M60 70c5 10 16 18 16 32a16 16 0 0 1-32 0c0-10 8-16 10-22 2 5 4 7 6 8 0-6-1-12 0-18z" fill="#fff6c2"/></g>
+    </svg>
+    <svg class="sflogs" viewBox="0 0 140 40"><rect x="10" y="12" width="120" height="16" rx="8" fill="#6b3b1f" transform="rotate(-10 70 20)"/><rect x="10" y="12" width="120" height="16" rx="8" fill="#8a4b25" transform="rotate(10 70 20)"/><circle cx="20" cy="27" r="6" fill="#c98a55" opacity=".7"/><circle cx="120" cy="27" r="6" fill="#c98a55" opacity=".7"/></svg>
+   </div>
+   <div class="sftxt">
+    <div class="sflab">${first?'불씨를 지폈어요!':'스트릭이 이어졌어요!'}</div>
+    <div class="sfnum"><span class="old">${Math.max(0,n-1)}</span><span class="new">${n}</span></div>
+    <div class="sfunit">일 연속 운동${best?' · <b>최고 기록!</b>':''}</div>
+    <div class="sfwk">${wk}</div>
+    <div class="sfsub">${first?'내일도 운동하면 불꽃이 더 커져요 🔥':n>=7?'대단해요! 이 불꽃 꺼뜨리지 마세요':'내일도 이어가 볼까요?'}</div>
+   </div>
+   <button class="btn pri big sfbtn" data-cel="close">좋아요!</button></div>`;
+  fx.classList.add('show');
+  sfx('ignite');setTimeout(()=>sfx('flip'),1500);
+  try{navigator.vibrate&&navigator.vibrate([30,60,30,60,200])}catch(e){}
+}
 /* ---------- rank-up cinematic ---------- */
-let PEND_RANK=null;
+let PEND_RANK=null,PEND_STK=null;
 function showRankUp(from,to){
   const fx=$('#fx');if(!fx)return;
   const t=to.t,tierUp=to.i>from.i,st=streakInfo();
@@ -3158,7 +3221,7 @@ function showRankUp(from,to){
   setTimeout(()=>{sfx('boom');sfx('rankfan');try{navigator.vibrate&&navigator.vibrate([40,30,40,30,260])}catch(e){}},1400);
   try{navigator.vibrate&&navigator.vibrate([20,60,20,60,20,60,20])}catch(e){}
 }
-function closeCelebrate(){const fx=$('#fx');if(!fx)return;const pr=PEND_RANK;PEND_RANK=null;const c=fx.querySelector('.cel')||fx.querySelector('.rup');if(c)c.classList.add('out');setTimeout(()=>{if(pr)showRankUp(pr.from,pr.to);else{fx.classList.remove('show');fx.innerHTML=''}},380);sfx('tap')}
+function closeCelebrate(){const fx=$('#fx');if(!fx)return;const pr=PEND_RANK;PEND_RANK=null;const sk=pr?null:PEND_STK;if(sk)PEND_STK=null;const c=fx.querySelector('.cel')||fx.querySelector('.rup')||fx.querySelector('.sfire');if(c)c.classList.add('out');setTimeout(()=>{if(pr)showRankUp(pr.from,pr.to);else if(sk)showStreakFire(sk);else{fx.classList.remove('show');fx.innerHTML=''}},380);sfx('tap')}
 
 /* ---------- events ---------- */
 /* ---------- rest timer ---------- */
@@ -3617,9 +3680,10 @@ function wkComplete(){
 function finishWorkout(){
   const s=wsess();if(!s)return;
   const sec=Math.round(wElapsed()/1000);
+  const pre=workDays().has(today());
   s.finished=true;s.duration=sec;save();
   U.tab='log';U.date=s.date;W=null;saveW();closeRest();closeWk();render(true);
-  showCelebrate(s,sec);
+  showCelebrate(s,sec,pre);
 }
 function wkAnaHtml(exId){
   const ex=exById(exId)||{name:'?',type:'wr'},isT=ex.type==='time';
@@ -3686,8 +3750,8 @@ document.addEventListener('click',e=>{
     case 'brk-start':brkStart();break;
     case 'brk-stop':brkStop();BK.t0=0;BK.done=false;renderModal();break;
     case 'brk-end':brkFinish();break;
-    case 'brk-again':brkPick();brkStart();break;
-    case 'brk-log':brkLog();brkStop();BK=null;closeModal();if(U.tab==='log')renderView(false);break;
+    case 'brk-again':brkLog();toast(`기록했어요 · 오늘 ${brkCount()}번째 💪`);brkPick();brkStart();break;
+    case 'brk-log':{const r=brkLog();brkStop();BK=null;closeModal();if(U.tab==='log')renderView(false);showCelebrate(r.s,60,r.pre);break}
     case 'asym-open':openModal({type:'asym'});break;
     case 'asym-m':S.asym=Object.assign({},S.asym,{m:d.v==='s'?'s':'f'});save();renderModal();break;
     case 'asym-side':S.asym=Object.assign({},S.asym,{side:d.v});save();renderModal();break;
