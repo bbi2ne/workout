@@ -1536,8 +1536,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.25b';
-const APP_NEWS=['🏅 분석 탭에서 내 티어표를 커뮤니티에 공유할 수 있어요','✏️ 커뮤니티 글쓰기 + 운동·루틴을 공유할 때 한마디를 남길 수 있어요','⚡ 슈퍼세트, 📋 루틴 여러 개 불러오기'];
+const APP_VER='2026.11.25c';
+const APP_NEWS=['이제 업데이트해도 바로가기를 다시 만들 필요 없어요','🏅 분석 탭에서 내 티어표를 커뮤니티에 공유할 수 있어요','✏️ 커뮤니티 글쓰기 + 공유할 때 한마디'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1561,8 +1561,7 @@ function updHtml(){
   const ios=/iPhone|iPad|iPod/.test(navigator.userAgent),standalone=window.navigator.standalone||matchMedia('(display-mode: standalone)').matches;
   return `<div class="c" style="font-size:44px">🎉</div><h3 class="c" style="margin-top:4px">새 버전으로 업데이트됐어요</h3>
   <div class="aiops" style="margin:12px 0 14px">${APP_NEWS.map(n=>`<div class="aiop add"><span>✓</span><b style="font-weight:600">${esc(n)}</b></div>`).join('')}</div>
-  <div class="card" style="padding:12px 14px;margin-bottom:12px"><b>📲 홈 화면 바로가기를 다시 만들어 주세요</b><div class="muted sm" style="margin-top:6px;line-height:1.65">${ios?`1. 홈 화면의 <b>운동로그</b> 아이콘을 길게 눌러 <b>삭제</b>해요<br>2. 사파리에서 앱 주소를 열어요<br>3. 아래 <b>공유(□↑) → 홈 화면에 추가</b>`:`1. 홈 화면의 <b>운동로그</b> 아이콘을 길게 눌러 삭제해요<br>2. 크롬에서 앱 주소를 열어요<br>3. 오른쪽 위 <b>⋮ → 홈 화면에 추가</b>`}<br>기록은 계정에 저장돼 있어서 사라지지 않아요.</div></div>
-  ${standalone?'':''}<div class="row" style="gap:10px"><button class="btn" style="flex:1;min-height:50px" data-act="upd-copy">주소 복사</button><button class="btn pri" style="flex:1.3;min-height:50px" data-act="modal-close">확인</button></div>`;
+  <button class="btn pri big" data-act="modal-close">확인</button>`;
 }
 /* ---------- 접속 현황 (지금 운동 중 · 접속 중) ---------- */
 const PRES={on:[],who:[],today:[],t:0};
