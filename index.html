@@ -321,6 +321,12 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .ssban{display:flex;flex-direction:column;gap:2px;margin:10px 0 0;padding:10px 14px;border-radius:14px;background:rgba(255,214,10,.1);border:1px solid rgba(255,214,10,.45);animation:ssbn .5s}.ssban b{color:#ffd60a;font-size:14px}.ssban span{font-size:13px;color:var(--ink)}.ssban.wu{background:rgba(100,210,255,.08);border-color:rgba(100,210,255,.4)}.ssban.wu b{color:#64d2ff}
 @keyframes ssbn{0%{transform:scale(.96);opacity:0}60%{transform:scale(1.02)}100%{transform:none;opacity:1}}
 .li.rtsel{gap:12px}.rtck{width:26px;height:26px;flex-shrink:0;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}.li.rtsel.on .rtck{background:#30d158;border-color:#30d158;color:#04230f}.li.rtsel.on{background:rgba(48,209,88,.08)}
+.cmtxt{font-size:15px;line-height:1.5;margin:6px 0 8px;white-space:pre-wrap;word-break:break-word}.cmtxt.big{font-size:17px;margin-top:10px}
+.chip.tiertag{background:rgba(255,214,10,.18);color:#ffd60a}
+.tpost{margin:8px 0 4px;padding:12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}.tpov{display:flex;align-items:center;gap:10px;margin-bottom:10px}.tpov b{font-size:17px}
+.tpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tpc{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:12px;background:rgba(255,255,255,.03)}.tpc span{font-size:11px;color:var(--mute)}.tpc b{font-size:13px}
+.cmcpv{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);margin-top:4px}
+.btn.tshare{margin-top:12px;background:linear-gradient(135deg,rgba(255,214,10,.18),rgba(255,159,10,.1))!important;border:1px solid rgba(255,214,10,.45)!important;color:#ffd60a}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1530,8 +1536,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.24a';
-const APP_NEWS=['⚡ 슈퍼세트: 종목 사이 "슈퍼세트로 묶기"를 누르면 운동 중에 쉬지 않고 바로 다음 운동으로 넘어가요','📋 루틴을 여러 개 골라 한 번에 불러오고, 일지·운동 중에도 루틴을 추가할 수 있어요','🔥 워밍업·쿨다운은 휴식 없이 바로 이어서 진행돼요','🤸 AI 루틴: 맨몸운동 기술 만들기'];
+const APP_VER='2026.11.25b';
+const APP_NEWS=['🏅 분석 탭에서 내 티어표를 커뮤니티에 공유할 수 있어요','✏️ 커뮤니티 글쓰기 + 운동·루틴을 공유할 때 한마디를 남길 수 있어요','⚡ 슈퍼세트, 📋 루틴 여러 개 불러오기'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2304,6 +2310,8 @@ function modalHtml(){
     body=suggModal(m);
   }else if(m.type==='aiimp'){
     body=`<h3>AI 제안 붙여넣기</h3><div class="muted sm" style="margin-bottom:8px">AI가 알려준 JSON을 붙여넣으면, 해당 운동의 세트 화면에서 변경 제안 창이 떠요.</div><textarea class="inp" id="aita" placeholder="여기에 붙여넣기"></textarea><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="ai-imp-run">등록</button></div>`;
+  }else if(m.type==='cmc'){
+    body=cmcHtml(m);
   }else if(m.type==='brk'){
     if(!BK)brkPick();body=brkHtml();
   }else if(m.type==='asym'){
@@ -2519,13 +2527,13 @@ function commView(){
       likes=Object.values(C.likes).filter(a=>a.includes(key)).length,liked=(C.likes[store.uid]||[]).includes(key);
     const rt=p.kind==='routine';
     const its=(Array.isArray(p.items)?p.items:[]).slice(0,14).map(it=>{const rr=(Array.isArray(it.r)?it.r:[]).slice(0,12);return `<div class="cmit"><span>${esc(String(it.n||'').replace('스캠풀라','스캐풀라').slice(0,30))}</span><span class="muted">${rt?`${rr.length}세트 × ${(+rr[0]||0)}${it.t?'초':'회'}`:rr.map(v=>(+v||0)+(it.t?'초':'')).join(' · ')}</span></div>`}).join('');
-    return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b data-act="cm-prof" data-u="${esc(uid)}" style="cursor:pointer">${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div><div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':''}${esc(String(p.title||'운동').slice(0,40))}</div>${its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
+    return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b data-act="cm-prof" data-u="${esc(uid)}" style="cursor:pointer">${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div>${p.kind==='text'?'':`<div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':p.kind==='tier'?'<span class="chip tiertag">티어표</span> ':''}${esc(p.kind==='tier'?String(nick).slice(0,12)+'의 티어표':String(p.title||'운동').slice(0,40))}</div>`}${p.txt?`<div class="cmtxt${p.kind==='text'?' big':''}">${esc(String(p.txt).slice(0,140))}</div>`:''}${p.kind==='tier'?tierPostHtml(p):its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
   return `<h1>커뮤니티</h1><p class="sub">랭킹을 비교하고 운동 기록을 나눠요${C.admin?' · <span class="chip">관리자</span>':''}</p>
   <div class="card cmrank"><div class="row between" style="margin-bottom:10px"><b style="font-size:18px">🏆 랭킹</b><span class="muted sm">${list.length}명 참여</span></div>
   <div class="seg" style="margin-bottom:8px;overflow-x:auto;flex-wrap:nowrap">${parts.map(p=>`<button class="btn ${C.part===p?'on':''}" data-act="cm-part" data-v="${p}">${p}</button>`).join('')}</div>
   ${top||(C.got.lb?`<div class="muted sm c" style="padding:14px 0">아직 참여한 사람이 없어요. 첫 번째가 되어 보세요!</div>`:'')}${status}</div>
   ${join}
-  <div class="row between" style="margin:18px 2px 10px"><h2 style="margin:0">운동 기록 피드</h2>${joined?`<button class="btn sm pri" data-act="cm-share">＋ 내 운동 공유</button>`:''}</div>
+  <div class="row between" style="margin:18px 2px 10px"><h2 style="margin:0">운동 기록 피드</h2>${joined?`<span class="row" style="gap:6px"><button class="btn sm" data-act="cm-write">✏️ 글쓰기</button><button class="btn sm pri" data-act="cm-share">＋ 내 운동 공유</button></span>`:''}</div>
   ${feed||`<div class="card empty">${C.got.feed?'공유된 운동 기록이 없어요.':'불러오는 중…'}</div>`}`;
 }
 function cmShareHtml(dt){
@@ -2538,15 +2546,44 @@ async function feedWrite(fn){const ref=store.db.collection('feed').doc(store.uid
 function shareSession(sid,btn){
   if(needJoin())return;
   const s=S.sessions.find(x=>x.id===sid);if(!s)return;
-  confirmAsk(`'${s.title||'운동'}' 기록을 커뮤니티에 공유할까요?`,async()=>{await commPost(sid);if(btn){btn.textContent='✓ 공유했어요';btn.disabled=true}});
+  openModal({type:'cmc',kind:'sess',ref:sid});
 }
 async function shareRoutine(rid){
   if(needJoin())return;
   const r=S.routines.find(x=>x.id===rid);if(!r||!r.items.length){toast('종목이 있는 루틴만 공유할 수 있어요',true);return}
-  confirmAsk(`'${r.name||'루틴'}' 루틴을 커뮤니티에 공유할까요?`,async()=>{
+  openModal({type:'cmc',kind:'routine',ref:rid});
+}
+async function shareRoutineGo(rid,txt){
+  const r=S.routines.find(x=>x.id===rid);if(!r)return;{
     const items=r.items.slice(0,14).map(it=>{const e=exById(it.exId);return {n:e?e.name:'?',p:e?e.part:'기타',t:e&&e.type==='time'?1:0,r:it.sets.map(x=>x.r).slice(0,12).map(v=>+v||0),note:String(it.note||'').slice(0,40)}});
-    try{await feedWrite(old=>[{id:uid(),kind:'routine',rid,title:String(r.name||'루틴').slice(0,40),items,ts:Date.now()},...old.filter(p=>!(p.kind==='routine'&&p.rid===rid))]);toast('루틴을 공유했어요');sfx('success')}catch(e){commErr(e)}
-  });
+    try{await feedWrite(old=>[Object.assign({id:uid(),kind:'routine',rid,title:String(r.name||'루틴').slice(0,40),items,ts:Date.now()},txt?{txt:String(txt).slice(0,140)}:{}),...old.filter(p=>!(p.kind==='routine'&&p.rid===rid))]);closeModal();toast('루틴을 공유했어요');sfx('success')}catch(e){commErr(e)}
+  }
+}
+/* ---------- 공유 글쓰기 (한마디 + 부위별 티어) ---------- */
+function tierSnap(){const ld=levelData(),ov=overallTier(ld);return {s:ov.s,parts:LVP.map(p=>({p,i:ld[p].t.i,k:ld[p].k}))}}
+function tierPostHtml(p){const parts=(Array.isArray(p.parts)?p.parts:[]).filter(x=>LVP.includes(x.p)).slice(0,8),s=Math.max(0,Math.min(30,+p.s||0)),oi=stTier(s).i;
+  return `<div class="tpost"><div class="tpov">${emblem(oi,46)}<div><div class="muted sm">종합</div><b style="color:${TIERS[oi].c}">${esc(stName(s))}</b></div></div><div class="tpgrid">${parts.map(x=>{const i=Math.max(0,Math.min(TIERS.length-1,+x.i||0));return `<div class="tpc">${emblem(i,30)}<span>${esc(pname(x.p))}</span><b style="color:${TIERS[i].c}">${TIERS[i].n}</b></div>`}).join('')}</div></div>`}
+function cmcHtml(m){
+  const K=m.kind,ph={sess:'오늘 운동 어땠나요? (예: 드디어 풀업 10개!)',routine:'이 루틴 소개 한마디 (예: 초보자 상체 루틴이에요)',tier:'티어표 자랑 한마디 (예: 등 골드 찍었다 🔥)',text:'자유롭게 한마디 남겨요 (최대 140자)'}[K];
+  let pv='',title={sess:'운동 기록 공유',routine:'루틴 공유',tier:'티어표 공유하기',text:'✏️ 글쓰기'}[K];
+  if(K==='sess'){const s=S.sessions.find(x=>x.id===m.ref);pv=s?`<div class="cmcpv"><b>${esc(s.title||'운동')}</b><span class="muted sm">${shortDate(s.date)} · ${s.items.length}종목</span></div>`:''}
+  if(K==='routine'){const r=S.routines.find(x=>x.id===m.ref);pv=r?`<div class="cmcpv"><b>${esc(r.name||'루틴')}</b><span class="muted sm">${r.items.length}종목</span></div>`:''}
+  if(K==='tier')pv=`<div class="cmcpv" style="display:block">${tierPostHtml(tierSnap())}</div>`;
+  return `<h3>${title}</h3>${pv}<textarea class="inp" id="cmtxt" maxlength="140" style="min-height:${K==='text'?120:80}px;font-size:16px;font-family:inherit;margin-top:10px" placeholder="${ph}" oninput="document.getElementById('cmcn').textContent=this.value.length">${esc(m.txt||'')}</textarea>
+  <div class="row between" style="margin-top:6px"><span class="muted sm">${K==='text'?'':'한마디는 선택이에요 · '}앱을 쓰는 모든 사람에게 보여요</span><span class="muted sm"><span id="cmcn">${(m.txt||'').length}</span>/140</span></div>
+  <div class="row" style="gap:8px;margin-top:14px"><button class="btn" style="flex:1" data-act="modal-close">취소</button><button class="btn pri" style="flex:1.4" data-act="cmc-go">공유하기</button></div>`;
+}
+async function cmcGo(){
+  const m=U.modal;if(!m||m.busy)return;const txt=(($('#cmtxt')||{}).value||'').trim().slice(0,140);
+  if(m.kind==='text'&&!txt){toast('내용을 입력해 주세요',true);return}
+  m.busy=true;
+  try{
+    if(m.kind==='sess')await commPost(m.ref,txt);
+    else if(m.kind==='routine')await shareRoutineGo(m.ref,txt);
+    else if(m.kind==='tier'){const t=tierSnap();await feedWrite(old=>[Object.assign({id:uid(),kind:'tier',title:`${cnick()}의 티어표`,s:t.s,parts:t.parts,ts:Date.now()},txt?{txt}:{}),...old.filter(p=>p.kind!=='tier')]);closeModal();toast('티어표를 공유했어요 🏅');sfx('success')}
+    else{await feedWrite(old=>[{id:uid(),kind:'text',title:'',txt,ts:Date.now()},...old]);closeModal();toast('글을 올렸어요');sfx('success')}
+    if(U.tab==='comm')renderView(false);
+  }catch(e){commErr(e)}finally{m.busy=false}
 }
 function copyRoutine(key){
   const [u,pid]=key.split(':');const d=C.feed.find(x=>x.id===u),p=d&&(d.posts||[]).find(x=>x.id===pid);if(!p)return;
@@ -2591,13 +2628,13 @@ async function fbSend(){
   catch(e){toast('보내지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 }
 async function fbLoad(){try{const q=await store.db.collection('fb').get(),L=[];q.docs.forEach(d=>{const v=d.data()||{};(Array.isArray(v.items)?v.items:[]).forEach(it=>L.push({u:d.id,id:it.id,text:it.text,ts:it.ts,nick:v.nick,email:v.email}))});U.fbList=L.sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,100);renderView(false)}catch(e){toast('불러오지 못했어요',true)}}
-async function commPost(sid){
+async function commPost(sid,txt){
   const s=S.sessions.find(x=>x.id===sid);if(!s||!commAvail())return;
   const items=s.items.map(it=>{const e=exById(it.exId);return {n:e?e.name:'?',t:e&&e.type==='time'?1:0,r:it.sets.filter(x=>x.done).map(x=>x.r).filter(v=>v!==''&&v!=null).slice(0,12)}}).filter(x=>x.r.length).slice(0,14);
   if(!items.length){toast('공유할 세트 기록이 없어요',true);return}
   try{
-    await feedWrite(old=>[{id:uid(),sid,date:s.date,title:String(s.title||'운동').slice(0,40),memo:String(s.memo||'').slice(0,200),dur:s.duration||0,items,ts:Date.now()},...old.filter(p=>p.sid!==sid)]);
-    if(U.modal&&U.modal.type==='cmshare')closeModal();toast('피드에 공유했어요');sfx('success');
+    await feedWrite(old=>[Object.assign({id:uid(),sid,date:s.date,title:String(s.title||'운동').slice(0,40),memo:String(s.memo||'').slice(0,200),dur:s.duration||0,items,ts:Date.now()},txt?{txt:String(txt).slice(0,140)}:{}),...old.filter(p=>p.sid!==sid)]);
+    if(U.modal&&(U.modal.type==='cmshare'||U.modal.type==='cmc'))closeModal();toast('피드에 공유했어요');sfx('success');
   }catch(e){commErr(e)}
 }
 async function commDel(pid){
@@ -3138,7 +3175,7 @@ function muscleCard(){
     <div style="margin:8px 0 0 48px"><div class="muted sm">${r.none?'🔥 회복도 · 기록 없음':`🔥 회복도 ${r.pct}% · ${r.days===0?'오늘':r.days+'일 전'} ${r.n}세트`}</div>${r.none?'':`<div class="bar" style="margin-top:4px"><div style="width:${Math.max(3,r.pct)}%;background:${recColor(r.pct).replace(/,[\d.]+\)$/,',1)')}"></div></div>`}</div></div>`}).join('');
   return `<div class="card"><div class="ctitle">내 근육은 어느 티어고<br>지금 얼마나 불타고 있을까?</div><div class="muted sm c" style="margin:-8px 0 6px">색은 회복도, 배지는 부위별 티어예요</div>${bodySvg(rd,ld)}<div style="margin:6px 14px 0"><div class="grad"></div><div class="row between sm muted" style="margin-top:6px"><span>회복도 ${mn}%</span><span>100%</span></div></div>
   <div class="ovt" data-act="rank-open"><div class="c" style="display:flex;justify-content:center">${emblem(ov.i,64)}</div><div class="c" style="font-weight:800;font-size:19px;color:${ov.t.c}">${tierName(ov)}</div><div class="muted sm c">${ov.s>=30?'최고 티어!':`${ov.nl}까지 달성 ${ov.left}개`} · 조건 보기 ›</div></div>
-  <div>${rows}</div><div class="muted sm c" style="margin-top:8px;line-height:1.5">기술 트리의 기술을 목표 횟수·시간만큼 한 세트에 해내면 부위 티어가 올라가요. 기록이 없는 기술은 기술 트리에서 단계를 직접 정하면 반영돼요. 회복도는 마지막 운동일과 세트 수로 계산한 추정치예요.</div></div>`;
+  <div>${rows}</div><button class="btn big tshare" data-act="cm-tier">📤 티어표 공유하기</button><div class="muted sm c" style="margin-top:8px;line-height:1.5">기술 트리의 기술을 목표 횟수·시간만큼 한 세트에 해내면 부위 티어가 올라가요. 기록이 없는 기술은 기술 트리에서 단계를 직접 정하면 반영돼요. 회복도는 마지막 운동일과 세트 수로 계산한 추정치예요.</div></div>`;
 }
 
 /* ---------- tiers ---------- */
@@ -3993,7 +4030,10 @@ document.addEventListener('click',e=>{
     case 'cm-join':{const n=String(U.cmNick||'').trim().slice(0,12);if(!n){toast('닉네임을 입력해 주세요',true);break}S.comm={on:true,nick:n};save();commSync(true);render();toast('랭킹에 참여했어요');break}
     case 'cm-leave':confirmAsk('커뮤니티에서 나갈까요? 랭킹과 공유한 기록이 모두 지워져요.',()=>commLeave());break;
     case 'cm-share':openModal({type:'cmshare'});break;
-    case 'cm-post':commPost(d.s);break;
+    case 'cm-post':openModal({type:'cmc',kind:'sess',ref:d.s});break;
+    case 'cm-write':if(needJoin())break;openModal({type:'cmc',kind:'text'});break;
+    case 'cm-tier':if(needJoin())break;openModal({type:'cmc',kind:'tier'});break;
+    case 'cmc-go':cmcGo();break;
     case 'cm-del':confirmAsk('이 공유 기록을 지울까요?',()=>commDel(d.p));break;
     case 'cm-like':commLike(d.k);break;
     case 'cm-copy':copyRoutine(d.k);break;
