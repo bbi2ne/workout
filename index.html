@@ -327,6 +327,11 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .tpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tpc{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:12px;background:rgba(255,255,255,.03)}.tpc span{font-size:11px;color:var(--mute)}.tpc b{font-size:13px}
 .cmcpv{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);margin-top:4px}
 .btn.tshare{margin-top:12px;background:linear-gradient(135deg,rgba(255,214,10,.18),rgba(255,159,10,.1))!important;border:1px solid rgba(255,214,10,.45)!important;color:#ffd60a}
+.gd{margin-top:14px;display:flex;flex-direction:column;gap:12px;text-align:left}.gdeasy{padding:8px 12px;border-radius:12px;background:rgba(48,209,88,.12);color:#30d158;font-weight:700;font-size:13px}
+.gdr{display:flex;gap:10px;align-items:flex-start}.gdr>span{font-size:18px;line-height:1.4}.gdr b{font-size:14px}.gdr div{font-size:14px;line-height:1.55}.gdr ol,.gdr ul{margin:4px 0 0;padding-left:18px}.gdr li{margin:3px 0;font-size:14px;line-height:1.5}
+.gdl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}.gch{cursor:pointer;font:inherit;font-size:13px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.exinfo{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--mute);font-size:15px;cursor:pointer;flex-shrink:0}.exth{cursor:zoom-in;display:inline-flex}.easyb{font-size:12px}
+.skmode{pointer-events:auto;display:inline-flex;margin-top:8px;padding:3px;border-radius:12px;background:rgba(20,20,22,.85);border:1px solid var(--gb);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);align-self:flex-start}.skmode button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:9px;border:0;background:none;color:var(--mute);cursor:pointer}.skmode button.on{background:#fff;color:#111}.skmode button.on[data-v=easy]{background:#30d158;color:#04230f}.skmh{margin-top:4px;font-size:11px!important}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -870,7 +875,8 @@ const BUILTIN=[
 ['하이 풀업','등'],['머슬업 네거티브','등'],['머슬업','등'],['인클라인 푸쉬업','가슴'],['원암 푸쉬업 (인클라인)','가슴'],['원암 푸쉬업 네거티브','가슴'],['원암 푸쉬업','가슴'],['프리스탠딩 핸드스탠드 홀드','어깨',T],
 ['러닝','유산소','run'],['걷기','유산소','run'],
 ['벽 푸쉬업','가슴'],['무릎 푸쉬업','가슴'],['와이드 푸쉬업','가슴'],['타이프라이터 푸쉬업','가슴'],['슈도 플란체 푸쉬업','어깨'],['턱 플란체 푸쉬업','어깨'],['하프 레이 플란체','어깨',T],['플란체 푸쉬업','어깨'],['파이크 홀드','어깨',T],['월 워크','어깨'],['벽 핸드스탠드 숄더 탭','어깨'],['벽에서 발 떼기','어깨',T],['킥업 연습','어깨'],['프리스탠딩 5초','어깨',T],['핸드스탠드 워크','어깨'],['스트래들 프레스','어깨'],['벤치 딥스','가슴'],['코리안 딥스','가슴'],['러시안 딥스','가슴'],['임파서블 딥스','가슴'],['데드버그','복근'],['사이드 플랭크','복근',T],['할로우 락','복근'],['레그 레이즈','복근'],['윈드실드 와이퍼','복근'],['토스 투 바','복근'],['바닥 서포트 홀드','복근',T],['브이싯','복근',T],['드래곤 플래그 네거티브','복근'],['드래곤 플래그','복근'],['의자 스쿼트','하체'],['월 싯','하체',T],['스텝업','하체'],['점프 스쿼트','하체'],['싱글 레그 브릿지','하체'],['쉬림프 스쿼트','하체'],['피스톨 스쿼트 네거티브','하체'],['박스 피스톨','하체'],['노르딕 컬 네거티브','하체'],['높은 인버티드 로우','등'],['인버티드 로우 (무릎)','등'],['발 올린 인버티드 로우','등'],['아처 로우','등'],['원암 로우','등'],['턱 레버 래프트','등',T],['턱 프론트 레버','등',T],['어드밴스드 턱 프론트 레버','등',T],['턱 프론트 레버 로우','등'],['원 레그 프론트 레버','등',T],['스트래들 프론트 레버','등',T],['풀 프론트 레버','등',T],['스킨 더 캣','등'],['턱 백 레버','등',T],['어드밴스드 턱 백 레버','등',T],['풀 백 레버','등',T],['데드 행','등',T],['액티브 행','등',T],['점프 풀업','등'],['플렉스 행','등',T],['와이드 풀업','등'],['엘싯 풀업','등'],['아처 풀업','등'],['타이프라이터 풀업','등'],['원암 풀업 네거티브','등'],['원암 풀업','등'],
-['프론 Y 레이즈','등'],['밴드 풀 어파트','등'],['밴드 서라터스 펀치','어깨'],['밴드 페이스 풀','어깨'],['월 슬라이드','어깨'],['버드독','복근'],['스캐풀라 푸쉬업','가슴']
+['프론 Y 레이즈','등'],['밴드 풀 어파트','등'],['밴드 서라터스 펀치','어깨'],['밴드 페이스 풀','어깨'],['월 슬라이드','어깨'],['버드독','복근'],['스캐풀라 푸쉬업','가슴'],
+['무릎 플랭크','복근',T],['무릎 사이드 플랭크','복근',T],['하프 스쿼트','하체'],['스탠딩 니 업','복근'],['점핑잭','유산소',T],['테이블 로우','등'],['리버스 크런치','복근'],['마운틴 클라이머','유산소',T],['네거티브 푸쉬업','가슴'],['굿모닝','하체']
 ].map((a,i)=>({id:'bw'+i,name:a[0],part:a[1],type:a[2]||'wr',builtin:true}));
 const SEED=[
  {name:'월 · 가슴',items:[['프로그 스탠드',3,20,'기술 · 목표 20초'],['플란체 린',5,10,'기술 · 목표 10~15초'],['딥스 네거티브',4,3,'기본기 · 목표 3~4개'],['푸쉬업 변형',3,8,'기본기 · 목표 8~12개']]},
@@ -992,9 +998,19 @@ const ART={
  wslide:{f:[ff([60,30],[60,52],[46,34,44,22],[74,34,76,22]),ff([60,30],[60,52],[49,20,42,8],[71,20,78,8])],pr:'<rect x="30" y="4" width="60" height="66" rx="3" opacity=".25"/>'},
  birddog:{f:[fg([40,44],[70,46],[40,56],[40,68],[72,68],[90,68],{l2:[72,68,90,68]}),fg([40,44],[70,46],[28,42],[14,40],[90,44],[108,42],{l2:[72,68,90,68]})]},
  scpu:{f:[fg([36,50],[66,54],[36,59],[36,68],[86,58],[104,62]),fg([36,55],[66,56],[36,61],[36,68],[86,59],[104,62])]},
+ kplank:{f:[fg([34,52],[64,58],[34,66],[48,68],[82,68],[98,60])]},
+ kside:{f:[fg([34,48],[62,58],[34,66],[46,68],[78,68],[70,56])]},
+ hsq:{f:[fg([60,22],[60,42],[70,28],[82,30],[60,56],[58,68]),fg([60,28],[54,48],[68,34],[80,36],[64,58],[58,68])]},
+ kneeup:{f:[fg([60,22],[60,42],[56,32],[58,40],[61,56],[61,68],{l2:[59,56,59,68]}),fg([60,22],[60,42],[56,32],[58,40],[74,44],[72,58],{l2:[59,56,59,68]})]},
+ jjack:{f:[ff([60,24],[60,46],[52,34,50,44],[68,34,70,44],[57,58,56,68],[63,58,64,68]),ff([60,24],[60,46],[48,14,40,6],[72,14,80,6],[52,58,46,68],[68,58,74,68])]},
+ trow:{f:[fg([40,56],[70,62],[40,44],[40,30],[86,56],[94,68]),fg([42,38],[70,52],[54,40],[40,30],[86,52],[94,68])],pr:'<path d="M16 30H104M20 30V70M100 30V70"/>'},
+ rcrunch:{f:[fg([30,64],[56,66],[40,66],[50,67],[66,52],[80,54]),fg([30,64],[56,62],[40,66],[50,67],[52,44],[64,40])]},
+ mclimb:{f:[fg([40,48],[68,54],[40,58],[40,68],[86,60],[102,66],{l2:[86,60,102,66]}),fg([40,48],[66,52],[40,58],[40,68],[54,58],[62,66],{l2:[86,60,102,66]})]},
+ gmorn:{f:[fg([60,22],[60,42],[52,18],[60,14],[60,56],[60,68]),fg([42,36],[62,44],[36,30],[42,26],[62,56],[60,68])]},
  wrist:{custom:'<path class="fg" d="M20 62L58 42"/><path class="fg" d="M58 42l12-6m-12 6l10 8m-10-8l4-12"/><path d="M78 24a16 16 0 1 1-6 18m0 0l-2-8m2 8l8-2" style="stroke:var(--acc);stroke-width:3"/>'}
 };
 const ARTMAP={
+'무릎 플랭크':['kplank','무릎을 대고 팔꿈치로 버티는 쉬운 플랭크예요'],'무릎 사이드 플랭크':['kside','무릎을 굽혀 대고 옆으로 버티는 쉬운 사이드 플랭크예요'],'하프 스쿼트':['hsq','반만 앉았다 일어나는 쉬운 스쿼트예요'],'스탠딩 니 업':['kneeup','서서 무릎을 번갈아 배꼽 높이까지 들어요'],'점핑잭':['jjack','팔다리를 벌렸다 모으며 가볍게 뛰어요'],'테이블 로우':['trow','튼튼한 식탁 아래에서 몸을 당겨 올려요'],'리버스 크런치':['rcrunch','누워서 무릎을 가슴 쪽으로 말아 올려요'],'마운틴 클라이머':['mclimb','푸쉬업 자세에서 무릎을 번갈아 당겨요'],'네거티브 푸쉬업':['pu','천천히 내려가는 것만 하는 푸쉬업이에요'],'굿모닝':['gmorn','엉덩이를 뒤로 빼며 상체를 숙였다 일어나요'],
 '프론 Y 레이즈':['pyr','엎드려서 팔을 Y자로 뻗고 날개뼈를 아래로 내리며 들어올려요'],'밴드 풀 어파트':['bpa','밴드를 어깨 높이로 잡고 날개뼈를 모으며 양옆으로 벌려요'],'밴드 서라터스 펀치':['spunch','밴드를 등 뒤에 걸고 팔꿈치를 편 채 날개뼈를 앞으로 밀어내요'],'밴드 페이스 풀':['fpull','밴드를 얼굴 높이에 걸고 팔꿈치를 높게 벌리며 얼굴 쪽으로 당겨요'],'월 슬라이드':['wslide','등과 팔을 벽에 붙인 채 W에서 Y 모양으로 밀어올려요'],'버드독':['birddog','네발 자세에서 반대쪽 팔과 다리를 골반 수평을 유지하며 뻗어요'],'스캐풀라 푸쉬업':['scpu','팔을 편 채 날개뼈만 모았다가 바닥을 밀어 벌려요'],
 '러닝':['run','팔을 리듬 있게 흔들며 가볍게 달려요'],'걷기':['walk','허리를 펴고 보폭을 일정하게 걸어요'],
 '벽 푸쉬업':['pui','벽을 짚고 서서 하는 가장 쉬운 푸쉬업'],
@@ -1261,6 +1277,73 @@ const TIPS={
 '원암 푸쉬업':['발은 어깨너비 이상, 팔꿈치는 몸에 붙여요','골반을 고정하고 한 팔로 밀어요','좌우 모두 같은 횟수로 연습해요'],
 '프리스탠딩 핸드스탠드 홀드':['손가락으로 바닥을 눌러 균형을 조절해요','시선은 손 사이, 갈비뼈는 닫아요','넘어질 때는 굴러 나오는 법을 먼저 익혀요']
 };
+/* 운동 상세 가이드: m=쓰는 근육, s=하는 방법, x=피할 실수, r=초보 추천 */
+const GUIDE={
+'푸쉬업':{m:'가슴 · 삼두 · 어깨 앞쪽 · 코어',s:['손을 어깨너비보다 살짝 넓게 짚고 머리부터 발끝까지 일자로 만들어요','팔꿈치를 몸 쪽으로 45도 정도 모으며 가슴이 바닥 가까이 갈 때까지 내려가요','바닥을 밀어내듯 팔을 펴며 올라와요'],x:['허리가 처지거나 엉덩이가 들리는 것','팔꿈치를 옆으로 활짝 벌리는 것'],r:'8~12회 × 3세트'},
+'무릎 푸쉬업':{m:'가슴 · 삼두 · 어깨 앞쪽',s:['무릎을 바닥에 대고 손은 어깨너비보다 살짝 넓게 짚어요','무릎부터 머리까지 일자를 유지하며 가슴을 내려요','바닥을 밀어 올라와요. 15개가 쉬워지면 일반 푸쉬업으로 넘어가요'],x:['엉덩이만 뒤로 빼고 상체만 움직이는 것','목을 앞으로 빼는 것'],r:'10~15회 × 3세트'},
+'벽 푸쉬업':{m:'가슴 · 삼두 · 어깨 앞쪽',s:['벽에서 한 걸음 떨어져 서서 어깨 높이로 손을 짚어요','몸을 곧게 편 채 가슴이 벽에 닿을 듯 다가가요','벽을 밀어 처음 자세로 돌아와요. 발을 멀리 둘수록 힘들어져요'],x:['허리를 앞으로 꺾는 것','너무 빨리 반동으로 하는 것'],r:'15~20회 × 3세트'},
+'인클라인 푸쉬업':{m:'가슴 · 삼두 · 어깨 앞쪽',s:['책상이나 의자처럼 튼튼한 곳을 잡고 몸을 비스듬히 만들어요','몸을 일자로 유지하며 가슴을 모서리 쪽으로 내려요','밀어서 올라와요. 잡는 곳이 낮을수록 어려워져요'],x:['밀리는 가구를 쓰는 것','엉덩이가 처지는 것'],r:'10~15회 × 3세트'},
+'네거티브 푸쉬업':{m:'가슴 · 삼두 · 코어',s:['푸쉬업 위 자세에서 시작해요','3~5초 동안 아주 천천히 바닥까지 내려가요','무릎을 대고 올라와서 다시 반복해요'],x:['중간에 툭 떨어지는 것','허리가 먼저 내려가는 것'],r:'5~8회 × 3세트'},
+'다이아몬드 푸쉬업':{m:'삼두 · 가슴 안쪽',s:['양손 엄지와 검지를 붙여 다이아몬드 모양을 만들어요','팔꿈치를 몸에 붙인 채 가슴을 손 위로 내려요','삼두에 힘을 주며 밀어 올라와요'],x:['팔꿈치가 옆으로 벌어지는 것','손목이 아픈데 계속하는 것'],r:'6~10회 × 3세트'},
+'딥스':{m:'가슴 아래쪽 · 삼두 · 어깨 앞쪽',s:['평행봉이나 의자 두 개를 잡고 팔을 펴서 몸을 띄워요','상체를 살짝 앞으로 숙이며 팔꿈치가 90도가 될 때까지 내려가요','손바닥으로 밀어 올라와요'],x:['어깨가 귀 쪽으로 으쓱 올라가는 것','너무 깊게 내려가 어깨가 아픈 것'],r:'5~10회 × 3세트'},
+'벤치 딥스':{m:'삼두 · 어깨 앞쪽',s:['의자 끝을 손으로 잡고 엉덩이를 의자 앞으로 빼요','팔꿈치를 뒤로 접으며 엉덩이를 내려요','손으로 의자를 밀어 올라와요. 무릎을 굽히면 쉬워져요'],x:['바퀴 달린 의자를 쓰는 것','팔꿈치가 옆으로 벌어지는 것'],r:'10~15회 × 3세트'},
+'풀업':{m:'광배 · 이두 · 등 중앙',s:['손바닥이 앞을 보게 어깨너비보다 살짝 넓게 봉을 잡아요','날개뼈를 먼저 아래로 내린 뒤 가슴을 봉 쪽으로 당겨요','턱이 봉을 넘으면 천천히 내려와요'],x:['몸을 흔들어 반동으로 올라가는 것','팔을 반만 펴고 다시 올라가는 것'],r:'최대의 70%씩 4세트'},
+'친업':{m:'이두 · 광배',s:['손바닥이 나를 보게 어깨너비로 봉을 잡아요','팔꿈치를 옆구리로 끌어내리듯 당겨요','턱이 봉을 넘으면 천천히 내려와요'],x:['목만 쭉 빼서 턱을 넘기는 것','다리를 차서 올라가는 것'],r:'최대의 70%씩 4세트'},
+'네거티브 풀업':{m:'광배 · 이두 · 악력',s:['의자를 밟고 턱이 봉 위에 있는 자세에서 시작해요','3~5초 동안 천천히 팔이 다 펴질 때까지 내려와요','다시 의자를 밟고 올라가서 반복해요'],x:['내려오다 중간에 툭 떨어지는 것','어깨 힘이 풀린 채로 매달리는 것'],r:'3~5회 × 3세트'},
+'인버티드 로우':{m:'등 중앙 · 광배 · 이두',s:['허리 높이 봉이나 튼튼한 식탁 아래로 들어가 봉을 잡아요','몸을 일자로 만들고 가슴을 봉 쪽으로 당겨요','날개뼈를 꽉 모은 뒤 천천히 내려와요'],x:['엉덩이가 처지는 것','팔로만 당기고 날개뼈를 안 쓰는 것'],r:'8~12회 × 3세트'},
+'테이블 로우':{m:'등 중앙 · 이두',s:['튼튼한 식탁 아래에 누워 식탁 모서리를 잡아요','무릎을 세우고 엉덩이를 들어 몸을 곧게 만들어요','가슴을 식탁 쪽으로 당긴 뒤 천천히 내려와요'],x:['가볍거나 흔들리는 책상을 쓰는 것','반동으로 튕기는 것'],r:'8~12회 × 3세트'},
+'스캐풀라 풀업':{m:'하부 승모근 · 광배 (날개뼈 조절)',s:['봉에 팔을 편 채 매달려요','팔꿈치는 펴둔 채 날개뼈만 아래로 내려 몸을 살짝 들어올려요','1초 멈췄다가 천천히 내려와요'],x:['팔을 굽혀서 당기는 것','반동을 주는 것'],r:'8~12회 × 3세트'},
+'데드 행':{m:'악력 · 광배 · 어깨 안정성',s:['봉을 어깨너비로 잡고 발을 바닥에서 떼요','어깨에 힘을 빼지 말고 몸을 곧게 매달려요','버틸 수 있는 만큼 매달려 있다가 천천히 내려와요'],x:['어깨가 귀까지 축 늘어지는 것','손이 미끄러지는데 버티는 것'],r:'20~30초 × 3세트'},
+'파이크 푸쉬업':{m:'어깨 · 삼두',s:['손과 발을 바닥에 짚고 엉덩이를 높이 들어 ㅅ자를 만들어요','팔꿈치를 굽혀 정수리가 손 사이 앞쪽 바닥으로 가게 내려가요','밀어서 올라와요. 발을 높이 둘수록 어려워져요'],x:['엉덩이가 내려가 일반 푸쉬업처럼 되는 것','머리를 손과 같은 선으로 내리는 것'],r:'6~10회 × 3세트'},
+'벽 핸드스탠드 홀드':{m:'어깨 · 삼두 · 코어',s:['벽을 등지고 손을 짚은 뒤 발로 벽을 타고 올라가거나 킥업해요','팔을 귀 옆까지 쭉 밀고 몸을 일자로 만들어요','배에 힘을 주고 버텨요. 내려올 땐 한 발씩 천천히'],x:['허리를 바나나처럼 꺾는 것','팔꿈치가 굽는 것'],r:'20~30초 × 3세트'},
+'플란체 린':{m:'어깨 앞쪽 · 손목 · 코어',s:['푸쉬업 자세에서 손가락을 옆이나 뒤로 돌려 짚어요','팔을 편 채 어깨를 손보다 앞으로 천천히 밀어요','등을 둥글게 밀어낸 채로 버텨요'],x:['팔꿈치를 굽히는 것','손목이 아픈데 무리하는 것'],r:'15~20초 × 3세트'},
+'프로그 스탠드':{m:'어깨 · 손목 · 균형',s:['쪼그려 앉아 손을 어깨너비로 바닥에 짚어요','무릎을 팔꿈치 바깥쪽에 올리고 몸을 앞으로 기울여요','발이 바닥에서 뜨는 지점에서 균형을 잡아요. 앞에 쿠션을 두면 안전해요'],x:['너무 확 넘어가서 얼굴을 박는 것','손가락으로 바닥을 안 누르는 것'],r:'10~20초 × 3세트'},
+'스쿼트':{m:'허벅지 앞 · 엉덩이 · 코어',s:['발을 어깨너비로 벌리고 발끝은 살짝 바깥으로 둬요','의자에 앉듯 엉덩이를 뒤로 빼며 허벅지가 바닥과 평행할 때까지 앉아요','발바닥 전체로 바닥을 밀며 일어나요'],x:['무릎이 안쪽으로 모이는 것','뒤꿈치가 들리는 것'],r:'15~20회 × 3세트'},
+'하프 스쿼트':{m:'허벅지 앞 · 엉덩이',s:['발을 어깨너비로 벌리고 팔은 앞으로 뻗어 균형을 잡아요','무릎이 45도 정도 굽을 때까지만 앉아요','천천히 일어나요. 무릎이 아프거나 처음일 때 좋아요'],x:['허리를 둥글게 마는 것','무릎만 앞으로 쭉 나가는 것'],r:'15~20회 × 3세트'},
+'의자 스쿼트':{m:'허벅지 앞 · 엉덩이',s:['의자 앞에 서서 발을 어깨너비로 벌려요','엉덩이가 의자에 살짝 닿을 때까지 천천히 앉아요','완전히 앉지 말고 바로 일어나요'],x:['털썩 주저앉는 것','상체를 너무 숙이는 것'],r:'12~15회 × 3세트'},
+'런지':{m:'허벅지 앞 · 엉덩이 · 균형',s:['서서 한 발을 크게 앞으로 내디뎌요','뒷무릎이 바닥에 닿기 직전까지 몸을 수직으로 내려요','앞발로 밀어 제자리로 돌아오고 반대쪽도 해요'],x:['앞무릎이 발끝보다 한참 앞으로 나가는 것','상체가 앞으로 쏠리는 것'],r:'한쪽 8~10회 × 3세트'},
+'불가리안 스플릿 스쿼트':{m:'허벅지 앞 · 엉덩이',s:['의자를 등지고 서서 한 발등을 의자 위에 올려요','앞다리로 천천히 앉아 허벅지가 바닥과 평행해질 때까지 내려가요','앞발 뒤꿈치로 밀어 올라와요'],x:['앞발이 의자에 너무 가까운 것','무릎이 안쪽으로 무너지는 것'],r:'한쪽 8회 × 3세트'},
+'글루트 브릿지':{m:'엉덩이 · 햄스트링 · 허리',s:['누워서 무릎을 세우고 발은 엉덩이 가까이 둬요','발뒤꿈치로 바닥을 밀며 엉덩이를 들어 무릎-골반-어깨를 일자로 만들어요','위에서 엉덩이를 1초 꽉 조인 뒤 천천히 내려와요'],x:['허리를 과하게 꺾어 올리는 것','발이 너무 멀어 햄스트링에 쥐가 나는 것'],r:'15~20회 × 3세트'},
+'카프 레이즈':{m:'종아리',s:['벽을 살짝 잡고 발을 골반너비로 벌려 서요','발뒤꿈치를 최대한 높이 들어 1초 멈춰요','천천히 내려와요. 계단 끝에서 하면 더 효과적이에요'],x:['반동으로 빨리 하는 것','발목이 바깥으로 꺾이는 것'],r:'20~30회 × 3세트'},
+'월 싯':{m:'허벅지 앞 · 엉덩이',s:['벽에 등을 대고 발을 앞으로 한 걸음 내밀어요','등을 벽에 붙인 채 미끄러져 내려가 무릎이 90도가 되게 해요','손은 허벅지에 올리지 말고 버텨요'],x:['무릎이 발끝보다 앞으로 나가는 것','숨을 참는 것'],r:'30~45초 × 3세트'},
+'굿모닝':{m:'햄스트링 · 엉덩이 · 허리',s:['발을 골반너비로 벌리고 손을 머리 뒤에 대요','무릎을 살짝 굽힌 채 엉덩이를 뒤로 빼며 상체를 숙여요','허벅지 뒤가 당기면 엉덩이를 앞으로 밀며 일어나요'],x:['등을 둥글게 마는 것','무릎을 너무 많이 굽히는 것'],r:'12~15회 × 3세트'},
+'플랭크':{m:'복근 · 코어 전체 · 어깨',s:['팔꿈치를 어깨 바로 아래 두고 엎드려요','발끝으로 몸을 들어 머리부터 발까지 일자로 만들어요','배꼽을 등 쪽으로 당기고 엉덩이를 조인 채 버텨요'],x:['엉덩이가 처지거나 너무 높이 들리는 것','숨을 참는 것'],r:'20~40초 × 3세트'},
+'무릎 플랭크':{m:'복근 · 코어',s:['팔꿈치를 어깨 아래 두고 무릎을 바닥에 대요','무릎부터 머리까지 일자로 만들어요','배에 힘을 주고 버텨요. 40초가 쉬워지면 일반 플랭크로'],x:['엉덩이를 뒤로 빼는 것','고개를 떨구는 것'],r:'20~30초 × 3세트'},
+'사이드 플랭크':{m:'옆구리 · 코어 · 엉덩이 옆',s:['옆으로 누워 팔꿈치를 어깨 바로 아래 짚어요','발을 포개고 골반을 들어 몸을 일자로 만들어요','버틴 뒤 반대쪽도 같은 시간만큼 해요'],x:['골반이 아래로 처지는 것','어깨가 귀 쪽으로 올라가는 것'],r:'한쪽 15~30초 × 3세트'},
+'무릎 사이드 플랭크':{m:'옆구리 · 코어',s:['옆으로 누워 팔꿈치를 어깨 아래 두고 무릎을 뒤로 굽혀요','무릎과 팔꿈치로 버티며 골반을 들어요','머리-골반-무릎을 일자로 유지하고 반대쪽도 해요'],x:['골반이 뒤로 빠지는 것','몸이 앞으로 기우는 것'],r:'한쪽 15~20초 × 3세트'},
+'할로우 홀드':{m:'복근 · 코어',s:['누워서 허리를 바닥에 꾹 눌러 붙여요','팔은 귀 옆으로 뻗고 어깨와 다리를 바닥에서 살짝 들어요','허리가 뜨지 않게 버텨요. 힘들면 무릎을 굽혀요'],x:['허리가 바닥에서 뜨는 것','목에 힘이 들어가는 것'],r:'15~30초 × 3세트'},
+'크런치':{m:'복근 윗부분',s:['누워서 무릎을 세우고 손은 가슴 위나 귀 옆에 둬요','배에 힘을 주며 어깨를 바닥에서 들어 올려요','천천히 내려와요'],x:['손으로 머리를 당기는 것','반동으로 일어나는 것'],r:'15~20회 × 3세트'},
+'리버스 크런치':{m:'복근 아랫부분',s:['누워서 손을 몸 옆에 두고 무릎을 90도로 들어요','배에 힘을 주며 무릎을 가슴 쪽으로 당겨 엉덩이를 살짝 들어요','천천히 처음 자세로 내려와요'],x:['다리를 휘둘러 반동을 쓰는 것','허리가 바닥에서 뜬 채로 내리는 것'],r:'10~15회 × 3세트'},
+'레그 레이즈':{m:'복근 아랫부분 · 고관절',s:['누워서 손을 엉덩이 옆에 두고 다리를 모아요','다리를 편 채 수직까지 들어 올려요','허리가 뜨지 않는 높이까지만 천천히 내려요'],x:['허리가 바닥에서 뜨는 것','다리를 쿵 떨어뜨리는 것'],r:'8~12회 × 3세트'},
+'행잉 니 레이즈':{m:'복근 아랫부분 · 악력',s:['봉에 매달려 몸의 흔들림을 멈춰요','무릎을 가슴 쪽으로 끌어올려요','천천히 내려요'],x:['몸을 흔들어 반동으로 올리는 것','어깨 힘을 빼고 축 늘어지는 것'],r:'8~12회 × 3세트'},
+'데드버그':{m:'코어 · 복근 깊은 근육',s:['누워서 팔은 천장으로, 무릎은 90도로 들어요','반대쪽 팔과 다리를 동시에 천천히 뻗어요','허리를 바닥에 붙인 채 돌아오고 반대쪽도 해요'],x:['허리가 바닥에서 뜨는 것','너무 빨리 하는 것'],r:'한쪽 8~10회 × 3세트'},
+'버드독':{m:'코어 · 허리 · 엉덩이',s:['네발 자세에서 손은 어깨 아래, 무릎은 골반 아래 둬요','반대쪽 팔과 다리를 바닥과 평행하게 뻗어요','2초 멈췄다가 돌아오고 반대쪽도 해요'],x:['골반이 옆으로 돌아가는 것','허리를 꺾는 것'],r:'한쪽 8~10회 × 3세트'},
+'스탠딩 니 업':{m:'복근 아랫부분 · 고관절',s:['똑바로 서서 손을 허리에 두거나 앞으로 뻗어요','한쪽 무릎을 배꼽 높이까지 들어 올려요','천천히 내리고 반대쪽도 해요. 자리에서 바로 할 수 있어요'],x:['상체를 뒤로 젖히는 것','너무 빨리 해서 균형을 잃는 것'],r:'한쪽 12~15회 × 3세트'},
+'점핑잭':{m:'전신 · 심폐',s:['발을 모으고 팔은 몸 옆에 두고 서요','가볍게 뛰며 다리를 벌리고 팔을 머리 위로 올려요','다시 뛰며 처음 자세로 돌아와요. 층간소음이 걱정되면 점프 없이 한 발씩'],x:['발뒤꿈치로 쿵쿵 착지하는 것','무릎을 쭉 펴고 착지하는 것'],r:'30초 × 3세트'},
+'마운틴 클라이머':{m:'코어 · 어깨 · 심폐',s:['푸쉬업 위 자세를 만들어요','한쪽 무릎을 가슴 쪽으로 당겼다가 돌려놓아요','다리를 번갈아 리듬 있게 반복해요. 천천히 하면 초보도 OK'],x:['엉덩이가 높이 들리는 것','어깨가 손보다 뒤로 빠지는 것'],r:'20~30초 × 3세트'},
+'슈퍼맨 홀드':{m:'허리 · 엉덩이 · 등',s:['엎드려서 팔을 머리 위로 뻗어요','팔과 다리를 동시에 바닥에서 살짝 들어요','목은 길게 유지하고 버텨요'],x:['고개를 확 젖히는 것','너무 높이 들어 허리가 아픈 것'],r:'15~20초 × 3세트'},
+'머슬업':{m:'광배 · 가슴 · 삼두 · 폭발력',s:['봉을 살짝 깊게(손목이 봉 위로) 잡아요','가슴이 아닌 배꼽까지 폭발적으로 높이 당겨요','봉 위로 손목을 넘기며 상체를 앞으로 숙이고 딥스처럼 밀어 올라가요'],x:['다리를 마구 차는 것','당기는 높이가 부족한 채로 넘기려는 것'],r:'1~3회 × 5세트'},
+};
+
+const EASY=new Set(['벽 푸쉬업','무릎 푸쉬업','인클라인 푸쉬업','네거티브 푸쉬업','벤치 딥스','의자 스쿼트','하프 스쿼트','스쿼트','글루트 브릿지','카프 레이즈','월 싯','굿모닝','플랭크','무릎 플랭크','무릎 사이드 플랭크','크런치','리버스 크런치','데드버그','버드독','스탠딩 니 업','슈퍼맨 홀드','데드 행','스캐풀라 풀업','높은 인버티드 로우','인버티드 로우 (무릎)','테이블 로우','월 슬라이드','프론 Y 레이즈','밴드 풀 어파트','점핑잭','마운틴 클라이머','걷기','손목 돌리기']);
+const FAM_M=['가슴 · 삼두 · 어깨 앞쪽','가슴 아래쪽 · 삼두','어깨 앞쪽 · 손목 · 코어','어깨 · 삼두 · 균형 감각','광배 · 이두 · 악력','등 중앙 · 이두','광배 · 코어 전체','등 · 날개뼈 주변','복근 · 고관절 · 삼두','코어 전체','복근','허벅지 · 엉덩이','허벅지 · 엉덩이 · 균형','엉덩이 · 햄스트링','종아리','햄스트링','팔','심폐 · 전신',''];
+function exNear(ex){
+  const n=SKN.find(x=>(x.ex||x.n)===ex.name||x.n===ex.name),byName=nm=>S.exercises.find(e=>e.name===nm);
+  if(n){const e=n.rq.map(r=>SKBY[r]).filter(Boolean).map(x=>byName(x.ex||x.n)).filter(Boolean),h=SKN.filter(x=>x.rq.includes(n.id)).map(x=>byName(x.ex||x.n)).filter(Boolean);return {e:e.slice(0,3),h:h.slice(0,3)}}
+  const f=exFam(ex),L=exSort(S.exercises.filter(x=>exFam(x)===f)),i=L.findIndex(x=>x.id===ex.id);
+  return {e:i>0?[L[i-1]]:[],h:i>=0&&i<L.length-1?[L[i+1]]:[]};
+}
+function guideHtml(ex){
+  const g=GUIDE[ex.name]||{},tm=ex.type==='time',nb=exNear(ex),m=g.m||FAM_M[exFam(ex)]||ex.part;
+  const chip=x=>`<button class="chip gch" data-act="art-view" data-ex="${x.id}">${esc(x.name)} ›</button>`;
+  return `<div class="gd">${EASY.has(ex.name)?'<div class="gdeasy">🌱 초보자에게 추천하는 운동이에요</div>':''}
+  ${m?`<div class="gdr"><span>🎯</span><div><b>쓰는 근육</b><div>${esc(m)}</div></div></div>`:''}
+  ${g.s?`<div class="gdr"><span>📋</span><div><b>하는 방법</b><ol>${g.s.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div></div>`:''}
+  ${g.x?`<div class="gdr"><span>⚠️</span><div><b>이런 건 피해요</b><ul>${g.x.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div></div>`:''}
+  <div class="gdr"><span>💡</span><div><b>처음엔 이 정도</b><div>${esc(g.r||(tm?'20~30초 × 3세트':'8~12회 × 3세트'))} · 세트 사이 60~90초 휴식</div></div></div>
+  ${nb.e.length||nb.h.length?`<div class="gdr"><span>🪜</span><div><b>단계 바꾸기</b>${nb.e.length?`<div class="gdl"><span class="muted sm">너무 힘들면</span>${nb.e.map(chip).join('')}</div>`:''}${nb.h.length?`<div class="gdl"><span class="muted sm">너무 쉬우면</span>${nb.h.map(chip).join('')}</div>`:''}</div></div>`:''}
+  </div>`;
+}
 const tipsHtml=n=>{const t=TIPS[n];return t?`<div class="tips"><div class="tt">운동 팁</div>${t.map(x=>`<div class="tp"><i></i><span>${esc(x)}</span></div>`).join('')}</div>`:''};
 const exThumb=(ex,cls,tap)=>{const a=exArt(ex,false,cls||'sm');return a?`<span class="thumb ${cls||''}"${tap?` data-act="art-view" data-ex="${ex.id}"`:''}>${a}</span>`:''};
 
@@ -1289,7 +1372,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.skMode=o.skMode==='easy'?'easy':'basic';b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1342,7 +1425,7 @@ function mergeState(L,R){
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
   o.tutDone=(L.tutDone||R.tutDone)?1:0;
-  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk'].forEach(k=>{o[k]=L[k]})}
+  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk','skMode'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
   o.seeded=!!(L.seeded||R.seeded);o.updated=Math.max(L.updated||0,R.updated||0)+1;
@@ -1536,8 +1619,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.25c';
-const APP_NEWS=['이제 업데이트해도 바로가기를 다시 만들 필요 없어요','🏅 분석 탭에서 내 티어표를 커뮤니티에 공유할 수 있어요','✏️ 커뮤니티 글쓰기 + 공유할 때 한마디'];
+const APP_VER='2026.11.25e';
+const APP_NEWS=['🌱 기술 트리 왼쪽 위에서 초보 / 기본 트리를 바꿀 수 있어요','🌱 초보 트리: 쉬운 운동 36개를 밀기·당기기·자세·전신·코어·하체 단계로 정리했어요','📋 운동 상세 설명 + 종목 추가에서 크게 보기'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1848,7 +1931,7 @@ function wzSkHtml(w){
   w._pop=-1;
   const info=sk.length?`<div class="muted sm c" style="margin-top:8px">${sk.map((id,i)=>{const n=wzSkPath(id).length;return `${i+1}. ${esc(SKBY[id].n)} ${lv[id].lv>=3?'(이미 마스터)':`· 지금부터 ${n}단계`}`}).join('<br>')}</div>`:'<div class="muted sm c" style="margin-top:8px">아래 트리에서 원을 눌러 목표 기술을 골라요 · 칸을 누르면 빠져요</div>';
   return `<div class="wzslots">${slots}</div>${info}
-  <div class="wzskbox"><div class="skw wzsk" id="skw"><div class="skc" id="skc">${skSvg()}</div><div class="skz"><button data-act="sk-zoom" data-v="1.3" aria-label="확대">＋</button><button data-act="sk-zoom" data-v="0.77" aria-label="축소">－</button><button data-act="sk-fit" aria-label="전체 보기">⛶</button></div><div class="wzsklab">기술 트리</div></div></div>`;
+  <div class="wzskbox"><div class="skw wzsk" id="skw"><div class="skc" id="skc">${skSvg('basic')}</div><div class="skz"><button data-act="sk-zoom" data-v="1.3" aria-label="확대">＋</button><button data-act="sk-zoom" data-v="0.77" aria-label="축소">－</button><button data-act="sk-fit" aria-label="전체 보기">⛶</button></div><div class="wzsklab">기술 트리</div></div></div>`;
 }
 function wzSkStart(){const w=$('#skw');if(!w)return;const ps=Object.values(SKG.P),minY=Math.min(...ps.map(p=>p.y)),minX=Math.min(...ps.map(p=>p.x));
   const k=.8;SKV.k=k;SKV.x=30-(minX-30)*k;SKV.y=70-(minY-60)*k;skApply()}
@@ -2260,7 +2343,7 @@ function moreView(){
 /* ---------- modals ---------- */
 /* 종목 목록 정렬: 비슷한 운동끼리 묶고, 묶음 안에서는 쉬운 것 → 어려운 것 */
 const EX_FAM=['푸쉬업','딥스','플란체','핸드스탠드 · 파이크','풀업 · 매달리기','로우','레버','등 기타','엘싯 · 서포트','플랭크','복근','스쿼트','런지 · 스텝업','브릿지','종아리','햄스트링','팔','유산소','기타'];
-const EX_FAM_RULE=[[/핸드스탠드|파이크|월 워크|킥업|벽 네거티브|파트 푸쉬업|벽 풀 레인지|벽에서 발|프리스탠딩|스트래들 프레스|HSPU/i,3],[/플란체|프로그/,2],[/행잉|레그 레이즈|니 레이즈|토스 투|윈드실드|드래곤|할로우|데드버그|크런치/,10],[/풀업|친업|머슬업|데드 행|액티브 행|플렉스 행/,4],[/로우/,5],[/레버|스킨 더 캣/,6],[/엘싯|서포트|브이싯/,8],[/푸쉬업/,0],[/딥스/,1],[/슈퍼맨/,7],[/플랭크/,9],[/스쿼트|피스톨|월 싯/,11],[/런지|스텝업/,12],[/브릿지/,13],[/카프/,14],[/노르딕/,15],[/컬|익스텐션|트라이셉스/,16],[/러닝|걷기/,17]];
+const EX_FAM_RULE=[[/핸드스탠드|파이크|월 워크|킥업|벽 네거티브|파트 푸쉬업|벽 풀 레인지|벽에서 발|프리스탠딩|스트래들 프레스|HSPU/i,3],[/플란체|프로그/,2],[/행잉|레그 레이즈|니 레이즈|니 업|토스 투|윈드실드|드래곤|할로우|데드버그|크런치|버드독/,10],[/풀업|친업|머슬업|데드 행|액티브 행|플렉스 행/,4],[/로우/,5],[/레버|스킨 더 캣/,6],[/엘싯|서포트|브이싯/,8],[/푸쉬업/,0],[/딥스/,1],[/슈퍼맨/,7],[/플랭크/,9],[/스쿼트|피스톨|월 싯/,11],[/런지|스텝업/,12],[/브릿지/,13],[/카프/,14],[/노르딕|굿모닝/,15],[/컬|익스텐션|트라이셉스/,16],[/러닝|걷기/,17]];
 const exFam=x=>{for(const [r,i] of EX_FAM_RULE)if(r.test(x.name))return i;return x.part==='유산소'?17:18};
 let EX_RANK=null;
 const exRank=x=>{if(!EX_RANK){EX_RANK={};SKN.forEach((n,i)=>{if(EX_RANK[n.ex]==null)EX_RANK[n.ex]=i})}
@@ -2268,15 +2351,15 @@ const exRank=x=>{if(!EX_RANK){EX_RANK={};SKN.forEach((n,i)=>{if(EX_RANK[n.ex]==n
 const exSort=l=>l.map(x=>({x,f:exFam(x),r:exRank(x)})).sort((a,b)=>a.f-b.f||a.r-b.r||a.x.name.localeCompare(b.x.name,'ko')).map(o=>o.x);
 function exListHtml(){
   const m=U.modal,q=(m.q||'').trim().toLowerCase();
-  const qk=q.replace(/\s/g,''),list=S.exercises.filter(x=>(m.part==='전체'||x.part===m.part)&&(!q||x.name.toLowerCase().includes(q)||x.name.replace(/\s/g,'').toLowerCase().includes(qk)||exKey(x.name).includes(exKey(q))));
-  let pf=-1;return exSort(list).map(x=>{const f=exFam(x),hd=f!==pf?`<div class="exfam">${EX_FAM[f]}</div>`:'';pf=f;return hd+`<div class="li" data-act="pick-ex" data-id="${x.id}"><span class="exn">${exThumb(x,'xs')}<span>${esc(x.name)}</span></span><span class="chip">${x.part}</span></div>`}).join('')||'<div class="empty">검색 결과가 없어요</div>';
+  const qk=q.replace(/\s/g,''),list=S.exercises.filter(x=>(m.part==='전체'||x.part===m.part||(m.part==='초보'&&EASY.has(x.name)))&&(!q||x.name.toLowerCase().includes(q)||x.name.replace(/\s/g,'').toLowerCase().includes(qk)||exKey(x.name).includes(exKey(q))));
+  let pf=-1;return exSort(list).map(x=>{const f=exFam(x),hd=f!==pf?`<div class="exfam">${EX_FAM[f]}</div>`:'';pf=f;return hd+`<div class="li" data-act="pick-ex" data-id="${x.id}"><span class="exn"><span class="exth" data-act="art-view" data-ex="${x.id}">${exThumb(x,'xs')}</span><span>${esc(x.name)}${EASY.has(x.name)?' <span class="easyb">🌱</span>':''}</span></span><span class="row" style="gap:6px"><span class="chip">${x.part}</span><button class="exinfo" data-act="art-view" data-ex="${x.id}" aria-label="자세히 보기">ⓘ</button></span></div>`}).join('')||'<div class="empty">검색 결과가 없어요</div>';
 }
 function modalHtml(){
   const m=U.modal;if(!m)return '';
   let body='';
   if(m.type==='ex'){
     body=`<h3>${m.swap!=null?'운동 대체':'종목 선택'}</h3><input class="inp" placeholder="종목 검색" data-bind="exq" value="${esc(m.q||'')}">
-    <div class="seg" style="margin:10px 0 4px">${['전체',...PARTS].map(p=>`<button class="btn ${m.part===p?'on':''}" data-act="ex-part" data-v="${p}">${p}</button>`).join('')}</div>
+    <div class="seg" style="margin:10px 0 4px">${['전체','초보',...PARTS].map(p=>`<button class="btn ${m.part===p?'on':''}" data-act="ex-part" data-v="${p}">${p==='초보'?'🌱 초보':p}</button>`).join('')}</div>
     <div id="exlist" class="exl" style="height:min(${S.exercises.filter(x=>x.part==='가슴').length*48}px,52vh)">${exListHtml()}</div><div class="muted sm" style="margin-top:8px">찾는 종목이 없으면 더보기 탭에서 추가할 수 있어요.</div>`;
   }else if(m.type==='routine'){
     const sel=m.sel||(m.sel=[]),into=m.into&&S.sessions.find(x=>x.id===m.into);
@@ -2331,7 +2414,7 @@ function modalHtml(){
     <div class="row" style="justify-content:flex-end;margin-top:18px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="wt-ok">적용</button></div>`;
   }else if(m.type==='artview'){
     const ex=exById(m.exId)||{name:'?'},info=artInfo(ex),A=info&&ART[info.k],hold=A&&!A.custom&&A.f.length<2;
-    body=`<h3 class="c">${esc(ex.name)}</h3><div class="artbig">${exArt(ex,true,'xl')}</div>${info&&info.d?`<div class="artd c" style="font-size:15px;color:var(--ink)">${esc(info.d)}</div>`:''}<div class="muted sm c" style="margin-top:6px">${A&&A.custom?'계속 반복하는 동작이에요':hold?'정지한 자세로 버티는 동작이에요':'시작 자세와 끝 자세를 반복하는 동작이에요'}</div>${tipsHtml(ex.name)}<div class="row" style="justify-content:center;margin-top:16px"><button class="btn pri" data-act="modal-close">닫기</button></div>`;
+    body=`<h3 class="c">${esc(ex.name)}</h3><div class="artbig">${exArt(ex,true,'xl')}</div>${info&&info.d?`<div class="artd c" style="font-size:15px;color:var(--ink)">${esc(info.d)}</div>`:''}<div class="muted sm c" style="margin-top:6px">${A&&A.custom?'계속 반복하는 동작이에요':hold?'정지한 자세로 버티는 동작이에요':'시작 자세와 끝 자세를 반복하는 동작이에요'}</div>${guideHtml(ex)}${tipsHtml(ex.name)}${m.back&&m.back.type==='ex'?`<div class="row" style="gap:8px;margin-top:16px"><button class="btn" style="flex:1" data-act="art-back">← 목록</button><button class="btn pri" style="flex:1.4" data-act="art-pick" data-id="${ex.id}">${m.back.swap!=null?'이 운동으로 바꾸기':'＋ 이 운동 추가'}</button></div>`:`<div class="row" style="justify-content:center;margin-top:16px"><button class="btn pri" data-act="modal-close">닫기</button></div>`}`;
   }else if(m.type==='rname'){
     body=`<h3>루틴으로 저장</h3><input class="inp" id="rn" placeholder="루틴 이름" value="${esc(m.name||'')}"><div class="row" style="justify-content:flex-end;margin-top:16px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="rname-ok">저장</button></div>`;
   }else if(m.type==='export'){
@@ -2472,7 +2555,7 @@ function puCard(){
 }
 async function pkSend(to,m){
   if(needJoin())return;const me=store.uid;if(!me||to===me)return;
-  const now=Date.now();if(PK.last[to]&&now-PK.last[to]<60000){toast('방금 찔렀어요. 1분 뒤에 다시 찔러주세요');return}
+  const now=Date.now();if(PK.last[to]&&now-PK.last[to]<1000){return}
   PK.last[to]=now;
   const x=C.lb.find(y=>y.id===to),mine=PK.all.find(d=>d.id===me),items=((mine&&Array.isArray(mine.items))?mine.items:[]).filter(it=>it&&now-(+it.ts)<7*864e5).concat({to,ts:now,m:String(m||'').slice(0,40)}).slice(-30);
   sfx('pokesend');try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
@@ -2963,26 +3046,44 @@ const SKN=[
 
 ].map(a=>({id:a[0],n:a[1],k:a[2],rq:a[3],t:a[4],d:a[5],tip:a[6],ex:a[7]||a[1],c:a[8],fin:!!a[9]}));
 const SKBY={};SKN.forEach(x=>SKBY[x.id]=x);
+/* ---------- 🌱 초보용 기술 트리 ---------- */
+const SKCAT_E=[
+ {id:'ep',n:'밀기',en:'PUSH',c:'#ffb36b'},{id:'eb',n:'당기기',en:'PULL',c:'#9cf0b8'},{id:'es',n:'자세',en:'POSTURE',c:'#ffd96b'},
+ {id:'ec',n:'코어',en:'CORE',c:'#a5e3ff'},{id:'el',n:'하체',en:'LEGS',c:'#d0b3ff'},{id:'ea',n:'전신',en:'CARDIO',c:'#ff8f8f'}];
+const SKE=[
+ ['e_p1','벽 푸쉬업',[],'ep'],['e_p2','인클라인 푸쉬업',['e_p1'],'ep'],['e_p3','무릎 푸쉬업',['e_p1'],'ep'],['e_p4','네거티브 푸쉬업',['e_p2','e_p3'],'ep'],['e_p6','벤치 딥스',['e_p3'],'ep'],['e_p5','푸쉬업',['e_p4'],'ep',1],
+ ['e_b1','데드 행',[],'eb'],['e_b3','테이블 로우',[],'eb'],['e_b2','스캐풀라 풀업',['e_b1'],'eb'],['e_b4','높은 인버티드 로우',['e_b3'],'eb'],['e_b6','인버티드 로우',['e_b4'],'eb',1],['e_b5','네거티브 풀업',['e_b2','e_b4'],'eb'],['e_b7','풀업',['e_b5'],'eb',1],
+ ['e_s1','월 슬라이드',[],'es'],['e_s2','프론 Y 레이즈',['e_s1'],'es'],['e_s3','밴드 풀 어파트',['e_s1'],'es'],['e_s4','슈퍼맨 홀드',['e_s2'],'es',1],
+ ['e_c1','무릎 플랭크',[],'ec'],['e_c5','데드버그',[],'ec'],['e_c2','플랭크',['e_c1'],'ec'],['e_c3','무릎 사이드 플랭크',['e_c1'],'ec'],['e_c8','버드독',['e_c5'],'ec'],['e_c6','리버스 크런치',['e_c5'],'ec'],['e_c4','사이드 플랭크',['e_c3','e_c2'],'ec',1],['e_c7','레그 레이즈',['e_c6'],'ec',1],
+ ['e_l1','하프 스쿼트',[],'el'],['e_l5','글루트 브릿지',[],'el'],['e_l2','의자 스쿼트',['e_l1'],'el'],['e_l7','월 싯',['e_l2'],'el'],['e_l9','굿모닝',['e_l5'],'el'],['e_l3','스쿼트',['e_l2'],'el'],['e_l6','싱글 레그 브릿지',['e_l5'],'el',1],['e_l4','런지',['e_l3'],'el',1],
+ ['e_a1','스탠딩 니 업',[],'ea'],['e_a2','점핑잭',['e_a1'],'ea'],['e_a3','마운틴 클라이머',['e_a2'],'ea',1]
+].map(a=>{const nm=a[1],ex=BUILTIN.find(b=>b.name===nm),ai=artInfo({name:nm})||{k:'pu',d:''},g=GUIDE[nm],tp=TIPS[nm];
+  return {id:a[0],n:nm,k:ai.k,rq:a[2],t:ex&&ex.type==='time'?'h':'r',d:ai.d||(g&&g.s[0])||'',tip:(g&&g.s[1])||(tp&&tp[0])||'천천히 정확한 자세로 해요',ex:nm,c:a[3],fin:!!a[4],e:1}});
+SKE.forEach(x=>SKBY[x.id]=x);
+const SKALL=[...SKN,...SKE];
+const skCat=id=>SKCAT.find(c=>c.id===id)||SKCAT_E.find(c=>c.id===id)||SKCAT[0];
+const skMode=()=>(S.skMode==='easy'?'easy':'basic');
+
 const SKLV=[['잠김','#5a5a5e'],['해금','#ffffff'],['진행 중','#c77dbb'],['마스터','#b5cc8e']];
-const skNeed=(x,l)=>x.t==='h'?[0,2,6,12][l]+'초':[0,1,3,6][l]+'회';
+const skNeed=(x,l)=>x.e?(x.t==='h'?[0,10,20,30][l]+'초':[0,1,5,10][l]+'회'):(x.t==='h'?[0,2,6,12][l]+'초':[0,1,3,6][l]+'회');
 function skBest(){const b={};records().forEach(r=>{const e=exById(r.exId);if(e)b[e.name]=Math.max(b[e.name]||0,r.r)});return b}
 /* 상위 기술을 해냈으면 아래 단계 기술은 자동으로 인정: 상위가 진행 중 이상이면 선행은 마스터, 해금이면 선행은 진행 중 */
 function skImply(o){
-  const order=[...SKN].reverse();
+  const order=SKALL.filter(x=>o[x.id]).reverse();
   for(let pass=0;pass<3;pass++)order.forEach(x=>{const l=o[x.id].lv;if(l<1)return;const need=l>=2?3:2;
     x.rq.forEach(r=>{if(o[r].lv<need){o[r].lv=need;o[r].implied=1}})});
   return o;
 }
 function skLevels(){
   const b=skBest(),M=S.skLv||{},o={};
-  SKN.forEach(x=>{const v=x.ex?(b[x.ex]||0):0,auto=x.t==='h'?(v>=12?3:v>=6?2:v>=2?1:0):(v>=6?3:v>=3?2:v>=1?1:0);
+  SKALL.forEach(x=>{const v=x.ex?(b[x.ex]||0):0,auto=x.e?(x.t==='h'?(v>=30?3:v>=20?2:v>=10?1:0):(v>=10?3:v>=5?2:v>=1?1:0)):(x.t==='h'?(v>=12?3:v>=6?2:v>=2?1:0):(v>=6?3:v>=3?2:v>=1?1:0));
     o[x.id]={lv:M[x.id]!=null?M[x.id]:auto,best:v,auto}});
   skImply(o);
-  SKN.forEach(x=>{o[x.id].open=o[x.id].lv===0&&x.rq.every(r=>o[r].lv>=2)});
+  SKALL.forEach(x=>{o[x.id].open=o[x.id].lv===0&&x.rq.every(r=>o[r].lv>=2)});
   return o;
 }
 /* 위치 계산: 분류별로 아래에서 위로 자라는 트리 */
-const SKG=(()=>{
+function skLayout(SKN,SKCAT,rowA,rowB){
   const DX=96,DY=88,pos={},blocks={},lvl={};
   const L=id=>lvl[id]!=null?lvl[id]:(lvl[id]=SKBY[id].rq.length?1+Math.max(...SKBY[id].rq.filter(r=>SKBY[r].c===SKBY[id].c).map(L),-1):0);
   SKN.forEach(x=>L(x.id));
@@ -3002,7 +3103,7 @@ const SKG=(()=>{
     blocks[cat.id]={w:maxx-minx,h:mx*DY};
   });
   // 블록 배치: 위 줄(밀기·당기기 4개), 아래 줄(코어·하체)
-  const PAD=60,place={},rowA=['hp','vp','hl','vl'],rowB=['core','legs'];
+  const PAD=60,place={};
   let x=0,hA=Math.max(...rowA.map(c=>blocks[c].h));
   rowA.forEach(c=>{place[c]={x,y:hA-blocks[c].h+40};x+=blocks[c].w+150});
   const W=x-150,hB=Math.max(...rowB.map(c=>blocks[c].h)),wB=rowB.reduce((s,c)=>s+blocks[c].w,0)+170;
@@ -3010,9 +3111,11 @@ const SKG=(()=>{
   const P={};SKN.forEach(n=>{const p=place[n.c];P[n.id]={x:pos[n.id].x+p.x+PAD,y:pos[n.id].y+p.y+PAD}});
   const lab={};SKCAT.forEach(c=>{const p=place[c.id];lab[c.id]={x:p.x+PAD+blocks[c.id].w/2,y:p.y+PAD-48}});
   return {P,lab,W:W+PAD*2,H:hA+170+hB+PAD*2+60};
-})();
-function skSvg(){
-  const lv=skLevels(),{P,lab,W,H}=SKG,R=22;let e='',n='',t='';
+}
+const SKG=skLayout(SKN,SKCAT,['hp','vp','hl','vl'],['core','legs']),SKGE=skLayout(SKE,SKCAT_E,['ep','eb','es','ea'],['ec','el']);
+const skTree=m=>(m||skMode())==='easy'?{N:SKE,G:SKGE,C:SKCAT_E,e:1}:{N:SKN,G:SKG,C:SKCAT,e:0};
+function skSvg(mode){
+  const T=skTree(mode),SKN=T.N,SKCAT=T.C,lv=skLevels(),{P,lab,W,H}=T.G,R=22;let e='',n='',t='';
   SKN.forEach(x=>x.rq.forEach(r=>{const a=P[r],b=P[x.id],dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
     const x1=a.x+ux*(R+3),y1=a.y+uy*(R+3),x2=b.x-ux*(R+3),y2=b.y-uy*(R+3),mx=(x1+x2)/2,my=(y1+y2)/2,on=lv[r].lv>=2;
     e+=`<line class="ske ${on?'on':''}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/><path class="ska ${on?'on':''}" d="M${(mx+ux*4).toFixed(1)} ${(my+uy*4).toFixed(1)}L${(mx-ux*3-uy*3).toFixed(1)} ${(my-uy*3+ux*3).toFixed(1)}L${(mx-ux*3+uy*3).toFixed(1)} ${(my-uy*3-ux*3).toFixed(1)}Z"/>`}));
@@ -3024,25 +3127,25 @@ function skSvg(){
       <text class="skt" x="${p.x}" y="${p.y+R+14}">${esc(x.n.length>9?x.n.slice(0,9)+'…':x.n)}</text>
       ${x.fin?`<text x="${p.x+R+4}" y="${p.y-R+4}" class="skf">🏁</text>`:''}</g>`});
   SKCAT.forEach(c=>{const l=lab[c.id];t+=`<text class="skl" x="${l.x}" y="${l.y}" style="fill:${c.c}">${c.en}</text><text class="skl2" x="${l.x}" y="${l.y+18}">${c.n}</text>`});
-  const lg=SKLV.map((v,i)=>`<g transform="translate(0 ${i*20})"><circle cx="8" cy="0" r="6.5" fill="${v[1]}"/><text x="22" y="4">${v[0]}${i?` (${['','2초 버티기 / 1회','6초 버티기 / 3회','12초+ 버티기 / 6회+'][i]})`:''}</text></g>`).join('');
+  const lg=SKLV.map((v,i)=>`<g transform="translate(0 ${i*20})"><circle cx="8" cy="0" r="6.5" fill="${v[1]}"/><text x="22" y="4">${v[0]}${i?` (${(T.e?['','10초 / 1회','20초 / 5회','30초+ / 10회+']:['','2초 버티기 / 1회','6초 버티기 / 3회','12초+ 버티기 / 6회+'])[i]})`:''}</text></g>`).join('');
   return `<svg class="sksvg" id="sksvg" width="100%" height="100%" viewBox="0 0 ${W} ${H}" text-rendering="geometricPrecision">${e}${t}${n}<g class="sklg" transform="translate(${W/2-110} ${H-70})">${lg}</g></svg>`;
 }
 const SKART_C={};
 function skArtInner(k){if(SKART_C[k]!=null)return SKART_C[k];const h=exArt({name:'',k},false,'');return SKART_C[k]=h.replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}
 function skillView(){
-  const lv=skLevels(),cnt=[0,0,0,0];SKN.forEach(x=>cnt[lv[x.id].lv]++);
+  const T=skTree(),lv=skLevels(),cnt=[0,0,0,0];T.N.forEach(x=>cnt[lv[x.id].lv]++);const em=T.e;
   return `<div class="skw full" id="skw"><div class="skc" id="skc">${skSvg()}</div>
-   <div class="skhd"><b>기술 트리</b><span>${[3,2,1].map(i=>`<i class="skdot" style="background:${SKLV[i][1]}"></i>${cnt[i]}`).join(' &nbsp;')} &nbsp;/ ${SKN.length}</span></div>
+   <div class="skhd"><b>${em?'🌱 초보 기술 트리':'기술 트리'}</b><span>${[3,2,1].map(i=>`<i class="skdot" style="background:${SKLV[i][1]}"></i>${cnt[i]}`).join(' &nbsp;')} &nbsp;/ ${T.N.length}</span><div class="skmode"><button class="${em?'on':''}" data-act="sk-mode" data-v="easy">🌱 초보</button><button class="${em?'':'on'}" data-act="sk-mode" data-v="basic">기본</button></div>${em?'<span class="skmh">기본 기술 트리를 위한 준비 단계예요</span>':''}</div>
    <div class="skz"><button data-act="sk-zoom" data-v="1.3" aria-label="확대">＋</button><button data-act="sk-zoom" data-v="0.77" aria-label="축소">－</button><button data-act="sk-fit" aria-label="전체 보기">⛶</button></div></div>`;
 }
 /* 이동·확대 */
 const SKV={x:0,y:0,k:0};let SKP=new Map(),SKD=null,SK_NOCLICK=0;
 function skApply(){const v=$('#sksvg'),w=$('#skw');if(!v||!w)return;const nv=document.querySelector('nav');if(nv&&nv.offsetHeight){const h=nv.offsetHeight+'px';if(document.documentElement.style.getPropertyValue('--navh')!==h)document.documentElement.style.setProperty('--navh',h)}const W=w.clientWidth,H=w.clientHeight,k=SKV.k||1;v.setAttribute('viewBox',`${(-SKV.x/k).toFixed(2)} ${(-SKV.y/k).toFixed(2)} ${(W/k).toFixed(2)} ${(H/k).toFixed(2)}`)}
-function skFit(){const w=$('#skw');if(!w)return;const W=w.clientWidth,H=w.clientHeight,k=Math.min(W/SKG.W,H/SKG.H)*.96;SKV.k=k;SKV.x=(W-SKG.W*k)/2;SKV.y=(H-SKG.H*k)/2;skApply()}
+function skFit(){const w=$('#skw');if(!w)return;const G=(U.wiz&&U.tab==='routine')?SKG:skTree().G,W=w.clientWidth,H=w.clientHeight,k=Math.min(W/G.W,H/G.H)*.96;SKV.k=k;SKV.x=(W-G.W*k)/2;SKV.y=(H-G.H*k)/2;skApply()}
 function skZoom(f,cx,cy){const w=$('#skw');if(!w)return;if(cx==null){cx=w.clientWidth/2;cy=w.clientHeight/2}
   const k=Math.max(.15,Math.min(3,SKV.k*f)),r=k/SKV.k;SKV.x=cx-(cx-SKV.x)*r;SKV.y=cy-(cy-SKV.y)*r;SKV.k=k;skApply()}
 function skInit(){const w=$('#skw');if(!w)return;const nv=document.querySelector('nav');if(nv)document.documentElement.style.setProperty('--navh',nv.offsetHeight+'px');if(!SKV.k)skStart();else skApply()}
-function skStart(){const w=$('#skw');if(!w)return;const lv=skLevels();let ps=SKN.filter(x=>lv[x.id].open||lv[x.id].lv===1||lv[x.id].lv===2).map(x=>SKG.P[x.id]);if(!ps.length)ps=[SKG.P.hp2];
+function skStart(){const w=$('#skw');if(!w)return;const lv=skLevels(),T=skTree();let ps=T.N.filter(x=>lv[x.id].open||lv[x.id].lv===1||lv[x.id].lv===2).map(x=>T.G.P[x.id]);if(!ps.length)ps=[T.G.P[T.e?'e_p1':'hp2']];
   const cx=ps.reduce((a,p)=>a+p.x,0)/ps.length,cy=ps.reduce((a,p)=>a+p.y,0)/ps.length,k=Math.min(1,Math.max(.6,w.clientWidth/560));SKV.k=k;SKV.x=w.clientWidth/2-cx*k;SKV.y=w.clientHeight/2-cy*k;skApply()}
 let SK_PREV='';try{window.addEventListener('resize',()=>{if(U.tab==='skill')skApply()})}catch(e){}
 try{
@@ -3065,7 +3168,7 @@ document.addEventListener('click',e=>{if(Date.now()<SK_NOCLICK&&e.target.closest
 document.addEventListener('wheel',e=>{const w=e.target.closest&&e.target.closest('#skw');if(!w)return;e.preventDefault();const r=w.getBoundingClientRect();skZoom(Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
 }catch(e){}
 function skModal(m){
-  const x=SKBY[m.id];if(!x)return '<h3>?</h3>';const s=skLevels()[x.id],cat=SKCAT.find(c=>c.id===x.c),man=(S.skLv||{})[x.id]!=null;
+  const x=SKBY[m.id];if(!x)return '<h3>?</h3>';const s=skLevels()[x.id],cat=skCat(x.c),man=(S.skLv||{})[x.id]!=null;
   return `<div class="c muted sm" style="color:${cat.c};font-weight:700;letter-spacing:.06em">${cat.n} · ${cat.en}</div><h3 class="c" style="margin-top:4px">${esc(x.n)}${x.fin?' 🏁':''}</h3>
   <div class="artbig">${exArt({name:'',k:x.k},true,'xl')}</div>
   <div class="artd c" style="font-size:15px;color:var(--ink)">${esc(x.d)}</div>
@@ -3926,6 +4029,7 @@ document.addEventListener('click',e=>{
     case 'rd-del':{S.restDates=(S.restDates||[]).filter(x=>x!==d.d);save();render();break}
     case 'rd-today':{const a=S.restDates||(S.restDates=[]),td=today(),i=a.indexOf(td);if(i<0)a.push(td);else a.splice(i,1);save();t.textContent=i<0?'오늘 쉬는 날 해제':'오늘 하루 쉬는 날로 지정';refreshStreak();break}
     case 'skill-goal':{sfx('whoosh');S.goal=d.v;save();document.querySelectorAll('.goals .btn').forEach(b=>b.classList.toggle('on',b.dataset.v===d.v));const b=$('#skillbody');if(b){b.innerHTML=skillBody();b.classList.remove('swap');void b.offsetWidth;b.classList.add('swap')}break}
+    case 'sk-mode':{S.skMode=d.v==='easy'?'easy':'basic';save();SKV.k=0;sfx('tap');render();snd=null;break}
     case 'sk-node':{const x=SKBY[d.id];if(!x)break;if(U.wiz&&U.wiz.step===4&&U.wiz.goal==='skill'){wzSkPick(x.id);snd=null;break}const l=skLevels()[x.id];skillSfx(x.n,l.lv>=3?'done':(l.lv||l.open)?'cur':'lock');openModal({type:'sk',id:x.id});snd=null;break}
     case 'sk-zoom':skZoom(+d.v);break;
     case 'sk-fit':skFit();break;
@@ -3947,7 +4051,9 @@ document.addEventListener('click',e=>{
     case 'wk-time':{if(!W)break;openModal({type:'wktime',t:Math.round(wElapsed()/1000)});break}
     case 'wt-adj':{const mi=$('#wt-m'),si=$('#wt-s');if(!mi||!si)break;const t=Math.max(0,Math.round((+mi.value||0)*60+(+si.value||0)+(+d.v)));mi.value=Math.floor(t/60);si.value=t%60;break}
     case 'wt-ok':{const mi=$('#wt-m'),si=$('#wt-s');const t=Math.max(0,Math.round((+mi.value||0)*60+(+si.value||0)));W.acc=t*1000;W.since=Date.now();saveW();closeModal();tickWk();toast('운동 시간을 수정했어요');break}
-    case 'art-view':{if(d.ex&&artInfo(exById(d.ex)))openModal({type:'artview',exId:d.ex});break}
+    case 'art-view':{const ex=d.ex&&exById(d.ex);if(!ex)break;const cm=U.modal,back=cm&&cm.type==='ex'?cm:cm&&cm.type==='artview'?cm.back:null;openModal({type:'artview',exId:d.ex,back});const mb=$('#modal .sheet')||$('#modal');if(mb)mb.scrollTop=0;break}
+    case 'art-back':{const m=U.modal;if(m&&m.back){U.modal=m.back;renderModal()}else closeModal();break}
+    case 'art-pick':{const m=U.modal;if(!m||!m.back)break;U.modal=m.back;const t=document.createElement('button');t.dataset.act='pick-ex';t.dataset.id=d.id;t.style.display='none';document.body.appendChild(t);t.click();t.remove();break}
     case 'wk-finish':{const s=wsess(),left=s.items.reduce((a2,it)=>a2+it.sets.filter(x=>!x.done).length,0);if(!s.cd){openModal({type:'wu',ph:'end',sid:s.id});break}confirmAsk(left?`아직 ${left}세트가 남았어요. 운동을 완료할까요?`:'운동을 완료할까요?',finishWorkout);break}
     case 'wk-back-modal':closeModal();closeWk();break;
     case 'wk-stop':{closeModal();W=null;saveW();closeRest();closeWk();render();toast('운동을 중단했어요. 기록은 그대로 남아요');break}
