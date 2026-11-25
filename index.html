@@ -332,6 +332,9 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .gdl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}.gch{cursor:pointer;font:inherit;font-size:13px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line)}
 .exinfo{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--mute);font-size:15px;cursor:pointer;flex-shrink:0}.exth{cursor:zoom-in;display:inline-flex}.easyb{font-size:12px}
 .skmode{pointer-events:auto;display:inline-flex;margin-top:8px;padding:3px;border-radius:12px;background:rgba(20,20,22,.85);border:1px solid var(--gb);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);align-self:flex-start}.skmode button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:9px;border:0;background:none;color:var(--mute);cursor:pointer}.skmode button.on{background:#fff;color:#111}.skmode button.on[data-v=easy]{background:#30d158;color:#04230f}.skmh{margin-top:4px;font-size:11px!important}
+.lbe{position:relative}.lbdot{position:absolute;right:-1px;bottom:1px;width:11px;height:11px;border-radius:50%;background:#30d158;border:2px solid #1c1c1e}.lbdot.wk{background:#ff9f0a;animation:lbpul 1.4s infinite}
+@keyframes lbpul{50%{box-shadow:0 0 0 4px rgba(255,159,10,.25)}}
+.lbst{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.lbs{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--mute);white-space:nowrap}.lbs.on{color:#30d158;background:rgba(48,209,88,.12)}.lbs.wk{color:#ff9f0a;background:rgba(255,159,10,.14)}.lbs.done{color:#64d2ff;background:rgba(100,210,255,.12)}.lbs.rest{color:#bf9fff;background:rgba(191,159,255,.13)}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1619,8 +1622,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.25e';
-const APP_NEWS=['🌱 기술 트리 왼쪽 위에서 초보 / 기본 트리를 바꿀 수 있어요','🌱 초보 트리: 쉬운 운동 36개를 밀기·당기기·자세·전신·코어·하체 단계로 정리했어요','📋 운동 상세 설명 + 종목 추가에서 크게 보기'];
+const APP_VER='2026.11.26a';
+const APP_NEWS=['🏆 랭킹에서 친구가 접속 중인지, 운동 중인지, 오늘 운동했는지, 휴식일인지 보여요','🌳 기술 트리에서 기술을 누르면 하는 방법·피할 실수 등 자세한 설명이 나와요','🌱 기술 트리 초보 / 기본 전환'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1648,7 +1651,7 @@ function updHtml(){
 }
 /* ---------- 접속 현황 (지금 운동 중 · 접속 중) ---------- */
 const PRES={on:[],who:[],today:[],t:0};
-const presWk=()=>!!(window.WK&&WK.open&&W);
+const presWk=()=>{try{return !!(WK&&WK.open&&W)}catch(e){return false}};
 async function presTick(off){
   if(!store.db||!store.uid)return;
   try{await store.db.collection('on').doc(store.uid).set({ts:off?Date.now()-600000:Date.now(),day:today(),wk:off?false:presWk()})}catch(e){}
@@ -1662,7 +1665,8 @@ async function presWho(){
 async function presPull(){
   if(!store.db)return;const now=Date.now();
   try{const q=await store.db.collection('on').where('ts','>',now-150000).get();PRES.on=q.docs.map(d=>Object.assign({id:d.id},d.data()||{}));PRES.t=now;
-    if(U.tab==='log'){const el=$('#presbar');if(el)el.outerHTML=presBar()}}catch(e){}
+    if(U.tab==='log'){const el=$('#presbar');if(el)el.outerHTML=presBar()}
+    if(U.tab==='comm'&&!U.modal){const a=document.activeElement;if(!a||!/INPUT|TEXTAREA/.test(a.tagName))renderView(false)}}catch(e){}
 }
 async function presAdmin(){
   if(!C.admin||!store.db)return;
@@ -2443,7 +2447,7 @@ const commAvail=()=>!!(store.db&&store.uid);
 function commStart(){
   if(C.subbed||!store.db)return;C.subbed=true;
   const un=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>{try{fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{})))}catch(e){}C.got[name]=true;C.err='';commRefresh()},e=>{C.err=(e&&e.code)||'err';commRefresh()})}catch(e){C.err='err'}};
-  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{puLoad()}catch(e){}
+  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
@@ -2452,13 +2456,13 @@ function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={},pk={};LVP.forE
   const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
   const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>({id:x.id,l:lv[x.id].lv}));
   const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
-  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',upd:Date.now()}}
+  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',wd:[...si.done].sort().pop()||'',rds:Array.from({length:15},(_,i)=>addDays(today(),i-1)).filter(isRestDay),upd:Date.now()}}
 const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
 let LBT=null,LBSIG='';
 function commSync(force){
   if(!S.comm||!S.comm.on||!commAvail())return;
   clearTimeout(LBT);
-  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
+  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm,d.wd,d.rds,today()]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
 }
 function commErr(e){toast(e&&e.code==='invalid_argument'?'공유 권한이 없어요. 앱을 만든 사람에게 참여자(Contributor) 초대를 요청해 주세요.':'커뮤니티에 저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 const lbSorted=part=>{
@@ -2469,11 +2473,17 @@ const lbSorted=part=>{
   else a.sort((x,y)=>((y.parts||{})[part]||0)-((x.parts||{})[part]||0)||y.s-x.s);
   return a;
 };
+/* 랭킹 상태: 접속 중 / 오늘 운동 / 휴식일 */
+function lbOnline(x){if(x.id===store.uid)return presWk()?'wk':'on';const o=PRES.on.find(y=>y.id===x.id&&Date.now()-(+y.ts||0)<150000);return o?(o.wk?'wk':'on'):''}
+function lbStat(x){const t=today(),on=lbOnline(x),me=x.id===store.uid,wd=me?([...streakInfo().done].sort().pop()||''):String(x.wd||''),rest=me?isRestDay(t):Array.isArray(x.rds)&&x.rds.includes(t);
+  const b=[];if(on)b.push(on==='wk'?'<span class="lbs wk">🏋️ 운동 중</span>':'<span class="lbs on">● 접속 중</span>');
+  if(wd===t)b.push('<span class="lbs done">✅ 오늘 운동 완료</span>');else if(rest)b.push('<span class="lbs rest">😴 휴식일</span>');else if(me||x.wd!=null)b.push('<span class="lbs todo">아직 운동 전</span>');
+  return b.length?`<span class="lbst">${b.join('')}</span>`:''}
 function lbRow(x,n,part){
   const me=x.id===store.uid,medal=['🥇','🥈','🥉'][n]||n+1,tk=part==='종합'?stTier(Math.max(0,Math.min(37,x.s|0))):{i:Math.min(9,((x.parts||{})[part]||0)),div:''},
     nm=part==='종합'?stName(Math.max(0,Math.min(37,x.s|0))):TIERS[tk.i].n,sub=(x.pk?'':'<span class="chip" style="font-size:10px;padding:1px 6px;margin-right:4px">구버전</span>')+(part==='종합'?`달성 ${x.sum|0}/${ACH_N} · 🔥 ${x.streak|0}일`:`${part} ${x.pk?((x.pk[part]|0)+'/'+ACH_P+'개'):TIERS[Math.min(9,(x.parts||{})[part]|0)].n} · ${stName(Math.max(0,Math.min(37,x.s|0)))}`);
   const act=Date.now()-(x.upd||0)<864e5*3;
-  return `<div class="lbr ${me?'me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="lbn">${medal}</span><span class="lbe">${emblem(tk.i,34)}</span><span class="lbm"><b>${esc(String(x.nick).slice(0,12))}${me?' <span class="chip">나</span>':''}</b><span class="muted sm">${sub}</span></span><span class="lbp" style="color:${TIERS[tk.i].c}">${nm}</span>${C.admin&&!me?`<button class="x" data-act="cm-kick" data-u="${esc(x.id)}" data-n="${esc(String(x.nick).slice(0,12))}">✕</button>`:''}</div>`;
+  return `<div class="lbr ${me?'me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="lbn">${medal}</span><span class="lbe">${emblem(tk.i,34)}${lbOnline(x)?`<i class="lbdot ${lbOnline(x)}"></i>`:''}</span><span class="lbm"><b>${esc(String(x.nick).slice(0,12))}${me?' <span class="chip">나</span>':''}</b><span class="muted sm">${sub}</span>${lbStat(x)}</span><span class="lbp" style="color:${TIERS[tk.i].c}">${nm}</span>${C.admin&&!me?`<button class="x" data-act="cm-kick" data-u="${esc(x.id)}" data-n="${esc(String(x.nick).slice(0,12))}">✕</button>`:''}</div>`;
 }
 function miniTree(lvs){
   const {P,lab,W,H}=SKG,L={};SKN.forEach(x=>{L[x.id]=Math.max(0,Math.min(3,+((lvs||{})[x.id])||0))});
@@ -3172,7 +3182,7 @@ function skModal(m){
   return `<div class="c muted sm" style="color:${cat.c};font-weight:700;letter-spacing:.06em">${cat.n} · ${cat.en}</div><h3 class="c" style="margin-top:4px">${esc(x.n)}${x.fin?' 🏁':''}</h3>
   <div class="artbig">${exArt({name:'',k:x.k},true,'xl')}</div>
   <div class="artd c" style="font-size:15px;color:var(--ink)">${esc(x.d)}</div>
-  <div class="sktip">💡 ${esc(x.tip)}</div>
+  <div class="sktip">💡 ${esc(x.tip)}</div>${(()=>{const e=S.exercises.find(y=>y.name===(x.ex||x.n));return e?guideHtml(e):''})()}
   <div class="tiles" style="margin-top:12px"><div class="tile"><b style="color:${SKLV[s.lv][1]};font-size:19px;line-height:29px">${SKLV[s.lv][0]}</b><span class="muted sm">현재 단계</span></div><div class="tile"><b>${x.ex?(s.best||'–')+(s.best?(x.t==='h'?'초':'회'):''):'–'}</b><span class="muted sm">내 최고</span></div><div class="tile"><b style="font-size:16px;line-height:29px">${skNeed(x,3)}</b><span class="muted sm">마스터 기준</span></div></div>
   ${x.rq.length?`<div class="muted sm" style="margin:0 2px 6px;font-weight:600">먼저 필요한 기술</div><div class="row wrap" style="margin-bottom:12px">${x.rq.map(r=>{const q=skLevels()[r];return `<span class="chip ${q.lv>=2?'':'off'}" data-act="sk-node" data-id="${r}">${q.lv>=2?'✓ ':''}${esc(SKBY[r].n)}</span>`}).join('')}</div>`:''}
   <div class="muted sm" style="margin:0 2px 6px;font-weight:600">단계 직접 설정 ${s.implied&&!man?'<span class="chip" style="margin-left:4px">상위 기술로 자동 인정</span>':''}${man?'<span class="chip" style="margin-left:4px">직접 설정됨</span>':`<span class="muted" style="font-weight:400">· ${x.ex?'기록으로 자동 계산 중':'기록 연동 없음'}</span>`}</div>
