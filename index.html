@@ -379,6 +379,13 @@ nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc
 .dmmenu{padding-left:12px;padding-right:12px;gap:6px}.dmmi{display:block;width:100%;padding:14px;border-radius:14px;border:0;background:#2c2c2e;color:#fff;font:inherit;font-size:16px;font-weight:600;text-align:left;cursor:pointer}.dmmi.red{color:#ff453a}.dmmi:last-child{text-align:center;background:none;color:var(--mute)}
 .dmb.held{transform:scale(1.04);box-shadow:0 0 0 2px rgba(255,255,255,.25);transition:transform .15s}.dmb.gone{animation:dmgone .3s forwards}@keyframes dmgone{to{transform:scale(.6);opacity:0}}
 .dmlist{-webkit-touch-callout:none}
+.dmck{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0}.dmck.on{background:#3797f0;border-color:#3797f0;color:#fff}
+.dmpickbar{position:sticky;bottom:0;display:flex;flex-direction:column;gap:8px;padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);background:linear-gradient(transparent,#000 30%)}.dmpickbar input,.dminp{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#1c1c1e;color:#fff;font:inherit;font-size:16px}.dmpickbar .btn{width:100%}
+.dmav.grp{background:none}.dmav.grp>span{position:absolute}.dmgi0{left:0;top:0}.dmgi1{right:0;bottom:0;border-radius:50%;box-shadow:0 0 0 2px #000}.dmav.grp>span .dmav{width:100%!important;height:100%!important}
+.dmwho{font-size:11px;color:var(--mute);margin:6px 0 2px 40px}
+.dmmh{font-weight:800;font-size:15px;text-align:center;padding:2px 0 8px}.dmmem{max-height:240px;overflow-y:auto;margin-bottom:4px}
+.dmchint{font-size:10px;color:var(--mute);margin-top:6px;text-align:center}
+.dmdot.mu{background:#666}.dmmu{font-size:12px}.dmrow.held{background:rgba(255,255,255,.08)}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1422,7 +1429,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.skMode=o.skMode==='easy'?'easy':'basic';b.pkBlock={all:!!(o.pkBlock&&o.pkBlock.all),ids:o.pkBlock&&Array.isArray(o.pkBlock.ids)?o.pkBlock.ids.filter(x=>typeof x==='string').slice(0,50):[]};b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.skMode=o.skMode==='easy'?'easy':'basic';b.dmMute=Array.isArray(o.dmMute)?o.dmMute.filter(x=>typeof x==='string').slice(-100):[];b.dmHide=Array.isArray(o.dmHide)?o.dmHide.filter(x=>typeof x==='string').slice(-100):[];b.pkBlock={all:!!(o.pkBlock&&o.pkBlock.all),ids:o.pkBlock&&Array.isArray(o.pkBlock.ids)?o.pkBlock.ids.filter(x=>typeof x==='string').slice(0,50):[]};b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1475,7 +1482,7 @@ function mergeState(L,R){
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
   o.tutDone=(L.tutDone||R.tutDone)?1:0;
-  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk','skMode','pkBlock'].forEach(k=>{o[k]=L[k]})}
+  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk','skMode','pkBlock','dmMute','dmHide'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
   o.seeded=!!(L.seeded||R.seeded);o.updated=Math.max(L.updated||0,R.updated||0)+1;
@@ -1669,8 +1676,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26f';
-const APP_NEWS=['↩️ DM에서 메시지를 꾹 누르면 전송 취소·복사·하트를 할 수 있어요','🚫 콕 찌르기 차단 (더보기 → 설정)','💬 DM에서 운동 기록·루틴 보내기'];
+const APP_VER='2026.11.26g';
+const APP_NEWS=['👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2498,7 +2505,7 @@ const commAvail=()=>!!(store.db&&store.uid);
 function commStart(){
   if(C.subbed||!store.db)return;C.subbed=true;
   const un=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>{try{fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{})))}catch(e){}C.got[name]=true;C.err='';commRefresh()},e=>{C.err=(e&&e.code)||'err';commRefresh()})}catch(e){C.err='err'}};
-  un('lb',a=>{C.lb=a;try{if(DM.subs)dmSubAll()}catch(e){}});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{dmStart()}catch(e){}try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
+  un('lb',a=>{C.lb=botMerge(a);try{if(DM.subs)dmSubAll()}catch(e){}});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{dmStart()}catch(e){}try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
@@ -2507,13 +2514,13 @@ function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={},pk={};LVP.forE
   const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
   const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>({id:x.id,l:lv[x.id].lv}));
   const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
-  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',wd:[...si.done].sort().pop()||'',nopk:pkB().all?1:0,pkb:pkB().ids.slice(0,50),rds:Array.from({length:15},(_,i)=>addDays(today(),i-1)).filter(isRestDay),upd:Date.now()}}
+  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',wd:[...si.done].sort().pop()||'',nopk:pkB().all?1:0,pkb:pkB().ids.slice(0,50),dmm:(S.dmMute||[]).slice(0,100),rds:Array.from({length:15},(_,i)=>addDays(today(),i-1)).filter(isRestDay),upd:Date.now()}}
 const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
 let LBT=null,LBSIG='';
 function commSync(force){
   if(!S.comm||!S.comm.on||!commAvail())return;
   clearTimeout(LBT);
-  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm,d.wd,d.rds,today(),d.nopk,d.pkb]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
+  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm,d.wd,d.rds,today(),d.nopk,d.pkb,d.dmm]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
 }
 function commErr(e){toast(e&&e.code==='invalid_argument'?'공유 권한이 없어요. 앱을 만든 사람에게 참여자(Contributor) 초대를 요청해 주세요.':'커뮤니티에 저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 const lbSorted=part=>{
@@ -2525,7 +2532,7 @@ const lbSorted=part=>{
   return a;
 };
 /* 랭킹 상태: 접속 중 / 오늘 운동 / 휴식일 */
-function lbOnline(x){if(x.id===store.uid)return presWk()?'wk':'on';const o=PRES.on.find(y=>y.id===x.id&&Date.now()-(+y.ts||0)<150000);return o?(o.wk?'wk':'on'):''}
+function lbOnline(x){if(x.id===store.uid)return presWk()?'wk':'on';if(String(x.id).startsWith('bot_'))return x.id==='bot_c'?'wk':'on';const o=PRES.on.find(y=>y.id===x.id&&Date.now()-(+y.ts||0)<150000);return o?(o.wk?'wk':'on'):''}
 function lbStat(x){const t=today(),on=lbOnline(x),me=x.id===store.uid,wd=me?([...streakInfo().done].sort().pop()||''):String(x.wd||''),rest=me?isRestDay(t):Array.isArray(x.rds)&&x.rds.includes(t);
   const b=[];if(on)b.push(on==='wk'?'<span class="lbs wk">🏋️ 운동 중</span>':'<span class="lbs on">● 접속 중</span>');
   if(wd===t)b.push('<span class="lbs done">✅ 오늘 운동 완료</span>');else if(rest)b.push('<span class="lbs rest">😴 휴식일</span>');else if(me||x.wd!=null)b.push('<span class="lbs todo">아직 운동 전</span>');
@@ -2628,7 +2635,7 @@ function puCard(){
   ${C.admin?`<div class="muted sm" style="margin-top:10px">관리자 · 푸쉬 서버 주소 ${PSH.url?'✅':'(아직 없음)'}</div><div class="row" style="gap:8px;margin-top:6px"><input class="inp" id="puurl" placeholder="https://….workers.dev" value="${esc(PSH.url)}" style="flex:1;min-width:0"><button class="btn sm pri" data-act="push-url">저장</button></div>`:''}</div>`;
 }
 async function pkSend(to,m){
-  if(needJoin())return;const me=store.uid;if(!me||to===me)return;
+  if(needJoin())return;const me=store.uid;if(!me||to===me)return;if(String(to).startsWith('bot_')){botPoke(to);return}
   const now=Date.now();if(PK.last[to]&&now-PK.last[to]<1000){return}
   {const tx=C.lb.find(y=>y.id===to);if(tx&&(tx.nopk||(Array.isArray(tx.pkb)&&tx.pkb.includes(me)))){toast('이 친구에게는 지금 콕 찌르기를 보낼 수 없어요');return}}
   PK.last[to]=now;
@@ -2640,152 +2647,239 @@ async function pkSend(to,m){
   const r=await puSend(to,`👉 ${cnick()||'친구'}님이 콕 찔렀어요`,String(m||'운동할 시간이야!').slice(0,40));
   toast(r==='sent'?`👉 ${fn}님을 콕 찔렀어요 · 🔔 알림 보냄`:r==='off'?`👉 ${fn}님을 콕 찔렀어요 · 친구가 앱을 열면 보여요`:`👉 ${fn}님을 콕 찔렀어요`);
 }
-/* ---------- 💬 DM (인스타 스타일 메시지) ----------
-   사이트: dm/{a+b+보낸사람} 문서 = 그 사람이 이 대화에 보낸 메시지 (대화 두 사람만 읽기)
-   아티팩트: dm/{내 id} 문서 = 내가 보낸 모든 메시지 (미리보기용) */
-const DM={docs:[],open:false,peer:null,sub:false,last:0,seenTs:{},busy:false};
+/* ---------- 💬 DM (인스타 스타일 메시지 · 1:1 + 단체방) ----------
+   대화 키: 친구 uid 또는 'g:그룹id'
+   사이트: dm/{a+b+보낸사람}, dmg/{그룹id}={n,m,o}, dmgm/{그룹id+보낸사람}
+   아티팩트(미리보기): dm/{내id}={msgs:[{to:키..}],rd:{키:ts},lk:{키:[id]}}, dmg/{만든사람}={gs:[{id,n,m}]} */
+const DM={raw:{},docs:[],gdocs:[],open:false,peer:null,sub:false,last:0,seenTs:{},busy:false,subs:{},pick:false,sel:[]};
+const dmFB=()=>!!window.FB_MODE,isG=k=>String(k||'').startsWith('g:'),gidOf=k=>String(k).slice(2);
 const dmPair=o=>[store.uid,o].sort();
-const dmFB=()=>!!window.FB_MODE;
+const dmMuted=k=>(S.dmMute||[]).includes(k);
+function dmGroups(){const me=store.uid,out=[];
+  if(dmFB())DM.gdocs.forEach(g=>{if(Array.isArray(g.m)&&g.m.includes(me))out.push({id:g.id,n:String(g.n||'단체방').slice(0,30),m:g.m,o:g.o})});
+  else DM.gdocs.forEach(d=>(Array.isArray(d.gs)?d.gs:[]).forEach(g=>{if(g&&Array.isArray(g.m)&&g.m.includes(me)&&!(S.dmHide||[]).includes(g.id))out.push({id:g.id,n:String(g.n||'단체방').slice(0,30),m:g.m,o:d.id})}));
+  return out}
+const dmGroup=k=>dmGroups().find(g=>'g:'+g.id===k);
 function dmStart(){
-  if(DM.sub||!store.db||!store.uid)return;DM.sub=true;
-  const on=a=>{const first=!DM.loaded||Date.now()-DM.t0<3000;DM.docs=a;DM.loaded=true;dmNotify(first);dmPaint();dmBadge()};
-  DM.t0=Date.now();
-  if(dmFB()){DM.map={};DM.subs={};DM.on=on;dmSubAll();return}
-  try{store.db.collection('dm').onSnapshot(s=>on(s.docs.map(d=>Object.assign({id:d.id},d.data()||{}))),e=>{DM.err=1;dmPaint()})}catch(e){DM.err=1}
+  if(DM.sub||!store.db||!store.uid)return;DM.sub=true;DM.t0=Date.now();
+  const col=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{}))),e=>{DM.err=(e&&e.code)||1;dmPaint()})}catch(e){DM.err=1}};
+  col('dmg',a=>{DM.gdocs=a;if(dmFB())dmSubAll();dmChanged()});
+  if(dmFB()){dmSubAll();return}
+  col('dm',a=>{DM.docs=a;DM.err=0;dmChanged()});botHello();
 }
-/* 사이트: 친구마다 대화 문서 2개(내가 보낸 것/친구가 보낸 것)를 하나씩 지켜봐요 */
+function dmWatch(key,col,id){if(DM.subs[key])return;try{DM.subs[key]=store.db.collection(col).doc(id).onSnapshot(sn=>{if(sn.exists)DM.raw[key]=Object.assign({id},sn.data()||{});else delete DM.raw[key];DM.err=0;DM.docs=Object.values(DM.raw);dmChanged()},e=>{if(col==='dm')DM.err=(e&&e.code)||1;dmPaint()})}catch(e){}}
 function dmSubAll(){
-  if(!DM.subs||!store.uid)return;const me=store.uid;
-  C.lb.forEach(x=>{if(!x||!x.id||x.id===me)return;const pr=dmPair(x.id).join('+');
-    [x.id,me].forEach(sd=>{const id=pr+'+'+sd;if(DM.subs[id])return;
-      try{DM.subs[id]=store.db.collection('dm').doc(id).onSnapshot(sn=>{if(sn.exists)DM.map[id]=Object.assign({id},sn.data()||{});else delete DM.map[id];DM.err=0;DM.on(Object.values(DM.map))},e=>{DM.err=(e&&e.code)||1;dmPaint()})}catch(e){DM.err=1}})});
+  if(!dmFB()||!DM.sub||!store.uid)return;const me=store.uid;
+  C.lb.forEach(x=>{if(!x||!x.id||x.id===me)return;const pr=dmPair(x.id).join('+');[x.id,me].forEach(sd=>dmWatch('dm:'+pr+'+'+sd,'dm',pr+'+'+sd))});
+  dmGroups().forEach(g=>g.m.forEach(u=>dmWatch('gm:'+g.id+'+'+u,'dmgm',g.id+'+'+u)));
 }
-/* 대화별로 정리: {peer:[{from,t,ts,id}], ...}, 상대가 읽은 시각 */
+function dmChanged(){const first=Date.now()-DM.t0<3000;dmNotify(first);dmPaint();dmBadge()}
+/* 대화별 정리 */
 function dmConvs(){
-  const me=store.uid,cv={},rd={},lk={};const add=(p,m)=>{(cv[p]=cv[p]||[]).push(m)},L=(p,s,ids)=>{(Array.isArray(ids)?ids:[]).forEach(i=>{(lk[p]=lk[p]||{})[i]=(lk[p][i]||'')+(s===me?'m':'y')})};
-  DM.docs.forEach(d=>{const ms=Array.isArray(d.msgs)?d.msgs:[];
-    if(Array.isArray(d.u)){const s=d.s,p=d.u.find(x=>x!==me);if(!p||!d.u.includes(me))return;ms.forEach(m=>m&&add(p,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));L(p,s,d.lk);if(s!==me)rd[p]=+d.rd||0}
-    else{const s=d.id;if(s===me){ms.forEach(m=>m&&m.to&&add(m.to,{from:me,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));Object.entries(d.lk||{}).forEach(([p,ids])=>L(p,me,ids))}else{ms.forEach(m=>m&&m.to===me&&add(s,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));const r=d.rd&&d.rd[me];if(r)rd[s]=+r;L(s,s,(d.lk||{})[me])}}});
+  const me=store.uid,G=dmGroups(),gset=new Set(G.map(g=>'g:'+g.id)),cv={},rd={},lk={};
+  const add=(k,m,s)=>{if(!m)return;(cv[k]=cv[k]||[]).push({from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d})};
+  const R=(k,u,ts)=>{if(ts)(rd[k]=rd[k]||{})[u]=+ts};const LK=(k,u,ids)=>{(Array.isArray(ids)?ids:[]).forEach(i=>{((lk[k]=lk[k]||{})[i]=lk[k][i]||{})[u]=1})};
+  if(dmFB())DM.docs.forEach(d=>{const ms=Array.isArray(d.msgs)?d.msgs:[],s=d.s;
+    if(d.g){const k='g:'+d.g;if(!gset.has(k))return;ms.forEach(m=>add(k,m,s));R(k,s,d.rd);LK(k,s,d.lk)}
+    else if(Array.isArray(d.u)&&d.u.includes(me)){const k=d.u.find(x=>x!==me);if(!k)return;ms.forEach(m=>add(k,m,s));R(k,s,d.rd);LK(k,s,d.lk)}});
+  else DM.docs.concat(botDocs()).forEach(d=>{const s=d.id,ms=Array.isArray(d.msgs)?d.msgs:[];
+    ms.forEach(m=>{if(!m||!m.to)return;if(s===me)add(m.to,m,me);else if(m.to===me)add(s,m,s);else if(gset.has(m.to))add(m.to,m,s)});
+    Object.entries(d.rd||{}).forEach(([k,ts])=>{if(s===me)R(k,me,ts);else if(k===me)R(s,s,ts);else if(gset.has(k))R(k,s,ts)});
+    Object.entries(d.lk||{}).forEach(([k,ids])=>{if(s===me)LK(k,me,ids);else if(k===me)LK(s,s,ids);else if(gset.has(k))LK(k,s,ids)})});
+  G.forEach(g=>{cv['g:'+g.id]=cv['g:'+g.id]||[]});
   Object.values(cv).forEach(L=>L.sort((a,b)=>a.ts-b.ts));
-  return {cv,rd,lk};
+  return {cv,rd,lk,G};
 }
-function dmMyDoc(p){const me=store.uid;return dmFB()?DM.docs.find(d=>d.id===dmPair(p).join('+')+'+'+me):DM.docs.find(d=>d.id===me)}
-function dmReadAt(p){const d=dmMyDoc(p);if(!d)return 0;return dmFB()?(+d.rd||0):((d.rd||{})[p]||0)}
-function dmUnread(){const {cv}=dmConvs(),me=store.uid;let n=0;Object.entries(cv).forEach(([p,L])=>{const r=Math.max(dmReadAt(p),DM.seenTs[p]||0);n+=L.filter(m=>m.from!==me&&m.ts>r).length});return n}
-function dmNick(p){const x=C.lb.find(y=>y.id===p);if(x&&x.nick)return String(x.nick).slice(0,12);const d=DM.docs.find(d=>(d.s||d.id)===p&&d.nick);return d?String(d.nick).slice(0,12):'친구'}
-function dmAvatar(p,sz){const x=C.lb.find(y=>y.id===p),i=x&&typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0,on=lbOnline({id:p});return `<span class="dmav" style="width:${sz}px;height:${sz}px">${emblem(i,sz-6)}${on?`<i class="lbdot ${on}"></i>`:''}</span>`}
+function dmMyRead(k,rd){return Math.max((rd||dmConvs().rd)[k]?.[store.uid]||0,DM.seenTs[k]||0)}
+function dmUnreadOf(k,c){const me=store.uid,r=dmMyRead(k,c.rd);return (c.cv[k]||[]).filter(m=>m.from!==me&&m.ts>r).length}
+function dmUnread(){if(!DM.sub)return 0;const c=dmConvs();return Object.keys(c.cv).filter(k=>!dmMuted(k)).reduce((n,k)=>n+dmUnreadOf(k,c),0)}
+function dmNick(p){if(p===store.uid)return cnick()||'나';const x=C.lb.find(y=>y.id===p);if(x&&x.nick)return String(x.nick).slice(0,12);const d=DM.docs.find(d=>(d.s||d.id)===p&&d.nick);return d?String(d.nick).slice(0,12):'친구'}
+function dmTitle(k){if(!isG(k))return dmNick(k);const g=dmGroup(k);return g?g.n:'단체방'}
+function dmAvatar(p,sz){if(isG(p)){const g=dmGroup(p),ms=g?g.m.filter(u=>u!==store.uid).slice(0,2):[];const h=Math.round(sz*.66);return `<span class="dmav grp" style="width:${sz}px;height:${sz}px">${ms.map((u,i)=>`<span class="dmgi${i}" style="width:${h}px;height:${h}px">${dmAvatar(u,h)}</span>`).join('')}</span>`}
+  const x=C.lb.find(y=>y.id===p),i=x&&typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0,on=lbOnline({id:p});return `<span class="dmav" style="width:${sz}px;height:${sz}px">${emblem(i,sz-6)}${on?`<i class="lbdot ${on}"></i>`:''}</span>`}
 function dmAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return '방금';if(d<3600)return Math.floor(d/60)+'분';if(d<86400)return Math.floor(d/3600)+'시간';if(d<604800)return Math.floor(d/86400)+'일';const t=new Date(ts);return (t.getMonth()+1)+'/'+t.getDate()}
-function dmStatus(p){const on=lbOnline({id:p});if(on==='wk')return '🏋️ 지금 운동 중';if(on)return '지금 활동 중';const o=PRES.on.find(y=>y.id===p);return o?`${dmAgo(+o.ts)} 전 활동`:''}
-async function dmWrite(p,fn){
-  const me=store.uid,d=dmMyDoc(p);
-  const cl=m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{});
-  if(dmFB()){const u=dmPair(p),id=u.join('+')+'+'+me,o=d||{};const nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.map(cl):[],rd:+o.rd||0,lk:Array.isArray(o.lk)?o.lk.slice():[]});
-    await store.db.collection('dm').doc(id).set({u,s:me,nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,lk:(nd.lk||[]).slice(-200),ts:Date.now()})}
+function dmStatus(p){if(isG(p)){const g=dmGroup(p);if(!g)return '';const on=g.m.filter(u=>u!==store.uid&&lbOnline({id:u})).length;return `${g.m.length}명${on?` · ${on}명 활동 중`:''}`}
+  const on=lbOnline({id:p});if(on==='wk')return '🏋️ 지금 운동 중';if(on)return '지금 활동 중';const o=PRES.on.find(y=>y.id===p);return o?`${dmAgo(+o.ts)} 전 활동`:''}
+function dmMyDoc(k){const me=store.uid;if(dmFB())return isG(k)?DM.raw['gm:'+gidOf(k)+'+'+me]:DM.raw['dm:'+dmPair(k).join('+')+'+'+me];return DM.docs.find(d=>d.id===me)}
+async function dmWrite(k,fn){
+  const me=store.uid,d=dmMyDoc(k),cl=m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{});
+  if(dmFB()){const o=d||{},nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.map(cl):[],rd:+o.rd||0,lk:Array.isArray(o.lk)?o.lk.slice():[]}),base={nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,lk:(nd.lk||[]).slice(-200),ts:Date.now(),s:me};
+    if(isG(k)){const g=gidOf(k);await store.db.collection('dmgm').doc(g+'+'+me).set(Object.assign({g},base))}
+    else{const u=dmPair(k);await store.db.collection('dm').doc(u.join('+')+'+'+me).set(Object.assign({u},base))}}
   else{const o=d||{};let all=Array.isArray(o.msgs)?o.msgs.slice():[],rd=Object.assign({},o.rd||{}),lk=Object.assign({},o.lk||{});
-    const mine=all.filter(m=>m.to===p).map(cl),nd=fn({msgs:mine,rd:rd[p]||0,lk:(lk[p]||[]).slice()});
-    all=all.filter(m=>m.to!==p).concat(nd.msgs.map(m=>Object.assign({to:p},m)));all.sort((a,b)=>a.ts-b.ts);rd[p]=nd.rd||0;lk[p]=(nd.lk||[]).slice(-200);
+    const nd=fn({msgs:all.filter(m=>m.to===k).map(cl),rd:rd[k]||0,lk:(lk[k]||[]).slice()});
+    all=all.filter(m=>m.to!==k).concat(nd.msgs.map(m=>Object.assign({to:k},m)));all.sort((a,b)=>a.ts-b.ts);rd[k]=nd.rd||0;lk[k]=(nd.lk||[]).slice(-200);
     await store.db.collection('dm').doc(me).set({nick:cnick(),msgs:all.slice(-300),rd,lk,ts:Date.now()})}
 }
-async function dmSend(p,t,att){
-  t=String(t||'').trim().slice(0,500);if(!t||!p||DM.busy)return;if(needJoin())return;
+function dmPush(k,t){try{if(typeof puSend!=='function')return;const me=store.uid,mutedBy=(u,key)=>{const x=C.lb.find(y=>y.id===u);return x&&Array.isArray(x.dmm)&&x.dmm.includes(key)};
+  if(isG(k)){const g=dmGroup(k);if(!g)return;g.m.filter(u=>u!==me&&!mutedBy(u,k)).forEach(u=>puSend(u,`💬 ${g.n}`,`${cnick()||'친구'}: ${t.slice(0,70)}`).catch(()=>{}))}
+  else if(!mutedBy(k,me))puSend(k,`💬 ${cnick()||'친구'}`,t.slice(0,80)).catch(()=>{})}catch(e){}}
+async function dmSend(k,t,att){
+  t=String(t||'').trim().slice(0,500);if(!t||!k||DM.busy)return;if(needJoin())return;
   const now=Date.now();if(now-DM.last<300)return;DM.last=now;DM.busy=true;
   const m=Object.assign({t,ts:now,id:uid()},att||{});
-  DM.pend=(DM.pend||[]).concat([Object.assign({p,from:store.uid,t,ts:now,id:m.id,pend:1},att||{})]);dmPaint(true);sfx('dmsend');
-  try{await dmWrite(p,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now),lk:o.lk}));puSend&&puSend(p,`💬 ${cnick()||'친구'}`,t.slice(0,80)).catch(()=>{})}
+  DM.pend=(DM.pend||[]).concat([Object.assign({p:k,from:store.uid,t,ts:now,id:m.id,pend:1},att||{})]);dmPaint(true);sfx('dmsend');
+  try{await dmWrite(k,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now),lk:o.lk}));dmPush(k,t);botHear(k,t,att)}
   catch(e){toast('메시지를 보내지 못했어요',true);DM.pend=DM.pend.filter(x=>x.id!==m.id);dmPaint(true)}
-  finally{DM.busy=false;DM.pend=(DM.pend||[]).filter(x=>x.id!==m.id||!DM.docs.some(d=>(d.msgs||[]).some(y=>y.id===m.id)))}
+  finally{DM.busy=false}
 }
-async function dmMarkRead(p){const {cv}=dmConvs(),L=cv[p]||[],last=L.filter(m=>m.from!==store.uid).pop();if(!last)return;
-  DM.seenTs[p]=last.ts;dmBadge();if(dmReadAt(p)>=last.ts)return;try{await dmWrite(p,o=>({msgs:o.msgs,rd:last.ts,lk:o.lk}))}catch(e){}}
+async function dmMarkRead(k){const c=dmConvs(),L=c.cv[k]||[],last=L.filter(m=>m.from!==store.uid).pop();if(!last)return;
+  DM.seenTs[k]=last.ts;dmBadge();if((c.rd[k]?.[store.uid]||0)>=last.ts)return;try{await dmWrite(k,o=>({msgs:o.msgs,rd:last.ts,lk:o.lk}))}catch(e){}}
 function dmNotify(first){
-  if(first){DM.seenMax=Math.max(0,...DM.docs.flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));return}
+  const all=()=>Math.max(0,...DM.docs.concat(botDocs()).flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));
+  if(first){DM.seenMax=Math.max(DM.seenMax||0,all());return}
   const {cv}=dmConvs(),me=store.uid;let nw=null;
-  Object.entries(cv).forEach(([p,L])=>L.forEach(m=>{if(m.from!==me&&m.ts>(DM.seenMax||0)&&(!nw||m.ts>nw.m.ts))nw={p,m}}));
-  DM.seenMax=Math.max(DM.seenMax||0,...DM.docs.flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));
+  Object.entries(cv).forEach(([k,L])=>L.forEach(m=>{if(m.from!==me&&m.ts>(DM.seenMax||0)&&(!nw||m.ts>nw.m.ts))nw={k,m}}));
+  DM.seenMax=Math.max(DM.seenMax||0,all());
   if(!nw)return;
-  if(DM.open&&DM.peer===nw.p&&!document.hidden){sfx('dmrecv');dmMarkRead(nw.p);return}
+  if(DM.open&&DM.peer===nw.k&&!document.hidden){if(!dmMuted(nw.k))sfx('dmrecv');dmMarkRead(nw.k);return}
+  if(dmMuted(nw.k))return;
   sfx('dmrecv');try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}
-  const el=document.createElement('div');el.className='dmtoast';el.innerHTML=`${dmAvatar(nw.p,34)}<div><b>${esc(dmNick(nw.p))}</b><span>${esc(nw.m.t.slice(0,60))}</span></div>`;
-  el.onclick=()=>{el.remove();dmOpen(nw.p)};document.body.appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},3500);
+  const el=document.createElement('div');el.className='dmtoast';el.innerHTML=`${dmAvatar(isG(nw.k)?nw.k:nw.m.from,34)}<div><b>${esc(dmTitle(nw.k))}</b><span>${isG(nw.k)?esc(dmNick(nw.m.from))+': ':''}${esc(nw.m.t.slice(0,60))}</span></div>`;
+  el.onclick=()=>{el.remove();dmOpen(nw.k)};document.body.appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},3500);
 }
 function dmBadge(){const n=dmUnread();document.querySelectorAll('.dmbadge').forEach(b=>{b.textContent=n>9?'9+':n;b.style.display=n?'':'none'});
   const nb=document.querySelector('nav [data-v="comm"]');if(nb){let i=nb.querySelector('.navdm');if(n&&!i){i=document.createElement('i');i.className='navdm';nb.appendChild(i)}if(!n&&i)i.remove()}}
-function dmOpen(p){if(needJoin())return;dmStart();DM.open=true;DM.peer=p||null;DM.pick=false;dmRender();if(p)dmMarkRead(p)}
+function dmOpen(k){if(needJoin())return;dmStart();DM.open=true;DM.peer=k||null;DM.pick=false;DM.sel=[];dmRender();if(k)dmMarkRead(k)}
 function dmClose(){DM.open=false;DM.peer=null;const v=$('#dmv');if(v){v.classList.add('out');setTimeout(()=>v.remove(),260)}dmBadge()}
 function dmInbox(){
-  if(DM.err)return `<div class="dmempty"><b>메시지를 불러오지 못했어요</b><span>잠시 뒤 다시 열어주세요</span></div>`;
-  const {cv}=dmConvs(),me=store.uid,rows=Object.entries(cv).map(([p,L])=>({p,L,last:L[L.length-1]})).sort((a,b)=>b.last.ts-a.last.ts);
-  if(DM.pick){const ppl=C.lb.filter(x=>x.id!==me);return `<div class="dmsub">새 메시지 · 받는 사람</div>${ppl.length?ppl.map(x=>`<div class="dmrow" data-dm="peer" data-u="${esc(x.id)}">${dmAvatar(x.id,48)}<div class="dmrt"><b>${esc(String(x.nick).slice(0,12))}</b><span>${esc(dmStatus(x.id)||stName(Math.max(0,Math.min(37,x.s|0))))}</span></div></div>`).join(''):'<div class="dmempty">랭킹에 참여한 친구가 아직 없어요</div>'}`}
-  if(!rows.length)return `<div class="dmempty"><div style="font-size:54px">💬</div><b>메시지를 보내보세요</b><span>친구에게 운동 얘기를 나눠보세요</span><button class="btn pri" data-dm="new">메시지 보내기</button></div>`;
-  return `<div class="dmsub">메시지</div>`+rows.map(({p,L,last})=>{const r=Math.max(dmReadAt(p),DM.seenTs[p]||0),un=L.filter(m=>m.from!==me&&m.ts>r).length,mine=last.from===me;
-    const prev=un>1?`새 메시지 ${un}개`:(mine?'나: ':'')+last.t;return `<div class="dmrow ${un?'un':''}" data-dm="peer" data-u="${esc(p)}">${dmAvatar(p,54)}<div class="dmrt"><b>${esc(dmNick(p))}</b><span>${esc(prev.slice(0,40))} · ${dmAgo(last.ts)}</span></div>${un?'<i class="dmdot"></i>':''}</div>`}).join('');
+  if(DM.err&&!DM.docs.length)return `<div class="dmempty"><b>메시지를 불러오지 못했어요</b><span>잠시 뒤 다시 열어주세요</span></div>`;
+  const me=store.uid;
+  if(DM.pick){const ppl=C.lb.filter(x=>x.id!==me),n=DM.sel.length;
+    return `<div class="dmsub">새 메시지 <span class="muted sm" style="font-weight:500">· 2명 이상 고르면 단체방</span></div>${ppl.length?ppl.map(x=>{const i=DM.sel.indexOf(x.id);return `<div class="dmrow" data-dm="psel" data-u="${esc(x.id)}">${dmAvatar(x.id,48)}<div class="dmrt"><b>${esc(String(x.nick).slice(0,12))}</b><span>${esc(dmStatus(x.id)||stName(Math.max(0,Math.min(37,x.s|0))))}</span></div><span class="dmck ${i>=0?'on':''}">${i>=0?'✓':''}</span></div>`}).join(''):'<div class="dmempty">랭킹에 참여한 친구가 아직 없어요</div>'}
+    ${n?`<div class="dmpickbar">${n>=2?`<input id="dmgname" maxlength="30" placeholder="단체방 이름 (선택)">`:''}<button class="btn pri" data-dm="pgo">${n>=2?`👥 ${n+1}명 단체방 만들기`:'채팅하기'}</button></div>`:''}`}
+  const c=dmConvs(),rows=Object.entries(c.cv).map(([k,L])=>({k,L,last:L[L.length-1]})).filter(r=>r.last||isG(r.k)).sort((a,b)=>((b.last&&b.last.ts)||0)-((a.last&&a.last.ts)||0));
+  if(!rows.length)return `<div class="dmempty"><div style="font-size:54px">💬</div><b>메시지를 보내보세요</b><span>친구와 운동 얘기를 나눠보세요</span><button class="btn pri" data-dm="new">메시지 보내기</button></div>`;
+  return `<div class="dmsub">메시지 <span class="muted sm" style="font-weight:500">· 꾹 누르면 알림 끄기</span></div>`+rows.map(({k,L,last})=>{const un=dmUnreadOf(k,c),mu=dmMuted(k);
+    const prev=!last?'단체방이 만들어졌어요':un>1?`새 메시지 ${un}개`:(last.from===me?'나: ':isG(k)?dmNick(last.from)+': ':'')+last.t;
+    return `<div class="dmrow ${un&&!mu?'un':''}" data-dm="peer" data-u="${esc(k)}">${dmAvatar(k,54)}<div class="dmrt"><b>${esc(dmTitle(k))}${mu?' <span class="dmmu">🔕</span>':''}</b><span>${esc(String(prev).slice(0,40))}${last?' · '+dmAgo(last.ts):''}</span></div>${un?`<i class="dmdot ${mu?'mu':''}"></i>`:''}</div>`}).join('');
 }
-function dmMsgs(){
-  const p=DM.peer,me=store.uid,{cv,rd,lk}=dmConvs(),LK=lk[p]||{},L=(cv[p]||[]).concat((DM.pend||[]).filter(x=>x.p===p&&!(cv[p]||[]).some(y=>y.id===x.id)));
-  if(!L.length)return `<div class="dmhello">${dmAvatar(p,86)}<b>${esc(dmNick(p))}</b><span>운동로그 친구 · 첫 메시지를 보내보세요 👋</span></div>`;
-  let h='',prevTs=0,prevFrom='';const lastMine=[...L].reverse().find(m=>m.from===me);
-  L.forEach((m,i)=>{const nx=L[i+1];if(m.ts-prevTs>3600000){const t=new Date(m.ts);h+=`<div class="dmtime">${shortDate(ymd(t))} ${t.getHours()<12?'오전':'오후'} ${(t.getHours()%12)||12}:${String(t.getMinutes()).padStart(2,'0')}</div>`;prevFrom=''}
-    const mine=m.from===me,tail=!nx||nx.from!==m.from||nx.ts-m.ts>3600000,big=/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(m.t);
-    h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(p,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big&&!m.k?'big':''} ${m.k?'card':''} ${m.pend?'pend':''}" data-mid="${esc(m.id||'')}">${m.k?dmCard(m,mine):esc(m.t)}${LK[m.id]?`<span class="dmlk">❤️${LK[m.id].length>1?'<b>2</b>':''}</span>`:''}</div></div>`;prevTs=m.ts;prevFrom=m.from});
-  if(lastMine&&L[L.length-1].from===me)h+=`<div class="dmseen">${lastMine.pend?'보내는 중…':(rd[p]||0)>=lastMine.ts?'읽음':'전송됨'}</div>`;
-  return h;
-}
-/* DM 공유 카드 + 더블탭 하트 */
+/* 공유 카드 */
 function dmPackSess(s){return {ti:String(s.title||'운동').slice(0,40),dt:s.date,du:s.duration||0,it:s.items.slice(0,12).map(it=>{const e=exOf(it),dn=it.sets.filter(x=>x.done!==false);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:dn.slice(0,10).map(x=>+x.r||0)}})}}
 function dmPackRt(r){return {ti:String(r.name||'루틴').slice(0,40),it:r.items.slice(0,12).map(it=>{const e=exOf(it);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:it.sets.slice(0,10).map(x=>+x.r||0)}})}}
 function dmCard(m,mine){const d=m.d||{},it=Array.isArray(d.it)?d.it:[],rt=m.k==='rt';
   const rows=it.slice(0,6).map(x=>{const r=(Array.isArray(x.r)?x.r:[]),best=Math.max(0,...r);return `<div class="dmcr"><span>${esc(String(x.n||''))}</span><b>${r.length}세트${best?` · ${rt?'':'최고 '}${best}${esc(String(x.u||'회'))}`:''}</b></div>`}).join('');
-  return `<div class="dmch">${rt?'📋 루틴':'🏋️ 운동 기록'}</div><div class="dmct">${esc(String(d.ti||''))}</div>${!rt&&d.dt?`<div class="dmcs">${shortDate(String(d.dt))}${d.du?` · ${Math.round(d.du/60)}분`:''} · ${it.length}종목</div>`:`<div class="dmcs">${it.length}종목</div>`}<div class="dmcl">${rows}${it.length>6?`<div class="dmcr"><span>외 ${it.length-6}개</span></div>`:''}</div>${rt&&!mine?`<button class="dmcbtn" data-dm="rtsave" data-mid="${esc(m.id||'')}">내 루틴으로 저장</button>`:''}`}
+  return `<div class="dmch">${rt?'📋 루틴':'🏋️ 운동 기록'}</div><div class="dmct">${esc(String(d.ti||''))}</div>${!rt&&d.dt?`<div class="dmcs">${shortDate(String(d.dt))}${d.du?` · ${Math.round(d.du/60)}분`:''} · ${it.length}종목</div>`:`<div class="dmcs">${it.length}종목</div>`}<div class="dmcl">${rows}${it.length>6?`<div class="dmcr"><span>외 ${it.length-6}개</span></div>`:''}</div>${!mine?`<button class="dmcbtn" data-dm="${rt?'rtsave':'sessload'}" data-mid="${esc(m.id||'')}">${rt?'내 루틴으로 저장':'내 운동에 불러오기'}</button>`:''}<div class="dmchint">꾹 눌러서 ${rt?'내 운동에 불러오기':'루틴으로 저장'}도 돼요</div>`}
+const dmFindMsg=mid=>(dmConvs().cv[DM.peer]||[]).find(x=>x.id===mid);
+function dmItems(d){return (d.it||[]).map(x=>{const nm=String(x.n||''),ex=S.exercises.find(e=>e.name===nm);const id=ex?ex.id:exId(nm,'기타',x.u==='초'?'time':'wr');return {exId:id,note:'',sets:(Array.isArray(x.r)&&x.r.length?x.r:[10]).map(r=>({w:'',r:+r||0,done:false}))}})}
+function dmRtSave(mid){const m=dmFindMsg(mid);if(!m||!m.d)return;S.routines.push({id:uid(),name:String(m.d.ti||'받은 루틴').slice(0,40)+' (from '+dmNick(m.from)+')',items:dmItems(m.d).map(i=>({exId:i.exId,note:'',sets:i.sets.map(x=>({w:'',r:x.r}))}))});save();toast('루틴 탭에 저장했어요 📋');sfx('success')}
+function dmSessLoad(mid){const m=dmFindMsg(mid);if(!m||!m.d)return;const dt=today(),s=newSession(dt,dmItems(m.d),(String(m.d.ti||'운동').slice(0,30)+' (from '+dmNick(m.from)+')'));save();sfx('success');
+  dmClose();U.date=dt;FRESH=`[data-skey="${s.id}"]`;tutGo('log');toast('오늘 일지에 불러왔어요 · 바로 시작해 보세요 💪')}
 function dmAttOpen(tab){const v=$('#dmv');if(!v)return;let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}
   const ss=[...S.sessions].filter(s=>s.items.length).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,15),rs=S.routines.slice(0,30);
   sh.innerHTML=`<div class="dmabg" data-dm="aclose"></div><div class="dmash"><div class="dmagrip"></div><div class="dmatabs"><button class="${tab==='sess'?'on':''}" data-dm="atab" data-v="sess">🏋️ 운동 기록</button><button class="${tab==='rt'?'on':''}" data-dm="atab" data-v="rt">📋 루틴</button></div><div class="dmalist">${tab==='sess'?(ss.length?ss.map(s=>`<div class="dmarow" data-dm="asend" data-v="sess" data-id="${s.id}"><div><b>${esc(s.title||'운동')}</b><span>${shortDate(s.date)} · ${s.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">운동 기록이 없어요</div>'):(rs.length?rs.map(r=>`<div class="dmarow" data-dm="asend" data-v="rt" data-id="${r.id}"><div><b>${esc(r.name||'루틴')}</b><span>${r.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">저장된 루틴이 없어요</div>')}</div></div>`}
-function dmAttClose(){const sh=$('#dmatt');if(sh){sh.classList.add('out');setTimeout(()=>sh.remove(),220)}}
+function dmAttClose(){const sh=$('#dmatt');if(sh){sh.classList.add('out');setTimeout(()=>sh.remove(),220)}document.querySelectorAll('.dmb.held,.dmrow.held').forEach(x=>x.classList.remove('held'))}
 function dmAttSend(k,id){const p=DM.peer;if(!p)return;
   if(k==='sess'){const s=S.sessions.find(x=>x.id===id);if(!s)return;dmSend(p,'🏋️ 운동 기록: '+(s.title||'운동'),{k:'sess',d:dmPackSess(s)})}
   else{const r=S.routines.find(x=>x.id===id);if(!r)return;dmSend(p,'📋 루틴: '+(r.name||'루틴'),{k:'rt',d:dmPackRt(r)})}
   dmAttClose()}
-function dmRtSave(mid){const {cv}=dmConvs(),m=(cv[DM.peer]||[]).find(x=>x.id===mid);if(!m||!m.d)return;const d=m.d;
-  const items=(d.it||[]).map(x=>{const nm=String(x.n||''),ex=S.exercises.find(e=>e.name===nm);const id=ex?ex.id:exId(nm,'기타',x.u==='초'?'time':'wr');return {exId:id,note:'',sets:(Array.isArray(x.r)&&x.r.length?x.r:[10]).map(r=>({w:'',r:+r||0}))}});
-  S.routines.push({id:uid(),name:String(d.ti||'받은 루틴').slice(0,40)+' (from '+dmNick(DM.peer)+')',items});save();toast('루틴 탭에 저장했어요 📋');sfx('success')}
-async function dmLike(mid,force){const p=DM.peer;if(!p||!mid)return;const {lk}=dmConvs(),has=((lk[p]||{})[mid]||'').includes('m');
+/* 하트 */
+async function dmLike(mid){const p=DM.peer;if(!p||!mid)return;const {lk}=dmConvs(),has=!!(((lk[p]||{})[mid]||{})[store.uid]);
   const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b&&!has){const h=document.createElement('i');h.className='dmheart';h.textContent='❤️';b.appendChild(h);setTimeout(()=>h.remove(),900);sfx('dmlike');try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}}
   try{await dmWrite(p,o=>({msgs:o.msgs,rd:o.rd,lk:has?o.lk.filter(i=>i!==mid):o.lk.concat(mid)}))}catch(e){toast('하트를 남기지 못했어요',true)}}
-/* 꾹 누르기: 하트 / 복사 / 전송 취소(내 메시지) */
-function dmMenu(b){const mid=b.dataset.mid,mine=!!b.closest('.dmm.me'),v=$('#dmv');if(!v||!mid)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
+/* 꾹 누르기 메뉴 */
+function dmSheet(html){const v=$('#dmv');if(!v)return;let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}sh.innerHTML=`<div class="dmabg" data-dm="aclose"></div><div class="dmash dmmenu"><div class="dmagrip"></div>${html}<button class="dmmi" data-dm="aclose">취소</button></div>`}
+function dmMenu(b){const mid=b.dataset.mid,mine=!!b.closest('.dmm.me'),m=dmFindMsg(mid);if(!mid)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
   document.querySelectorAll('.dmb.held').forEach(x=>x.classList.remove('held'));b.classList.add('held');
-  let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}
-  sh.innerHTML=`<div class="dmabg" data-dm="mclose"></div><div class="dmash dmmenu"><div class="dmagrip"></div>
-   <button class="dmmi" data-dm="mheart" data-mid="${esc(mid)}">❤️ 하트</button>
-   ${b.classList.contains('card')?'':`<button class="dmmi" data-dm="mcopy" data-mid="${esc(mid)}">📋 복사</button>`}
-   ${mine?`<button class="dmmi red" data-dm="munsend" data-mid="${esc(mid)}">↩️ 전송 취소</button>`:''}
-   <button class="dmmi" data-dm="mclose">취소</button></div>`}
-function dmMenuClose(){document.querySelectorAll('.dmb.held').forEach(x=>x.classList.remove('held'));dmAttClose()}
-async function dmUnsend(mid){const p=DM.peer;if(!p)return;const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b){b.classList.add('gone')}
+  dmSheet(`<button class="dmmi" data-dm="mheart" data-mid="${esc(mid)}">❤️ 하트</button>
+   ${m&&m.k?`<button class="dmmi" data-dm="sessload" data-mid="${esc(mid)}">📥 내 운동에 불러오기</button><button class="dmmi" data-dm="rtsave" data-mid="${esc(mid)}">📋 내 루틴으로 저장</button>`:`<button class="dmmi" data-dm="mcopy" data-mid="${esc(mid)}">📄 복사</button>`}
+   ${mine?`<button class="dmmi red" data-dm="munsend" data-mid="${esc(mid)}">↩️ 전송 취소</button>`:''}`)}
+function dmRowMenu(row){const k=row.dataset.u;if(!k)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}row.classList.add('held');const g=isG(k)&&dmGroup(k),canEdit=g&&(dmFB()||g.o===store.uid);
+  dmSheet(`<div class="dmmh">${esc(dmTitle(k))}</div><button class="dmmi" data-dm="mute" data-u="${esc(k)}">${dmMuted(k)?'🔔 알림 켜기':'🔕 알림 끄기'}</button>${g?`${canEdit?`<button class="dmmi" data-dm="grename" data-u="${esc(k)}">✏️ 단체방 이름 바꾸기</button>`:''}<button class="dmmi red" data-dm="gleave" data-u="${esc(k)}">🚪 단체방 나가기</button>`:''}`)}
+function dmToggleMute(k){const L=(S.dmMute||[]).filter(x=>x!==k),on=!dmMuted(k);if(on)L.push(k);S.dmMute=L.slice(-100);save();try{commSync(true)}catch(e){}toast(on?`🔕 ${dmTitle(k)} 알림을 껐어요`:`🔔 ${dmTitle(k)} 알림을 켰어요`);dmBadge();dmPaint()}
+async function dmCreateGroup(ids,name){const me=store.uid,m=[me,...ids.filter(x=>x!==me)].slice(0,20),gid=uid(),n=(String(name||'').trim()||m.filter(u=>u!==me).map(dmNick).join(', ')).slice(0,30);
+  try{if(dmFB())await store.db.collection('dmg').doc(gid).set({n,m,o:me,ts:Date.now()});
+    else{const d=DM.gdocs.find(x=>x.id===me)||{},gs=(Array.isArray(d.gs)?d.gs:[]).concat({id:gid,n,m});await store.db.collection('dmg').doc(me).set({gs:gs.slice(-30)})}
+    sfx('success');return 'g:'+gid}catch(e){toast('단체방을 만들지 못했어요',true);return null}}
+async function dmGroupEdit(k,fn){const g=dmGroup(k);if(!g)return;const gid=g.id;
+  try{if(dmFB()){const nd=fn({n:g.n,m:g.m.slice()});if(!nd.m.length)return;await store.db.collection('dmg').doc(gid).set({n:nd.n,m:nd.m,o:g.o,ts:Date.now()})}
+    else{const d=DM.gdocs.find(x=>x.id===store.uid)||{},gs=(Array.isArray(d.gs)?d.gs:[]).map(x=>x.id===gid?Object.assign({},x,fn({n:x.n,m:x.m.slice()})):x);await store.db.collection('dmg').doc(store.uid).set({gs})}}catch(e){toast('바꾸지 못했어요',true)}}
+async function dmLeave(k){const g=dmGroup(k);if(!g)return;
+  if(dmFB())await dmGroupEdit(k,o=>({n:o.n,m:o.m.filter(u=>u!==store.uid)}));
+  else if(g.o===store.uid){const d=DM.gdocs.find(x=>x.id===store.uid)||{};await store.db.collection('dmg').doc(store.uid).set({gs:(d.gs||[]).filter(x=>x.id!==g.id)})}
+  else{S.dmHide=(S.dmHide||[]).concat(g.id);save()}
+  toast('단체방에서 나갔어요');DM.peer=null;dmRender()}
+async function dmUnsend(mid){const p=DM.peer;if(!p)return;const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b)b.classList.add('gone');
   DM.pend=(DM.pend||[]).filter(x=>x.id!==mid);
   try{await dmWrite(p,o=>({msgs:o.msgs.filter(m=>m.id!==mid),rd:o.rd,lk:o.lk}));sfx('tap');toast('메시지 전송을 취소했어요')}catch(e){if(b)b.classList.remove('gone');toast('전송 취소에 실패했어요',true)}}
-function dmTapInit(L){let lt=0,lid='',ht=null,moved=false;
-  L.addEventListener('touchstart',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button'))return;moved=false;clearTimeout(ht);ht=setTimeout(()=>{ht='done';dmMenu(b)},480)},{passive:true});
+function dmPress(L,sel,onHold,onDbl){let lt=0,lid='',ht=null,moved=false;
+  L.addEventListener('touchstart',e=>{const b=e.target.closest(sel);if(!b||e.target.closest('button,input'))return;moved=false;clearTimeout(ht);ht=setTimeout(()=>{ht='done';onHold(b)},480)},{passive:true});
   L.addEventListener('touchmove',()=>{moved=true;if(ht&&ht!=='done')clearTimeout(ht)},{passive:true});
-  L.addEventListener('contextmenu',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b)return;e.preventDefault();if(ht==='done')return;dmMenu(b)});
-L.addEventListener('dblclick',e=>{const b=e.target.closest('.dmb[data-mid]');if(b&&!e.target.closest('button'))dmLike(b.dataset.mid)});
-  L.addEventListener('touchend',e=>{if(ht==='done'){ht=null;e.preventDefault();return}clearTimeout(ht);ht=null;const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button')||moved)return;const now=Date.now(),id=b.dataset.mid;if(id===lid&&now-lt<320){e.preventDefault();dmLike(id);lt=0;lid=''}else{lt=now;lid=id}},{passive:false})}
+  L.addEventListener('contextmenu',e=>{const b=e.target.closest(sel);if(!b)return;e.preventDefault();if(ht==='done')return;onHold(b)});
+  L.addEventListener('touchend',e=>{if(ht==='done'){ht=null;e.preventDefault();return}clearTimeout(ht);ht=null;if(!onDbl)return;const b=e.target.closest(sel);if(!b||e.target.closest('button')||moved)return;const now=Date.now(),id=b.dataset.mid;if(id===lid&&now-lt<320){e.preventDefault();onDbl(b);lt=0;lid=''}else{lt=now;lid=id}},{passive:false});
+  if(onDbl)L.addEventListener('dblclick',e=>{const b=e.target.closest(sel);if(b&&!e.target.closest('button'))onDbl(b)});}
+function dmMsgs(){
+  const k=DM.peer,me=store.uid,c=dmConvs(),LK=c.lk[k]||{},grp=isG(k),g=grp&&dmGroup(k),RD=c.rd[k]||{};
+  const L=(c.cv[k]||[]).concat((DM.pend||[]).filter(x=>x.p===k&&!(c.cv[k]||[]).some(y=>y.id===x.id)));
+  if(!L.length)return `<div class="dmhello">${dmAvatar(k,86)}<b>${esc(dmTitle(k))}</b><span>${grp&&g?esc(g.m.map(dmNick).join(', ')):'운동로그 친구'} · 첫 메시지를 보내보세요 👋</span></div>`;
+  let h='',prevTs=0;const lastMine=[...L].reverse().find(m=>m.from===me);
+  L.forEach((m,i)=>{const nx=L[i+1],pv=L[i-1],gap=m.ts-prevTs>3600000;if(gap){const t=new Date(m.ts);h+=`<div class="dmtime">${shortDate(ymd(t))} ${t.getHours()<12?'오전':'오후'} ${(t.getHours()%12)||12}:${String(t.getMinutes()).padStart(2,'0')}</div>`}
+    const mine=m.from===me,tail=!nx||nx.from!==m.from||nx.ts-m.ts>3600000,head=gap||!pv||pv.from!==m.from,big=!m.k&&/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(m.t),lk=LK[m.id]?Object.keys(LK[m.id]).length:0;
+    if(grp&&!mine&&head)h+=`<div class="dmwho">${esc(dmNick(m.from))}</div>`;
+    h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(m.from,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big?'big':''} ${m.k?'card':''} ${m.pend?'pend':''}" data-mid="${esc(m.id||'')}">${m.k?dmCard(m,mine):esc(m.t)}${lk?`<span class="dmlk">❤️${lk>1?`<b>${lk}</b>`:''}</span>`:''}</div></div>`;prevTs=m.ts});
+  if(lastMine&&L[L.length-1].from===me){let st;if(lastMine.pend)st='보내는 중…';else if(grp){const n=Object.entries(RD).filter(([u,ts])=>u!==me&&ts>=lastMine.ts).length;st=n?`${n}명 읽음`:'전송됨'}else st=(RD[k]||0)>=lastMine.ts?'읽음':'전송됨';h+=`<div class="dmseen">${st}</div>`}
+  return h;
+}
 function dmRender(){
   let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
-  const p=DM.peer;
-  v.innerHTML=p?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(p,36)}<div class="dmht"><b>${esc(dmNick(p))}</b><span>${esc(dmStatus(p))}</span></div><button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button></div>
+  const k=DM.peer;
+  v.innerHTML=k?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(k,36)}<div class="dmht"><b>${esc(dmTitle(k))}${dmMuted(k)?' 🔕':''}</b><span>${esc(dmStatus(k))}</span></div>${isG(k)?`<button class="dmx sm" data-dm="ginfo" title="단체방 정보">ⓘ</button>`:`<button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button>`}</div>
     <div class="dmlist" id="dmlist">${dmMsgs()}</div>
-    <form class="dmin" id="dmform"><div class="dmbox"><button type="button" class="dmplus" data-dm="att" aria-label="공유">＋</button><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend" id="dmsendb">보내기</button></div></form>`
-   :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${esc(cnick()||'나')}</b></div><button class="dmx sm" data-dm="new" title="새 메시지">✏️</button></div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
-  if(p){const L=$('#dmlist');L.scrollTop=L.scrollHeight;dmTapInit(L);const f=$('#dmform'),i=$('#dmtxt');
+    <form class="dmin" id="dmform"><div class="dmbox"><button type="button" class="dmplus" data-dm="att" aria-label="공유">＋</button><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend">보내기</button></div></form>`
+   :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${DM.pick?'새 메시지':esc(cnick()||'나')}</b></div>${DM.pick?'':`<button class="dmx sm" data-dm="new" title="새 메시지">✏️</button>`}</div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
+  const L=$('#dmlist');
+  if(k){L.scrollTop=L.scrollHeight;dmPress(L,'.dmb[data-mid]',dmMenu,b=>dmLike(b.dataset.mid));const f=$('#dmform'),i=$('#dmtxt');
     const sync=()=>v.classList.toggle('typing',!!i.value.trim());i.addEventListener('input',sync);sync();
-    f.addEventListener('submit',e=>{e.preventDefault();const t=i.value;i.value='';sync();dmSend(p,t);i.focus()})}
+    f.addEventListener('submit',e=>{e.preventDefault();const t=i.value;i.value='';sync();dmSend(k,t);i.focus()})}
+  else if(!DM.pick)dmPress(L,'.dmrow[data-u]',r=>dmRowMenu(r));
 }
 function dmPaint(force){if(!DM.open)return;const L=$('#dmlist');if(!L){dmRender();return}
+  if(DM.pick){const gn=$('#dmgname'),v=gn&&gn.value;L.innerHTML=dmInbox();const g2=$('#dmgname');if(g2&&v)g2.value=v;return}
   const atEnd=L.scrollHeight-L.scrollTop-L.clientHeight<80;L.innerHTML=DM.peer?dmMsgs():dmInbox();if(DM.peer&&(atEnd||force))L.scrollTop=L.scrollHeight;
   const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
-document.addEventListener('click',e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm;
-  if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
-  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪');else if(a==='att')dmAttOpen('sess');else if(a==='atab')dmAttOpen(b.dataset.v);else if(a==='aclose')dmAttClose();else if(a==='asend')dmAttSend(b.dataset.v,b.dataset.id);else if(a==='rtsave')dmRtSave(b.dataset.mid);else if(a==='heart')dmLike(b.closest('.dmb').dataset.mid,true);else if(a==='mclose')dmMenuClose();else if(a==='mheart'){dmMenuClose();dmLike(b.dataset.mid)}else if(a==='mcopy'){const {cv}=dmConvs(),m=(cv[DM.peer]||[]).find(x=>x.id===b.dataset.mid);dmMenuClose();if(m)try{navigator.clipboard.writeText(m.t);toast('복사했어요')}catch(e){}}else if(a==='munsend'){const mid=b.dataset.mid;dmMenuClose();dmUnsend(mid)}});
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm,u=b.dataset.u,mid=b.dataset.mid;
+  if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.sel=[];DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
+  else if(a==='peer'){DM.pick=false;DM.peer=u;dmRender();dmMarkRead(u)}
+  else if(a==='psel'){const i=DM.sel.indexOf(u);i>=0?DM.sel.splice(i,1):DM.sel.push(u);sfx('tap');dmPaint()}
+  else if(a==='pgo'){if(!DM.sel.length)return;if(DM.sel.length===1){DM.pick=false;DM.peer=DM.sel[0];DM.sel=[];dmRender();return}
+    const nm=(($('#dmgname')||{}).value||'');b.disabled=true;const k=await dmCreateGroup(DM.sel,nm);b.disabled=false;if(k){DM.pick=false;DM.sel=[];DM.peer=k;setTimeout(()=>{if(dmFB())dmSubAll();dmRender()},300)}}
+  else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪');
+  else if(a==='att')dmAttOpen('sess');else if(a==='atab')dmAttOpen(b.dataset.v);else if(a==='aclose')dmAttClose();else if(a==='asend')dmAttSend(b.dataset.v,b.dataset.id);
+  else if(a==='rtsave'){dmAttClose();dmRtSave(mid)}else if(a==='sessload'){dmAttClose();dmSessLoad(mid)}
+  else if(a==='mheart'){dmAttClose();dmLike(mid)}else if(a==='mcopy'){const m=dmFindMsg(mid);dmAttClose();if(m)try{navigator.clipboard.writeText(m.t);toast('복사했어요')}catch(e){}}
+  else if(a==='munsend'){dmAttClose();dmUnsend(mid)}
+  else if(a==='mute'){dmAttClose();dmToggleMute(u);if(DM.peer)dmRender()}
+  else if(a==='ginfo'&&DM.peer){const g=dmGroup(DM.peer);if(!g)return;const canEdit=dmFB()||g.o===store.uid;dmSheet(`<div class="dmmh">${esc(g.n)} · ${g.m.length}명</div><div class="dmmem">${g.m.map(x=>`<div class="dmrow" style="padding:6px 4px">${dmAvatar(x,36)}<div class="dmrt"><b>${esc(dmNick(x))}${x===g.o?' <span class="chip">방장</span>':''}</b><span>${esc(x===store.uid?'나':dmStatus(x))}</span></div></div>`).join('')}</div><button class="dmmi" data-dm="mute" data-u="${esc(DM.peer)}">${dmMuted(DM.peer)?'🔔 알림 켜기':'🔕 알림 끄기'}</button>${canEdit?`<button class="dmmi" data-dm="grename" data-u="${esc(DM.peer)}">✏️ 이름 바꾸기</button>`:''}<button class="dmmi red" data-dm="gleave" data-u="${esc(DM.peer)}">🚪 나가기</button>`)}
+  else if(a==='grename'){const g=dmGroup(u);dmSheet(`<div class="dmmh">단체방 이름 바꾸기</div><input class="dminp" id="dmgren" maxlength="30" value="${esc(g?g.n:'')}"><button class="dmmi" style="text-align:center;background:#3797f0" data-dm="grensave" data-u="${esc(u)}">저장</button>`);setTimeout(()=>{const i=$('#dmgren');if(i)i.focus()},50)}
+  else if(a==='grensave'){const n=(($('#dmgren')||{}).value||'').trim();dmAttClose();if(n){await dmGroupEdit(u,o=>({n:n.slice(0,30),m:o.m}));toast('이름을 바꿨어요')}}
+  else if(a==='gleave'){dmSheet(`<div class="dmmh">이 단체방에서 나갈까요?</div><button class="dmmi red" style="text-align:center" data-dm="gleaveok" data-u="${esc(u)}">나가기</button>`)}
+  else if(a==='gleaveok'){dmAttClose();dmLeave(u)}
+});
+
+/* ---------- 🤖 테스트 봇 (아티팩트 미리보기에서만, 사이트에는 안 나와요) ---------- */
+const BOTS=[{id:'bot_a',nick:'🤖 철수봇',s:12,sum:14,streak:5,best:9,days:31},{id:'bot_b',nick:'🤖 영희봇',s:7,sum:8,streak:2,best:6,days:12},{id:'bot_c',nick:'🤖 민준봇',s:20,sum:30,streak:14,best:21,days:80}];
+const botOn=()=>!window.FB_MODE;
+const BOT={d:null};
+function botLoad(){if(BOT.d)return BOT.d;let d={};try{d=JSON.parse(localStorage.getItem('planlog_bots_'+(store.uid||''))||'{}')||{}}catch(e){}
+  BOTS.forEach(b=>{d[b.id]=Object.assign({id:b.id,nick:b.nick,msgs:[],rd:{},lk:{}},d[b.id]||{})});BOT.d=d;return d}
+function botSave(){try{localStorage.setItem('planlog_bots_'+(store.uid||''),JSON.stringify(BOT.d))}catch(e){}}
+const botDocs=()=>botOn()&&store.uid?Object.values(botLoad()):[];
+function botMerge(a){if(!botOn())return a;const t=today(),ids=new Set(a.map(x=>x.id));
+  return a.concat(BOTS.filter(b=>!ids.has(b.id)).map((b,i)=>Object.assign({parts:{},pk:{},sk:[0,0,0,0],top:[],rec:{},lvm:{},bio:'테스트용 봇이에요 · 사이트에는 안 나와요',wd:i===1?'':t,rds:i===1?[t]:[],upd:Date.now(),bot:1},b)))}
+const BOT_RE=[['안녕|하이|ㅎㅇ|hi','안녕! 🤖 나 테스트 봇이야','ㅎㅇㅎㅇ 👋'],['풀업|턱걸이','풀업 몇 개 해? 난 12개 🙌'],['푸쉬업|팔굽','푸쉬업은 하루 100개가 목표야'],['플란체|머슬업|핸드스탠드','와 그거 진짜 어렵던데 대단해 👏'],['ㅋㅋ|ㅎㅎ','ㅋㅋㅋㅋㅋ','ㅎㅎ 😆'],['운동|헬스|했','오 나도 방금 끝냈어 💪','오늘 뭐 했어? 난 하체 했다 🦵','운동 최고지 🔥'],['\\?','음… 글쎄? 🤔','그거 좋은 질문인데!']];
+const BOT_ANY=['ㅇㅋ 👍','좋아 좋아','나도 그렇게 생각해','내일 같이 운동하자 🔥','🔥🔥','💪','알겠어!'];
+function botReplyText(t,att){if(att&&att.k==='sess')return `오 ${(att.d&&att.d.ti)||'운동'} 대박 👍 나도 해볼래`;if(att&&att.k==='rt')return '루틴 좋다! 저장해갈게 📋';
+  for(const [re,...ans] of BOT_RE)if(new RegExp(re).test(t))return ans[Math.floor(Math.random()*ans.length)];
+  if(/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(t))return t;return BOT_ANY[Math.floor(Math.random()*BOT_ANY.length)]}
+function botHear(k,t,att){if(!botOn())return;const me=store.uid,d=botLoad();let who=[];
+  if(isG(k)){const g=dmGroup(k);if(g)who=g.m.filter(u=>d[u]);who=who.sort(()=>Math.random()-.5).slice(0,Math.random()<.5?1:2)}else if(d[k])who=[k];
+  who.forEach((b,i)=>{const key=isG(k)?k:me,base=900+i*1600+Math.random()*700;
+    setTimeout(()=>{const doc=botLoad()[b];doc.rd[key]=Date.now();const {cv}=dmConvs(),mine=(cv[k]||[]).filter(m=>m.from===me).pop();
+      if(mine&&Math.random()<.45){doc.lk[key]=(doc.lk[key]||[]).concat(mine.id).slice(-200)}botSave();dmChanged()},base);
+    setTimeout(()=>{const doc=botLoad()[b];doc.msgs.push({to:key,t:botReplyText(t,att),ts:Date.now(),id:uid()});doc.msgs=doc.msgs.slice(-300);botSave();dmChanged()},base+1100+Math.random()*900)})}
+function botPoke(to){const b=BOTS.find(x=>x.id===to);if(!b)return;sfx('pokesend');toast(`👉 ${b.nick}님을 콕 찔렀어요`);setTimeout(()=>pkShow([{from:to,nick:b.nick,ts:Date.now(),m:'나도 운동할게! 💪'}]),2200)}
+function botHello(){if(!botOn()||!store.uid)return;const d=botLoad();if(d.bot_a.msgs.length)return;
+  setTimeout(()=>{const doc=botLoad().bot_a;if(doc.msgs.length)return;doc.msgs.push({to:store.uid,t:'안녕! 나 테스트용 철수봇이야 🤖 아무 말이나 보내봐. 운동 기록이나 루틴을 보내도 돼!',ts:Date.now(),id:uid()});botSave();dmChanged()},6000)}
 
 function profHtml(m){
   let x=C.lb.find(y=>y.id===m.u);
