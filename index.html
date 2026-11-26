@@ -1683,8 +1683,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26k';
-const APP_NEWS=['🧠 리즈 코치가 진짜 AI로 대답해요 (서버 연결 시)','🧑‍🏫 DM 맨 위에 AI 코치 리즈가 생겼어요. 운동 고민을 편하게 물어보세요','🖼️ 리즈 대화방 ⚙️에서 코치 프로필 사진을 바꿀 수 있어요 (내 기기에서만 보여요)','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
+const APP_VER='2026.11.26o';
+const APP_NEWS=['👋 DM에서 AI 코치 리즈를 뺐어요','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2694,7 +2694,7 @@ function dmConvs(){
     Object.entries(d.rd||{}).forEach(([k,ts])=>{if(s===me)R(k,me,ts);else if(k===me)R(s,s,ts);else if(gset.has(k))R(k,s,ts)});
     Object.entries(d.lk||{}).forEach(([k,ids])=>{if(s===me)LK(k,me,ids);else if(k===me)LK(s,s,ids);else if(gset.has(k))LK(k,s,ids)})});
   G.forEach(g=>{cv['g:'+g.id]=cv['g:'+g.id]||[]});
-  if(me){const c=coachConv();cv[COACH]=c.L;rd[COACH]=c.rd;lk[COACH]=c.lk}
+  /* 리즈 코치 삭제됨 */
   Object.values(cv).forEach(L=>L.sort((a,b)=>a.ts-b.ts));
   return {cv,rd,lk,G};
 }
@@ -2881,6 +2881,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-dm]'
 /* ---------- 🧑‍🏫 AI 코치 리즈 (DM 맨 위에 고정) ----------
    대화는 이 기기에만 저장돼요. 아티팩트에서는 Claude로 답하고, 사이트에서는 기본 조언 모드로 답해요 */
 const COACH='coach_liz',COACH_NM='리즈 코치';
+try{Object.keys(localStorage).filter(k=>/^planlog_coach(img)?_/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}
 const COACH_AV=`<svg viewBox="0 0 64 64" class="coachsvg"><circle cx="32" cy="32" r="32" fill="#dbdbdb"/><circle cx="32" cy="25" r="11" fill="#fff"/><path d="M11 55c3-10 11-15 21-15s18 5 21 15a32 32 0 0 1-42 0z" fill="#fff"/></svg>`;
 const CO={d:null,busy:false};
 /* 코치 프로필 사진: 내가 고른 사진을 이 기기에만 저장해요 (서버·친구에게 안 보여요) */
@@ -2892,8 +2893,16 @@ function coachPickImg(){const i=document.createElement('input');i.type='file';i.
 const coachKey=()=>'planlog_coach_'+(store.uid||'local');
 function coachLoad(){if(CO.d)return CO.d;let d=null;try{d=JSON.parse(localStorage.getItem(coachKey())||'null')}catch(e){}
   if(!d||!Array.isArray(d.msgs))d={msgs:[],myRd:0,lk:[],rd:0};
-  if(!d.msgs.length){const nm=cnick()||'';d.msgs.push({f:'c',t:`안녕하세요${nm?' '+nm+'님':''}! 저는 운동로그 AI 코치 리즈예요 😊`,ts:Date.now()-2000,id:'c0'},{f:'c',t:'운동하다 막히는 거, 루틴 고민, 자세, 동기부여… 뭐든 편하게 얘기해 주세요. 같이 방법 찾아봐요 💪',ts:Date.now()-1000,id:'c1'})}
-  CO.d=d;return d}
+  if(!d.msgs.length){const nm=cnick()||'';d.msgs.push({f:'c',t:`안녕${nm?' '+nm:''}! 나는 운동로그 AI 코치 리즈 누나야 😊`,ts:Date.now()-2000,id:'c0'},{f:'c',t:'운동하다 막히는 거, 루틴 고민, 자세, 의욕 없는 날… 뭐든 편하게 말해. 누나가 같이 방법 찾아줄게 💪',ts:Date.now()-1000,id:'c1'})}
+  coachNudge(d);CO.d=d;return d}
+/* 누나가 먼저 챙기기: 오늘 운동했으면 호들갑 칭찬, 3일 넘게 쉬면 안부 (하루 한 번) */
+const NUDGE_DONE=['헐 오늘도 운동했어?? 진짜 대단하다 👏👏','오늘 운동 끝낸 거 누나가 다 봤다~ 완전 멋있어 🔥','와 오늘도 해냈네! 너 이러다 진짜 괴물 된다 ㅋㅋ 💪'];
+const NUDGE_GONE=['야 너 요즘 왜 이렇게 조용해? 👀 누나 기다렸잖아','며칠째 운동 기록이 없네~ 바빴어? 오늘 딱 1분만 같이 하자 😊','혹시 어디 아픈 건 아니지? 쉬는 것도 좋은데 너무 오래 쉬면 누나 서운하다 ㅋㅋ'];
+function coachNudge(d){try{const t=today();if(d.nd===t)return;
+  const ls=[...(S.sessions||[])].filter(x=>x.items&&x.items.length).map(x=>x.date).sort().pop();if(!ls)return;
+  const gap=Math.round((new Date(t)-new Date(ls))/864e5),pick=a=>a[Math.floor(Math.random()*a.length)];
+  let m='';if(gap===0)m=pick(NUDGE_DONE);else if(gap>=3)m=pick(NUDGE_GONE);
+  if(m){d.nd=t;d.msgs.push({f:'c',t:m,ts:Date.now(),id:'c'+uid()});d.msgs=d.msgs.slice(-200);try{localStorage.setItem(coachKey(),JSON.stringify(d))}catch(e){}}}catch(e){}}
 function coachSave(){try{localStorage.setItem(coachKey(),JSON.stringify(CO.d))}catch(e){}}
 function coachConv(){const d=coachLoad(),me=store.uid;return {L:d.msgs.map(m=>({from:m.f==='c'?COACH:me,t:m.t,ts:m.ts,id:m.id,k:m.k,d:m.d})),rd:{[COACH]:d.rd||0,[me]:d.myRd||0},lk:Object.fromEntries((d.lk||[]).map(i=>[i,{[me]:1}]))}}
 async function coachWrite(fn){const d=coachLoad(),mine=d.msgs.filter(m=>m.f!=='c').map(m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{}));
@@ -2906,22 +2915,22 @@ function coachCtx(){
 }
 function coachPrompt(){const d=coachLoad(),hist=d.msgs.slice(-18).map(m=>`${m.f==='c'?'리즈':'사용자'}: ${m.k?'['+m.t+'] '+JSON.stringify(m.d).slice(0,400):m.t}`).join('\n');
   return `너는 맨몸운동(칼리스데닉스) 기록 앱 "운동로그"의 DM에 있는 AI 운동 코치 "리즈"야. 사용자와 메신저로 대화하고 있어.
-[말투] 다정하고 친근한 존댓말. 실제 코치가 카톡하듯 자연스럽게, 짧은 문장, 이모지는 가끔만. 먼저 공감하고, 그다음 구체적이고 바로 해볼 수 있는 조언(운동 이름·세트·횟수 등)을 줘. 필요하면 마지막에 질문 1개로 상황을 더 물어봐. 설교하거나 길게 늘어놓지 마.
+[말투] 사용자를 아끼는 다정한 친누나처럼 편한 반말로 말해. 스스로를 가끔 "누나"라고 불러도 돼("누나가 봐줄게"). 칭찬은 호들갑스럽게 아낌없이("헐 대박", "완전 멋있다"), 장난도 자주 치고("너 이러다 괴물 된다 ㅋㅋ"), 걱정되면 살짝 잔소리도 하는 장난기 많고 따뜻한 누나 느낌. 최근 운동 기록을 보고 먼저 아는 척해줘(오늘 했으면 칭찬, 며칠 쉬었으면 "왜 이렇게 조용해?"). 카톡하듯 자연스럽고 짧은 문장, 이모지는 가끔만. 연애·썸·애인 같은 말투나 고백, 질투, "보고 싶어" 같은 표현은 쓰지 마. 그런 걸 원하면 장난스럽게 넘기고 운동 얘기로 돌아와. 먼저 공감하고, 그다음 구체적이고 바로 해볼 수 있는 조언(운동 이름·세트·횟수 등)을 줘. 필요하면 마지막에 질문 1개로 상황을 더 물어봐. 설교하거나 길게 늘어놓지 마.
 [형식] 메시지 1~3개로 나눠서 보내. 메시지 사이는 줄에 ---만 써서 구분해. 각 메시지는 2~3문장 이내. 마크다운(굵게, 목록 기호, 제목) 쓰지 마.
-[지켜야 할 것] 너는 AI 코치야. 사람인 척 거짓말하지 말고, 사람이냐고 물으면 AI 코치라고 솔직하게 말해. 실제 연예인이나 실존 인물인 척하지 마. 통증·부상·저림은 진단하지 말고 운동을 멈추고 병원(정형외과·재활의학과)이나 물리치료를 권해. 무리한 체중 감량, 굶기, 섭식 문제 신호가 보이면 숫자 목표를 주지 말고 걱정을 전하며 보호자나 전문가와 이야기하도록 부드럽게 권해. 자해나 극단적인 생각을 말하면 따뜻하게 받아주고 자살예방상담전화 109(24시간)나 주변 어른에게 꼭 이야기하라고 권해. 운동과 상관없는 얘기도 짧게 받아주되 자연스럽게 운동 얘기로 돌아와.
+[지켜야 할 것] 너는 AI 코치야. 사람인 척 거짓말하지 말고, 사람이냐고 물으면 AI 코치라고 솔직하게 말해(누나 말투는 캐릭터일 뿐이야). 실제 연예인이나 실존 인물인 척하지 마. 통증·부상·저림은 진단하지 말고 운동을 멈추고 병원(정형외과·재활의학과)이나 물리치료를 권해. 무리한 체중 감량, 굶기, 섭식 문제 신호가 보이면 숫자 목표를 주지 말고 걱정을 전하며 보호자나 전문가와 이야기하도록 부드럽게 권해. 자해나 극단적인 생각을 말하면 따뜻하게 받아주고 자살예방상담전화 109(24시간)나 주변 어른에게 꼭 이야기하라고 권해. 운동과 상관없는 얘기도 짧게 받아주되 자연스럽게 운동 얘기로 돌아와.
 [사용자 정보 - 조언에 자연스럽게 활용]
 ${coachCtx()}
 [지금까지 대화]
 ${hist}
 리즈:`}
-const COACH_RULE=[[/아파|통증|저려|다쳤|부상|삐끗/,['아이고, 통증이 있으면 오늘은 그 부위 운동은 꼭 쉬어 주세요 😢','아픈 걸 참고 하면 더 오래 쉬게 될 수 있어요. 며칠 지나도 계속 아프면 정형외과나 물리치료 꼭 받아보세요. 어디가 어떻게 아픈지 알려주실래요?']],
- [/정체|안 늘|안늘|그대로|멈췄/,['정체기 오면 진짜 답답하죠 ㅠㅠ 근데 다들 한 번씩 겪는 구간이에요!','이럴 땐 세트를 1개 늘리거나, 내려가는 동작을 3초로 천천히 해보세요. 그리고 잠이랑 단백질도 한번 체크해 봐요. 요즘 주에 몇 번 운동하세요?']],
- [/귀찮|하기 싫|의욕|동기|포기/,['그런 날 있어요, 완전 정상이에요 😊','오늘은 딱 1분만 해볼까요? 기록 탭의 1분 운동 눌러서 한 세트만 해도 스트릭은 이어져요. 시작만 하면 생각보다 더 하게 되더라고요 💪']],
- [/식단|단백질|먹|벌크|살/,['운동만큼 먹는 것도 중요하죠!','끼니마다 손바닥 크기 정도 단백질(계란, 두부, 닭가슴살, 우유)을 챙기는 것부터 해보세요. 무리하게 굶는 건 절대 안 돼요. 지금 목표가 근육 키우기인가요?']],
- [/풀업|턱걸이/,['풀업 좋죠! 아직 1개가 어렵다면 네거티브 풀업(3~5초 천천히 내려오기) 5회 × 3세트부터 해보세요.','스캐풀라 풀업으로 날개뼈 쓰는 감각도 같이 익히면 훨씬 빨리 늘어요. 지금 몇 개 정도 하세요?']],
- [/푸쉬업|팔굽/,['푸쉬업은 정확한 자세가 제일 중요해요! 몸을 일자로 유지하고 가슴이 바닥 가까이 갈 때까지 내려가 보세요.','10개가 힘들면 무릎 푸쉬업이나 인클라인 푸쉬업으로 횟수를 채우는 게 더 빨리 늘어요 😊']],
- [/루틴|뭐 해|뭘 해|추천/,['루틴 고민이시군요!','루틴 탭의 AI 추천 루틴에서 목표를 고르면 바로 짜드려요. 맨몸운동 기술 목표가 있으면 "맨몸운동 기술 만들기"를 골라보세요. 어떤 기술이 제일 하고 싶어요?']]];
-function coachFallback(t){for(const [re,a] of COACH_RULE)if(re.test(t))return a;return ['얘기해 줘서 고마워요 😊','조금만 더 자세히 알려주실래요? 어떤 운동을 할 때, 어떤 점이 고민인지 알려주시면 딱 맞게 도와드릴게요!']}
+const COACH_RULE=[[/아파|통증|저려|다쳤|부상|삐끗/,['아이고 ㅠㅠ 아프면 오늘은 그 부위 운동 꼭 쉬어. 누나 말 들어 😢','참고 하면 더 오래 쉬게 돼. 며칠 지나도 계속 아프면 정형외과나 물리치료 꼭 가봐. 어디가 어떻게 아픈데?']],
+ [/정체|안 늘|안늘|그대로|멈췄/,['정체기 진짜 답답하지 ㅠㅠ 근데 다들 한 번씩 겪는 구간이야!','이럴 땐 세트 1개 늘리거나 내려가는 동작을 3초로 천천히 해봐. 잠이랑 단백질도 잘 챙기고 있지? 요즘 일주일에 몇 번 해?']],
+ [/귀찮|하기 싫|의욕|동기|포기/,['그런 날 있지~ 완전 정상이야 😊','오늘은 딱 1분만 하자. 기록 탭에서 1분 운동 눌러서 한 세트만 해도 스트릭 이어져. 시작만 하면 생각보다 더 하게 된다니까 💪']],
+ [/식단|단백질|먹|벌크|살/,['운동만큼 잘 먹는 것도 중요해!','끼니마다 손바닥만큼 단백질(계란, 두부, 닭가슴살, 우유) 챙기는 것부터 해봐. 굶는 건 절대 안 돼, 누나 화낸다? 지금 목표가 근육 키우기야?']],
+ [/풀업|턱걸이/,['풀업 좋지! 아직 1개가 힘들면 네거티브 풀업(3~5초 천천히 내려오기) 5회 × 3세트부터 해봐.','스캐풀라 풀업으로 날개뼈 쓰는 감각도 같이 익히면 훨씬 빨리 늘어. 지금 몇 개 정도 해?']],
+ [/푸쉬업|팔굽/,['푸쉬업은 자세가 제일 중요해! 몸 일자로 쭉 펴고 가슴이 바닥 가까이 갈 때까지 내려가 봐.','10개가 힘들면 무릎 푸쉬업이나 인클라인 푸쉬업으로 횟수 채우는 게 더 빨리 늘어 😊']],
+ [/루틴|뭐 해|뭘 해|추천/,['루틴 고민 중이구나!','루틴 탭 AI 추천 루틴에서 목표 고르면 바로 짜줘. 기술 목표가 있으면 "맨몸운동 기술 만들기" 골라봐. 제일 해보고 싶은 기술이 뭐야?']]];
+function coachFallback(t){for(const [re,a] of COACH_RULE)if(re.test(t))return a;return ['말해줘서 고마워 😊','조금만 더 자세히 알려줄래? 어떤 운동 할 때 뭐가 고민인지 말해주면 누나가 딱 맞게 도와줄게!']}
 function coachSplit(t){return String(t||'').replace(/^리즈\s*:\s*/,'').split(/\n\s*-{3,}\s*\n?/).map(x=>x.replace(/\*\*/g,'').replace(/^리즈\s*:\s*/,'').replace(/^#+\s*/gm,'').trim()).filter(Boolean).slice(0,4)}
 async function coachReply(){
   if(CO.busy)return;CO.busy=true;const d=coachLoad();d.rd=Date.now();coachSave();DM.typing=COACH;dmChanged();
