@@ -386,6 +386,7 @@ nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc
 .dmmh{font-weight:800;font-size:15px;text-align:center;padding:2px 0 8px}.dmmem{max-height:240px;overflow-y:auto;margin-bottom:4px}
 .dmchint{font-size:10px;color:var(--mute);margin-top:6px;text-align:center}
 .dmdot.mu{background:#666}.dmmu{font-size:12px}.dmrow.held{background:rgba(255,255,255,.08)}
+.dmtone{display:flex;align-items:center;gap:12px;margin-top:8px;padding:10px;border-radius:14px;background:radial-gradient(circle at 20% 50%,color-mix(in srgb,var(--tc) 25%,transparent),transparent 70%)}.dmb.card .tpost{margin:8px 0 0;padding:10px}.dmb.card .tpgrid{gap:6px}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1676,8 +1677,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26g';
-const APP_NEWS=['👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
+const APP_VER='2026.11.26h';
+const APP_NEWS=['🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2757,9 +2758,12 @@ function dmInbox(){
 /* 공유 카드 */
 function dmPackSess(s){return {ti:String(s.title||'운동').slice(0,40),dt:s.date,du:s.duration||0,it:s.items.slice(0,12).map(it=>{const e=exOf(it),dn=it.sets.filter(x=>x.done!==false);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:dn.slice(0,10).map(x=>+x.r||0)}})}}
 function dmPackRt(r){return {ti:String(r.name||'루틴').slice(0,40),it:r.items.slice(0,12).map(it=>{const e=exOf(it);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:it.sets.slice(0,10).map(x=>+x.r||0)}})}}
-function dmCard(m,mine){const d=m.d||{},it=Array.isArray(d.it)?d.it:[],rt=m.k==='rt';
+function dmCard(m,mine){const d=m.d||{};if(m.k==='tier')return dmTierCard(d,m.from);const it=Array.isArray(d.it)?d.it:[],rt=m.k==='rt';
   const rows=it.slice(0,6).map(x=>{const r=(Array.isArray(x.r)?x.r:[]),best=Math.max(0,...r);return `<div class="dmcr"><span>${esc(String(x.n||''))}</span><b>${r.length}세트${best?` · ${rt?'':'최고 '}${best}${esc(String(x.u||'회'))}`:''}</b></div>`}).join('');
   return `<div class="dmch">${rt?'📋 루틴':'🏋️ 운동 기록'}</div><div class="dmct">${esc(String(d.ti||''))}</div>${!rt&&d.dt?`<div class="dmcs">${shortDate(String(d.dt))}${d.du?` · ${Math.round(d.du/60)}분`:''} · ${it.length}종목</div>`:`<div class="dmcs">${it.length}종목</div>`}<div class="dmcl">${rows}${it.length>6?`<div class="dmcr"><span>외 ${it.length-6}개</span></div>`:''}</div>${!mine?`<button class="dmcbtn" data-dm="${rt?'rtsave':'sessload'}" data-mid="${esc(m.id||'')}">${rt?'내 루틴으로 저장':'내 운동에 불러오기'}</button>`:''}<div class="dmchint">꾹 눌러서 ${rt?'내 운동에 불러오기':'루틴으로 저장'}도 돼요</div>`}
+function dmTierCard(d,from){const who=esc(dmNick(from));
+  if(d.one){const i=Math.max(0,Math.min(TIERS.length-1,+d.i||0)),T=TIERS[i];return `<div class="dmch">🏅 ${esc(pname(String(d.one)))} 티어</div><div class="dmtone" style="--tc:${T.c}">${emblem(i,64)}<div><div class="dmct" style="color:${T.c}">${T.n}</div><div class="dmcs">${who}의 ${esc(pname(String(d.one)))} · 달성 ${+d.kk||0}/${ACH_P}</div></div></div>`}
+  return `<div class="dmch">🏅 티어표</div><div class="dmct">${who}의 티어표</div>${tierPostHtml(d)}`}
 const dmFindMsg=mid=>(dmConvs().cv[DM.peer]||[]).find(x=>x.id===mid);
 function dmItems(d){return (d.it||[]).map(x=>{const nm=String(x.n||''),ex=S.exercises.find(e=>e.name===nm);const id=ex?ex.id:exId(nm,'기타',x.u==='초'?'time':'wr');return {exId:id,note:'',sets:(Array.isArray(x.r)&&x.r.length?x.r:[10]).map(r=>({w:'',r:+r||0,done:false}))}})}
 function dmRtSave(mid){const m=dmFindMsg(mid);if(!m||!m.d)return;S.routines.push({id:uid(),name:String(m.d.ti||'받은 루틴').slice(0,40)+' (from '+dmNick(m.from)+')',items:dmItems(m.d).map(i=>({exId:i.exId,note:'',sets:i.sets.map(x=>({w:'',r:x.r}))}))});save();toast('루틴 탭에 저장했어요 📋');sfx('success')}
@@ -2767,10 +2771,14 @@ function dmSessLoad(mid){const m=dmFindMsg(mid);if(!m||!m.d)return;const dt=toda
   dmClose();U.date=dt;FRESH=`[data-skey="${s.id}"]`;tutGo('log');toast('오늘 일지에 불러왔어요 · 바로 시작해 보세요 💪')}
 function dmAttOpen(tab){const v=$('#dmv');if(!v)return;let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}
   const ss=[...S.sessions].filter(s=>s.items.length).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,15),rs=S.routines.slice(0,30);
-  sh.innerHTML=`<div class="dmabg" data-dm="aclose"></div><div class="dmash"><div class="dmagrip"></div><div class="dmatabs"><button class="${tab==='sess'?'on':''}" data-dm="atab" data-v="sess">🏋️ 운동 기록</button><button class="${tab==='rt'?'on':''}" data-dm="atab" data-v="rt">📋 루틴</button></div><div class="dmalist">${tab==='sess'?(ss.length?ss.map(s=>`<div class="dmarow" data-dm="asend" data-v="sess" data-id="${s.id}"><div><b>${esc(s.title||'운동')}</b><span>${shortDate(s.date)} · ${s.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">운동 기록이 없어요</div>'):(rs.length?rs.map(r=>`<div class="dmarow" data-dm="asend" data-v="rt" data-id="${r.id}"><div><b>${esc(r.name||'루틴')}</b><span>${r.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">저장된 루틴이 없어요</div>')}</div></div>`}
+  sh.innerHTML=`<div class="dmabg" data-dm="aclose"></div><div class="dmash"><div class="dmagrip"></div><div class="dmatabs"><button class="${tab==='sess'?'on':''}" data-dm="atab" data-v="sess">🏋️ 운동 기록</button><button class="${tab==='rt'?'on':''}" data-dm="atab" data-v="rt">📋 루틴</button><button class="${tab==='tier'?'on':''}" data-dm="atab" data-v="tier">🏅 티어표</button></div><div class="dmalist">${tab==='tier'?dmTierList():tab==='sess'?(ss.length?ss.map(s=>`<div class="dmarow" data-dm="asend" data-v="sess" data-id="${s.id}"><div><b>${esc(s.title||'운동')}</b><span>${shortDate(s.date)} · ${s.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">운동 기록이 없어요</div>'):(rs.length?rs.map(r=>`<div class="dmarow" data-dm="asend" data-v="rt" data-id="${r.id}"><div><b>${esc(r.name||'루틴')}</b><span>${r.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">저장된 루틴이 없어요</div>')}</div></div>`}
+function dmTierList(){const t=tierSnap(),oi=stTier(t.s).i;
+  return `<div class="dmarow" data-dm="asend" data-v="tier" data-id="all">${emblem(oi,34)}<div><b>전체 티어표</b><span>종합 ${esc(stName(t.s))} · 부위 ${t.parts.length}개</span></div><i>보내기</i></div>`+
+   t.parts.map(x=>`<div class="dmarow" data-dm="asend" data-v="tier" data-id="${esc(x.p)}">${emblem(x.i,34)}<div><b>${esc(pname(x.p))} 티어</b><span style="color:${TIERS[x.i].c}">${TIERS[x.i].n} · 달성 ${x.k|0}/${ACH_P}</span></div><i>보내기</i></div>`).join('')}
 function dmAttClose(){const sh=$('#dmatt');if(sh){sh.classList.add('out');setTimeout(()=>sh.remove(),220)}document.querySelectorAll('.dmb.held,.dmrow.held').forEach(x=>x.classList.remove('held'))}
 function dmAttSend(k,id){const p=DM.peer;if(!p)return;
   if(k==='sess'){const s=S.sessions.find(x=>x.id===id);if(!s)return;dmSend(p,'🏋️ 운동 기록: '+(s.title||'운동'),{k:'sess',d:dmPackSess(s)})}
+  else if(k==='tier'){const t=tierSnap();if(id==='all')dmSend(p,'🏅 티어표: 종합 '+stName(t.s),{k:'tier',d:{s:t.s,parts:t.parts}});else{const x=t.parts.find(y=>y.p===id);if(!x)return;dmSend(p,`🏅 ${pname(x.p)} 티어: ${TIERS[x.i].n}`,{k:'tier',d:{one:x.p,i:x.i,kk:x.k|0}})}}
   else{const r=S.routines.find(x=>x.id===id);if(!r)return;dmSend(p,'📋 루틴: '+(r.name||'루틴'),{k:'rt',d:dmPackRt(r)})}
   dmAttClose()}
 /* 하트 */
@@ -2782,7 +2790,7 @@ function dmSheet(html){const v=$('#dmv');if(!v)return;let sh=$('#dmatt');if(!sh)
 function dmMenu(b){const mid=b.dataset.mid,mine=!!b.closest('.dmm.me'),m=dmFindMsg(mid);if(!mid)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
   document.querySelectorAll('.dmb.held').forEach(x=>x.classList.remove('held'));b.classList.add('held');
   dmSheet(`<button class="dmmi" data-dm="mheart" data-mid="${esc(mid)}">❤️ 하트</button>
-   ${m&&m.k?`<button class="dmmi" data-dm="sessload" data-mid="${esc(mid)}">📥 내 운동에 불러오기</button><button class="dmmi" data-dm="rtsave" data-mid="${esc(mid)}">📋 내 루틴으로 저장</button>`:`<button class="dmmi" data-dm="mcopy" data-mid="${esc(mid)}">📄 복사</button>`}
+   ${m&&m.k==='tier'?'':m&&m.k?`<button class="dmmi" data-dm="sessload" data-mid="${esc(mid)}">📥 내 운동에 불러오기</button><button class="dmmi" data-dm="rtsave" data-mid="${esc(mid)}">📋 내 루틴으로 저장</button>`:`<button class="dmmi" data-dm="mcopy" data-mid="${esc(mid)}">📄 복사</button>`}
    ${mine?`<button class="dmmi red" data-dm="munsend" data-mid="${esc(mid)}">↩️ 전송 취소</button>`:''}`)}
 function dmRowMenu(row){const k=row.dataset.u;if(!k)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}row.classList.add('held');const g=isG(k)&&dmGroup(k),canEdit=g&&(dmFB()||g.o===store.uid);
   dmSheet(`<div class="dmmh">${esc(dmTitle(k))}</div><button class="dmmi" data-dm="mute" data-u="${esc(k)}">${dmMuted(k)?'🔔 알림 켜기':'🔕 알림 끄기'}</button>${g?`${canEdit?`<button class="dmmi" data-dm="grename" data-u="${esc(k)}">✏️ 단체방 이름 바꾸기</button>`:''}<button class="dmmi red" data-dm="gleave" data-u="${esc(k)}">🚪 단체방 나가기</button>`:''}`)}
@@ -2868,7 +2876,7 @@ function botMerge(a){if(!botOn())return a;const t=today(),ids=new Set(a.map(x=>x
   return a.concat(BOTS.filter(b=>!ids.has(b.id)).map((b,i)=>Object.assign({parts:{},pk:{},sk:[0,0,0,0],top:[],rec:{},lvm:{},bio:'테스트용 봇이에요 · 사이트에는 안 나와요',wd:i===1?'':t,rds:i===1?[t]:[],upd:Date.now(),bot:1},b)))}
 const BOT_RE=[['안녕|하이|ㅎㅇ|hi','안녕! 🤖 나 테스트 봇이야','ㅎㅇㅎㅇ 👋'],['풀업|턱걸이','풀업 몇 개 해? 난 12개 🙌'],['푸쉬업|팔굽','푸쉬업은 하루 100개가 목표야'],['플란체|머슬업|핸드스탠드','와 그거 진짜 어렵던데 대단해 👏'],['ㅋㅋ|ㅎㅎ','ㅋㅋㅋㅋㅋ','ㅎㅎ 😆'],['운동|헬스|했','오 나도 방금 끝냈어 💪','오늘 뭐 했어? 난 하체 했다 🦵','운동 최고지 🔥'],['\\?','음… 글쎄? 🤔','그거 좋은 질문인데!']];
 const BOT_ANY=['ㅇㅋ 👍','좋아 좋아','나도 그렇게 생각해','내일 같이 운동하자 🔥','🔥🔥','💪','알겠어!'];
-function botReplyText(t,att){if(att&&att.k==='sess')return `오 ${(att.d&&att.d.ti)||'운동'} 대박 👍 나도 해볼래`;if(att&&att.k==='rt')return '루틴 좋다! 저장해갈게 📋';
+function botReplyText(t,att){if(att&&att.k==='sess')return `오 ${(att.d&&att.d.ti)||'운동'} 대박 👍 나도 해볼래`;if(att&&att.k==='rt')return '루틴 좋다! 저장해갈게 📋';if(att&&att.k==='tier')return (att.d&&att.d.one)?'오 그 부위 티어 좋은데? 🏅 난 아직 멀었다':'티어표 멋지다 👏 나도 열심히 해야지';
   for(const [re,...ans] of BOT_RE)if(new RegExp(re).test(t))return ans[Math.floor(Math.random()*ans.length)];
   if(/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(t))return t;return BOT_ANY[Math.floor(Math.random()*BOT_ANY.length)]}
 function botHear(k,t,att){if(!botOn())return;const me=store.uid,d=botLoad();let who=[];
