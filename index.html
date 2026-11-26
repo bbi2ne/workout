@@ -1652,8 +1652,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26b';
-const APP_NEWS=['💬 DM: 커뮤니티 왼쪽 위 ✈️ 버튼이나 친구 프로필에서 메시지를 주고받을 수 있어요','🏆 랭킹에서 친구 접속·운동 중·오늘 운동·휴식일 표시','🌳 기술 트리 상세 설명'];
+const APP_VER='2026.11.26c';
+const APP_NEWS=['💬 DM 불러오기 오류 수정','💬 DM: 커뮤니티 왼쪽 위 ✈️ 버튼이나 친구 프로필에서 메시지를 주고받을 수 있어요','🏆 랭킹에서 친구 접속·운동 중·오늘 운동·휴식일 표시','🌳 기술 트리 상세 설명'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2478,7 +2478,7 @@ const commAvail=()=>!!(store.db&&store.uid);
 function commStart(){
   if(C.subbed||!store.db)return;C.subbed=true;
   const un=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>{try{fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{})))}catch(e){}C.got[name]=true;C.err='';commRefresh()},e=>{C.err=(e&&e.code)||'err';commRefresh()})}catch(e){C.err='err'}};
-  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{dmStart()}catch(e){}try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
+  un('lb',a=>{C.lb=a;try{if(DM.subs)dmSubAll()}catch(e){}});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{dmStart()}catch(e){}try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
@@ -2614,11 +2614,17 @@ const dmPair=o=>[store.uid,o].sort();
 const dmFB=()=>!!window.FB_MODE;
 function dmStart(){
   if(DM.sub||!store.db||!store.uid)return;DM.sub=true;
-  const on=a=>{const first=!DM.loaded;DM.docs=a;DM.loaded=true;dmNotify(first);dmPaint();dmBadge()};
-  try{
-    const q=dmFB()?store.db.collection('dm').where('u','array-contains',store.uid):store.db.collection('dm');
-    q.onSnapshot(s=>on(s.docs.map(d=>Object.assign({id:d.id},d.data()||{}))),e=>{DM.err=1});
-  }catch(e){DM.err=1}
+  const on=a=>{const first=!DM.loaded||Date.now()-DM.t0<3000;DM.docs=a;DM.loaded=true;dmNotify(first);dmPaint();dmBadge()};
+  DM.t0=Date.now();
+  if(dmFB()){DM.map={};DM.subs={};DM.on=on;dmSubAll();return}
+  try{store.db.collection('dm').onSnapshot(s=>on(s.docs.map(d=>Object.assign({id:d.id},d.data()||{}))),e=>{DM.err=1;dmPaint()})}catch(e){DM.err=1}
+}
+/* 사이트: 친구마다 대화 문서 2개(내가 보낸 것/친구가 보낸 것)를 하나씩 지켜봐요 */
+function dmSubAll(){
+  if(!DM.subs||!store.uid)return;const me=store.uid;
+  C.lb.forEach(x=>{if(!x||!x.id||x.id===me)return;const pr=dmPair(x.id).join('+');
+    [x.id,me].forEach(sd=>{const id=pr+'+'+sd;if(DM.subs[id])return;
+      try{DM.subs[id]=store.db.collection('dm').doc(id).onSnapshot(sn=>{if(sn.exists)DM.map[id]=Object.assign({id},sn.data()||{});else delete DM.map[id];DM.err=0;DM.on(Object.values(DM.map))},e=>{DM.err=(e&&e.code)||1;dmPaint()})}catch(e){DM.err=1}})});
 }
 /* 대화별로 정리: {peer:[{from,t,ts,id}], ...}, 상대가 읽은 시각 */
 function dmConvs(){
