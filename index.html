@@ -285,7 +285,26 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .fchl{text-align:center;font-size:17px;font-weight:700;margin:2px 0 4px;line-height:1.4}.fcr{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1px solid var(--line)}.fcr.big{background:linear-gradient(90deg,rgba(255,255,255,.06),transparent);border-radius:10px}.fcw{font-size:13px;font-weight:700;text-align:right;white-space:nowrap}
 .asymbtn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 14px;color:var(--ink);font:inherit;cursor:pointer;border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
 .brkcard{display:flex;align-items:center;gap:12px;width:100%;color:var(--ink);font:inherit;cursor:pointer;border:1px solid rgba(100,210,255,.4)!important;background:linear-gradient(120deg,rgba(100,210,255,.12),rgba(255,255,255,.03))!important}.brki{font-size:26px}.brkgo{padding:7px 12px;border-radius:999px;background:#64d2ff;color:#00222e;font-weight:800;font-size:13px}
-.brkx{display:flex;justify-content:flex-end}.brkart{position:relative;width:200px;height:200px;margin:12px auto 4px;display:flex;align-items:center;justify-content:center}.brkart .art{width:180px;height:120px}.brkring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.brkbg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:6}.brkfg{fill:none;stroke:#64d2ff;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .2s linear}
+.brkx{display:flex;justify-content:flex-end}.brkhide{visibility:hidden}
+#brkspin{position:fixed;inset:0;z-index:1500;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 48%,rgba(0,0,0,.55),rgba(0,0,0,.92) 70%);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);animation:bsdark .45s ease-out both;cursor:pointer}
+#brkspin.out{animation:bsfade .38s ease-in forwards}
+.bsin{display:flex;flex-direction:column;align-items:center;gap:14px;animation:bspop .55s cubic-bezier(.22,1.3,.36,1) both}
+.bst{font-weight:800;font-size:18px;color:#fff;letter-spacing:-.2px;text-shadow:0 2px 12px rgba(100,210,255,.5)}
+.bswrap{position:relative;width:min(320px,82vw);aspect-ratio:1}
+.bswheel{width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.08),0 0 60px rgba(100,210,255,.35),0 20px 60px rgba(0,0,0,.7);will-change:transform}
+.bsl{fill:#fff;font-size:13px;font-weight:800;paint-order:stroke;stroke:rgba(0,0,0,.45);stroke-width:3px}
+.bsptr{position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:28px solid #fff;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6));z-index:2}
+#brkspin.win .bsptr{animation:bsptr .5s ease-out}
+.bshub{position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;background:#1c1c1e;border:3px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 18px rgba(0,0,0,.6)}
+.bsres{min-height:58px;display:flex;flex-direction:column;align-items:center;opacity:0;transform:scale(.6)}.bsres b{font-size:26px;color:#fff}.bsres span{font-size:18px;font-weight:800;color:#64d2ff}
+.bsres.on{animation:bsres .55s cubic-bezier(.22,1.5,.36,1) forwards}
+#brkspin.win .bswheel{animation:bsglow .9s ease-out}
+.bsskip{font-size:12px;color:rgba(255,255,255,.45)}#brkspin.win .bsskip{visibility:hidden}
+@keyframes bsdark{from{opacity:0;-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0)}}@keyframes bsfade{to{opacity:0}}
+@keyframes bspop{from{transform:scale(.6) translateY(30px);opacity:0}}
+@keyframes bsres{to{opacity:1;transform:none}}
+@keyframes bsptr{40%{transform:translateX(-50%) translateY(-8px) scale(1.2)}}
+@keyframes bsglow{30%{box-shadow:0 0 0 6px rgba(255,255,255,.3),0 0 110px rgba(100,210,255,.9),0 20px 60px rgba(0,0,0,.7)}}.brkart{position:relative;width:200px;height:200px;margin:12px auto 4px;display:flex;align-items:center;justify-content:center}.brkart .art{width:180px;height:120px}.brkring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.brkbg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:6}.brkfg{fill:none;stroke:#64d2ff;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .2s linear}
 .brkn{font-size:20px;font-weight:800}.brkv{font-size:42px;font-weight:900;color:#64d2ff;line-height:1.1;margin-top:4px}.brkv small{font-size:16px;font-weight:700;margin-left:2px}.brkt{font-size:40px;font-weight:900;margin-top:10px;font-variant-numeric:tabular-nums}
 .card.asymcard{border:1.5px solid rgba(255,69,58,.75)!important;box-shadow:0 0 18px rgba(255,69,58,.18)}
 .pkcard{margin-top:16px;padding:12px;border-radius:14px;border:1px solid rgba(255,214,10,.35);background:rgba(255,214,10,.06)}.pkchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pkc{cursor:pointer;font:inherit;font-size:13px;padding:7px 10px;color:var(--ink);background:rgba(255,255,255,.07);border:1px solid var(--line)}.pkc:active{transform:scale(.94)}.pkchips.sent{animation:pkbump .4s}
@@ -339,8 +358,16 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .dmbadge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#ff3b30;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
 nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:#ff3b30}
 .btn.dmprof{margin-top:14px;background:linear-gradient(135deg,#5b51d8,#c13584 60%,#f77737)!important;border:0!important;color:#fff;font-weight:800}
-#dmv{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column;animation:dmin .26s cubic-bezier(.2,.8,.2,1)}#dmv.out{animation:dmout .26s forwards}
-@keyframes dmin{from{transform:translateX(100%)}}@keyframes dmout{to{transform:translateX(100%)}}
+#dmbg{position:fixed;inset:0;z-index:299;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:dmbgin .45s ease-out both}#dmbg.out{animation:dmbgout .32s forwards}
+#dmv{position:fixed;inset:0;margin:auto;z-index:300;width:min(400px,92vw);height:min(640px,calc(100dvh - 110px));background:rgba(18,18,20,.94);border:1px solid rgba(255,255,255,.12);border-radius:26px;box-shadow:0 24px 70px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden;display:flex;flex-direction:column;transform-origin:50% 60%;animation:dmin .6s cubic-bezier(.22,1,.36,1) both}#dmv.out{animation:dmout .32s cubic-bezier(.5,0,.75,0) forwards}
+#dmv .dmhd{padding-top:12px}#dmv .dmin{padding-bottom:10px}#dmv .dmhd .dmx[data-dm=close]{font-size:22px;opacity:.85}
+.dmpg{display:flex;flex-direction:column;flex:1;min-height:0}.dmpg.fwd{animation:dmfwd .45s cubic-bezier(.22,1,.36,1) both}.dmpg.bwd{animation:dmbwd .45s cubic-bezier(.22,1,.36,1) both}
+@keyframes dmin{0%{transform:translateY(70px) scale(.7);opacity:0;filter:blur(10px)}55%{opacity:1;filter:blur(0)}75%{transform:translateY(-6px) scale(1.025)}100%{transform:none;opacity:1;filter:none}}
+@keyframes dmout{to{transform:translateY(50px) scale(.82);opacity:0;filter:blur(6px)}}@keyframes dmbgin{from{opacity:0;-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0)}}@keyframes dmbgout{to{opacity:0}}
+@keyframes dmfwd{from{transform:translateX(70px);opacity:0}}@keyframes dmbwd{from{transform:translateX(-70px);opacity:0}}
+.dmpg.pop .dmrow,.dmpg.pop .dmempty,.dmpg.pop .dmhello{animation:dmrise .5s cubic-bezier(.22,1,.36,1) both}
+.dmpg.pop .dmrow:nth-child(1){animation-delay:.12s}.dmpg.pop .dmrow:nth-child(2){animation-delay:.17s}.dmpg.pop .dmrow:nth-child(3){animation-delay:.22s}.dmpg.pop .dmrow:nth-child(4){animation-delay:.27s}.dmpg.pop .dmrow:nth-child(5){animation-delay:.32s}.dmpg.pop .dmrow:nth-child(n+6){animation-delay:.37s}.dmpg.pop .dmempty,.dmpg.pop .dmhello{animation-delay:.15s}
+@keyframes dmrise{from{transform:translateY(16px);opacity:0}}
 .dmhd{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .dmx{width:40px;height:40px;border:0;background:none;color:var(--ink);font-size:34px;line-height:1;cursor:pointer;padding:0}.dmx.sm{font-size:20px;margin-left:auto}
 .dmht{display:flex;flex-direction:column;min-width:0}.dmht b{font-size:16px}.dmht span{font-size:12px;color:var(--mute)}
@@ -1683,8 +1710,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26o';
-const APP_NEWS=['👋 DM에서 AI 코치 리즈를 뺐어요','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
+const APP_VER='2026.11.27c';
+const APP_NEWS=['🎰 공부하다 1분 운동: 룰렛이 돌아가며 운동을 뽑아요 · 운동 종류도 34개로 늘었어요','🪟 DM이 화면 가운데 창으로 부드럽게 열려요 (바깥을 누르면 닫혀요)','👋 DM에서 AI 코치 리즈를 뺐어요','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1865,7 +1892,10 @@ const foldNames=s=>s.items.map(it=>exOf(it).name.replace(' (현재 단계)',''))
 /* ---------- 📚 공부 쉬는 시간 1분 운동 ---------- */
 // [이름, 장소(s=서서/f=바닥), 기본 횟수·초, 한쪽씩?, 한마디]
 const BRK=[['스쿼트','s',20,0,'의자에서 일어나서 바로! 무릎은 발끝 방향으로'],['의자 스쿼트','s',15,0,'의자에 엉덩이만 살짝 닿고 일어나요'],['벽 푸쉬업','s',15,0,'벽에 손 짚고 가슴이 벽에 닿을 듯이'],['인클라인 푸쉬업','s',12,0,'책상 모서리를 잡고 몸은 일자로'],['카프 레이즈','s',30,0,'발뒤꿈치를 최대한 높이, 천천히 내려요'],['월 싯','s',45,0,'벽에 등 대고 의자에 앉은 자세로 버티기'],['런지','s',10,1,'한쪽씩 번갈아, 상체는 곧게'],['월 슬라이드','s',12,0,'오래 앉아 굽은 어깨를 펴줘요'],
- ['플랭크','f',45,0,'엉덩이가 처지지 않게 배에 힘'],['글루트 브릿지','f',20,0,'오래 앉아 굳은 엉덩이를 깨워요'],['사이드 플랭크','f',25,1,'한쪽씩, 골반을 높이'],['버드독','f',8,1,'반대 팔다리를 천천히 뻗어요'],['데드버그','f',12,0,'허리를 바닥에 붙인 채로'],['스캐풀라 푸쉬업','f',12,0,'팔 편 채 날개뼈만 움직여요']];
+ ['플랭크','f',45,0,'엉덩이가 처지지 않게 배에 힘'],['글루트 브릿지','f',20,0,'오래 앉아 굳은 엉덩이를 깨워요'],['사이드 플랭크','f',25,1,'한쪽씩, 골반을 높이'],['버드독','f',8,1,'반대 팔다리를 천천히 뻗어요'],['데드버그','f',12,0,'허리를 바닥에 붙인 채로'],['스캐풀라 푸쉬업','f',12,0,'팔 편 채 날개뼈만 움직여요'],
+ ['스탠딩 니 업','s',20,0,'무릎을 번갈아 배꼽 높이까지 쭉쭉'],['점핑잭','s',30,0,'잠 깨는 데 최고! 아래층 생각해서 살살'],['하프 스쿼트','s',25,0,'반만 앉았다 일어나기, 빠르게 리듬 타기'],['점프 스쿼트','s',10,0,'착지는 사뿐히, 무릎 살짝 굽혀서'],['굿모닝','s',15,0,'손은 머리 뒤, 허리 펴고 엉덩이를 뒤로'],['스텝업','s',10,1,'튼튼한 의자나 계단에 한 발씩 올라가요'],['벤치 딥스','s',12,0,'의자 끝을 잡고 팔꿈치는 뒤로'],['손목 돌리기','s',20,0,'필기하느라 굳은 손목 풀기, 양방향으로'],
+ ['무릎 푸쉬업','f',15,0,'무릎 대고 몸통은 일자로'],['푸쉬업','f',10,0,'가슴이 바닥 가까이, 몸은 판자처럼'],['파이크 푸쉬업','f',8,0,'엉덩이를 높이, 정수리를 바닥 쪽으로'],['마운틴 클라이머','f',30,0,'플랭크 자세에서 무릎을 번갈아 당겨요'],['크런치','f',20,0,'목 말고 배로 들어 올려요'],['리버스 크런치','f',15,0,'무릎을 가슴 쪽으로 말아 올려요'],['레그 레이즈','f',12,0,'허리가 뜨지 않게 천천히 내려요'],['할로우 홀드','f',20,0,'허리를 바닥에 꾹, 바나나 모양으로'],['슈퍼맨 홀드','f',25,0,'엎드려서 팔다리를 같이 들어 버티기'],['싱글 레그 브릿지','f',10,1,'한 다리로 엉덩이를 들어 올려요'],['무릎 플랭크','f',40,0,'무릎 대고 머리부터 무릎까지 일자로'],['프론 Y 레이즈','f',12,0,'엎드려 팔을 Y자로, 굽은 등 펴기']];
+const BRK_EMO={s:'🧍',f:'🧘'};
 let BK=null;
 const brkPl=()=>(S.brk&&S.brk.pl)||'s';
 function brkPick(){const pl=brkPl(),pool=BRK.filter(b=>pl==='f'||b[1]==='s').filter(b=>!BK||b[0]!==BK.n);
@@ -1876,13 +1906,34 @@ function brkPick(){const pl=brkPl(),pool=BRK.filter(b=>pl==='f'||b[1]==='s').fil
 function brkCount(){const d=today(),s=S.sessions.find(x=>x.date===d&&x.title==='<공부 쉬는 시간>');return s?s.items.reduce((a,i)=>a+i.sets.filter(x=>x.done).length,0):0}
 function brkCard(){const n=brkCount();
   return `<button class="card brkcard" data-act="brk-open"><span class="brki">📚</span><span style="flex:1;text-align:left"><b>공부하다 지쳤다면? 1분 운동</b><span class="muted sm" style="display:block;margin-top:2px">${n?`오늘 쉬는 시간 운동 ${n}번 했어요 👍`:'자리에서 바로 하는 한 세트를 골라줄게요'}</span></span><span class="brkgo">시작</span></button>`}
+/* 🎰 룰렛: 주변이 어두워지고 바퀴가 돌다가 고른 운동에 멈춰요 */
+function brkSpin(done){const B=BK;if(!B){done&&done();return}
+  const pl=brkPl(),pool=BRK.filter(b=>(pl==='f'||b[1]==='s')&&b[0]!==B.n).sort(()=>Math.random()-.5),N=8,names=pool.slice(0,N-1).map(b=>b[0]),win=Math.floor(Math.random()*N);names.splice(win,0,B.n);
+  const R=150,A=360/N,cols=['#64d2ff','#bf5af2','#30d158','#ff9f0a','#ff375f','#5e5ce6','#ffd60a','#40c8e0'];
+  const pt=(a,r)=>{const t=(a-90)*Math.PI/180;return [(R+r*Math.cos(t)).toFixed(2),(R+r*Math.sin(t)).toFixed(2)]};
+  const seg=names.map((n,i)=>{const a0=i*A,a1=a0+A,[x0,y0]=pt(a0,R),[x1,y1]=pt(a1,R),mid=a0+A/2,lab=n.length>7?n.slice(0,7)+'…':n;
+    return `<path d="M${R} ${R}L${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}Z" fill="${cols[i%cols.length]}" fill-opacity="${i%2?.30:.45}" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><text transform="rotate(${mid-90} ${R} ${R})" x="${R+R*.6}" y="${R+5}" text-anchor="middle" class="bsl">${esc(lab)}</text>`}).join('');
+  let o=$('#brkspin');if(o)o.remove();o=document.createElement('div');o.id='brkspin';
+  o.innerHTML=`<div class="bsin"><div class="bst">🎰 오늘의 1분 운동은…</div><div class="bswrap"><div class="bsptr"></div><svg class="bswheel" id="bswheel" viewBox="0 0 ${2*R} ${2*R}"><circle cx="${R}" cy="${R}" r="${R}" fill="#121214"/>${seg}<circle cx="${R}" cy="${R}" r="${R-1}" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="3"/></svg><div class="bshub">📚</div></div><div class="bsres" id="bsres"></div><div class="bsskip">화면을 누르면 바로 멈춰요</div></div>`;
+  document.body.appendChild(o);sfx('on');
+  const w=o.querySelector('#bswheel'),target=360*6+(360-(win*A+A/2))+(Math.random()*A*.6-A*.3),T=3600;
+  let fin=false,last=-1,lt=0,raf=0;
+  const tick=()=>{const m=getComputedStyle(w).transform;if(m&&m!=='none'){const v=m.split('(')[1].split(',');let ang=Math.atan2(+v[1],+v[0])*180/Math.PI;ang=(ang+360)%360;const sgi=Math.floor(ang/A);if(sgi!==last){last=sgi;const now=performance.now();if(now-lt>45){lt=now;sfx('tap')}}}if(!fin)raf=requestAnimationFrame(tick)};
+  const end=()=>{if(fin)return;fin=true;cancelAnimationFrame(raf);w.style.transition='none';w.style.transform=`rotate(${target}deg)`;
+    const r=$('#bsres');if(r){r.innerHTML=`<b>${esc(B.n)}</b> <span>${B.v}${B.u}${B.uni?' 씩':''}</span>`;r.classList.add('on')}
+    o.classList.add('win');sfx('brk');try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
+    setTimeout(()=>{o.classList.add('out');done&&done();setTimeout(()=>o.remove(),380)},1100)};
+  o.addEventListener('click',()=>{if(!fin)end()});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{w.style.transition=`transform ${T}ms cubic-bezier(.12,.75,.15,1)`;w.style.transform=`rotate(${target}deg)`;raf=requestAnimationFrame(tick)}));
+  w.addEventListener('transitionend',end,{once:true});setTimeout(end,T+400);
+}
 function brkHtml(){
   const B=BK,run=B.t0&&!B.done,R=2*Math.PI*54,pct=B.left/60;
   return `<div class="brkx"><button class="ibtn" data-act="brk-close" aria-label="닫기">✕</button></div>
   <div class="c muted sm" style="margin-top:-8px">📚 공부 쉬는 시간 · 1분</div>
   ${run||B.done?'':`<div class="seg" style="margin:12px 0 0">${[['s','🏫 서서만 (교실·독서실)'],['f','🏠 바닥도 OK']].map(([v,t])=>`<button class="btn ${brkPl()===v?'on':''}" data-act="brk-pl" data-v="${v}">${t}</button>`).join('')}</div>`}
-  <div class="brkart">${run?`<svg class="brkring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="brkbg"/><circle cx="60" cy="60" r="54" class="brkfg" id="brkfg" style="stroke-dasharray:${R};stroke-dashoffset:${R*(1-pct)}"/></svg>`:''}${exArt(B.ex||{name:B.n},true,'lg')}</div>
-  <div class="c"><div class="brkn">${esc(B.n)}</div><div class="brkv">${B.v}<small>${B.u}</small>${B.uni?'<small> 씩 (양쪽)</small>':''}</div><div class="muted sm" style="margin-top:6px">${esc(B.tip)}</div></div>
+  <div class="brkart${B.spin?' brkhide':''}">${run?`<svg class="brkring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="brkbg"/><circle cx="60" cy="60" r="54" class="brkfg" id="brkfg" style="stroke-dasharray:${R};stroke-dashoffset:${R*(1-pct)}"/></svg>`:''}${exArt(B.ex||{name:B.n},true,'lg')}</div>
+  <div class="c${B.spin?' brkhide':''}"><div class="brkn">${esc(B.n)}</div><div class="brkv">${B.v}<small>${B.u}</small>${B.uni?'<small> 씩 (양쪽)</small>':''}</div><div class="muted sm" style="margin-top:6px">${esc(B.tip)}</div></div>
   ${B.done?`<div class="c" style="margin-top:14px"><div style="font-size:30px">🎉</div><b>끝! 다시 집중하러 가요</b></div>
     <div class="row" style="gap:8px;margin-top:16px"><button class="btn" data-act="brk-again" style="flex:1">한 세트 더</button><button class="btn pri" data-act="brk-log" style="flex:1">기록하고 닫기</button></div>`
   :run?`<div class="c brkt" id="brkt">${Math.ceil(B.left)}</div><div class="row" style="gap:8px;margin-top:10px"><button class="btn" data-act="brk-stop" style="flex:1">그만하기</button><button class="btn pri" data-act="brk-end" style="flex:1">다 했어요</button></div>`
@@ -2750,7 +2801,7 @@ function dmNotify(first){
 function dmBadge(){const n=dmUnread();document.querySelectorAll('.dmbadge').forEach(b=>{b.textContent=n>9?'9+':n;b.style.display=n?'':'none'});
   const nb=document.querySelector('nav [data-v="comm"]');if(nb){let i=nb.querySelector('.navdm');if(n&&!i){i=document.createElement('i');i.className='navdm';nb.appendChild(i)}if(!n&&i)i.remove()}}
 function dmOpen(k){if(needJoin())return;dmStart();DM.open=true;DM.peer=k||null;DM.pick=false;DM.sel=[];dmRender();if(k)dmMarkRead(k)}
-function dmClose(){DM.open=false;DM.peer=null;const v=$('#dmv');if(v){v.classList.add('out');setTimeout(()=>v.remove(),260)}dmBadge()}
+function dmClose(){DM.open=false;DM.peer=null;DM.last=undefined;const v=$('#dmv'),g=$('#dmbg');if(v){v.classList.add('out');setTimeout(()=>v.remove(),320)}if(g){g.classList.add('out');setTimeout(()=>g.remove(),330)}dmBadge()}
 function dmInbox(){
   if(DM.err&&!DM.docs.length)return `<div class="dmempty"><b>메시지를 불러오지 못했어요</b><span>잠시 뒤 다시 열어주세요</span></div>`;
   const me=store.uid;
@@ -2839,12 +2890,12 @@ function dmMsgs(){
   return h;
 }
 function dmRender(){
-  let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
-  const k=DM.peer;
-  v.innerHTML=k?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(k,36)}<div class="dmht"><b>${esc(dmTitle(k))}${dmMuted(k)?' 🔕':''}</b><span>${esc(dmStatus(k))}</span></div>${isG(k)?`<button class="dmx sm" data-dm="ginfo" title="단체방 정보">ⓘ</button>`:k===COACH?'<button class="dmx sm" data-dm="cinfo" title="코치 설정">⚙️</button>':`<button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button>`}</div>
+  let v=$('#dmv'),fresh=!v;if(!v){const g=document.createElement('div');g.id='dmbg';g.onclick=()=>dmClose();document.body.appendChild(g);v=document.createElement('div');v.id='dmv';v.setAttribute('role','dialog');document.body.appendChild(v)}
+  const k=DM.peer,dir=fresh?'pop':DM.last===undefined||DM.last===(k||'')?'':(k?'fwd pop':'bwd pop');DM.last=k||'';
+  v.innerHTML='<div class="dmpg '+dir+'">'+(k?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(k,36)}<div class="dmht"><b>${esc(dmTitle(k))}${dmMuted(k)?' 🔕':''}</b><span>${esc(dmStatus(k))}</span></div>${isG(k)?`<button class="dmx sm" data-dm="ginfo" title="단체방 정보">ⓘ</button>`:k===COACH?'<button class="dmx sm" data-dm="cinfo" title="코치 설정">⚙️</button>':`<button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button>`}</div>
     <div class="dmlist" id="dmlist">${dmMsgs()}</div>
     <form class="dmin" id="dmform"><div class="dmbox"><button type="button" class="dmplus" data-dm="att" aria-label="공유">＋</button><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend">보내기</button></div></form>`
-   :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${DM.pick?'새 메시지':esc(cnick()||'나')}</b></div>${DM.pick?'':`<button class="dmx sm" data-dm="new" title="새 메시지">✏️</button>`}</div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
+   :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">${DM.pick?'‹':'✕'}</button><div class="dmht"><b>${DM.pick?'새 메시지':esc(cnick()||'나')}</b></div>${DM.pick?'':`<button class="dmx sm" data-dm="new" title="새 메시지">✏️</button>`}</div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`)+'</div>';
   const L=$('#dmlist');
   if(k){L.scrollTop=L.scrollHeight;dmPress(L,'.dmb[data-mid]',dmMenu,b=>dmLike(b.dataset.mid));const f=$('#dmform'),i=$('#dmtxt');
     const sync=()=>v.classList.toggle('typing',!!i.value.trim());i.addEventListener('input',sync);sync();
@@ -4413,10 +4464,10 @@ document.addEventListener('click',e=>{
     case 'sync-now':{if(!store.doc){toast('클라우드에 연결되지 않았어요',true);break}store.sync='ok';flushSave();toast('저장했어요');break}
     case 'sync-pull':{if(!store.doc)break;confirmAsk('클라우드에 저장된 데이터로 이 기기를 덮어쓸까요?\n(저장되지 않은 변경은 사라져요)',async()=>{closeModal();try{const g=await cloudGet();if(!g){toast('클라우드에 저장된 데이터가 없어요',true);return}S=g.r;store.base=g.r.updated||0;store.dirty=false;localWrite();render(true);updPill();toast('클라우드에서 불러왔어요')}catch(e){toast('불러오지 못했어요: '+errMsg(e),true)}});break}
     case 'sync-bak':{if(!store.bak)break;confirmAsk('하루 전 자동 백업으로 되돌릴까요?\n(현재 데이터는 덮어써져요)',async()=>{closeModal();try{const g=await cloudGet(store.bak);if(!g){toast('백업이 아직 없어요',true);return}S=g.r;S.updated=Date.now();store.dirty=true;localWrite();flushSave();render(true);updPill();toast('백업에서 복원했어요')}catch(e){toast('복원하지 못했어요: '+errMsg(e),true)}});break}
-    case 'brk-open':brkStop();BK=null;brkPick();openModal({type:'brk'});break;
+    case 'brk-open':brkStop();BK=null;brkPick();BK.spin=1;openModal({type:'brk'});brkSpin(()=>{if(BK){BK.spin=0;renderModal()}});break;
     case 'brk-close':brkStop();BK=null;closeModal();break;
-    case 'brk-pl':S.brk=Object.assign({},S.brk,{pl:d.v==='f'?'f':'s'});save();BK=null;brkPick();renderModal();break;
-    case 'brk-next':brkPick();sfx('tap');renderModal();break;
+    case 'brk-pl':S.brk=Object.assign({},S.brk,{pl:d.v==='f'?'f':'s'});save();BK=null;brkPick();BK.spin=1;renderModal();brkSpin(()=>{if(BK){BK.spin=0;renderModal()}});break;
+    case 'brk-next':brkPick();BK.spin=1;renderModal();brkSpin(()=>{if(BK){BK.spin=0;renderModal()}});break;
     case 'brk-start':brkStart();break;
     case 'brk-stop':brkStop();BK.t0=0;BK.done=false;renderModal();break;
     case 'brk-end':brkFinish();break;
