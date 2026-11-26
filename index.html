@@ -387,6 +387,12 @@ nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc
 .dmchint{font-size:10px;color:var(--mute);margin-top:6px;text-align:center}
 .dmdot.mu{background:#666}.dmmu{font-size:12px}.dmrow.held{background:rgba(255,255,255,.08)}
 .dmtone{display:flex;align-items:center;gap:12px;margin-top:8px;padding:10px;border-radius:14px;background:radial-gradient(circle at 20% 50%,color-mix(in srgb,var(--tc) 25%,transparent),transparent 70%)}.dmb.card .tpost{margin:8px 0 0;padding:10px}.dmb.card .tpgrid{gap:6px}
+.coachav{background:none!important;overflow:visible}.coachav .coachsvg{width:100%;height:100%;border-radius:50%}
+.aichip{font-size:10px;font-weight:800;padding:2px 6px;border-radius:999px;background:linear-gradient(135deg,#ffb3d1,#9b8cff);color:#1b1030;vertical-align:middle}
+.dmtyping{display:flex;gap:4px;align-items:center;padding:12px 14px!important}.dmtyping i{width:7px;height:7px;border-radius:50%;background:#aaa;animation:dmty 1.2s infinite}.dmtyping i:nth-child(2){animation-delay:.15s}.dmtyping i:nth-child(3){animation-delay:.3s}
+@keyframes dmty{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.coachq{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px 34px}.coachq button{border:1px solid rgba(155,140,255,.5);background:rgba(155,140,255,.1);color:#d9d2ff;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.coachav img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1677,8 +1683,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26h';
-const APP_NEWS=['🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
+const APP_VER='2026.11.26j';
+const APP_NEWS=['🧑‍🏫 DM 맨 위에 AI 코치 리즈가 생겼어요. 운동 고민을 편하게 물어보세요','🖼️ 리즈 대화방 ⚙️에서 코치 프로필 사진을 바꿀 수 있어요 (내 기기에서만 보여요)','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2688,21 +2694,23 @@ function dmConvs(){
     Object.entries(d.rd||{}).forEach(([k,ts])=>{if(s===me)R(k,me,ts);else if(k===me)R(s,s,ts);else if(gset.has(k))R(k,s,ts)});
     Object.entries(d.lk||{}).forEach(([k,ids])=>{if(s===me)LK(k,me,ids);else if(k===me)LK(s,s,ids);else if(gset.has(k))LK(k,s,ids)})});
   G.forEach(g=>{cv['g:'+g.id]=cv['g:'+g.id]||[]});
+  if(me){const c=coachConv();cv[COACH]=c.L;rd[COACH]=c.rd;lk[COACH]=c.lk}
   Object.values(cv).forEach(L=>L.sort((a,b)=>a.ts-b.ts));
   return {cv,rd,lk,G};
 }
 function dmMyRead(k,rd){return Math.max((rd||dmConvs().rd)[k]?.[store.uid]||0,DM.seenTs[k]||0)}
 function dmUnreadOf(k,c){const me=store.uid,r=dmMyRead(k,c.rd);return (c.cv[k]||[]).filter(m=>m.from!==me&&m.ts>r).length}
 function dmUnread(){if(!DM.sub)return 0;const c=dmConvs();return Object.keys(c.cv).filter(k=>!dmMuted(k)).reduce((n,k)=>n+dmUnreadOf(k,c),0)}
-function dmNick(p){if(p===store.uid)return cnick()||'나';const x=C.lb.find(y=>y.id===p);if(x&&x.nick)return String(x.nick).slice(0,12);const d=DM.docs.find(d=>(d.s||d.id)===p&&d.nick);return d?String(d.nick).slice(0,12):'친구'}
+function dmNick(p){if(p===store.uid)return cnick()||'나';if(p===COACH)return COACH_NM;const x=C.lb.find(y=>y.id===p);if(x&&x.nick)return String(x.nick).slice(0,12);const d=DM.docs.find(d=>(d.s||d.id)===p&&d.nick);return d?String(d.nick).slice(0,12):'친구'}
 function dmTitle(k){if(!isG(k))return dmNick(k);const g=dmGroup(k);return g?g.n:'단체방'}
-function dmAvatar(p,sz){if(isG(p)){const g=dmGroup(p),ms=g?g.m.filter(u=>u!==store.uid).slice(0,2):[];const h=Math.round(sz*.66);return `<span class="dmav grp" style="width:${sz}px;height:${sz}px">${ms.map((u,i)=>`<span class="dmgi${i}" style="width:${h}px;height:${h}px">${dmAvatar(u,h)}</span>`).join('')}</span>`}
+function dmAvatar(p,sz){if(p===COACH){const ci=coachImg();return `<span class="dmav coachav" style="width:${sz}px;height:${sz}px">${ci?`<img src="${ci}" alt="">`:COACH_AV}<i class="lbdot on"></i></span>`}if(isG(p)){const g=dmGroup(p),ms=g?g.m.filter(u=>u!==store.uid).slice(0,2):[];const h=Math.round(sz*.66);return `<span class="dmav grp" style="width:${sz}px;height:${sz}px">${ms.map((u,i)=>`<span class="dmgi${i}" style="width:${h}px;height:${h}px">${dmAvatar(u,h)}</span>`).join('')}</span>`}
   const x=C.lb.find(y=>y.id===p),i=x&&typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0,on=lbOnline({id:p});return `<span class="dmav" style="width:${sz}px;height:${sz}px">${emblem(i,sz-6)}${on?`<i class="lbdot ${on}"></i>`:''}</span>`}
 function dmAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return '방금';if(d<3600)return Math.floor(d/60)+'분';if(d<86400)return Math.floor(d/3600)+'시간';if(d<604800)return Math.floor(d/86400)+'일';const t=new Date(ts);return (t.getMonth()+1)+'/'+t.getDate()}
-function dmStatus(p){if(isG(p)){const g=dmGroup(p);if(!g)return '';const on=g.m.filter(u=>u!==store.uid&&lbOnline({id:u})).length;return `${g.m.length}명${on?` · ${on}명 활동 중`:''}`}
+function dmStatus(p){if(p===COACH)return DM.typing===COACH?'입력 중…':'AI 운동 코치 · 보통 바로 답해요';if(isG(p)){const g=dmGroup(p);if(!g)return '';const on=g.m.filter(u=>u!==store.uid&&lbOnline({id:u})).length;return `${g.m.length}명${on?` · ${on}명 활동 중`:''}`}
   const on=lbOnline({id:p});if(on==='wk')return '🏋️ 지금 운동 중';if(on)return '지금 활동 중';const o=PRES.on.find(y=>y.id===p);return o?`${dmAgo(+o.ts)} 전 활동`:''}
 function dmMyDoc(k){const me=store.uid;if(dmFB())return isG(k)?DM.raw['gm:'+gidOf(k)+'+'+me]:DM.raw['dm:'+dmPair(k).join('+')+'+'+me];return DM.docs.find(d=>d.id===me)}
 async function dmWrite(k,fn){
+  if(k===COACH)return coachWrite(fn);
   const me=store.uid,d=dmMyDoc(k),cl=m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{});
   if(dmFB()){const o=d||{},nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.map(cl):[],rd:+o.rd||0,lk:Array.isArray(o.lk)?o.lk.slice():[]}),base={nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,lk:(nd.lk||[]).slice(-200),ts:Date.now(),s:me};
     if(isG(k)){const g=gidOf(k);await store.db.collection('dmgm').doc(g+'+'+me).set(Object.assign({g},base))}
@@ -2720,14 +2728,14 @@ async function dmSend(k,t,att){
   const now=Date.now();if(now-DM.last<300)return;DM.last=now;DM.busy=true;
   const m=Object.assign({t,ts:now,id:uid()},att||{});
   DM.pend=(DM.pend||[]).concat([Object.assign({p:k,from:store.uid,t,ts:now,id:m.id,pend:1},att||{})]);dmPaint(true);sfx('dmsend');
-  try{await dmWrite(k,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now),lk:o.lk}));dmPush(k,t);botHear(k,t,att)}
+  try{await dmWrite(k,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now),lk:o.lk}));if(k===COACH)coachReply();else{dmPush(k,t);botHear(k,t,att)}}
   catch(e){toast('메시지를 보내지 못했어요',true);DM.pend=DM.pend.filter(x=>x.id!==m.id);dmPaint(true)}
   finally{DM.busy=false}
 }
 async function dmMarkRead(k){const c=dmConvs(),L=c.cv[k]||[],last=L.filter(m=>m.from!==store.uid).pop();if(!last)return;
   DM.seenTs[k]=last.ts;dmBadge();if((c.rd[k]?.[store.uid]||0)>=last.ts)return;try{await dmWrite(k,o=>({msgs:o.msgs,rd:last.ts,lk:o.lk}))}catch(e){}}
 function dmNotify(first){
-  const all=()=>Math.max(0,...DM.docs.concat(botDocs()).flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));
+  const all=()=>Math.max(0,...DM.docs.concat(botDocs(),store.uid?[{msgs:coachLoad().msgs}]:[]).flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));
   if(first){DM.seenMax=Math.max(DM.seenMax||0,all());return}
   const {cv}=dmConvs(),me=store.uid;let nw=null;
   Object.entries(cv).forEach(([k,L])=>L.forEach(m=>{if(m.from!==me&&m.ts>(DM.seenMax||0)&&(!nw||m.ts>nw.m.ts))nw={k,m}}));
@@ -2749,11 +2757,11 @@ function dmInbox(){
   if(DM.pick){const ppl=C.lb.filter(x=>x.id!==me),n=DM.sel.length;
     return `<div class="dmsub">새 메시지 <span class="muted sm" style="font-weight:500">· 2명 이상 고르면 단체방</span></div>${ppl.length?ppl.map(x=>{const i=DM.sel.indexOf(x.id);return `<div class="dmrow" data-dm="psel" data-u="${esc(x.id)}">${dmAvatar(x.id,48)}<div class="dmrt"><b>${esc(String(x.nick).slice(0,12))}</b><span>${esc(dmStatus(x.id)||stName(Math.max(0,Math.min(37,x.s|0))))}</span></div><span class="dmck ${i>=0?'on':''}">${i>=0?'✓':''}</span></div>`}).join(''):'<div class="dmempty">랭킹에 참여한 친구가 아직 없어요</div>'}
     ${n?`<div class="dmpickbar">${n>=2?`<input id="dmgname" maxlength="30" placeholder="단체방 이름 (선택)">`:''}<button class="btn pri" data-dm="pgo">${n>=2?`👥 ${n+1}명 단체방 만들기`:'채팅하기'}</button></div>`:''}`}
-  const c=dmConvs(),rows=Object.entries(c.cv).map(([k,L])=>({k,L,last:L[L.length-1]})).filter(r=>r.last||isG(r.k)).sort((a,b)=>((b.last&&b.last.ts)||0)-((a.last&&a.last.ts)||0));
+  const c=dmConvs(),rows=Object.entries(c.cv).map(([k,L])=>({k,L,last:L[L.length-1]})).filter(r=>r.last||isG(r.k)).sort((a,b)=>(b.k===COACH)-(a.k===COACH)||((b.last&&b.last.ts)||0)-((a.last&&a.last.ts)||0));
   if(!rows.length)return `<div class="dmempty"><div style="font-size:54px">💬</div><b>메시지를 보내보세요</b><span>친구와 운동 얘기를 나눠보세요</span><button class="btn pri" data-dm="new">메시지 보내기</button></div>`;
   return `<div class="dmsub">메시지 <span class="muted sm" style="font-weight:500">· 꾹 누르면 알림 끄기</span></div>`+rows.map(({k,L,last})=>{const un=dmUnreadOf(k,c),mu=dmMuted(k);
     const prev=!last?'단체방이 만들어졌어요':un>1?`새 메시지 ${un}개`:(last.from===me?'나: ':isG(k)?dmNick(last.from)+': ':'')+last.t;
-    return `<div class="dmrow ${un&&!mu?'un':''}" data-dm="peer" data-u="${esc(k)}">${dmAvatar(k,54)}<div class="dmrt"><b>${esc(dmTitle(k))}${mu?' <span class="dmmu">🔕</span>':''}</b><span>${esc(String(prev).slice(0,40))}${last?' · '+dmAgo(last.ts):''}</span></div>${un?`<i class="dmdot ${mu?'mu':''}"></i>`:''}</div>`}).join('');
+    return `<div class="dmrow ${un&&!mu?'un':''}" data-dm="peer" data-u="${esc(k)}">${dmAvatar(k,54)}<div class="dmrt"><b>${esc(dmTitle(k))}${k===COACH?' <span class="aichip">AI 코치</span>':''}${mu?' <span class="dmmu">🔕</span>':''}</b><span>${esc(String(prev).slice(0,40))}${last?' · '+dmAgo(last.ts):''}</span></div>${un?`<i class="dmdot ${mu?'mu':''}"></i>`:''}</div>`}).join('');
 }
 /* 공유 카드 */
 function dmPackSess(s){return {ti:String(s.title||'운동').slice(0,40),dt:s.date,du:s.duration||0,it:s.items.slice(0,12).map(it=>{const e=exOf(it),dn=it.sets.filter(x=>x.done!==false);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:dn.slice(0,10).map(x=>+x.r||0)}})}}
@@ -2825,13 +2833,15 @@ function dmMsgs(){
     const mine=m.from===me,tail=!nx||nx.from!==m.from||nx.ts-m.ts>3600000,head=gap||!pv||pv.from!==m.from,big=!m.k&&/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(m.t),lk=LK[m.id]?Object.keys(LK[m.id]).length:0;
     if(grp&&!mine&&head)h+=`<div class="dmwho">${esc(dmNick(m.from))}</div>`;
     h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(m.from,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big?'big':''} ${m.k?'card':''} ${m.pend?'pend':''}" data-mid="${esc(m.id||'')}">${m.k?dmCard(m,mine):esc(m.t)}${lk?`<span class="dmlk">❤️${lk>1?`<b>${lk}</b>`:''}</span>`:''}</div></div>`;prevTs=m.ts});
-  if(lastMine&&L[L.length-1].from===me){let st;if(lastMine.pend)st='보내는 중…';else if(grp){const n=Object.entries(RD).filter(([u,ts])=>u!==me&&ts>=lastMine.ts).length;st=n?`${n}명 읽음`:'전송됨'}else st=(RD[k]||0)>=lastMine.ts?'읽음':'전송됨';h+=`<div class="dmseen">${st}</div>`}
+  if(DM.typing===k)h+=`<div class="dmm you tail">${dmAvatar(k,28)}<div class="dmb dmtyping"><i></i><i></i><i></i></div></div>`;
+  if(k===COACH&&!DM.typing&&L.length<=3)h+=`<div class="coachq">${['풀업이 1개도 안 돼요','요즘 운동이 너무 귀찮아요','플란체 하려면 뭐부터 해요?','정체기 같아요'].map(q=>`<button data-dm="q" data-v="${q}">${q}</button>`).join('')}</div>`;
+  if(lastMine&&L[L.length-1].from===me&&DM.typing!==k){let st;if(lastMine.pend)st='보내는 중…';else if(grp){const n=Object.entries(RD).filter(([u,ts])=>u!==me&&ts>=lastMine.ts).length;st=n?`${n}명 읽음`:'전송됨'}else st=(RD[k]||0)>=lastMine.ts?'읽음':'전송됨';h+=`<div class="dmseen">${st}</div>`}
   return h;
 }
 function dmRender(){
   let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
   const k=DM.peer;
-  v.innerHTML=k?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(k,36)}<div class="dmht"><b>${esc(dmTitle(k))}${dmMuted(k)?' 🔕':''}</b><span>${esc(dmStatus(k))}</span></div>${isG(k)?`<button class="dmx sm" data-dm="ginfo" title="단체방 정보">ⓘ</button>`:`<button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button>`}</div>
+  v.innerHTML=k?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(k,36)}<div class="dmht"><b>${esc(dmTitle(k))}${dmMuted(k)?' 🔕':''}</b><span>${esc(dmStatus(k))}</span></div>${isG(k)?`<button class="dmx sm" data-dm="ginfo" title="단체방 정보">ⓘ</button>`:k===COACH?'<button class="dmx sm" data-dm="cinfo" title="코치 설정">⚙️</button>':`<button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button>`}</div>
     <div class="dmlist" id="dmlist">${dmMsgs()}</div>
     <form class="dmin" id="dmform"><div class="dmbox"><button type="button" class="dmplus" data-dm="att" aria-label="공유">＋</button><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend">보내기</button></div></form>`
    :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${DM.pick?'새 메시지':esc(cnick()||'나')}</b></div>${DM.pick?'':`<button class="dmx sm" data-dm="new" title="새 메시지">✏️</button>`}</div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
@@ -2844,7 +2854,7 @@ function dmRender(){
 function dmPaint(force){if(!DM.open)return;const L=$('#dmlist');if(!L){dmRender();return}
   if(DM.pick){const gn=$('#dmgname'),v=gn&&gn.value;L.innerHTML=dmInbox();const g2=$('#dmgname');if(g2&&v)g2.value=v;return}
   const atEnd=L.scrollHeight-L.scrollTop-L.clientHeight<80;L.innerHTML=DM.peer?dmMsgs():dmInbox();if(DM.peer&&(atEnd||force))L.scrollTop=L.scrollHeight;
-  const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
+  const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer===COACH){const L2=$('#dmlist');if(L2&&DM.typing)L2.scrollTop=L2.scrollHeight}if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm,u=b.dataset.u,mid=b.dataset.mid;
   if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.sel=[];DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
   else if(a==='peer'){DM.pick=false;DM.peer=u;dmRender();dmMarkRead(u)}
@@ -2858,11 +2868,71 @@ document.addEventListener('click',async e=>{const b=e.target.closest('[data-dm]'
   else if(a==='munsend'){dmAttClose();dmUnsend(mid)}
   else if(a==='mute'){dmAttClose();dmToggleMute(u);if(DM.peer)dmRender()}
   else if(a==='ginfo'&&DM.peer){const g=dmGroup(DM.peer);if(!g)return;const canEdit=dmFB()||g.o===store.uid;dmSheet(`<div class="dmmh">${esc(g.n)} · ${g.m.length}명</div><div class="dmmem">${g.m.map(x=>`<div class="dmrow" style="padding:6px 4px">${dmAvatar(x,36)}<div class="dmrt"><b>${esc(dmNick(x))}${x===g.o?' <span class="chip">방장</span>':''}</b><span>${esc(x===store.uid?'나':dmStatus(x))}</span></div></div>`).join('')}</div><button class="dmmi" data-dm="mute" data-u="${esc(DM.peer)}">${dmMuted(DM.peer)?'🔔 알림 켜기':'🔕 알림 끄기'}</button>${canEdit?`<button class="dmmi" data-dm="grename" data-u="${esc(DM.peer)}">✏️ 이름 바꾸기</button>`:''}<button class="dmmi red" data-dm="gleave" data-u="${esc(DM.peer)}">🚪 나가기</button>`)}
+  else if(a==='cinfo'){dmSheet(`<div class="dmmh">리즈 코치 · AI 코치</div><button class="dmmi" data-dm="cimg">🖼️ 프로필 사진 바꾸기 <span class="muted sm">(이 기기에서만)</span></button>${coachImg()?'<button class="dmmi" data-dm="cimgdel">↺ 기본 사진으로</button>':''}<button class="dmmi red" data-dm="creset">🗑️ 대화 내용 지우기</button>`)}
+  else if(a==='cimg'){dmAttClose();coachPickImg()}
+  else if(a==='cimgdel'){dmAttClose();try{localStorage.removeItem(coachImgKey())}catch(e){}dmRender()}
+  else if(a==='creset'){dmAttClose();CO.d=null;try{localStorage.removeItem(coachKey())}catch(e){}dmRender();toast('대화를 지웠어요')}
   else if(a==='grename'){const g=dmGroup(u);dmSheet(`<div class="dmmh">단체방 이름 바꾸기</div><input class="dminp" id="dmgren" maxlength="30" value="${esc(g?g.n:'')}"><button class="dmmi" style="text-align:center;background:#3797f0" data-dm="grensave" data-u="${esc(u)}">저장</button>`);setTimeout(()=>{const i=$('#dmgren');if(i)i.focus()},50)}
   else if(a==='grensave'){const n=(($('#dmgren')||{}).value||'').trim();dmAttClose();if(n){await dmGroupEdit(u,o=>({n:n.slice(0,30),m:o.m}));toast('이름을 바꿨어요')}}
   else if(a==='gleave'){dmSheet(`<div class="dmmh">이 단체방에서 나갈까요?</div><button class="dmmi red" style="text-align:center" data-dm="gleaveok" data-u="${esc(u)}">나가기</button>`)}
   else if(a==='gleaveok'){dmAttClose();dmLeave(u)}
 });
+
+/* ---------- 🧑‍🏫 AI 코치 리즈 (DM 맨 위에 고정) ----------
+   대화는 이 기기에만 저장돼요. 아티팩트에서는 Claude로 답하고, 사이트에서는 기본 조언 모드로 답해요 */
+const COACH='coach_liz',COACH_NM='리즈 코치';
+const COACH_AV=`<svg viewBox="0 0 64 64" class="coachsvg"><circle cx="32" cy="32" r="32" fill="#dbdbdb"/><circle cx="32" cy="25" r="11" fill="#fff"/><path d="M11 55c3-10 11-15 21-15s18 5 21 15a32 32 0 0 1-42 0z" fill="#fff"/></svg>`;
+const CO={d:null,busy:false};
+/* 코치 프로필 사진: 내가 고른 사진을 이 기기에만 저장해요 (서버·친구에게 안 보여요) */
+const coachImgKey=()=>'planlog_coachimg_'+(store.uid||'local');
+function coachImg(){try{const v=localStorage.getItem(coachImgKey());return v&&/^data:image\/(jpeg|png|webp);base64,/.test(v)?v:''}catch(e){return ''}}
+function coachPickImg(){const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>{const f=i.files&&i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const S2=160,c=document.createElement('canvas');c.width=c.height=S2;const x=c.getContext('2d'),m=Math.min(im.width,im.height);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,S2,S2);
+  try{localStorage.setItem(coachImgKey(),c.toDataURL('image/jpeg',.85));toast('코치 프로필 사진을 바꿨어요 · 이 기기에서만 보여요')}catch(e){toast('사진을 저장하지 못했어요',true)}dmRender()};im.src=r.result};r.readAsDataURL(f)};i.click()}
+
+const coachKey=()=>'planlog_coach_'+(store.uid||'local');
+function coachLoad(){if(CO.d)return CO.d;let d=null;try{d=JSON.parse(localStorage.getItem(coachKey())||'null')}catch(e){}
+  if(!d||!Array.isArray(d.msgs))d={msgs:[],myRd:0,lk:[],rd:0};
+  if(!d.msgs.length){const nm=cnick()||'';d.msgs.push({f:'c',t:`안녕하세요${nm?' '+nm+'님':''}! 저는 운동로그 AI 코치 리즈예요 😊`,ts:Date.now()-2000,id:'c0'},{f:'c',t:'운동하다 막히는 거, 루틴 고민, 자세, 동기부여… 뭐든 편하게 얘기해 주세요. 같이 방법 찾아봐요 💪',ts:Date.now()-1000,id:'c1'})}
+  CO.d=d;return d}
+function coachSave(){try{localStorage.setItem(coachKey(),JSON.stringify(CO.d))}catch(e){}}
+function coachConv(){const d=coachLoad(),me=store.uid;return {L:d.msgs.map(m=>({from:m.f==='c'?COACH:me,t:m.t,ts:m.ts,id:m.id,k:m.k,d:m.d})),rd:{[COACH]:d.rd||0,[me]:d.myRd||0},lk:Object.fromEntries((d.lk||[]).map(i=>[i,{[me]:1}]))}}
+async function coachWrite(fn){const d=coachLoad(),mine=d.msgs.filter(m=>m.f!=='c').map(m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{}));
+  const nd=fn({msgs:mine,rd:d.myRd||0,lk:(d.lk||[]).slice()});d.msgs=d.msgs.filter(m=>m.f==='c').concat(nd.msgs.map(m=>Object.assign({f:'u'},m))).sort((a,b)=>a.ts-b.ts).slice(-200);d.myRd=nd.rd||0;d.lk=(nd.lk||[]).slice(-200);coachSave();dmChanged()}
+function coachCtx(){
+  const ld=levelData(),ov=overallTier(ld),si=streakInfo(),pf=S.prof||{},bw=[...(S.body||[])].sort((a,b)=>a.date.localeCompare(b.date)).pop();
+  const ss=[...S.sessions].filter(s=>s.items.length).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(s=>`${s.date} ${s.title||'운동'}: `+s.items.slice(0,6).map(it=>{const e=exOf(it),dn=it.sets.filter(x=>x.done);return `${e.name} ${dn.length}/${it.sets.length}세트(최고 ${Math.max(0,...it.sets.map(x=>+x.r||0))}${e.type==='time'?'초':'회'})`}).join(', ')).join('\n');
+  const ex={intro:'완전 처음',begin:'입문',mid:'중급',pro:'상급'}[pf.exp]||'모름';
+  return `닉네임: ${cnick()||'사용자'}\n운동 경험: ${ex}${pf.age?` · 나이 ${pf.age}`:''}${pf.h?` · 키 ${pf.h}cm`:''}${bw?` · 체중 ${bw.kg}kg`:''}\n종합 티어: ${stName(ov.s)} (부위: ${LVP.map(p=>pname(p)+' '+TIERS[ld[p].t.i].n).join(', ')})\n연속 운동: ${si.cur}일 (최고 ${si.best}일), 총 ${si.total}일\n루틴: ${S.routines.map(r=>r.name).slice(0,8).join(', ')||'없음'}\n최근 운동:\n${ss||'아직 기록 없음'}`;
+}
+function coachPrompt(){const d=coachLoad(),hist=d.msgs.slice(-18).map(m=>`${m.f==='c'?'리즈':'사용자'}: ${m.k?'['+m.t+'] '+JSON.stringify(m.d).slice(0,400):m.t}`).join('\n');
+  return `너는 맨몸운동(칼리스데닉스) 기록 앱 "운동로그"의 DM에 있는 AI 운동 코치 "리즈"야. 사용자와 메신저로 대화하고 있어.
+[말투] 다정하고 친근한 존댓말. 실제 코치가 카톡하듯 자연스럽게, 짧은 문장, 이모지는 가끔만. 먼저 공감하고, 그다음 구체적이고 바로 해볼 수 있는 조언(운동 이름·세트·횟수 등)을 줘. 필요하면 마지막에 질문 1개로 상황을 더 물어봐. 설교하거나 길게 늘어놓지 마.
+[형식] 메시지 1~3개로 나눠서 보내. 메시지 사이는 줄에 ---만 써서 구분해. 각 메시지는 2~3문장 이내. 마크다운(굵게, 목록 기호, 제목) 쓰지 마.
+[지켜야 할 것] 너는 AI 코치야. 사람인 척 거짓말하지 말고, 사람이냐고 물으면 AI 코치라고 솔직하게 말해. 실제 연예인이나 실존 인물인 척하지 마. 통증·부상·저림은 진단하지 말고 운동을 멈추고 병원(정형외과·재활의학과)이나 물리치료를 권해. 무리한 체중 감량, 굶기, 섭식 문제 신호가 보이면 숫자 목표를 주지 말고 걱정을 전하며 보호자나 전문가와 이야기하도록 부드럽게 권해. 자해나 극단적인 생각을 말하면 따뜻하게 받아주고 자살예방상담전화 109(24시간)나 주변 어른에게 꼭 이야기하라고 권해. 운동과 상관없는 얘기도 짧게 받아주되 자연스럽게 운동 얘기로 돌아와.
+[사용자 정보 - 조언에 자연스럽게 활용]
+${coachCtx()}
+[지금까지 대화]
+${hist}
+리즈:`}
+const COACH_RULE=[[/아파|통증|저려|다쳤|부상|삐끗/,['아이고, 통증이 있으면 오늘은 그 부위 운동은 꼭 쉬어 주세요 😢','아픈 걸 참고 하면 더 오래 쉬게 될 수 있어요. 며칠 지나도 계속 아프면 정형외과나 물리치료 꼭 받아보세요. 어디가 어떻게 아픈지 알려주실래요?']],
+ [/정체|안 늘|안늘|그대로|멈췄/,['정체기 오면 진짜 답답하죠 ㅠㅠ 근데 다들 한 번씩 겪는 구간이에요!','이럴 땐 세트를 1개 늘리거나, 내려가는 동작을 3초로 천천히 해보세요. 그리고 잠이랑 단백질도 한번 체크해 봐요. 요즘 주에 몇 번 운동하세요?']],
+ [/귀찮|하기 싫|의욕|동기|포기/,['그런 날 있어요, 완전 정상이에요 😊','오늘은 딱 1분만 해볼까요? 기록 탭의 1분 운동 눌러서 한 세트만 해도 스트릭은 이어져요. 시작만 하면 생각보다 더 하게 되더라고요 💪']],
+ [/식단|단백질|먹|벌크|살/,['운동만큼 먹는 것도 중요하죠!','끼니마다 손바닥 크기 정도 단백질(계란, 두부, 닭가슴살, 우유)을 챙기는 것부터 해보세요. 무리하게 굶는 건 절대 안 돼요. 지금 목표가 근육 키우기인가요?']],
+ [/풀업|턱걸이/,['풀업 좋죠! 아직 1개가 어렵다면 네거티브 풀업(3~5초 천천히 내려오기) 5회 × 3세트부터 해보세요.','스캐풀라 풀업으로 날개뼈 쓰는 감각도 같이 익히면 훨씬 빨리 늘어요. 지금 몇 개 정도 하세요?']],
+ [/푸쉬업|팔굽/,['푸쉬업은 정확한 자세가 제일 중요해요! 몸을 일자로 유지하고 가슴이 바닥 가까이 갈 때까지 내려가 보세요.','10개가 힘들면 무릎 푸쉬업이나 인클라인 푸쉬업으로 횟수를 채우는 게 더 빨리 늘어요 😊']],
+ [/루틴|뭐 해|뭘 해|추천/,['루틴 고민이시군요!','루틴 탭의 AI 추천 루틴에서 목표를 고르면 바로 짜드려요. 맨몸운동 기술 목표가 있으면 "맨몸운동 기술 만들기"를 골라보세요. 어떤 기술이 제일 하고 싶어요?']]];
+function coachFallback(t){for(const [re,a] of COACH_RULE)if(re.test(t))return a;return ['얘기해 줘서 고마워요 😊','조금만 더 자세히 알려주실래요? 어떤 운동을 할 때, 어떤 점이 고민인지 알려주시면 딱 맞게 도와드릴게요!']}
+async function coachReply(){
+  if(CO.busy)return;CO.busy=true;const d=coachLoad();d.rd=Date.now();coachSave();DM.typing=COACH;dmChanged();
+  let parts=null;
+  try{const sm=window.claude&&window.claude.use?await window.claude.use('sample'):null;
+    if(sm){const r=await Promise.race([sm(coachPrompt(),{modelTier:'default',cache:false}),new Promise((_,j)=>setTimeout(()=>j(new Error('to')),40000))]);
+      parts=String(r&&r.text||'').replace(/^리즈\s*:\s*/,'').split(/\n\s*-{3,}\s*\n?/).map(x=>x.replace(/\*\*/g,'').trim()).filter(Boolean).slice(0,4)}}catch(e){parts=null}
+  if(!parts||!parts.length){const last=d.msgs.filter(m=>m.f!=='c').pop();parts=coachFallback(last?last.t:'');await sleep(900)}
+  for(let i=0;i<parts.length;i++){if(i){DM.typing=COACH;dmPaint();await sleep(Math.min(2200,500+parts[i].length*28))}
+    d.msgs.push({f:'c',t:parts[i].slice(0,600),ts:Date.now(),id:'c'+uid()});d.msgs=d.msgs.slice(-200);coachSave();DM.typing=null;dmChanged()}
+  DM.typing=null;CO.busy=false;dmPaint();
+}
 
 /* ---------- 🤖 테스트 봇 (아티팩트 미리보기에서만, 사이트에는 안 나와요) ---------- */
 const BOTS=[{id:'bot_a',nick:'🤖 철수봇',s:12,sum:14,streak:5,best:9,days:31},{id:'bot_b',nick:'🤖 영희봇',s:7,sum:8,streak:2,best:6,days:12},{id:'bot_c',nick:'🤖 민준봇',s:20,sum:30,streak:14,best:21,days:80}];
