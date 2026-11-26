@@ -376,6 +376,9 @@ nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc
 .dmagrip{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin:4px auto 10px}.dmatabs{display:flex;gap:6px;padding:0 14px 10px}.dmatabs button{flex:1;padding:9px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--mute);font:inherit;font-weight:700;cursor:pointer}.dmatabs button.on{background:#fff;color:#111}
 .dmalist{overflow-y:auto}.dmarow{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-top:1px solid rgba(255,255,255,.06)}.dmarow>div{flex:1;display:flex;flex-direction:column;min-width:0}.dmarow span{font-size:12px;color:var(--mute)}.dmarow i{font-style:normal;color:#3797f0;font-weight:800;font-size:14px}
 .pkblk{display:block;margin:12px auto 0;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}.pkbl{padding:8px 0;border-top:1px solid var(--line);margin-top:8px}
+.dmmenu{padding-left:12px;padding-right:12px;gap:6px}.dmmi{display:block;width:100%;padding:14px;border-radius:14px;border:0;background:#2c2c2e;color:#fff;font:inherit;font-size:16px;font-weight:600;text-align:left;cursor:pointer}.dmmi.red{color:#ff453a}.dmmi:last-child{text-align:center;background:none;color:var(--mute)}
+.dmb.held{transform:scale(1.04);box-shadow:0 0 0 2px rgba(255,255,255,.25);transition:transform .15s}.dmb.gone{animation:dmgone .3s forwards}@keyframes dmgone{to{transform:scale(.6);opacity:0}}
+.dmlist{-webkit-touch-callout:none}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -1666,8 +1669,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26e';
-const APP_NEWS=['🚫 콕 찌르기 차단: 더보기 → 설정에서 전체 끄기나 친구별 차단을 할 수 있어요','💬 DM에서 운동 기록·루틴 보내기','❤️ 메시지 두 번 누르면 하트'];
+const APP_VER='2026.11.26f';
+const APP_NEWS=['↩️ DM에서 메시지를 꾹 누르면 전송 취소·복사·하트를 할 수 있어요','🚫 콕 찌르기 차단 (더보기 → 설정)','💬 DM에서 운동 기록·루틴 보내기'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2747,8 +2750,25 @@ function dmRtSave(mid){const {cv}=dmConvs(),m=(cv[DM.peer]||[]).find(x=>x.id===m
 async function dmLike(mid,force){const p=DM.peer;if(!p||!mid)return;const {lk}=dmConvs(),has=((lk[p]||{})[mid]||'').includes('m');
   const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b&&!has){const h=document.createElement('i');h.className='dmheart';h.textContent='❤️';b.appendChild(h);setTimeout(()=>h.remove(),900);sfx('dmlike');try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}}
   try{await dmWrite(p,o=>({msgs:o.msgs,rd:o.rd,lk:has?o.lk.filter(i=>i!==mid):o.lk.concat(mid)}))}catch(e){toast('하트를 남기지 못했어요',true)}}
-function dmTapInit(L){let lt=0,lid='';L.addEventListener('dblclick',e=>{const b=e.target.closest('.dmb[data-mid]');if(b&&!e.target.closest('button'))dmLike(b.dataset.mid)});
-  L.addEventListener('touchend',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button'))return;const now=Date.now(),id=b.dataset.mid;if(id===lid&&now-lt<320){e.preventDefault();dmLike(id);lt=0;lid=''}else{lt=now;lid=id}},{passive:false})}
+/* 꾹 누르기: 하트 / 복사 / 전송 취소(내 메시지) */
+function dmMenu(b){const mid=b.dataset.mid,mine=!!b.closest('.dmm.me'),v=$('#dmv');if(!v||!mid)return;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
+  document.querySelectorAll('.dmb.held').forEach(x=>x.classList.remove('held'));b.classList.add('held');
+  let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}
+  sh.innerHTML=`<div class="dmabg" data-dm="mclose"></div><div class="dmash dmmenu"><div class="dmagrip"></div>
+   <button class="dmmi" data-dm="mheart" data-mid="${esc(mid)}">❤️ 하트</button>
+   ${b.classList.contains('card')?'':`<button class="dmmi" data-dm="mcopy" data-mid="${esc(mid)}">📋 복사</button>`}
+   ${mine?`<button class="dmmi red" data-dm="munsend" data-mid="${esc(mid)}">↩️ 전송 취소</button>`:''}
+   <button class="dmmi" data-dm="mclose">취소</button></div>`}
+function dmMenuClose(){document.querySelectorAll('.dmb.held').forEach(x=>x.classList.remove('held'));dmAttClose()}
+async function dmUnsend(mid){const p=DM.peer;if(!p)return;const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b){b.classList.add('gone')}
+  DM.pend=(DM.pend||[]).filter(x=>x.id!==mid);
+  try{await dmWrite(p,o=>({msgs:o.msgs.filter(m=>m.id!==mid),rd:o.rd,lk:o.lk}));sfx('tap');toast('메시지 전송을 취소했어요')}catch(e){if(b)b.classList.remove('gone');toast('전송 취소에 실패했어요',true)}}
+function dmTapInit(L){let lt=0,lid='',ht=null,moved=false;
+  L.addEventListener('touchstart',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button'))return;moved=false;clearTimeout(ht);ht=setTimeout(()=>{ht='done';dmMenu(b)},480)},{passive:true});
+  L.addEventListener('touchmove',()=>{moved=true;if(ht&&ht!=='done')clearTimeout(ht)},{passive:true});
+  L.addEventListener('contextmenu',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b)return;e.preventDefault();if(ht==='done')return;dmMenu(b)});
+L.addEventListener('dblclick',e=>{const b=e.target.closest('.dmb[data-mid]');if(b&&!e.target.closest('button'))dmLike(b.dataset.mid)});
+  L.addEventListener('touchend',e=>{if(ht==='done'){ht=null;e.preventDefault();return}clearTimeout(ht);ht=null;const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button')||moved)return;const now=Date.now(),id=b.dataset.mid;if(id===lid&&now-lt<320){e.preventDefault();dmLike(id);lt=0;lid=''}else{lt=now;lid=id}},{passive:false})}
 function dmRender(){
   let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
   const p=DM.peer;
@@ -2765,7 +2785,7 @@ function dmPaint(force){if(!DM.open)return;const L=$('#dmlist');if(!L){dmRender(
   const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm;
   if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
-  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪');else if(a==='att')dmAttOpen('sess');else if(a==='atab')dmAttOpen(b.dataset.v);else if(a==='aclose')dmAttClose();else if(a==='asend')dmAttSend(b.dataset.v,b.dataset.id);else if(a==='rtsave')dmRtSave(b.dataset.mid);else if(a==='heart')dmLike(b.closest('.dmb').dataset.mid,true)});
+  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪');else if(a==='att')dmAttOpen('sess');else if(a==='atab')dmAttOpen(b.dataset.v);else if(a==='aclose')dmAttClose();else if(a==='asend')dmAttSend(b.dataset.v,b.dataset.id);else if(a==='rtsave')dmRtSave(b.dataset.mid);else if(a==='heart')dmLike(b.closest('.dmb').dataset.mid,true);else if(a==='mclose')dmMenuClose();else if(a==='mheart'){dmMenuClose();dmLike(b.dataset.mid)}else if(a==='mcopy'){const {cv}=dmConvs(),m=(cv[DM.peer]||[]).find(x=>x.id===b.dataset.mid);dmMenuClose();if(m)try{navigator.clipboard.writeText(m.t);toast('복사했어요')}catch(e){}}else if(a==='munsend'){const mid=b.dataset.mid;dmMenuClose();dmUnsend(mid)}});
 
 function profHtml(m){
   let x=C.lb.find(y=>y.id===m.u);
