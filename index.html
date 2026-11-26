@@ -363,6 +363,19 @@ nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc
 #dmv.typing .dmq{display:none}#dmv.typing .dmsend{display:block}
 .dmtoast{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 10px);transform:translateX(-50%);z-index:400;display:flex;align-items:center;gap:10px;width:min(360px,92vw);padding:10px 14px;border-radius:18px;background:rgba(38,38,40,.96);border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5);cursor:pointer;animation:dmtin .3s cubic-bezier(.2,1.3,.4,1)}.dmtoast.out{animation:dmtout .3s forwards}.dmtoast div{display:flex;flex-direction:column;min-width:0}.dmtoast span{font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes dmtin{from{transform:translate(-50%,-120%)}}@keyframes dmtout{to{transform:translate(-50%,-140%);opacity:0}}
+.dmplus{width:30px;height:30px;flex-shrink:0;margin-left:-8px;margin-right:4px;border-radius:50%;border:0;background:#3797f0;color:#fff;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dmb{position:relative;-webkit-user-select:none;user-select:none}.dmb.card{padding:12px 14px;min-width:200px;max-width:78%;background:#1f1f22!important;border:1px solid rgba(255,255,255,.12);color:#fff}.dmm.me .dmb.card{border-color:rgba(55,151,240,.6)}
+.dmch{font-size:11px;font-weight:800;color:#3797f0;letter-spacing:.02em}.dmct{font-size:15px;font-weight:800;margin-top:3px}.dmcs{font-size:12px;color:var(--mute);margin-top:2px}.dmcl{margin-top:8px;display:flex;flex-direction:column;gap:3px}.dmcr{display:flex;justify-content:space-between;gap:10px;font-size:13px}.dmcr span{color:#ddd;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dmcr b{font-weight:600;color:var(--mute);white-space:nowrap}
+.dmcbtn{margin-top:10px;width:100%;padding:8px;border-radius:10px;border:0;background:#3797f0;color:#fff;font:inherit;font-weight:800;font-size:13px;cursor:pointer}
+.dmlk{position:absolute;bottom:-12px;font-size:12px;background:#262626;border:2px solid #000;border-radius:10px;padding:0 4px;line-height:16px;animation:dmlkp .35s cubic-bezier(.3,1.8,.5,1)}.dmlk b{font-size:10px;margin-left:1px}.dmm.me .dmlk{left:-6px}.dmm.you .dmlk{right:-6px}.dmm:has(.dmlk){margin-bottom:12px}
+@keyframes dmlkp{from{transform:scale(0)}}
+.dmheart{position:absolute;left:50%;top:50%;font-size:46px;font-style:normal;transform:translate(-50%,-50%) scale(0);animation:dmhrt .9s ease-out forwards;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+@keyframes dmhrt{25%{transform:translate(-50%,-50%) scale(1.25)}40%{transform:translate(-50%,-50%) scale(.95)}60%{transform:translate(-50%,-50%) scale(1.05);opacity:1}100%{transform:translate(-50%,-90%) scale(1);opacity:0}}
+#dmatt{position:absolute;inset:0;z-index:5}.dmabg{position:absolute;inset:0;background:rgba(0,0,0,.5);animation:fadein .2s}.dmash{position:absolute;left:0;right:0;bottom:0;max-height:70%;display:flex;flex-direction:column;background:#1c1c1e;border-radius:20px 20px 0 0;padding:8px 0 calc(env(safe-area-inset-bottom) + 10px);animation:dmash .25s cubic-bezier(.2,.8,.2,1)}#dmatt.out .dmash{animation:dmashout .22s forwards}
+@keyframes dmash{from{transform:translateY(100%)}}@keyframes dmashout{to{transform:translateY(100%)}}
+.dmagrip{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin:4px auto 10px}.dmatabs{display:flex;gap:6px;padding:0 14px 10px}.dmatabs button{flex:1;padding:9px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--mute);font:inherit;font-weight:700;cursor:pointer}.dmatabs button.on{background:#fff;color:#111}
+.dmalist{overflow-y:auto}.dmarow{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-top:1px solid rgba(255,255,255,.06)}.dmarow>div{flex:1;display:flex;flex-direction:column;min-width:0}.dmarow span{font-size:12px;color:var(--mute)}.dmarow i{font-style:normal;color:#3797f0;font-weight:800;font-size:14px}
+.pkblk{display:block;margin:12px auto 0;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}.pkbl{padding:8px 0;border-top:1px solid var(--line);margin-top:8px}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -789,6 +802,7 @@ const SFX={
   slot1:[[1047,0,.18,'sine',.16],[2093,.02,.25,'sine',.05]],
   slot2:[[1319,0,.18,'sine',.16],[2637,.02,.25,'sine',.05]],
   slot3:[[1568,0,.2,'sine',.16],[3136,.02,.3,'sine',.05],[2093,.12,.3,'sine',.07]],
+  dmlike:[[1318,0,.07,'sine',.12],[1760,.06,.12,'sine',.1]],
   dmsend:[[880,0,.06,'sine',.1],[1320,.05,.08,'sine',.08]],
   dmrecv:[[1046,0,.09,'sine',.12],[1568,.09,.14,'sine',.1]],
   pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
@@ -1405,7 +1419,7 @@ function norm(o){
    if(Object.keys(map).length){const fix=id=>{let k=0;while(map[id]&&k++<5)id=map[id];return id};
      b.exercises=b.exercises.filter(x=>!map[x.id]);[...routines,...sessions].forEach(r=>(r.items||[]).forEach(i=>{i.exId=fix(i.exId)}))}}
   b.routines=routines;b.sessions=sessions;b.body=Array.isArray(o.body)?o.body:[];
-  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.skMode=o.skMode==='easy'?'easy':'basic';b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
+  b.updated=o.updated||0;b.rest=o.rest>0?Math.round(o.rest):60;b.vol=typeof o.vol==='number'&&o.vol>=0&&o.vol<=100?Math.round(o.vol):50;b.restDays=Array.isArray(o.restDays)?o.restDays:[];b.restDates=Array.isArray(o.restDates)?o.restDates:[];b.skillDone=o.skillDone&&typeof o.skillDone==='object'?o.skillDone:{};b.tutDone=o.tutDone?1:0;b.brk={pl:o.brk&&o.brk.pl==='f'?'f':'s'};b.skMode=o.skMode==='easy'?'easy':'basic';b.pkBlock={all:!!(o.pkBlock&&o.pkBlock.all),ids:o.pkBlock&&Array.isArray(o.pkBlock.ids)?o.pkBlock.ids.filter(x=>typeof x==='string').slice(0,50):[]};b.asym=o.asym&&typeof o.asym==='object'?{side:['L','R'].includes(o.asym.side)?o.asym.side:'',c:Array.isArray(o.asym.c)?o.asym.c.filter(x=>typeof x==='string').slice(0,8):[],m:o.asym.m==='s'?'s':'f'}:{};b.prof=o.prof&&typeof o.prof==='object'&&!Array.isArray(o.prof)?{exp:String(o.prof.exp||''),age:+o.prof.age||'',h:+o.prof.h||''}:{};b.skLv=o.skLv&&typeof o.skLv==='object'&&!Array.isArray(o.skLv)?o.skLv:{};b.goal=o.goal||'planche';b.sound=o.sound!==false;b.seeded=!!o.seeded;b.bgm=o.bgm!==false;b.bgmv=typeof o.bgmv==='number'&&o.bgmv>=0&&o.bgmv<=100?Math.round(o.bgmv):45;b.comm=o.comm&&typeof o.comm==='object'?{on:!!o.comm.on,nick:String(o.comm.nick||'').slice(0,12),bio:String(o.comm.bio||'').slice(0,60)}:{on:false,nick:'',bio:''};b.cmdDone=Array.isArray(o.cmdDone)?o.cmdDone.slice(-200):[];b.sugDone=Array.isArray(o.sugDone)?o.sugDone.slice(-300):[];b.sugg=(Array.isArray(o.sugg)?o.sugg:[]).filter(x=>x&&x.id&&x.ex&&!b.sugDone.includes(x.id));
   return b;
 }
 let S=blank();
@@ -1458,7 +1472,7 @@ function mergeState(L,R){
   o.exercises=uni(L.exercises,R.exercises,x=>x.id);
   o.body=uni(L.body,R.body,x=>x.date);
   o.tutDone=(L.tutDone||R.tutDone)?1:0;
-  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk','skMode'].forEach(k=>{o[k]=L[k]})}
+  if(lw){['rest','vol','restDays','restDates','skillDone','skLv','goal','sound','bgm','bgmv','comm','prof','asym','brk','skMode','pkBlock'].forEach(k=>{o[k]=L[k]})}
   o.sugDone=[...new Set([...(L.sugDone||[]),...(R.sugDone||[])])].slice(-300);o.sugg=uni(L.sugg||[],R.sugg||[],x=>x.id).filter(x=>!o.sugDone.includes(x.id));
   o.cmdDone=[...new Set([...(L.cmdDone||[]),...(R.cmdDone||[])])].slice(-200);
   o.seeded=!!(L.seeded||R.seeded);o.updated=Math.max(L.updated||0,R.updated||0)+1;
@@ -1652,8 +1666,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26c';
-const APP_NEWS=['💬 DM 불러오기 오류 수정','💬 DM: 커뮤니티 왼쪽 위 ✈️ 버튼이나 친구 프로필에서 메시지를 주고받을 수 있어요','🏆 랭킹에서 친구 접속·운동 중·오늘 운동·휴식일 표시','🌳 기술 트리 상세 설명'];
+const APP_VER='2026.11.26e';
+const APP_NEWS=['🚫 콕 찌르기 차단: 더보기 → 설정에서 전체 끄기나 친구별 차단을 할 수 있어요','💬 DM에서 운동 기록·루틴 보내기','❤️ 메시지 두 번 누르면 하트'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2341,6 +2355,7 @@ function moreView(){
   <button class="card asymbtn" data-act="asym-open"><span style="font-size:24px">⚖️</span><span style="flex:1;text-align:left"><b>좌우 비대칭 교정</b><span class="muted sm" style="display:block;margin-top:2px">Y 레이즈·밴드 날개뼈 운동으로 약한 쪽을 맞춰요</span></span><span style="color:#ff5a5a;font-size:20px">›</span></button>
   <h2>설정</h2>
   ${puCard()}
+  ${pkCardSet()}
   <div class="card"><div class="row between"><span>효과음</span><button class="sw ${S.sound?'on':''}" data-act="sound-toggle" aria-label="효과음"></button></div>
   <div class="vol"><span class="vi">🔈</span><input type="range" min="0" max="100" step="1" value="${S.vol==null?50:S.vol}" data-bind="vol" style="--p:${S.vol==null?50:S.vol}%" aria-label="효과음 크기"><span class="vi">🔊</span><b id="volv">${S.vol==null?50:S.vol}</b></div></div>
   <div class="card"><div class="row between"><span>배경음악 <span class="muted sm">운동 중에는 꺼져요</span></span><button class="sw ${S.bgm?'on':''}" data-act="bgm-toggle" aria-label="배경음악"></button></div>
@@ -2427,6 +2442,8 @@ function modalHtml(){
     body=suggModal(m);
   }else if(m.type==='aiimp'){
     body=`<h3>AI 제안 붙여넣기</h3><div class="muted sm" style="margin-bottom:8px">AI가 알려준 JSON을 붙여넣으면, 해당 운동의 세트 화면에서 변경 제안 창이 떠요.</div><textarea class="inp" id="aita" placeholder="여기에 붙여넣기"></textarea><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-act="modal-close">취소</button><button class="btn pri" data-act="ai-imp-run">등록</button></div>`;
+  }else if(m.type==='pkblk'){
+    body=pkPickHtml();
   }else if(m.type==='cmc'){
     body=cmcHtml(m);
   }else if(m.type==='brk'){
@@ -2487,13 +2504,13 @@ function lbDoc(){const ld=levelData(),ov=overallTier(ld),parts={},pk={};LVP.forE
   const lv=skLevels(),sk=[0,0,0,0];SKN.forEach(x=>sk[lv[x.id].lv]++);
   const top=SKN.filter(x=>lv[x.id].lv>=2).sort((a,c)=>lv[c.id].lv-lv[a.id].lv||SKN.indexOf(c)-SKN.indexOf(a)).slice(0,4).map(x=>({id:x.id,l:lv[x.id].lv}));
   const bw=[...S.body].sort((a,c)=>a.date.localeCompare(c.date)).pop();
-  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',wd:[...si.done].sort().pop()||'',rds:Array.from({length:15},(_,i)=>addDays(today(),i-1)).filter(isRestDay),upd:Date.now()}}
+  return {nick:cnick(),s:ov.s,sum:ov.sum,parts,pk,streak:si.cur,best:si.best,days:si.total,rec:b,sk,top,bio:String((S.comm&&S.comm.bio)||'').slice(0,60),lvm:Object.fromEntries(SKN.filter(x=>lv[x.id].lv>0).map(x=>[x.id,lv[x.id].lv])),since:(S.sessions.map(x=>x.date).sort()[0])||'',wd:[...si.done].sort().pop()||'',nopk:pkB().all?1:0,pkb:pkB().ids.slice(0,50),rds:Array.from({length:15},(_,i)=>addDays(today(),i-1)).filter(isRestDay),upd:Date.now()}}
 const PROF_EX=['푸쉬업','풀업','딥스','스쿼트','핸드스탠드 푸쉬업 (현재 단계)','플란체 린','프로그 스탠드','턱 플란체','풀 엘싯','머슬업','벽 핸드스탠드 홀드','피스톨 스쿼트'];
 let LBT=null,LBSIG='';
 function commSync(force){
   if(!S.comm||!S.comm.on||!commAvail())return;
   clearTimeout(LBT);
-  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm,d.wd,d.rds,today()]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
+  LBT=setTimeout(async()=>{try{const d=lbDoc(),sig=JSON.stringify([d.nick,d.s,d.sum,d.parts,d.pk,d.streak,d.days,d.rec,d.sk,d.top,d.bio,d.lvm,d.wd,d.rds,today(),d.nopk,d.pkb]);if(!force&&sig===LBSIG)return;LBSIG=sig;await store.db.collection('lb').doc(store.uid).set(d)}catch(e){LBSIG='';commErr(e)}},force?0:2500);
 }
 function commErr(e){toast(e&&e.code==='invalid_argument'?'공유 권한이 없어요. 앱을 만든 사람에게 참여자(Contributor) 초대를 요청해 주세요.':'커뮤니티에 저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.',true)}
 const lbSorted=part=>{
@@ -2529,11 +2546,23 @@ function miniTree(lvs){
 const PK={all:[],last:{}};
 const PK_MSG=['운동할 시간이야! 💪','오늘 운동 했어? 👀','같이 운동하자 🔥','플랭크 1분만 하자 😆'];
 const pkKey=()=>'planlog_pk_'+(store.uid||'');
+/* 콕 찌르기 차단 */
+const pkB=()=>{const b=S.pkBlock||{};return {all:!!b.all,ids:Array.isArray(b.ids)?b.ids:[]}};
+function pkBlock(id,on){const b=pkB();b.ids=b.ids.filter(x=>x!==id);if(on)b.ids.push(id);S.pkBlock=b;save();commSync(true);if(U.tab==='more')renderView(false)}
+function pkCardSet(){
+  if(!store.uid||!(S.comm&&S.comm.on))return '';const b=pkB();
+  const L=b.ids.map(id=>{const x=C.lb.find(y=>y.id===id);return `<div class="row between pkbl"><span>${x?esc(String(x.nick).slice(0,12)):'(나간 사람)'}</span><button class="btn sm" data-act="pk-unblock" data-u="${esc(id)}">차단 해제</button></div>`}).join('');
+  return `<div class="card"><div class="row between"><span>👉 콕 찌르기 받기 <span class="muted sm" style="display:block;margin-top:2px">끄면 아무도 나를 찌를 수 없어요</span></span><button class="sw ${b.all?'':'on'}" data-act="pk-all" aria-label="콕 찌르기 받기"></button></div>
+  ${b.all?'':`<div style="margin-top:12px"><div class="row between"><b style="font-size:14px">🚫 차단한 친구 <span class="muted sm">${b.ids.length}명</span></b><button class="btn sm" data-act="pk-blkpick">+ 차단하기</button></div>${L||'<div class="muted sm" style="margin-top:8px">차단한 친구가 없어요</div>'}</div>`}</div>`;
+}
+function pkPickHtml(){const b=pkB(),ppl=C.lb.filter(x=>x.id!==store.uid);
+  return `<h3>콕 찌르기 차단</h3><div class="muted sm" style="margin:-4px 0 10px">차단한 친구는 나를 찌를 수 없어요. 상대에게 차단했다고 알리지는 않아요.</div>${ppl.length?ppl.map(x=>{const on=b.ids.includes(x.id);return `<div class="li" data-act="pk-blktog" data-u="${esc(x.id)}"><span class="row" style="gap:10px">${emblem(stTier(Math.max(0,Math.min(37,x.s|0))).i,30)}<b>${esc(String(x.nick).slice(0,12))}</b></span><span class="btn sm ${on?'':'pri'}">${on?'차단됨':'차단'}</span></div>`}).join(''):'<div class="empty">랭킹에 참여한 친구가 없어요</div>'}<button class="btn big" style="margin-top:12px" data-act="modal-close">완료</button>`}
 function pkSnap(a){PK.all=a;const me=store.uid;if(!me)return;let seen=0;try{seen=+localStorage.getItem(pkKey())||0}catch(e){}
   if(!seen)seen=Date.now()-864e5;
   const news=[];a.forEach(d=>{if(d.id===me)return;(Array.isArray(d.items)?d.items:[]).forEach(it=>{if(it&&it.to===me&&+it.ts>seen)news.push({from:d.id,nick:String(d.nick||'친구').slice(0,12),ts:+it.ts,m:String(it.m||'').slice(0,40)})})});
   if(!news.length){try{if(!localStorage.getItem(pkKey()))localStorage.setItem(pkKey(),String(seen))}catch(e){}return}
   news.sort((x,y)=>x.ts-y.ts);try{localStorage.setItem(pkKey(),String(news[news.length-1].ts))}catch(e){}
+  const B=pkB();if(B.all)return;const ok=news.filter(n=>!B.ids.includes(n.from));if(!ok.length)return;news.length=0;news.push(...ok);
   pkShow(news);
 }
 function pkShow(news){
@@ -2541,12 +2570,13 @@ function pkShow(news){
   if(document.hidden&&!puOn()){try{if('Notification' in window&&Notification.permission==='granted')new Notification(`👉 ${n.nick}님이 콕 찔렀어요`,{body:n.m||'운동할 시간이에요!',icon:'icon-192.png',tag:'pk'})}catch(e){}}
   const old=$('#pkov');if(old)old.remove();
   const el=document.createElement('div');el.id='pkov';el.className='pkov';
-  el.innerHTML=`<div class="pkbox"><div class="pkf">👉</div><div class="pkt"><b>${esc(n.nick)}</b>님이 콕 찔렀어요!</div><div class="pkm">${esc(n.m||'운동할 시간이에요!')}</div>${more?`<div class="muted sm" style="margin-top:4px">그 외 ${more}번 더 찔렸어요</div>`:''}<div class="row" style="gap:8px;margin-top:16px"><button class="btn" data-pk="back" style="flex:1">나도 콕 👉</button><button class="btn pri" data-pk="go" style="flex:1">운동하러 가기</button></div></div>`;
+  el.innerHTML=`<div class="pkbox"><div class="pkf">👉</div><div class="pkt"><b>${esc(n.nick)}</b>님이 콕 찔렀어요!</div><div class="pkm">${esc(n.m||'운동할 시간이에요!')}</div>${more?`<div class="muted sm" style="margin-top:4px">그 외 ${more}번 더 찔렸어요</div>`:''}<div class="row" style="gap:8px;margin-top:16px"><button class="btn" data-pk="back" style="flex:1">나도 콕 👉</button><button class="btn pri" data-pk="go" style="flex:1">운동하러 가기</button></div><button class="pkblk" data-pk="block">🚫 ${esc(n.nick)}님 콕 찌르기 차단</button></div>`;
   document.body.appendChild(el);
   const go=()=>{sfx('poke');try{navigator.vibrate&&navigator.vibrate([90,60,90,60,160])}catch(e){}};
   if(document.hidden){const f=()=>{if(!document.hidden){document.removeEventListener('visibilitychange',f);go()}};document.addEventListener('visibilitychange',f)}else go();
   el.addEventListener('click',e=>{const b=e.target.closest('[data-pk]');if(!b&&e.target!==el)return;el.remove();
     if(b&&b.dataset.pk==='back')pkSend(n.from,'나도 운동할게! 💪');
+    if(b&&b.dataset.pk==='block'){pkBlock(n.from,true);toast(`${n.nick}님의 콕 찌르기를 차단했어요 · 더보기에서 풀 수 있어요`)}
     if(b&&b.dataset.pk==='go'){closeModal&&U.modal&&closeModal();tutGo('log')}});
 }
 /* ---------- 푸쉬 알림 (Cloudflare Workers 서버로 보내요, 사이트에서만) ---------- */
@@ -2597,6 +2627,7 @@ function puCard(){
 async function pkSend(to,m){
   if(needJoin())return;const me=store.uid;if(!me||to===me)return;
   const now=Date.now();if(PK.last[to]&&now-PK.last[to]<1000){return}
+  {const tx=C.lb.find(y=>y.id===to);if(tx&&(tx.nopk||(Array.isArray(tx.pkb)&&tx.pkb.includes(me)))){toast('이 친구에게는 지금 콕 찌르기를 보낼 수 없어요');return}}
   PK.last[to]=now;
   const x=C.lb.find(y=>y.id===to),mine=PK.all.find(d=>d.id===me),items=((mine&&Array.isArray(mine.items))?mine.items:[]).filter(it=>it&&now-(+it.ts)<7*864e5).concat({to,ts:now,m:String(m||'').slice(0,40)}).slice(-30);
   sfx('pokesend');try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
@@ -2628,12 +2659,12 @@ function dmSubAll(){
 }
 /* 대화별로 정리: {peer:[{from,t,ts,id}], ...}, 상대가 읽은 시각 */
 function dmConvs(){
-  const me=store.uid,cv={},rd={};const add=(p,m)=>{(cv[p]=cv[p]||[]).push(m)};
+  const me=store.uid,cv={},rd={},lk={};const add=(p,m)=>{(cv[p]=cv[p]||[]).push(m)},L=(p,s,ids)=>{(Array.isArray(ids)?ids:[]).forEach(i=>{(lk[p]=lk[p]||{})[i]=(lk[p][i]||'')+(s===me?'m':'y')})};
   DM.docs.forEach(d=>{const ms=Array.isArray(d.msgs)?d.msgs:[];
-    if(Array.isArray(d.u)){const s=d.s,p=d.u.find(x=>x!==me);if(!p||!d.u.includes(me))return;ms.forEach(m=>m&&add(p,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id}));if(s!==me)rd[p]=+d.rd||0}
-    else{const s=d.id;if(s===me)ms.forEach(m=>m&&m.to&&add(m.to,{from:me,t:String(m.t||''),ts:+m.ts||0,id:m.id}));else{ms.forEach(m=>m&&m.to===me&&add(s,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id}));const r=d.rd&&d.rd[me];if(r)rd[s]=+r}}});
+    if(Array.isArray(d.u)){const s=d.s,p=d.u.find(x=>x!==me);if(!p||!d.u.includes(me))return;ms.forEach(m=>m&&add(p,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));L(p,s,d.lk);if(s!==me)rd[p]=+d.rd||0}
+    else{const s=d.id;if(s===me){ms.forEach(m=>m&&m.to&&add(m.to,{from:me,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));Object.entries(d.lk||{}).forEach(([p,ids])=>L(p,me,ids))}else{ms.forEach(m=>m&&m.to===me&&add(s,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id,k:m.k,d:m.d}));const r=d.rd&&d.rd[me];if(r)rd[s]=+r;L(s,s,(d.lk||{})[me])}}});
   Object.values(cv).forEach(L=>L.sort((a,b)=>a.ts-b.ts));
-  return {cv,rd};
+  return {cv,rd,lk};
 }
 function dmMyDoc(p){const me=store.uid;return dmFB()?DM.docs.find(d=>d.id===dmPair(p).join('+')+'+'+me):DM.docs.find(d=>d.id===me)}
 function dmReadAt(p){const d=dmMyDoc(p);if(!d)return 0;return dmFB()?(+d.rd||0):((d.rd||{})[p]||0)}
@@ -2644,24 +2675,25 @@ function dmAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return '방금';if(d<360
 function dmStatus(p){const on=lbOnline({id:p});if(on==='wk')return '🏋️ 지금 운동 중';if(on)return '지금 활동 중';const o=PRES.on.find(y=>y.id===p);return o?`${dmAgo(+o.ts)} 전 활동`:''}
 async function dmWrite(p,fn){
   const me=store.uid,d=dmMyDoc(p);
-  if(dmFB()){const u=dmPair(p),id=u.join('+')+'+'+me,o=d||{};const nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.slice():[],rd:+o.rd||0});
-    await store.db.collection('dm').doc(id).set({u,s:me,nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,ts:Date.now()})}
-  else{const o=d||{};let all=Array.isArray(o.msgs)?o.msgs.slice():[],rd=Object.assign({},o.rd||{});
-    const mine=all.filter(m=>m.to===p).map(m=>({t:m.t,ts:m.ts,id:m.id})),nd=fn({msgs:mine,rd:rd[p]||0});
-    all=all.filter(m=>m.to!==p).concat(nd.msgs.map(m=>Object.assign({to:p},m)));all.sort((a,b)=>a.ts-b.ts);rd[p]=nd.rd||0;
-    await store.db.collection('dm').doc(me).set({nick:cnick(),msgs:all.slice(-300),rd,ts:Date.now()})}
+  const cl=m=>Object.assign({t:m.t,ts:m.ts,id:m.id},m.k?{k:m.k,d:m.d}:{});
+  if(dmFB()){const u=dmPair(p),id=u.join('+')+'+'+me,o=d||{};const nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.map(cl):[],rd:+o.rd||0,lk:Array.isArray(o.lk)?o.lk.slice():[]});
+    await store.db.collection('dm').doc(id).set({u,s:me,nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,lk:(nd.lk||[]).slice(-200),ts:Date.now()})}
+  else{const o=d||{};let all=Array.isArray(o.msgs)?o.msgs.slice():[],rd=Object.assign({},o.rd||{}),lk=Object.assign({},o.lk||{});
+    const mine=all.filter(m=>m.to===p).map(cl),nd=fn({msgs:mine,rd:rd[p]||0,lk:(lk[p]||[]).slice()});
+    all=all.filter(m=>m.to!==p).concat(nd.msgs.map(m=>Object.assign({to:p},m)));all.sort((a,b)=>a.ts-b.ts);rd[p]=nd.rd||0;lk[p]=(nd.lk||[]).slice(-200);
+    await store.db.collection('dm').doc(me).set({nick:cnick(),msgs:all.slice(-300),rd,lk,ts:Date.now()})}
 }
-async function dmSend(p,t){
+async function dmSend(p,t,att){
   t=String(t||'').trim().slice(0,500);if(!t||!p||DM.busy)return;if(needJoin())return;
   const now=Date.now();if(now-DM.last<300)return;DM.last=now;DM.busy=true;
-  const m={t,ts:now,id:uid()};
-  DM.pend=(DM.pend||[]).concat([{p,from:store.uid,t,ts:now,id:m.id,pend:1}]);dmPaint(true);sfx('dmsend');
-  try{await dmWrite(p,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now)}));puSend&&puSend(p,`💬 ${cnick()||'친구'}`,t.slice(0,80)).catch(()=>{})}
+  const m=Object.assign({t,ts:now,id:uid()},att||{});
+  DM.pend=(DM.pend||[]).concat([Object.assign({p,from:store.uid,t,ts:now,id:m.id,pend:1},att||{})]);dmPaint(true);sfx('dmsend');
+  try{await dmWrite(p,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now),lk:o.lk}));puSend&&puSend(p,`💬 ${cnick()||'친구'}`,t.slice(0,80)).catch(()=>{})}
   catch(e){toast('메시지를 보내지 못했어요',true);DM.pend=DM.pend.filter(x=>x.id!==m.id);dmPaint(true)}
   finally{DM.busy=false;DM.pend=(DM.pend||[]).filter(x=>x.id!==m.id||!DM.docs.some(d=>(d.msgs||[]).some(y=>y.id===m.id)))}
 }
 async function dmMarkRead(p){const {cv}=dmConvs(),L=cv[p]||[],last=L.filter(m=>m.from!==store.uid).pop();if(!last)return;
-  DM.seenTs[p]=last.ts;dmBadge();if(dmReadAt(p)>=last.ts)return;try{await dmWrite(p,o=>({msgs:o.msgs,rd:last.ts}))}catch(e){}}
+  DM.seenTs[p]=last.ts;dmBadge();if(dmReadAt(p)>=last.ts)return;try{await dmWrite(p,o=>({msgs:o.msgs,rd:last.ts,lk:o.lk}))}catch(e){}}
 function dmNotify(first){
   if(first){DM.seenMax=Math.max(0,...DM.docs.flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));return}
   const {cv}=dmConvs(),me=store.uid;let nw=null;
@@ -2686,23 +2718,45 @@ function dmInbox(){
     const prev=un>1?`새 메시지 ${un}개`:(mine?'나: ':'')+last.t;return `<div class="dmrow ${un?'un':''}" data-dm="peer" data-u="${esc(p)}">${dmAvatar(p,54)}<div class="dmrt"><b>${esc(dmNick(p))}</b><span>${esc(prev.slice(0,40))} · ${dmAgo(last.ts)}</span></div>${un?'<i class="dmdot"></i>':''}</div>`}).join('');
 }
 function dmMsgs(){
-  const p=DM.peer,me=store.uid,{cv,rd}=dmConvs(),L=(cv[p]||[]).concat((DM.pend||[]).filter(x=>x.p===p&&!(cv[p]||[]).some(y=>y.id===x.id)));
+  const p=DM.peer,me=store.uid,{cv,rd,lk}=dmConvs(),LK=lk[p]||{},L=(cv[p]||[]).concat((DM.pend||[]).filter(x=>x.p===p&&!(cv[p]||[]).some(y=>y.id===x.id)));
   if(!L.length)return `<div class="dmhello">${dmAvatar(p,86)}<b>${esc(dmNick(p))}</b><span>운동로그 친구 · 첫 메시지를 보내보세요 👋</span></div>`;
   let h='',prevTs=0,prevFrom='';const lastMine=[...L].reverse().find(m=>m.from===me);
   L.forEach((m,i)=>{const nx=L[i+1];if(m.ts-prevTs>3600000){const t=new Date(m.ts);h+=`<div class="dmtime">${shortDate(ymd(t))} ${t.getHours()<12?'오전':'오후'} ${(t.getHours()%12)||12}:${String(t.getMinutes()).padStart(2,'0')}</div>`;prevFrom=''}
     const mine=m.from===me,tail=!nx||nx.from!==m.from||nx.ts-m.ts>3600000,big=/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(m.t);
-    h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(p,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big?'big':''} ${m.pend?'pend':''}">${esc(m.t)}</div></div>`;prevTs=m.ts;prevFrom=m.from});
+    h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(p,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big&&!m.k?'big':''} ${m.k?'card':''} ${m.pend?'pend':''}" data-mid="${esc(m.id||'')}">${m.k?dmCard(m,mine):esc(m.t)}${LK[m.id]?`<span class="dmlk">❤️${LK[m.id].length>1?'<b>2</b>':''}</span>`:''}</div></div>`;prevTs=m.ts;prevFrom=m.from});
   if(lastMine&&L[L.length-1].from===me)h+=`<div class="dmseen">${lastMine.pend?'보내는 중…':(rd[p]||0)>=lastMine.ts?'읽음':'전송됨'}</div>`;
   return h;
 }
+/* DM 공유 카드 + 더블탭 하트 */
+function dmPackSess(s){return {ti:String(s.title||'운동').slice(0,40),dt:s.date,du:s.duration||0,it:s.items.slice(0,12).map(it=>{const e=exOf(it),dn=it.sets.filter(x=>x.done!==false);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:dn.slice(0,10).map(x=>+x.r||0)}})}}
+function dmPackRt(r){return {ti:String(r.name||'루틴').slice(0,40),it:r.items.slice(0,12).map(it=>{const e=exOf(it);return {n:String(e.name).slice(0,30),u:e.type==='time'?'초':e.type==='run'?'분':'회',r:it.sets.slice(0,10).map(x=>+x.r||0)}})}}
+function dmCard(m,mine){const d=m.d||{},it=Array.isArray(d.it)?d.it:[],rt=m.k==='rt';
+  const rows=it.slice(0,6).map(x=>{const r=(Array.isArray(x.r)?x.r:[]),best=Math.max(0,...r);return `<div class="dmcr"><span>${esc(String(x.n||''))}</span><b>${r.length}세트${best?` · ${rt?'':'최고 '}${best}${esc(String(x.u||'회'))}`:''}</b></div>`}).join('');
+  return `<div class="dmch">${rt?'📋 루틴':'🏋️ 운동 기록'}</div><div class="dmct">${esc(String(d.ti||''))}</div>${!rt&&d.dt?`<div class="dmcs">${shortDate(String(d.dt))}${d.du?` · ${Math.round(d.du/60)}분`:''} · ${it.length}종목</div>`:`<div class="dmcs">${it.length}종목</div>`}<div class="dmcl">${rows}${it.length>6?`<div class="dmcr"><span>외 ${it.length-6}개</span></div>`:''}</div>${rt&&!mine?`<button class="dmcbtn" data-dm="rtsave" data-mid="${esc(m.id||'')}">내 루틴으로 저장</button>`:''}`}
+function dmAttOpen(tab){const v=$('#dmv');if(!v)return;let sh=$('#dmatt');if(!sh){sh=document.createElement('div');sh.id='dmatt';v.appendChild(sh)}
+  const ss=[...S.sessions].filter(s=>s.items.length).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,15),rs=S.routines.slice(0,30);
+  sh.innerHTML=`<div class="dmabg" data-dm="aclose"></div><div class="dmash"><div class="dmagrip"></div><div class="dmatabs"><button class="${tab==='sess'?'on':''}" data-dm="atab" data-v="sess">🏋️ 운동 기록</button><button class="${tab==='rt'?'on':''}" data-dm="atab" data-v="rt">📋 루틴</button></div><div class="dmalist">${tab==='sess'?(ss.length?ss.map(s=>`<div class="dmarow" data-dm="asend" data-v="sess" data-id="${s.id}"><div><b>${esc(s.title||'운동')}</b><span>${shortDate(s.date)} · ${s.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">운동 기록이 없어요</div>'):(rs.length?rs.map(r=>`<div class="dmarow" data-dm="asend" data-v="rt" data-id="${r.id}"><div><b>${esc(r.name||'루틴')}</b><span>${r.items.length}종목</span></div><i>보내기</i></div>`).join(''):'<div class="dmempty" style="padding:30px">저장된 루틴이 없어요</div>')}</div></div>`}
+function dmAttClose(){const sh=$('#dmatt');if(sh){sh.classList.add('out');setTimeout(()=>sh.remove(),220)}}
+function dmAttSend(k,id){const p=DM.peer;if(!p)return;
+  if(k==='sess'){const s=S.sessions.find(x=>x.id===id);if(!s)return;dmSend(p,'🏋️ 운동 기록: '+(s.title||'운동'),{k:'sess',d:dmPackSess(s)})}
+  else{const r=S.routines.find(x=>x.id===id);if(!r)return;dmSend(p,'📋 루틴: '+(r.name||'루틴'),{k:'rt',d:dmPackRt(r)})}
+  dmAttClose()}
+function dmRtSave(mid){const {cv}=dmConvs(),m=(cv[DM.peer]||[]).find(x=>x.id===mid);if(!m||!m.d)return;const d=m.d;
+  const items=(d.it||[]).map(x=>{const nm=String(x.n||''),ex=S.exercises.find(e=>e.name===nm);const id=ex?ex.id:exId(nm,'기타',x.u==='초'?'time':'wr');return {exId:id,note:'',sets:(Array.isArray(x.r)&&x.r.length?x.r:[10]).map(r=>({w:'',r:+r||0}))}});
+  S.routines.push({id:uid(),name:String(d.ti||'받은 루틴').slice(0,40)+' (from '+dmNick(DM.peer)+')',items});save();toast('루틴 탭에 저장했어요 📋');sfx('success')}
+async function dmLike(mid,force){const p=DM.peer;if(!p||!mid)return;const {lk}=dmConvs(),has=((lk[p]||{})[mid]||'').includes('m');
+  const b=document.querySelector(`.dmb[data-mid="${CSS.escape(mid)}"]`);if(b&&!has){const h=document.createElement('i');h.className='dmheart';h.textContent='❤️';b.appendChild(h);setTimeout(()=>h.remove(),900);sfx('dmlike');try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}}
+  try{await dmWrite(p,o=>({msgs:o.msgs,rd:o.rd,lk:has?o.lk.filter(i=>i!==mid):o.lk.concat(mid)}))}catch(e){toast('하트를 남기지 못했어요',true)}}
+function dmTapInit(L){let lt=0,lid='';L.addEventListener('dblclick',e=>{const b=e.target.closest('.dmb[data-mid]');if(b&&!e.target.closest('button'))dmLike(b.dataset.mid)});
+  L.addEventListener('touchend',e=>{const b=e.target.closest('.dmb[data-mid]');if(!b||e.target.closest('button'))return;const now=Date.now(),id=b.dataset.mid;if(id===lid&&now-lt<320){e.preventDefault();dmLike(id);lt=0;lid=''}else{lt=now;lid=id}},{passive:false})}
 function dmRender(){
   let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
   const p=DM.peer;
   v.innerHTML=p?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(p,36)}<div class="dmht"><b>${esc(dmNick(p))}</b><span>${esc(dmStatus(p))}</span></div><button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button></div>
     <div class="dmlist" id="dmlist">${dmMsgs()}</div>
-    <form class="dmin" id="dmform"><div class="dmbox"><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend" id="dmsendb">보내기</button></div></form>`
+    <form class="dmin" id="dmform"><div class="dmbox"><button type="button" class="dmplus" data-dm="att" aria-label="공유">＋</button><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend" id="dmsendb">보내기</button></div></form>`
    :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${esc(cnick()||'나')}</b></div><button class="dmx sm" data-dm="new" title="새 메시지">✏️</button></div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
-  if(p){const L=$('#dmlist');L.scrollTop=L.scrollHeight;const f=$('#dmform'),i=$('#dmtxt');
+  if(p){const L=$('#dmlist');L.scrollTop=L.scrollHeight;dmTapInit(L);const f=$('#dmform'),i=$('#dmtxt');
     const sync=()=>v.classList.toggle('typing',!!i.value.trim());i.addEventListener('input',sync);sync();
     f.addEventListener('submit',e=>{e.preventDefault();const t=i.value;i.value='';sync();dmSend(p,t);i.focus()})}
 }
@@ -2711,7 +2765,7 @@ function dmPaint(force){if(!DM.open)return;const L=$('#dmlist');if(!L){dmRender(
   const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm;
   if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
-  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪')});
+  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪');else if(a==='att')dmAttOpen('sess');else if(a==='atab')dmAttOpen(b.dataset.v);else if(a==='aclose')dmAttClose();else if(a==='asend')dmAttSend(b.dataset.v,b.dataset.id);else if(a==='rtsave')dmRtSave(b.dataset.mid);else if(a==='heart')dmLike(b.closest('.dmb').dataset.mid,true)});
 
 function profHtml(m){
   let x=C.lb.find(y=>y.id===m.u);
@@ -2735,7 +2789,7 @@ function profHtml(m){
   ${x.lvm&&typeof x.lvm==='object'?`<div class="mtw">${miniTree(x.lvm)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
   <div class="muted sm c" style="margin-top:14px">${x.since?`${shortDate(x.since)}부터 기록 · `:''}공유한 글 ${posts}개${ago!=null?` · ${ago?ago+'일 전':'오늘'} 업데이트`:''}</div>
   ${!me&&store.uid&&S.comm&&S.comm.on?`<button class="btn big dmprof" data-act="dm-to" data-u="${esc(x.id)}">💬 메시지 보내기</button>`:''}
-  ${!me&&store.uid&&S.comm&&S.comm.on?`<div class="pkcard"><div class="pfh" style="margin-top:0">👉 콕 찌르기 <span class="muted sm" style="font-weight:500">살짝 깨워서 운동시키기</span></div><div class="pkchips">${PK_MSG.map(t=>`<button class="chip pkc" data-act="pk-send" data-u="${esc(x.id)}" data-v="${esc(t)}">${esc(t)}</button>`).join('')}</div></div>`:''}
+  ${!me&&store.uid&&S.comm&&S.comm.on&&!(x.nopk||(Array.isArray(x.pkb)&&x.pkb.includes(store.uid)))?`<div class="pkcard"><div class="pfh" style="margin-top:0">👉 콕 찌르기 <span class="muted sm" style="font-weight:500">살짝 깨워서 운동시키기</span></div><div class="pkchips">${PK_MSG.map(t=>`<button class="chip pkc" data-act="pk-send" data-u="${esc(x.id)}" data-v="${esc(t)}">${esc(t)}</button>`).join('')}</div></div>`:''}
   ${me?`<div class="row" style="gap:8px;margin-top:12px"><input class="inp" maxlength="60" placeholder="한 줄 소개 (예: 플란체 정복 중)" data-bind="cm-bio" value="${esc((S.comm&&S.comm.bio)||'')}"><button class="btn pri" style="white-space:nowrap" data-act="cm-biosave">저장</button></div>`:''}
   <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`;
 }
@@ -4298,6 +4352,10 @@ document.addEventListener('click',e=>{
     case 'push-url':{const v=(($('#puurl')||{}).value||'').trim();if(v&&!/^https:\/\/[\w.-]+(\/.*)?$/.test(v)){toast('https:// 로 시작하는 주소를 넣어주세요');break}store.db.collection('meta').doc('push').set({url:v}).then(()=>{PSH.url=v;toast(v?'푸쉬 서버 주소를 저장했어요':'푸쉬 서버 주소를 지웠어요');renderView(false)}).catch(e=>toast('저장하지 못했어요 (규칙을 먼저 게시했는지 확인)'));break}
     case 'dm-open':dmOpen();break;
     case 'dm-to':closeModal();dmOpen(d.u);break;
+    case 'pk-all':{const b=pkB();b.all=!b.all;S.pkBlock=b;save();commSync(true);toast(b.all?'콕 찌르기를 받지 않아요':'콕 찌르기를 다시 받아요');renderView(false);break}
+    case 'pk-unblock':pkBlock(d.u,false);toast('차단을 풀었어요');break;
+    case 'pk-blkpick':openModal({type:'pkblk'});break;
+    case 'pk-blktog':{const on=!pkB().ids.includes(d.u);pkBlock(d.u,on);renderModal();break}
     case 'pk-send':if(d.u)pkSend(d.u,d.v);break;
     case 'cm-prof':if(d.u){const x=C.lb.find(y=>y.id===d.u);if(x)rankSfx(stTier(Math.max(0,Math.min(37,x.s|0))).i);openModal({type:'prof',u:d.u})}break;
     case 'cm-biosave':{S.comm=Object.assign({},S.comm||{},{bio:String(U.cmBio!=null?U.cmBio:(S.comm&&S.comm.bio)||'').trim().slice(0,60)});save();commSync(true);const x=C.lb.find(y=>y.id===store.uid);if(x)x.bio=S.comm.bio;renderModal();toast('소개를 저장했어요');break}
