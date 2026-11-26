@@ -335,6 +335,34 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .lbe{position:relative}.lbdot{position:absolute;right:-1px;bottom:1px;width:11px;height:11px;border-radius:50%;background:#30d158;border:2px solid #1c1c1e}.lbdot.wk{background:#ff9f0a;animation:lbpul 1.4s infinite}
 @keyframes lbpul{50%{box-shadow:0 0 0 4px rgba(255,159,10,.25)}}
 .lbst{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.lbs{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--mute);white-space:nowrap}.lbs.on{color:#30d158;background:rgba(48,209,88,.12)}.lbs.wk{color:#ff9f0a;background:rgba(255,159,10,.14)}.lbs.done{color:#64d2ff;background:rgba(100,210,255,.12)}.lbs.rest{color:#bf9fff;background:rgba(191,159,255,.13)}
+.cmtop{display:flex;align-items:center;justify-content:center;position:relative}.dmbtn{position:absolute;left:2px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--gb);background:rgba(255,255,255,.06);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}.dmbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.dmbadge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#ff3b30;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+nav [data-v="comm"]{position:relative}.navdm{position:absolute;top:4px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:#ff3b30}
+.btn.dmprof{margin-top:14px;background:linear-gradient(135deg,#5b51d8,#c13584 60%,#f77737)!important;border:0!important;color:#fff;font-weight:800}
+#dmv{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column;animation:dmin .26s cubic-bezier(.2,.8,.2,1)}#dmv.out{animation:dmout .26s forwards}
+@keyframes dmin{from{transform:translateX(100%)}}@keyframes dmout{to{transform:translateX(100%)}}
+.dmhd{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dmx{width:40px;height:40px;border:0;background:none;color:var(--ink);font-size:34px;line-height:1;cursor:pointer;padding:0}.dmx.sm{font-size:20px;margin-left:auto}
+.dmht{display:flex;flex-direction:column;min-width:0}.dmht b{font-size:16px}.dmht span{font-size:12px;color:var(--mute)}
+.dmav{position:relative;flex-shrink:0;border-radius:50%;background:radial-gradient(circle,#2a2a2e,#141416);display:inline-flex;align-items:center;justify-content:center}.dmav .lbdot{right:0;bottom:0}
+.dmlist{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:10px 12px 14px;display:flex;flex-direction:column;gap:2px;-webkit-overflow-scrolling:touch}.dmlist.inbox{gap:0;padding:0}
+.dmsub{font-weight:800;font-size:16px;padding:14px 16px 8px}
+.dmrow{display:flex;align-items:center;gap:12px;padding:9px 16px;cursor:pointer}.dmrow:active{background:rgba(255,255,255,.05)}.dmrt{display:flex;flex-direction:column;min-width:0;flex:1}.dmrt b{font-size:15px;font-weight:600}.dmrt span{font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dmrow.un .dmrt b,.dmrow.un .dmrt span{font-weight:800;color:var(--ink)}.dmdot{width:9px;height:9px;border-radius:50%;background:#3797f0}
+.dmempty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:70px 20px;text-align:center}.dmempty span{color:var(--mute);font-size:14px}.dmempty .btn{margin-top:10px}
+.dmhello{display:flex;flex-direction:column;align-items:center;gap:6px;margin:auto 0;padding:30px 0;text-align:center}.dmhello b{font-size:18px}.dmhello span{color:var(--mute);font-size:13px}
+.dmtime{align-self:center;font-size:11px;color:var(--mute);margin:14px 0 8px}
+.dmm{display:flex;align-items:flex-end;gap:6px;max-width:100%}.dmm.me{justify-content:flex-end}.dmm.tail{margin-bottom:6px}.dmsp{width:28px;flex-shrink:0}
+.dmb{max-width:72%;padding:9px 13px;border-radius:20px;font-size:15px;line-height:1.38;white-space:pre-wrap;word-break:break-word;animation:dmpop .22s ease-out}
+.dmm.you .dmb{background:#262626;color:#fff}.dmm.me .dmb{background:linear-gradient(135deg,#7a3cf0,#3797f0);color:#fff}.dmm.me:not(.tail) .dmb{border-bottom-right-radius:6px}.dmm.you:not(.tail) .dmb{border-bottom-left-radius:6px}
+.dmb.big{background:none!important;font-size:42px;padding:0 4px;line-height:1.1}.dmb.pend{opacity:.6}
+@keyframes dmpop{from{transform:scale(.92);opacity:0}}
+.dmseen{align-self:flex-end;font-size:11px;color:var(--mute);margin:2px 4px 0}
+.dmin{padding:8px 10px calc(env(safe-area-inset-bottom) + 10px)}.dmbox{display:flex;align-items:center;gap:4px;border-radius:24px;background:#262626;padding:4px 6px 4px 16px}
+.dmbox input{flex:1;min-width:0;background:none;border:0;outline:0;color:#fff;font-size:16px;padding:9px 0}
+.dmq{border:0;background:none;font-size:22px;cursor:pointer;padding:4px}.dmsend{display:none;border:0;background:none;color:#3797f0;font-weight:800;font-size:15px;padding:6px 10px;cursor:pointer}
+#dmv.typing .dmq{display:none}#dmv.typing .dmsend{display:block}
+.dmtoast{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 10px);transform:translateX(-50%);z-index:400;display:flex;align-items:center;gap:10px;width:min(360px,92vw);padding:10px 14px;border-radius:18px;background:rgba(38,38,40,.96);border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5);cursor:pointer;animation:dmtin .3s cubic-bezier(.2,1.3,.4,1)}.dmtoast.out{animation:dmtout .3s forwards}.dmtoast div{display:flex;flex-direction:column;min-width:0}.dmtoast span{font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes dmtin{from{transform:translate(-50%,-120%)}}@keyframes dmtout{to{transform:translate(-50%,-140%);opacity:0}}
 .asq{font-weight:700;font-size:14px;margin:16px 2px 8px}.asc{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asb{display:flex;align-items:center;gap:6px;padding:10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}.asb span{font-size:18px}.asb.on{border-color:#ff5a5a;background:rgba(255,69,58,.14)}
 .asx{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}.asx:last-child{border-bottom:0}.asx .art{width:64px;height:43px;flex-shrink:0}.btn.pri.asgo{background:#ff453a;border-color:#ff453a}
 .btn.pri.rkch.big{position:relative;overflow:hidden;font-size:18px;padding:14px 14px;background:linear-gradient(120deg,var(--c2),var(--c1),#fff8,var(--c1),var(--c2));background-size:300% 100%;animation:rkflow 3s linear infinite,rkpulse 1.6s ease-in-out infinite;box-shadow:0 0 0 2px var(--c1),0 0 26px var(--c1);color:#111;text-shadow:0 1px 0 #fff6}
@@ -761,6 +789,8 @@ const SFX={
   slot1:[[1047,0,.18,'sine',.16],[2093,.02,.25,'sine',.05]],
   slot2:[[1319,0,.18,'sine',.16],[2637,.02,.25,'sine',.05]],
   slot3:[[1568,0,.2,'sine',.16],[3136,.02,.3,'sine',.05],[2093,.12,.3,'sine',.07]],
+  dmsend:[[880,0,.06,'sine',.1],[1320,.05,.08,'sine',.08]],
+  dmrecv:[[1046,0,.09,'sine',.12],[1568,.09,.14,'sine',.1]],
   pokesend:[[700,0,.05,'triangle',.12],[1050,.05,.09,'triangle',.11]],
   fold:[[540,0,.08,'sine',.11],[400,.06,.1,'sine',.10],[290,.12,.16,'triangle',.09]],
   unfold:[[290,0,.08,'sine',.11],[430,.06,.1,'sine',.11],[640,.12,.18,'triangle',.10]],
@@ -1622,8 +1652,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.26a';
-const APP_NEWS=['🏆 랭킹에서 친구가 접속 중인지, 운동 중인지, 오늘 운동했는지, 휴식일인지 보여요','🌳 기술 트리에서 기술을 누르면 하는 방법·피할 실수 등 자세한 설명이 나와요','🌱 기술 트리 초보 / 기본 전환'];
+const APP_VER='2026.11.26b';
+const APP_NEWS=['💬 DM: 커뮤니티 왼쪽 위 ✈️ 버튼이나 친구 프로필에서 메시지를 주고받을 수 있어요','🏆 랭킹에서 친구 접속·운동 중·오늘 운동·휴식일 표시','🌳 기술 트리 상세 설명'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -1666,7 +1696,8 @@ async function presPull(){
   if(!store.db)return;const now=Date.now();
   try{const q=await store.db.collection('on').where('ts','>',now-150000).get();PRES.on=q.docs.map(d=>Object.assign({id:d.id},d.data()||{}));PRES.t=now;
     if(U.tab==='log'){const el=$('#presbar');if(el)el.outerHTML=presBar()}
-    if(U.tab==='comm'&&!U.modal){const a=document.activeElement;if(!a||!/INPUT|TEXTAREA/.test(a.tagName))renderView(false)}}catch(e){}
+    if(DM.open)dmPaint();
+    if(U.tab==='comm'&&!U.modal&&!DM.open){const a=document.activeElement;if(!a||!/INPUT|TEXTAREA/.test(a.tagName))renderView(false)}}catch(e){}
 }
 async function presAdmin(){
   if(!C.admin||!store.db)return;
@@ -2447,7 +2478,7 @@ const commAvail=()=>!!(store.db&&store.uid);
 function commStart(){
   if(C.subbed||!store.db)return;C.subbed=true;
   const un=(name,fn)=>{try{store.db.collection(name).onSnapshot(s=>{try{fn(s.docs.map(d=>Object.assign({id:d.id},d.data()||{})))}catch(e){}C.got[name]=true;C.err='';commRefresh()},e=>{C.err=(e&&e.code)||'err';commRefresh()})}catch(e){C.err='err'}};
-  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
+  un('lb',a=>{C.lb=a});un('feed',a=>{C.feed=a});un('cmts',a=>{C.cmts=a});un('likes',a=>{C.likes={};a.forEach(x=>{C.likes[x.id]=Array.isArray(x.ids)?x.ids:[]})});un('pk',pkSnap);try{dmStart()}catch(e){}try{if(!PRES.st){PRES.st=1;presStart()}}catch(e){}try{puLoad()}catch(e){}
   setTimeout(()=>{if(!C.got.lb){C.late=true;commRefresh()}},10000);
 }
 function commRefresh(force){if(U.tab!=='comm')return;const a=document.activeElement;if(!force&&a&&a.tagName==='INPUT'&&$('#view').contains(a))return;const y=window.scrollY;renderView(false);window.scrollTo(0,y)}
@@ -2575,6 +2606,107 @@ async function pkSend(to,m){
   const r=await puSend(to,`👉 ${cnick()||'친구'}님이 콕 찔렀어요`,String(m||'운동할 시간이야!').slice(0,40));
   toast(r==='sent'?`👉 ${fn}님을 콕 찔렀어요 · 🔔 알림 보냄`:r==='off'?`👉 ${fn}님을 콕 찔렀어요 · 친구가 앱을 열면 보여요`:`👉 ${fn}님을 콕 찔렀어요`);
 }
+/* ---------- 💬 DM (인스타 스타일 메시지) ----------
+   사이트: dm/{a+b+보낸사람} 문서 = 그 사람이 이 대화에 보낸 메시지 (대화 두 사람만 읽기)
+   아티팩트: dm/{내 id} 문서 = 내가 보낸 모든 메시지 (미리보기용) */
+const DM={docs:[],open:false,peer:null,sub:false,last:0,seenTs:{},busy:false};
+const dmPair=o=>[store.uid,o].sort();
+const dmFB=()=>!!window.FB_MODE;
+function dmStart(){
+  if(DM.sub||!store.db||!store.uid)return;DM.sub=true;
+  const on=a=>{const first=!DM.loaded;DM.docs=a;DM.loaded=true;dmNotify(first);dmPaint();dmBadge()};
+  try{
+    const q=dmFB()?store.db.collection('dm').where('u','array-contains',store.uid):store.db.collection('dm');
+    q.onSnapshot(s=>on(s.docs.map(d=>Object.assign({id:d.id},d.data()||{}))),e=>{DM.err=1});
+  }catch(e){DM.err=1}
+}
+/* 대화별로 정리: {peer:[{from,t,ts,id}], ...}, 상대가 읽은 시각 */
+function dmConvs(){
+  const me=store.uid,cv={},rd={};const add=(p,m)=>{(cv[p]=cv[p]||[]).push(m)};
+  DM.docs.forEach(d=>{const ms=Array.isArray(d.msgs)?d.msgs:[];
+    if(Array.isArray(d.u)){const s=d.s,p=d.u.find(x=>x!==me);if(!p||!d.u.includes(me))return;ms.forEach(m=>m&&add(p,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id}));if(s!==me)rd[p]=+d.rd||0}
+    else{const s=d.id;if(s===me)ms.forEach(m=>m&&m.to&&add(m.to,{from:me,t:String(m.t||''),ts:+m.ts||0,id:m.id}));else{ms.forEach(m=>m&&m.to===me&&add(s,{from:s,t:String(m.t||''),ts:+m.ts||0,id:m.id}));const r=d.rd&&d.rd[me];if(r)rd[s]=+r}}});
+  Object.values(cv).forEach(L=>L.sort((a,b)=>a.ts-b.ts));
+  return {cv,rd};
+}
+function dmMyDoc(p){const me=store.uid;return dmFB()?DM.docs.find(d=>d.id===dmPair(p).join('+')+'+'+me):DM.docs.find(d=>d.id===me)}
+function dmReadAt(p){const d=dmMyDoc(p);if(!d)return 0;return dmFB()?(+d.rd||0):((d.rd||{})[p]||0)}
+function dmUnread(){const {cv}=dmConvs(),me=store.uid;let n=0;Object.entries(cv).forEach(([p,L])=>{const r=Math.max(dmReadAt(p),DM.seenTs[p]||0);n+=L.filter(m=>m.from!==me&&m.ts>r).length});return n}
+function dmNick(p){const x=C.lb.find(y=>y.id===p);if(x&&x.nick)return String(x.nick).slice(0,12);const d=DM.docs.find(d=>(d.s||d.id)===p&&d.nick);return d?String(d.nick).slice(0,12):'친구'}
+function dmAvatar(p,sz){const x=C.lb.find(y=>y.id===p),i=x&&typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0,on=lbOnline({id:p});return `<span class="dmav" style="width:${sz}px;height:${sz}px">${emblem(i,sz-6)}${on?`<i class="lbdot ${on}"></i>`:''}</span>`}
+function dmAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return '방금';if(d<3600)return Math.floor(d/60)+'분';if(d<86400)return Math.floor(d/3600)+'시간';if(d<604800)return Math.floor(d/86400)+'일';const t=new Date(ts);return (t.getMonth()+1)+'/'+t.getDate()}
+function dmStatus(p){const on=lbOnline({id:p});if(on==='wk')return '🏋️ 지금 운동 중';if(on)return '지금 활동 중';const o=PRES.on.find(y=>y.id===p);return o?`${dmAgo(+o.ts)} 전 활동`:''}
+async function dmWrite(p,fn){
+  const me=store.uid,d=dmMyDoc(p);
+  if(dmFB()){const u=dmPair(p),id=u.join('+')+'+'+me,o=d||{};const nd=fn({msgs:Array.isArray(o.msgs)?o.msgs.slice():[],rd:+o.rd||0});
+    await store.db.collection('dm').doc(id).set({u,s:me,nick:cnick(),msgs:nd.msgs.slice(-100),rd:nd.rd||0,ts:Date.now()})}
+  else{const o=d||{};let all=Array.isArray(o.msgs)?o.msgs.slice():[],rd=Object.assign({},o.rd||{});
+    const mine=all.filter(m=>m.to===p).map(m=>({t:m.t,ts:m.ts,id:m.id})),nd=fn({msgs:mine,rd:rd[p]||0});
+    all=all.filter(m=>m.to!==p).concat(nd.msgs.map(m=>Object.assign({to:p},m)));all.sort((a,b)=>a.ts-b.ts);rd[p]=nd.rd||0;
+    await store.db.collection('dm').doc(me).set({nick:cnick(),msgs:all.slice(-300),rd,ts:Date.now()})}
+}
+async function dmSend(p,t){
+  t=String(t||'').trim().slice(0,500);if(!t||!p||DM.busy)return;if(needJoin())return;
+  const now=Date.now();if(now-DM.last<300)return;DM.last=now;DM.busy=true;
+  const m={t,ts:now,id:uid()};
+  DM.pend=(DM.pend||[]).concat([{p,from:store.uid,t,ts:now,id:m.id,pend:1}]);dmPaint(true);sfx('dmsend');
+  try{await dmWrite(p,o=>({msgs:o.msgs.concat(m),rd:Math.max(o.rd,now)}));puSend&&puSend(p,`💬 ${cnick()||'친구'}`,t.slice(0,80)).catch(()=>{})}
+  catch(e){toast('메시지를 보내지 못했어요',true);DM.pend=DM.pend.filter(x=>x.id!==m.id);dmPaint(true)}
+  finally{DM.busy=false;DM.pend=(DM.pend||[]).filter(x=>x.id!==m.id||!DM.docs.some(d=>(d.msgs||[]).some(y=>y.id===m.id)))}
+}
+async function dmMarkRead(p){const {cv}=dmConvs(),L=cv[p]||[],last=L.filter(m=>m.from!==store.uid).pop();if(!last)return;
+  DM.seenTs[p]=last.ts;dmBadge();if(dmReadAt(p)>=last.ts)return;try{await dmWrite(p,o=>({msgs:o.msgs,rd:last.ts}))}catch(e){}}
+function dmNotify(first){
+  if(first){DM.seenMax=Math.max(0,...DM.docs.flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));return}
+  const {cv}=dmConvs(),me=store.uid;let nw=null;
+  Object.entries(cv).forEach(([p,L])=>L.forEach(m=>{if(m.from!==me&&m.ts>(DM.seenMax||0)&&(!nw||m.ts>nw.m.ts))nw={p,m}}));
+  DM.seenMax=Math.max(DM.seenMax||0,...DM.docs.flatMap(d=>(d.msgs||[]).map(m=>+m.ts||0)));
+  if(!nw)return;
+  if(DM.open&&DM.peer===nw.p&&!document.hidden){sfx('dmrecv');dmMarkRead(nw.p);return}
+  sfx('dmrecv');try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}
+  const el=document.createElement('div');el.className='dmtoast';el.innerHTML=`${dmAvatar(nw.p,34)}<div><b>${esc(dmNick(nw.p))}</b><span>${esc(nw.m.t.slice(0,60))}</span></div>`;
+  el.onclick=()=>{el.remove();dmOpen(nw.p)};document.body.appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},3500);
+}
+function dmBadge(){const n=dmUnread();document.querySelectorAll('.dmbadge').forEach(b=>{b.textContent=n>9?'9+':n;b.style.display=n?'':'none'});
+  const nb=document.querySelector('nav [data-v="comm"]');if(nb){let i=nb.querySelector('.navdm');if(n&&!i){i=document.createElement('i');i.className='navdm';nb.appendChild(i)}if(!n&&i)i.remove()}}
+function dmOpen(p){if(needJoin())return;dmStart();DM.open=true;DM.peer=p||null;DM.pick=false;dmRender();if(p)dmMarkRead(p)}
+function dmClose(){DM.open=false;DM.peer=null;const v=$('#dmv');if(v){v.classList.add('out');setTimeout(()=>v.remove(),260)}dmBadge()}
+function dmInbox(){
+  if(DM.err)return `<div class="dmempty"><b>메시지를 불러오지 못했어요</b><span>잠시 뒤 다시 열어주세요</span></div>`;
+  const {cv}=dmConvs(),me=store.uid,rows=Object.entries(cv).map(([p,L])=>({p,L,last:L[L.length-1]})).sort((a,b)=>b.last.ts-a.last.ts);
+  if(DM.pick){const ppl=C.lb.filter(x=>x.id!==me);return `<div class="dmsub">새 메시지 · 받는 사람</div>${ppl.length?ppl.map(x=>`<div class="dmrow" data-dm="peer" data-u="${esc(x.id)}">${dmAvatar(x.id,48)}<div class="dmrt"><b>${esc(String(x.nick).slice(0,12))}</b><span>${esc(dmStatus(x.id)||stName(Math.max(0,Math.min(37,x.s|0))))}</span></div></div>`).join(''):'<div class="dmempty">랭킹에 참여한 친구가 아직 없어요</div>'}`}
+  if(!rows.length)return `<div class="dmempty"><div style="font-size:54px">💬</div><b>메시지를 보내보세요</b><span>친구에게 운동 얘기를 나눠보세요</span><button class="btn pri" data-dm="new">메시지 보내기</button></div>`;
+  return `<div class="dmsub">메시지</div>`+rows.map(({p,L,last})=>{const r=Math.max(dmReadAt(p),DM.seenTs[p]||0),un=L.filter(m=>m.from!==me&&m.ts>r).length,mine=last.from===me;
+    const prev=un>1?`새 메시지 ${un}개`:(mine?'나: ':'')+last.t;return `<div class="dmrow ${un?'un':''}" data-dm="peer" data-u="${esc(p)}">${dmAvatar(p,54)}<div class="dmrt"><b>${esc(dmNick(p))}</b><span>${esc(prev.slice(0,40))} · ${dmAgo(last.ts)}</span></div>${un?'<i class="dmdot"></i>':''}</div>`}).join('');
+}
+function dmMsgs(){
+  const p=DM.peer,me=store.uid,{cv,rd}=dmConvs(),L=(cv[p]||[]).concat((DM.pend||[]).filter(x=>x.p===p&&!(cv[p]||[]).some(y=>y.id===x.id)));
+  if(!L.length)return `<div class="dmhello">${dmAvatar(p,86)}<b>${esc(dmNick(p))}</b><span>운동로그 친구 · 첫 메시지를 보내보세요 👋</span></div>`;
+  let h='',prevTs=0,prevFrom='';const lastMine=[...L].reverse().find(m=>m.from===me);
+  L.forEach((m,i)=>{const nx=L[i+1];if(m.ts-prevTs>3600000){const t=new Date(m.ts);h+=`<div class="dmtime">${shortDate(ymd(t))} ${t.getHours()<12?'오전':'오후'} ${(t.getHours()%12)||12}:${String(t.getMinutes()).padStart(2,'0')}</div>`;prevFrom=''}
+    const mine=m.from===me,tail=!nx||nx.from!==m.from||nx.ts-m.ts>3600000,big=/^(\p{Extended_Pictographic}|️|‍){1,3}$/u.test(m.t);
+    h+=`<div class="dmm ${mine?'me':'you'} ${tail?'tail':''}">${!mine&&tail?dmAvatar(p,28):!mine?'<span class="dmsp"></span>':''}<div class="dmb ${big?'big':''} ${m.pend?'pend':''}">${esc(m.t)}</div></div>`;prevTs=m.ts;prevFrom=m.from});
+  if(lastMine&&L[L.length-1].from===me)h+=`<div class="dmseen">${lastMine.pend?'보내는 중…':(rd[p]||0)>=lastMine.ts?'읽음':'전송됨'}</div>`;
+  return h;
+}
+function dmRender(){
+  let v=$('#dmv');if(!v){v=document.createElement('div');v.id='dmv';document.body.appendChild(v)}
+  const p=DM.peer;
+  v.innerHTML=p?`<div class="dmhd"><button class="dmx" data-dm="back" aria-label="뒤로">‹</button>${dmAvatar(p,36)}<div class="dmht"><b>${esc(dmNick(p))}</b><span>${esc(dmStatus(p))}</span></div><button class="dmx sm" data-dm="poke" title="콕 찌르기">👉</button></div>
+    <div class="dmlist" id="dmlist">${dmMsgs()}</div>
+    <form class="dmin" id="dmform"><div class="dmbox"><input id="dmtxt" maxlength="500" placeholder="메시지 보내기..." autocomplete="off"><button type="button" class="dmq" data-dm="q" data-v="💪">💪</button><button type="button" class="dmq" data-dm="q" data-v="🔥">🔥</button><button type="submit" class="dmsend" id="dmsendb">보내기</button></div></form>`
+   :`<div class="dmhd"><button class="dmx" data-dm="${DM.pick?'unpick':'close'}" aria-label="닫기">‹</button><div class="dmht"><b>${esc(cnick()||'나')}</b></div><button class="dmx sm" data-dm="new" title="새 메시지">✏️</button></div><div class="dmlist inbox" id="dmlist">${dmInbox()}</div>`;
+  if(p){const L=$('#dmlist');L.scrollTop=L.scrollHeight;const f=$('#dmform'),i=$('#dmtxt');
+    const sync=()=>v.classList.toggle('typing',!!i.value.trim());i.addEventListener('input',sync);sync();
+    f.addEventListener('submit',e=>{e.preventDefault();const t=i.value;i.value='';sync();dmSend(p,t);i.focus()})}
+}
+function dmPaint(force){if(!DM.open)return;const L=$('#dmlist');if(!L){dmRender();return}
+  const atEnd=L.scrollHeight-L.scrollTop-L.clientHeight<80;L.innerHTML=DM.peer?dmMsgs():dmInbox();if(DM.peer&&(atEnd||force))L.scrollTop=L.scrollHeight;
+  const st=document.querySelector('#dmv .dmht span');if(st&&DM.peer)st.textContent=dmStatus(DM.peer);if(DM.peer&&!document.hidden)dmMarkRead(DM.peer)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-dm]');if(!b||!b.closest('#dmv,.dmtoast'))return;const a=b.dataset.dm;
+  if(a==='close')dmClose();else if(a==='back'){DM.peer=null;dmRender()}else if(a==='new'){DM.pick=true;DM.peer=null;dmRender()}else if(a==='unpick'){DM.pick=false;dmRender()}
+  else if(a==='peer'){DM.pick=false;DM.peer=b.dataset.u;dmRender();dmMarkRead(DM.peer)}else if(a==='q'&&DM.peer)dmSend(DM.peer,b.dataset.v);else if(a==='poke'&&DM.peer)pkSend(DM.peer,'운동할 시간이야! 💪')});
+
 function profHtml(m){
   let x=C.lb.find(y=>y.id===m.u);
   if(m.u&&m.u===store.uid&&S.comm&&S.comm.on){try{x=Object.assign({},x||{},lbDoc(),{id:store.uid})}catch(e){}}
@@ -2596,6 +2728,7 @@ function profHtml(m){
   ${top?`<div class="row" style="gap:6px;flex-wrap:wrap">${top}</div>`:''}
   ${x.lvm&&typeof x.lvm==='object'?`<div class="mtw">${miniTree(x.lvm)}</div>`:`<div class="muted sm" style="margin-top:8px">아직 기술 트리 정보가 없어요. 새 버전으로 앱을 열면 보여요.</div>`}
   <div class="muted sm c" style="margin-top:14px">${x.since?`${shortDate(x.since)}부터 기록 · `:''}공유한 글 ${posts}개${ago!=null?` · ${ago?ago+'일 전':'오늘'} 업데이트`:''}</div>
+  ${!me&&store.uid&&S.comm&&S.comm.on?`<button class="btn big dmprof" data-act="dm-to" data-u="${esc(x.id)}">💬 메시지 보내기</button>`:''}
   ${!me&&store.uid&&S.comm&&S.comm.on?`<div class="pkcard"><div class="pfh" style="margin-top:0">👉 콕 찌르기 <span class="muted sm" style="font-weight:500">살짝 깨워서 운동시키기</span></div><div class="pkchips">${PK_MSG.map(t=>`<button class="chip pkc" data-act="pk-send" data-u="${esc(x.id)}" data-v="${esc(t)}">${esc(t)}</button>`).join('')}</div></div>`:''}
   ${me?`<div class="row" style="gap:8px;margin-top:12px"><input class="inp" maxlength="60" placeholder="한 줄 소개 (예: 플란체 정복 중)" data-bind="cm-bio" value="${esc((S.comm&&S.comm.bio)||'')}"><button class="btn pri" style="white-space:nowrap" data-act="cm-biosave">저장</button></div>`:''}
   <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`;
@@ -2620,7 +2753,8 @@ function commView(){
     const rt=p.kind==='routine';
     const its=(Array.isArray(p.items)?p.items:[]).slice(0,14).map(it=>{const rr=(Array.isArray(it.r)?it.r:[]).slice(0,12);return `<div class="cmit"><span>${esc(String(it.n||'').replace('스캠풀라','스캐풀라').slice(0,30))}</span><span class="muted">${rt?`${rr.length}세트 × ${(+rr[0]||0)}${it.t?'초':'회'}`:rr.map(v=>(+v||0)+(it.t?'초':'')).join(' · ')}</span></div>`}).join('');
     return `<div class="card cmpost"><div class="row between"><div class="row" style="gap:8px">${tkn!=null?`<span class="lbe">${emblem(tkn,26)}</span>`:''}<b data-act="cm-prof" data-u="${esc(uid)}" style="cursor:pointer">${esc(String(nick).slice(0,12))}</b><span class="muted sm">${p.date?shortDate(p.date):''}${p.dur?` · ${Math.max(1,Math.round(p.dur/60))}분`:''}</span></div>${uid===store.uid?`<button class="x" data-act="cm-del" data-p="${esc(p.id)}">✕</button>`:(C.admin?`<button class="btn sm bad" data-act="cm-adel" data-u="${esc(uid)}" data-p="${esc(p.id)}">관리자 삭제</button>`:'')}</div>${p.kind==='text'?'':`<div style="margin:8px 0 4px;font-weight:700">${rt?'<span class="chip aitag">루틴</span> ':p.kind==='tier'?'<span class="chip tiertag">티어표</span> ':''}${esc(p.kind==='tier'?String(nick).slice(0,12)+'의 티어표':String(p.title||'운동').slice(0,40))}</div>`}${p.txt?`<div class="cmtxt${p.kind==='text'?' big':''}">${esc(String(p.txt).slice(0,140))}</div>`:''}${p.kind==='tier'?tierPostHtml(p):its}${rt?(S.routines.some(r=>r.src===key)?`<button class="btn big cmimp done" disabled>✓ 내 루틴에 불러왔어요</button>`:`<button class="btn big cmimp" data-act="cm-copy" data-k="${esc(key)}">📥 루틴 불러오기</button>`):''}${p.memo?`<div class="cmmemo">${esc(String(p.memo).slice(0,200))}</div>`:''}<div class="row" style="margin-top:10px"><button class="btn sm ${liked?'on':''}" data-act="cm-like" data-k="${esc(key)}">${liked?'❤️':'🤍'} ${likes||''}</button><button class="btn sm ${C.open[key]?'on':''}" data-act="cmt-open" data-k="${esc(key)}">💬 ${cmtsFor(key).length||''}</button></div>${cmtHtml(key)}</div>`}).join('');
-  return `<h1>커뮤니티</h1><p class="sub">랭킹을 비교하고 운동 기록을 나눠요${C.admin?' · <span class="chip">관리자</span>':''}</p>
+  const dmn=store.uid&&joined?dmUnread():0;
+  return `<div class="cmtop"><h1>커뮤니티</h1>${store.uid&&joined?`<button class="dmbtn" data-act="dm-open" aria-label="메시지"><svg viewBox="0 0 24 24"><path d="M21.5 3.5 2.8 10.4c-.6.2-.6 1 0 1.3l7.3 2.6 2.6 7.3c.2.6 1.1.6 1.3 0l6.9-18.7c.2-.5-.3-1-.9-.8Z"/><path d="m10.1 14.3 5.2-5.2"/></svg><b class="dmbadge"${dmn?'':' style="display:none"'}>${dmn>9?'9+':dmn}</b></button>`:''}</div><p class="sub">랭킹을 비교하고 운동 기록을 나눠요${C.admin?' · <span class="chip">관리자</span>':''}</p>
   <div class="card cmrank"><div class="row between" style="margin-bottom:10px"><b style="font-size:18px">🏆 랭킹</b><span class="muted sm">${list.length}명 참여</span></div>
   <div class="seg" style="margin-bottom:8px;overflow-x:auto;flex-wrap:nowrap">${parts.map(p=>`<button class="btn ${C.part===p?'on':''}" data-act="cm-part" data-v="${p}">${p}</button>`).join('')}</div>
   ${top||(C.got.lb?`<div class="muted sm c" style="padding:14px 0">아직 참여한 사람이 없어요. 첫 번째가 되어 보세요!</div>`:'')}${status}</div>
@@ -4156,6 +4290,8 @@ document.addEventListener('click',e=>{
     case 'upd-copy':{const u=location.href.split('?')[0].split('#')[0];try{navigator.clipboard.writeText(u).then(()=>toast('주소를 복사했어요'),()=>toast(u))}catch(e){toast(u)}break}
     case 'push-tg':if(PSH.busy)break;if(puOn()&&'Notification' in window&&Notification.permission==='granted')puDisable();else puEnable();break;
     case 'push-url':{const v=(($('#puurl')||{}).value||'').trim();if(v&&!/^https:\/\/[\w.-]+(\/.*)?$/.test(v)){toast('https:// 로 시작하는 주소를 넣어주세요');break}store.db.collection('meta').doc('push').set({url:v}).then(()=>{PSH.url=v;toast(v?'푸쉬 서버 주소를 저장했어요':'푸쉬 서버 주소를 지웠어요');renderView(false)}).catch(e=>toast('저장하지 못했어요 (규칙을 먼저 게시했는지 확인)'));break}
+    case 'dm-open':dmOpen();break;
+    case 'dm-to':closeModal();dmOpen(d.u);break;
     case 'pk-send':if(d.u)pkSend(d.u,d.v);break;
     case 'cm-prof':if(d.u){const x=C.lb.find(y=>y.id===d.u);if(x)rankSfx(stTier(Math.max(0,Math.min(37,x.s|0))).i);openModal({type:'prof',u:d.u})}break;
     case 'cm-biosave':{S.comm=Object.assign({},S.comm||{},{bio:String(U.cmBio!=null?U.cmBio:(S.comm&&S.comm.bio)||'').trim().slice(0,60)});save();commSync(true);const x=C.lb.find(y=>y.id===store.uid);if(x)x.bio=S.comm.bio;renderModal();toast('소개를 저장했어요');break}
