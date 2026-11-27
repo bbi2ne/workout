@@ -370,6 +370,11 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .wctag{font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px;background:rgba(255,159,10,.2);color:#ffb340}.wcc.done .wctag{background:rgba(48,209,88,.2);color:#30d158}
 .wct{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:800;margin:12px 0 10px}.wce{font-size:26px}
 .wcbar{height:12px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:8px}.wcbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#ff9f0a,#ff375f);box-shadow:0 0 12px rgba(255,159,10,.6);transition:width .8s cubic-bezier(.22,1,.36,1)}.wcc.done .wcbar i{background:linear-gradient(90deg,#30d158,#64d2ff)}
+.wcbar.team{position:relative;height:16px}.wcbar.team i{background:linear-gradient(90deg,#64d2ff,#bf5af2,#ff375f);background-size:200% 100%;animation:wcflow 3s linear infinite}.wcbar.team s{position:absolute;top:3px;bottom:3px;width:2px;background:rgba(255,255,255,.25);border-radius:2px}
+@keyframes wcflow{to{background-position:200% 0}}
+.wcavs{display:flex;align-items:center}.wcav{display:inline-flex;width:30px;height:30px;border-radius:50%;background:#1c1c1e;border:2px solid #2c2c2e;align-items:center;justify-content:center;margin-left:-8px;position:relative}.wcav:first-child{margin-left:0}
+.wcme{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);font-size:14px}.wcme b{color:#64d2ff}
+.wcmvp{font-size:10px;font-weight:800;padding:2px 6px;border-radius:99px;background:linear-gradient(90deg,#ffd60a,#ff9f0a);color:#000;vertical-align:2px}
 .wcl{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
 .wcr{display:flex;align-items:center;gap:8px;padding:7px 6px;border-radius:10px;cursor:pointer}.wcr.me{background:rgba(255,255,255,.06)}.wcr b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wcn{width:22px;text-align:center;font-weight:800}.wcv{font-weight:800;color:#ffb340}
 .pfrm{position:relative;display:inline-flex;align-items:center;justify-content:center}.pfrm .emb{position:relative;z-index:1}
@@ -1775,8 +1780,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.27k';
-const APP_NEWS=['🏅 배지가 59개로 늘었어요 · 프로필 배지 옆 "모두 보기"에서 전부 볼 수 있어요','🏁 커뮤니티에 주간 챌린지가 생겼어요 · 매주 월요일에 새 도전이 열려요','🪑 1분 운동에 앉아서 할 수 있는 운동 12개가 생겼어요 (동작 애니메이션 포함)','🏅 프로필에 운동 잔디·배지·대표 기록·티어 효과·이번 주 요약이 생겼어요','👤 더보기가 프로필 탭으로 바뀌었어요 · 설정은 오른쪽 위 ⚙️에 있어요','🎰 공부하다 1분 운동: 룰렛이 돌아가며 운동을 뽑아요 · 운동 종류도 34개로 늘었어요','🪟 DM이 화면 가운데 창으로 부드럽게 열려요 (바깥을 누르면 닫혀요)','👋 DM에서 AI 코치 리즈를 뺐어요','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
+const APP_VER='2026.11.27m';
+const APP_NEWS=['🏅 배지가 59개로 늘었어요 · 프로필 배지 옆 "모두 보기"에서 전부 볼 수 있어요','🤝 주간 챌린지가 팀 챌린지로 바뀌었어요 · 함께하는 친구들의 티어에 맞춰 목표가 정해져요','🪑 1분 운동에 앉아서 할 수 있는 운동 12개가 생겼어요 (동작 애니메이션 포함)','🏅 프로필에 운동 잔디·배지·대표 기록·티어 효과·이번 주 요약이 생겼어요','👤 더보기가 프로필 탭으로 바뀌었어요 · 설정은 오른쪽 위 ⚙️에 있어요','🎰 공부하다 1분 운동: 룰렛이 돌아가며 운동을 뽑아요 · 운동 종류도 34개로 늘었어요','🪟 DM이 화면 가운데 창으로 부드럽게 열려요 (바깥을 누르면 닫혀요)','👋 DM에서 AI 코치 리즈를 뺐어요','🏅 DM에서 티어표 전체나 가슴·등 같은 부위별 티어를 하나씩 보낼 수 있어요','👥 DM 단체방: ✏️에서 친구를 2명 이상 고르면 단체방을 만들 수 있어요','🔕 대화 목록에서 꾹 누르면(우클릭) 알림 끄기','📥 받은 운동 기록을 꾹 눌러 내 운동에 불러오기','↩️ 메시지 꾹 눌러 전송 취소'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -2511,7 +2516,7 @@ const BADGES=[
  ['m1','🌟','첫 마스터','기술 1개 마스터',c=>c.mcount>=1,'skill'],['m3','✨','기술 3개','기술 3개 마스터',c=>c.mcount>=3,'skill'],['m10','🏵️','기술 수집가','기술 10개 마스터',c=>c.mcount>=10,'skill'],['m25','🎴','기술 25개','기술 25개 마스터',c=>c.mcount>=25,'skill'],['m50','🗿','기술 장인','기술 50개 마스터',c=>c.mcount>=50,'skill'],
  ['silver','🥈','실버 달성','종합 실버 티어',c=>c.tierI>=2,'tier'],['gold','🥇','골드 달성','종합 골드 티어',c=>c.tierI>=3,'tier'],['plat','💠','플래티넘 달성','종합 플래티넘 티어',c=>c.tierI>=4,'tier'],['dia','💎','다이아 달성','종합 다이아몬드 티어',c=>c.tierI>=6,'tier'],['master','🔮','마스터 달성','종합 마스터 티어',c=>c.tierI>=7,'tier'],['chal','👑','챌린저','종합 챌린저 티어',c=>c.tierI>=9,'tier'],
  ['sets500','📦','500세트','누적 500세트 완료',c=>c.sets>=500,'etc'],['sets2000','🏗️','2000세트','누적 2000세트 완료',c=>c.sets>=2000,'etc'],['brk10','📚','공부 틈틈이','쉬는 시간 운동 10세트',c=>c.brk>=10,'etc'],['brk50','🎒','쉬는 시간 달인','쉬는 시간 운동 50세트',c=>c.brk>=50,'etc'],
- ['asym5','⚖️','균형 잡기','비대칭 교정 5번',c=>c.asym>=5,'etc'],['asym20','🧘','균형 장인','비대칭 교정 20번',c=>c.asym>=20,'etc'],['wc1','🏁','챌린지 완주','주간 챌린지 1번 완주',c=>c.wcN>=1,'etc'],['wc5','🎖️','챌린지 사냥꾼','주간 챌린지 5번 완주',c=>c.wcN>=5,'etc'],['wc10','🏆','챌린지 마스터','주간 챌린지 10번 완주',c=>c.wcN>=10,'etc'],
+ ['asym5','⚖️','균형 잡기','비대칭 교정 5번',c=>c.asym>=5,'etc'],['asym20','🧘','균형 장인','비대칭 교정 20번',c=>c.asym>=20,'etc'],['wc1','🤝','첫 팀 승리','팀 챌린지 1번 성공',c=>c.wcN>=1,'etc'],['wc5','🎖️','든든한 팀원','팀 챌린지 5번 성공',c=>c.wcN>=5,'etc'],['wc10','🏆','팀의 기둥','팀 챌린지 10번 성공',c=>c.wcN>=10,'etc'],
  ['intro','🪪','자기소개 완성','한 줄 소개와 대표 기록을 모두 채우기',c=>!!(S.comm&&S.comm.bio&&S.pin),'etc']];
 const BADGE_BY=Object.fromEntries(BADGES.map(b=>[b[0],b]));
 const earnedBadges=c=>BADGES.filter(b=>{try{return b[4](c)}catch(e){return false}}).map(b=>b[0]);
@@ -3219,8 +3224,12 @@ function profHtml(m){
   ${m.page?'':`<div class="row" style="justify-content:center;margin-top:14px"><button class="btn" style="min-width:120px" data-act="modal-close">닫기</button></div>`}`;
 }
 /* ---------- 🏁 주간 챌린지: 매주 월요일에 바뀌어요 ---------- */
-const WC=[{id:'push',e:'💪',t:'푸쉬업 300개',k:'ex',n:/푸쉬업/,g:300,u:'개'},{id:'days',e:'📅',t:'일주일에 4일 운동',k:'days',g:4,u:'일'},{id:'sq',e:'🦵',t:'스쿼트 400개',k:'ex',n:/스쿼트/,g:400,u:'개'},{id:'brk',e:'📚',t:'1분 운동 10번',k:'brk',g:10,u:'번'},
- {id:'pull',e:'🧗',t:'당기기 150개 (풀업·친업·로우)',k:'ex',n:/풀업|친업|로우/,g:150,u:'개'},{id:'core',e:'🧱',t:'코어 버티기 10분',k:'hold',n:/플랭크|할로우|엘싯|홀드|L-?싯/,g:600,u:'초'},{id:'sets',e:'🔥',t:'100세트 채우기',k:'sets',g:100,u:'세트'}];
+const WC=[{id:'push',e:'💪',t:'다 같이 푸쉬업',k:'ex',n:/푸쉬업/,b:60,u:'개'},{id:'days',e:'📅',t:'다 같이 운동한 날',k:'days',b:2,u:'일'},{id:'sq',e:'🦵',t:'다 같이 스쿼트',k:'ex',n:/스쿼트/,b:80,u:'개'},{id:'brk',e:'📚',t:'다 같이 1분 운동',k:'brk',b:5,u:'번'},
+ {id:'pull',e:'🧗',t:'다 같이 당기기',k:'ex',n:/풀업|친업|로우/,b:20,u:'개'},{id:'core',e:'🧱',t:'다 같이 코어 버티기',k:'hold',n:/플랭크|할로우|엘싯|홀드|L-?싯/,b:120,u:'초'},{id:'sets',e:'🔥',t:'다 같이 세트 채우기',k:'sets',b:20,u:'세트'}];
+/* 티어가 높을수록 맡는 몫이 커져요 (아이언 1배 → 챌린저 5배) */
+const WC_M=[1,1.3,1.6,2,2.5,3,3.5,4,4.5,5];
+const wcRound=(ch,v)=>ch.u==='일'||ch.u==='번'?Math.max(1,Math.round(v)):ch.u==='초'?Math.max(60,Math.round(v/60)*60):Math.max(10,Math.round(v/10)*10);
+const wcQuota=(ch,ti)=>ch.b*WC_M[Math.max(0,Math.min(9,ti|0))];
 function wcWeek(){const t=today(),wd=(parseD(t).getDay()+6)%7,mon=addDays(t,-wd),i=Math.round((parseD(mon)-parseD('2026-01-05'))/604800000);return {mon,sun:addDays(mon,6),ch:WC[((i%WC.length)+WC.length)%WC.length]}}
 function wcProg(){const {mon,sun,ch}=wcWeek();let v=0;const days=new Set();
   S.sessions.forEach(s=>{if(s.date<mon||s.date>sun)return;let n=0;s.items.forEach(it=>{const ds=doneSets(it);n+=ds.length;if(!ds.length)return;const e=exById(it.exId),nm=e?e.name:'',isT=e&&e.type==='time';
@@ -3229,18 +3238,28 @@ function wcProg(){const {mon,sun,ch}=wcWeek();let v=0;const days=new Set();
     if(ch.k==='brk'&&s.title==='<공부 쉬는 시간>')v+=ds.length;
     if(ch.k==='sets')v+=ds.length});if(n)days.add(s.date)});
   if(ch.k==='days')v=days.size;return Math.round(v)}
-const wcFmt=(ch,v)=>ch.u==='초'?(v>=60?`${Math.floor(v/60)}분${v%60?' '+v%60+'초':''}`:`${v}초`):`${v}${ch.u}`;
-function wcCard(joined){const {mon,sun,ch}=wcWeek(),v=wcProg(),pct=Math.min(1,v/ch.g),done=v>=ch.g,left=Math.round((parseD(sun)-parseD(today()))/864e5)+1;
-  if(done&&S.wcDone!==mon){S.wcDone=mon;S.wcN=(S.wcN||0)+1;save();setTimeout(()=>{toast('🏆 이번 주 챌린지 완주! 배지를 확인해 보세요');sfx('success');try{commSync(true)}catch(e){}},300)}
-  const rows=C.lb.filter(x=>x.wc&&x.wc.w===mon&&x.wc.id===ch.id&&+x.wc.v>0).map(x=>x.id===store.uid?Object.assign({},x,{wc:{w:mon,id:ch.id,v}}):x).sort((a,b)=>b.wc.v-a.wc.v);
-  const fin=rows.filter(x=>x.wc.v>=ch.g).length;
-  const lb=rows.slice(0,5).map((x,i)=>{const tk=typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0,ok=x.wc.v>=ch.g;return `<div class="wcr${x.id===store.uid?' me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="wcn">${['🥇','🥈','🥉'][i]||i+1}</span><span class="lbe">${emblem(tk,22)}</span><b>${esc(String(x.nick||'?').slice(0,12))}</b><span class="wcv">${wcFmt(ch,+x.wc.v)}${ok?' ✅':''}</span></div>`}).join('');
-  return `<div class="card wcc${done?' done':''}"><div class="row between"><span class="wctag">🏁 주간 챌린지</span><span class="muted sm">${left>1?`${left}일 남음`:'오늘 마감'}</span></div>
-  <div class="wct"><span class="wce">${ch.e}</span>${esc(ch.t)}</div>
-  <div class="wcbar"><i style="width:${(pct*100).toFixed(1)}%"></i></div>
-  <div class="row between sm"><b>${done?'🎉 완주했어요!':`나 ${wcFmt(ch,v)}`}</b><span class="muted">목표 ${wcFmt(ch,ch.g)} · ${Math.round(pct*100)}%</span></div>
-  ${joined?(lb?`<div class="wcl"><div class="muted sm" style="margin-bottom:6px">이번 주 순위 · ${rows.length}명 도전 · ${fin}명 완주</div>${lb}</div>`:`<div class="muted sm" style="margin-top:10px">아직 도전한 사람이 없어요. 1등을 차지해 보세요!</div>`):`<div class="muted sm" style="margin-top:10px">랭킹에 참여하면 친구들과 순위를 겨룰 수 있어요</div>`}
-  ${ch.k==='brk'&&!done?'<button class="btn sm pri" style="margin-top:10px;width:100%" data-act="brk-open">📚 1분 운동 하러 가기</button>':''}</div>`}
+const wcFmt=(ch,v)=>ch.u==='초'?(v>=60?`${Math.floor(v/60)}분${v%60?' '+v%60+'초':''}`:`${v}초`):`${(+v).toLocaleString('ko-KR')}${ch.u}`;
+function wcCard(joined){const {mon,sun,ch}=wcWeek(),v=wcProg(),left=Math.round((parseD(sun)-parseD(today()))/864e5)+1;
+  let myTi=0;try{myTi=stTier(overallTier(levelData()).s).i}catch(e){}const tiOf=x=>x.id===store.uid?myTi:typeof x.s==='number'?stTier(Math.max(0,Math.min(37,x.s|0))).i:0;
+  const rows=C.lb.filter(x=>x.wc&&x.wc.w===mon&&x.wc.id===ch.id&&+x.wc.v>0&&x.id!==store.uid).map(x=>({id:x.id,nick:x.nick,s:x.s,v:+x.wc.v}));
+  if(joined&&v>0)rows.push({id:store.uid,nick:cnick(),s:(C.lb.find(x=>x.id===store.uid)||{}).s,v});
+  rows.sort((a,b)=>b.v-a.v);
+  const mem=C.lb.filter(x=>x.id!==store.uid&&((x.wc&&x.wc.w===mon)||(+x.upd||0)>Date.now()-14*864e5));
+  const goal=wcRound(ch,Math.max(ch.b*3,mem.reduce((a,x)=>a+wcQuota(ch,tiOf(x)),0)+(joined?wcQuota(ch,myTi):0)));
+  const myQ=wcRound(ch,wcQuota(ch,myTi));
+  const team=rows.reduce((a,x)=>a+x.v,0),pct=Math.min(1,team/goal),done=team>=goal,mine=joined?v:0,share=team?Math.round(mine/team*100):0,myP=Math.min(1,mine/myQ);
+  if(done&&mine>0&&S.wcDone!==mon){S.wcDone=mon;S.wcN=(S.wcN||0)+1;save();setTimeout(()=>{toast('🏆 팀 챌린지 성공! 다 같이 해냈어요');sfx('success');try{commSync(true)}catch(e){}},300)}
+  const lb=rows.slice(0,6).map((x,i)=>{const tk=tiOf(x);return `<div class="wcr${x.id===store.uid?' me':''}" data-act="cm-prof" data-u="${esc(x.id)}"><span class="wcn">${i===0?'⭐':i+1}</span><span class="lbe">${emblem(tk,22)}</span><b>${esc(String(x.nick||'?').slice(0,12))}${i===0?' <span class="wcmvp">MVP</span>':''}</b><span class="wcv">+${wcFmt(ch,x.v)}</span></div>`}).join('');
+  const av=rows.slice(0,7).map((x,i)=>`<span class="wcav" style="z-index:${9-i}">${emblem(tiOf(x),20)}</span>`).join('');
+  return `<div class="card wcc${done?' done':''}"><div class="row between"><span class="wctag">🤝 팀 챌린지</span><span class="muted sm">${left>1?`${left}일 남음`:'오늘 마감'}</span></div>
+  <div class="wct"><span class="wce">${ch.e}</span>${esc(ch.t)} ${wcFmt(ch,goal)}</div>
+  <div class="wcbar team"><i style="width:${(pct*100).toFixed(1)}%"></i><s style="left:25%"></s><s style="left:50%"></s><s style="left:75%"></s></div>
+  <div class="row between sm"><b>${done?'🎉 다 같이 해냈어요!':`우리 팀 ${wcFmt(ch,team)}`}</b><span class="muted">목표 ${wcFmt(ch,goal)} · ${Math.round(pct*100)}%</span></div>
+  <div class="muted sm" style="margin-top:6px">🎯 목표는 함께하는 ${mem.length+(joined?1:0)}명의 티어에 맞춰 정해졌어요</div>
+  <div class="row between" style="margin-top:12px;align-items:center"><span class="wcavs">${av||'<span class="muted sm">아직 아무도 없어요</span>'}</span><span class="muted sm">${rows.length}명이 보태는 중</span></div>
+  ${joined?`<div class="wcme"><div class="row between"><span>내 몫 <b>${wcFmt(ch,myQ)}</b> <span class="muted sm">· ${esc(TIERS[myTi].n)} 기준</span></span><span class="sm" style="font-weight:800;color:${myP>=1?'#30d158':'#64d2ff'}">${myP>=1?'✅ 달성':Math.round(myP*100)+'%'}</span></div><div class="wcbar" style="height:8px;margin:8px 0 6px"><i style="width:${(myP*100).toFixed(1)}%;background:${myP>=1?'#30d158':'#64d2ff'}"></i></div><span class="muted sm">${mine>0?`지금까지 ${wcFmt(ch,mine)} 보탰어요 · 팀의 ${share}%`:'운동을 기록하면 팀 기록에 더해져요 💪'}</span></div>`:`<div class="muted sm" style="margin-top:10px">랭킹에 참여하면 내 운동이 팀 기록에 더해져요</div>`}
+  ${lb?`<div class="wcl"><div class="muted sm" style="margin-bottom:6px">기여 순위</div>${lb}</div>`:''}
+  ${ch.k==='brk'&&!done?'<button class="btn sm pri" style="margin-top:10px;width:100%" data-act="brk-open">📚 1분 운동으로 보태기</button>':''}</div>`}
 function commView(){
   commStart();
   const joined=!!(S.comm&&S.comm.on);
