@@ -395,33 +395,25 @@ nav button.on svg{transform:translateY(-1px) scale(1.14)}
 .rkg>span:first-child{filter:drop-shadow(0 0 5px var(--rg))}.rkg b{font-size:15px;font-weight:900}.rkg .muted{font-size:10.5px}
 .rkg.got{opacity:.85}.rkg.cur{border-color:var(--rg);background:color-mix(in srgb,var(--rg) 16%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--rg) 40%,transparent)}
 .rkg i{position:absolute;top:-7px;right:-4px;font-style:normal;font-size:10px;font-weight:800;padding:2px 6px;border-radius:999px;background:var(--rg);color:#000}
-#pal{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;visibility:hidden;transition:opacity 1.4s cubic-bezier(.4,0,.2,1),visibility 0s 1.4s;background:#000;overflow:hidden;--sy:0px}
-body.duelbg{background:transparent}body.duelbg #pal{opacity:.5;visibility:visible;transition:opacity 1.6s cubic-bezier(.4,0,.2,1),visibility 0s}
-#pal{top:-60vh}#pal .pl{position:absolute;top:60vh;left:-4%;right:-4%;bottom:-3%;will-change:transform}#pal .pl svg{width:100%;height:100%;display:block}
-#pal .pback{transform:translateY(calc(var(--sy)*-.03))}#pal .ptor{transform:translateY(calc(var(--sy)*-.03))}#pal .pmid{transform:translateY(calc(var(--sy)*-.06))}#pal .pfront{transform:translateY(calc(var(--sy)*-.12))}
-#pal.in .pback svg{animation:palback 3.2s cubic-bezier(.16,1,.3,1) both}#pal.in .ptor svg{animation:palback 3.2s cubic-bezier(.16,1,.3,1) both}
-#pal.in .pmid svg{animation:palmid 3s cubic-bezier(.16,1,.3,1) both}
-#pal.in .pfront svg{animation:palfront 2.8s cubic-bezier(.16,1,.3,1) both}
-@keyframes palback{0%{transform:scale(1.1);filter:brightness(.4)}100%{transform:none;filter:none}}
-@keyframes palmid{0%{transform:scale(1.16)}100%{transform:none}}
-@keyframes palfront{0%{transform:scale(1.32)}100%{transform:none}}
-#pal .pban{transform-box:fill-box;transform-origin:50% 0;animation:pban 6.5s var(--bd) ease-in-out infinite}
-@keyframes pban{0%,100%{transform:rotate(-.9deg) skewX(.6deg)}50%{transform:rotate(.9deg) skewX(-.6deg)}}
-#pal .pfl{transform-box:fill-box;transform-origin:50% 100%;animation:pfl 1.7s var(--fd) ease-in-out infinite}
-@keyframes pfl{0%{transform:scale(1,1) skewX(0)}20%{transform:scale(.94,1.08) skewX(3deg)}45%{transform:scale(1.04,.95) skewX(-2deg)}70%{transform:scale(.97,1.05) skewX(2deg)}100%{transform:scale(1,1) skewX(0)}}
-#pal .pglow{animation:pglow 2.3s var(--fd) ease-in-out infinite}@keyframes pglow{0%,100%{opacity:1}30%{opacity:.78}55%{opacity:.95}80%{opacity:.82}}
-#pal .pdglow{animation:pdg 9s ease-in-out infinite}@keyframes pdg{50%{opacity:.7}}
-#pal .pray{mix-blend-mode:screen}#pal .pray path{transform-box:view-box}
-#pal .r1{animation:pr 11s ease-in-out infinite}#pal .r2{animation:pr 14s -4s ease-in-out infinite}#pal .r3{animation:pr 17s -9s ease-in-out infinite}
-@keyframes pr{0%,100%{opacity:.85;transform:translateX(0)}50%{opacity:.35;transform:translateX(9px)}}
-#pal .pfog{position:absolute;left:0;right:0;bottom:0;height:42%}#pal .pfog i{position:absolute;bottom:-8%;width:130%;height:70%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,220,160,.12),transparent);filter:blur(10px)}
-#pal .pfog i:first-child{left:-40%;animation:pfog 26s ease-in-out infinite alternate}#pal .pfog i:last-child{left:10%;bottom:4%;animation:pfog 34s -12s ease-in-out infinite alternate-reverse}
-@keyframes pfog{to{transform:translateX(28%)}}
-#pal .pdust i{position:absolute;left:var(--x);top:var(--y);opacity:0;animation:pdust var(--d) var(--dl) cubic-bezier(.45,0,.55,1) infinite}
-#pal .pdust b{display:block;width:var(--s);height:var(--s);border-radius:50%;background:#ffe39a;box-shadow:0 0 6px #ffd27a;filter:blur(var(--b));animation:psway var(--sd) ease-in-out infinite alternate}
-@keyframes pdust{0%{transform:translateY(0);opacity:0}18%{opacity:var(--o)}80%{opacity:var(--o)}100%{transform:translateY(-150px);opacity:0}}
-@keyframes psway{from{transform:translateX(calc(var(--sw)*-1))}to{transform:translateX(var(--sw))}}
-#pal .pvig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 60% at 50% 48%,transparent 30%,rgba(0,0,0,.8) 100%),linear-gradient(rgba(0,0,0,.35),transparent 22%,transparent 62%,rgba(0,0,0,.7))}
+#pal{position:fixed;left:0;right:0;top:-60vh;bottom:0;z-index:-1;pointer-events:none;opacity:0;visibility:hidden;transition:opacity 1.2s ease,visibility 0s 1.2s;background:#000;overflow:hidden;contain:strict}
+body.duelbg{background:transparent}body.duelbg #pal{opacity:.5;visibility:visible;transition:opacity 1.4s ease,visibility 0s}
+#pal .pimg,#pal .ptor{position:absolute;left:0;top:60vh;width:100%;height:calc(100% - 60vh);object-fit:cover;object-position:50% 100%}
+#pal.in .pimg{animation:palin 2.6s cubic-bezier(.16,1,.3,1) both}@keyframes palin{0%{transform:scale(1.12)}100%{transform:none}}
+#pal.in .ptor{animation:palin 2.6s cubic-bezier(.16,1,.3,1) both}
+#pal .pgl{animation:pgl 2.3s var(--fd) ease-in-out infinite}@keyframes pgl{0%,100%{opacity:1}35%{opacity:.6}60%{opacity:.9}80%{opacity:.7}}
+#pal .pfl{transform-box:fill-box;transform-origin:50% 100%;animation:pfl 1.6s var(--fd) ease-in-out infinite;opacity:.85}
+@keyframes pfl{0%,100%{transform:scale(1)}25%{transform:scale(.92,1.1)}50%{transform:scale(1.05,.94)}75%{transform:scale(.96,1.06)}}
+#pal .prs{position:absolute;left:0;right:0;top:60vh;bottom:0}
+#pal .prs i{position:absolute;top:-5%;height:110%;width:16%;background:linear-gradient(90deg,transparent,rgba(255,231,176,.16) 50%,transparent);transform:skewX(-9deg);-webkit-mask:linear-gradient(#000,transparent 85%);mask:linear-gradient(#000,transparent 85%);will-change:opacity;animation:prs 11s ease-in-out infinite}
+#pal .prs i:nth-child(1){left:22%}#pal .prs i:nth-child(2){left:44%;width:9%;animation-duration:14s;animation-delay:-4s;transform:skewX(4deg)}#pal .prs i:nth-child(3){left:58%;width:10%;animation-duration:17s;animation-delay:-9s;transform:skewX(12deg)}
+@keyframes prs{0%,100%{opacity:1}50%{opacity:.35}}
+#pal .pdust i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle,#fff1c4,rgba(255,210,122,.6) 45%,transparent 70%);opacity:0;will-change:transform,opacity;animation:pdust var(--d) var(--dl) linear infinite}
+@keyframes pdust{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:var(--o)}35%{transform:translate3d(var(--sw),-45px,0)}65%{transform:translate3d(calc(var(--sw)*-.6),-100px,0)}85%{opacity:var(--o)}100%{transform:translate3d(var(--sw),-150px,0);opacity:0}}
+#pal .pvig{position:absolute;inset:60vh 0 0 0;background:radial-gradient(ellipse 75% 60% at 50% 48%,transparent 30%,rgba(0,0,0,.8) 100%),linear-gradient(rgba(0,0,0,.35),transparent 22%,transparent 62%,rgba(0,0,0,.7))}
+body.duelbg #view .card,body.duelbg #view .rkfind{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background-color:rgba(24,22,20,.82)}
+body.duelbg #view .rkcard{background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--rc) 20%,#18161a),rgba(24,22,20,.9) 70%)}
+body.duelbg #view .rkbig,body.duelbg #view .rkfind{animation:none}
+body.duelbg .cnback,body.duelbg .cnpill{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(36,34,32,.94)}
 @media (prefers-reduced-motion:reduce){#pal *{animation:none!important}}
 .dutest{width:100%;margin-top:8px;border:1px dashed rgba(255,214,10,.5);color:#ffd60a;background:rgba(255,214,10,.08)}
 .chip.rkc{background:rgba(255,214,10,.16);color:#ffd60a}
@@ -1957,8 +1949,8 @@ document.addEventListener('click',e=>{
 window.addEventListener('resize',()=>{if(TU)tutFrame(true)});
 }catch(e){}
 /* ---------- 업데이트 안내 (사이트 버전) ---------- */
-const APP_VER='2026.11.28b';
-const APP_NEWS=['🧭 커뮤니티를 누르면 아래 탭이 랭킹·팀 챌린지·경쟁전·피드로 바뀌어요','🏅 랭크전 등장! 랜덤 상대와 24시간 동안 목표 달성률로 승부하고 F부터 X까지 티어를 올려요','🤝 친구와 겨루는 건 이제 친선전 (경쟁전 탭에서 신청)','🏆 랭킹에 모든 사람이 나와요','🏠 홈 화면 내 티어 밑에 경쟁전 티어가 보여요 · 누르면 모든 티어와 점수 규칙을 볼 수 있어요','🎺 경쟁전 화면에선 배경음악이 웅장하게 바뀌고, 뒤에 흐릿한 궁전이 펼쳐져요','❔ 배치 경기 3판 전에는 경쟁전 티어가 ?로 보여요'];
+const APP_VER='2026.11.28c';
+const APP_NEWS=['⚡ 경쟁전 화면이 버벅이던 문제를 고쳤어요 (궁전 배경을 가볍게 바꿨어요)'];
 /* 새 버전 자동 확인: 서버의 최신 파일과 버전 번호를 비교해요 (사이트 버전) */
 let VC_BUSY=0,VC_LAST=0,VC_SEEN='';
 async function verRemote(force){
@@ -3637,28 +3629,33 @@ const CS=[['rank','랭킹','<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 
  ['feed','피드','<rect x="4" y="3" width="16" height="18" rx="3.5"/><path d="M8 8h8M8 12h8M8 16h5"/>']];
 const CS_SUB_DU='랭크전으로 티어를 올리고, 친선전으로 친구와 겨뤄요';const CS_T={rank:'랭킹',team:'팀 챌린지',duel:'경쟁전',feed:'운동 기록 피드'};
 const duBadge=()=>{try{return !!(store.uid&&DU.sub&&!duState()&&!S.duCur&&duIncoming().length)}catch(e){return false}};
-/* 🏛️ 경쟁전 배경: 흐릿한 궁전 (코드로 그린 그림 · 층마다 따로 움직여요) */
-function palEnsure(){let p=$('#pal');if(p)return p;p=document.createElement('div');p.id='pal';p.setAttribute('aria-hidden','true');
+/* 🏛️ 경쟁전 배경: 흐릿한 궁전 (코드로 그린 그림) · 한 장의 그림으로 만들어 두고 가벼운 빛만 움직여서 버벅이지 않아요 */
+const PAL={c:'',url:''};
+function palDark(h){const n=parseInt(h.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255,f=x=>Math.round(x*.35).toString(16).padStart(2,'0');return '#'+f(r)+f(g)+f(b)}
+function palSvg(pc){const pcd=palDark(pc);
   const V='viewBox="0 0 390 844" preserveAspectRatio="xMidYMax slice"';
   const blur=(id,d)=>`<filter id="${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${d}"/></filter>`;
   const col=(x,w,y,h,g)=>{const cw=w*1.4,cx=x-(cw-w)/2;let fl='';for(let k=1;k<6;k++)fl+=`<rect x="${(x+w*k/6-.6).toFixed(1)}" y="${y+22}" width="1.2" height="${h-44}" fill="rgba(0,0,0,.22)"/><rect x="${(x+w*k/6+.6).toFixed(1)}" y="${y+22}" width=".8" height="${h-44}" fill="rgba(255,235,190,.07)"/>`;
     return `<g><rect x="${cx-3}" y="${y-10}" width="${cw+6}" height="9" rx="1.5" fill="url(#${g}c)"/><path d="M${cx} ${y}H${cx+cw}L${x+w+1} ${y+18}H${x-1}Z" fill="url(#${g}c)"/><circle cx="${cx+3}" cy="${y+5}" r="4" fill="url(#${g}c)"/><circle cx="${cx+cw-3}" cy="${y+5}" r="4" fill="url(#${g}c)"/>
     <rect x="${x}" y="${y+18}" width="${w}" height="${h-36}" fill="url(#${g})"/>${fl}<rect x="${x-2}" y="${y+h-24}" width="${w+4}" height="6" fill="url(#${g}c)"/><rect x="${cx-2}" y="${y+h-18}" width="${cw+4}" height="18" fill="url(#${g}c)"/></g>`};
-  const ban=(x,w,y,h,k)=>`<g class="pban" style="--bd:${k?'-2.7s':'0s'}"><rect x="${x-3}" y="${y-4}" width="${w+6}" height="4" rx="2" fill="#a88c55"/><path d="M${x} ${y}H${x+w}V${y+h}L${x+w*.75} ${y+h-10}L${x+w/2} ${y+h+2}L${x+w*.25} ${y+h-10}L${x} ${y+h}Z" fill="url(#pban)"/><path d="M${x+3} ${y+2}V${y+h-6}M${x+w-3} ${y+2}V${y+h-6}" stroke="rgba(255,225,150,.45)" stroke-width="1.2"/><path d="M${x+w/2} ${y+h*.28}l${w*.2} ${w*.2}l-${w*.2} ${w*.2}l-${w*.2} -${w*.2}Z" fill="none" stroke="rgba(255,236,190,.6)" stroke-width="1.4"/><path d="M${x} ${y}H${x+w}V${y+h*.5}H${x}Z" fill="url(#pbsh)"/></g>`;
-  const torch=(x,y,k)=>`<g class="ptorch" style="--fd:${k}"><ellipse class="pglow" cx="${x}" cy="${y-6}" rx="46" ry="52" fill="url(#pglow)"/><path d="M${x-6} ${y}H${x+6}L${x+3} ${y+16}H${x-3}Z" fill="#6b5835"/><rect x="${x-8}" y="${y-2}" width="16" height="3" rx="1.5" fill="#8a7448"/><g class="pfl"><path d="M${x} ${y-22}C${x+7} ${y-12} ${x+7} ${y-4} ${x} ${y-1}C${x-7} ${y-4} ${x-7} ${y-12} ${x} ${y-22}Z" fill="#ff9d2e"/><path d="M${x} ${y-15}C${x+4} ${y-9} ${x+4} ${y-4} ${x} ${y-2}C${x-4} ${y-4} ${x-4} ${y-9} ${x} ${y-15}Z" fill="#ffe7a3"/></g></g>`;
+  const ban=(x,w,y,h,k)=>`<g ><rect x="${x-3}" y="${y-4}" width="${w+6}" height="4" rx="2" fill="#a88c55"/><path d="M${x} ${y}H${x+w}V${y+h}L${x+w*.75} ${y+h-10}L${x+w/2} ${y+h+2}L${x+w*.25} ${y+h-10}L${x} ${y+h}Z" fill="url(#pban)"/><path d="M${x+3} ${y+2}V${y+h-6}M${x+w-3} ${y+2}V${y+h-6}" stroke="rgba(255,225,150,.45)" stroke-width="1.2"/><path d="M${x+w/2} ${y+h*.28}l${w*.2} ${w*.2}l-${w*.2} ${w*.2}l-${w*.2} -${w*.2}Z" fill="none" stroke="rgba(255,236,190,.6)" stroke-width="1.4"/><path d="M${x} ${y}H${x+w}V${y+h*.5}H${x}Z" fill="url(#pbsh)"/></g>`;
+  const torch=(x,y,k)=>`<g><ellipse cx="${x}" cy="${y-6}" rx="46" ry="52" fill="url(#pglow)"/><path d="M${x-6} ${y}H${x+6}L${x+3} ${y+16}H${x-3}Z" fill="#6b5835"/><rect x="${x-8}" y="${y-2}" width="16" height="3" rx="1.5" fill="#8a7448"/><g><path d="M${x} ${y-22}C${x+7} ${y-12} ${x+7} ${y-4} ${x} ${y-1}C${x-7} ${y-4} ${x-7} ${y-12} ${x} ${y-22}Z" fill="#ff9d2e"/><path d="M${x} ${y-15}C${x+4} ${y-9} ${x+4} ${y-4} ${x} ${y-2}C${x-4} ${y-4} ${x-4} ${y-9} ${x} ${y-15}Z" fill="#ffe7a3"/></g></g>`;
   let dent='';for(let x=0;x<390;x+=9)dent+=`<rect x="${x}" y="168" width="5" height="6" fill="#3d3322"/>`;
   let tiles='';const vx=195,vy=420;[-260,-180,-120,-70,-30,0,30,70,120,180,260].forEach(o=>{tiles+=`<path d="M${vx+o*.18} 600L${vx+o*2.6} 844" stroke="rgba(255,230,180,.08)" stroke-width="1"/>`});
   [604,612,624,640,662,692,732,784].forEach(y=>{tiles+=`<path d="M0 ${y}H390" stroke="rgba(255,230,180,${(.04+(y-600)/2400).toFixed(3)})" stroke-width="1"/>`});
-  let dust='';for(let i=0;i<30;i++){const z=Math.random();dust+=`<i style="--x:${(Math.random()*100).toFixed(1)}%;--y:${(25+Math.random()*70).toFixed(1)}%;--d:${(9+Math.random()*10).toFixed(1)}s;--dl:-${(Math.random()*19).toFixed(1)}s;--s:${(1+z*2.6).toFixed(1)}px;--b:${z>.75?1.2:0}px;--o:${(.35+z*.55).toFixed(2)};--sw:${(6+Math.random()*14).toFixed(0)}px;--sd:${(2.6+Math.random()*2.4).toFixed(1)}s"><b></b></i>`}
-  p.innerHTML=`<div class="pl pback"><svg ${V}><defs>${blur('pb1',2.4)}
+  return `<svg xmlns="http://www.w3.org/2000/svg" ${V} width="780" height="1688"><defs>${blur('pb1',2.4)}
    <radialGradient id="pbg" cx=".5" cy=".5" r=".8"><stop offset="0" stop-color="#3b2c13"/><stop offset=".5" stop-color="#17110a"/><stop offset="1" stop-color="#050403"/></radialGradient>
    <linearGradient id="pdoor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a10"/><stop offset=".45" stop-color="#e0a443"/><stop offset=".8" stop-color="#ffe6a8"/><stop offset="1" stop-color="#ffd27a"/></linearGradient>
    <radialGradient id="pdh" cx=".5" cy=".85" r=".7"><stop offset="0" stop-color="#ffd98a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
    <linearGradient id="pwall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#120e08"/><stop offset=".55" stop-color="#2a2013"/><stop offset="1" stop-color="#1a140c"/></linearGradient>
    <linearGradient id="pfloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2416"/><stop offset="1" stop-color="#0d0a06"/></linearGradient>
-   <linearGradient id="prefl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf73" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf73" stop-opacity="0"/></linearGradient></defs>
-   <rect width="390" height="844" fill="url(#pbg)"/>
-   <g filter="url(#pb1)">
+   <linearGradient id="prefl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf73" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf73" stop-opacity="0"/></linearGradient><radialGradient id="pglow"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset=".5" stop-color="#ff8a1e" stop-opacity=".16"/><stop offset="1" stop-color="#ff8a1e" stop-opacity="0"/></radialGradient>${blur('pb2',1.7)}
+   <linearGradient id="pm" x1="0" x2="1"><stop offset="0" stop-color="#1f1a11"/><stop offset=".3" stop-color="#7d6d4f"/><stop offset=".5" stop-color="#9c8a65"/><stop offset=".75" stop-color="#4f4530"/><stop offset="1" stop-color="#17130c"/></linearGradient>
+   <linearGradient id="pmc" x1="0" x2="1"><stop offset="0" stop-color="#2f2818"/><stop offset=".45" stop-color="#b09c70"/><stop offset="1" stop-color="#2a2416"/></linearGradient>
+   <linearGradient id="pban" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pc}"/><stop offset="1" stop-color="${pcd}"/></linearGradient>
+   <linearGradient id="pbsh" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>${blur('pb4',7)}<linearGradient id="prg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7b0" stop-opacity=".5"/><stop offset=".7" stop-color="#ffe7b0" stop-opacity=".08"/><stop offset="1" stop-color="#ffe7b0" stop-opacity="0"/></linearGradient>${blur('pb3',3.4)}
+   <linearGradient id="pf" x1="0" x2="1"><stop offset="0" stop-color="#0d0b07"/><stop offset=".35" stop-color="#4d4330"/><stop offset=".55" stop-color="#5e523b"/><stop offset="1" stop-color="#0b0906"/></linearGradient>
+   <linearGradient id="pfc" x1="0" x2="1"><stop offset="0" stop-color="#14110b"/><stop offset=".5" stop-color="#6a5c40"/><stop offset="1" stop-color="#100d08"/></linearGradient></defs><rect width="390" height="844" fill="url(#pbg)"/><g filter="url(#pb1)">
     <rect x="0" y="120" width="390" height="480" fill="url(#pwall)"/>
     <path d="M0 120Q195 20 390 120" fill="none" stroke="#3d3220" stroke-width="5"/><path d="M0 150H390" stroke="#4a3d27" stroke-width="5"/><path d="M0 178H390" stroke="#2e261a" stroke-width="3"/>${dent}
     <path d="M58 600V420A22 22 0 0 1 102 420V600Z" fill="#0d0a06"/><path d="M288 600V420A22 22 0 0 1 332 420V600Z" fill="#0d0a06"/>
@@ -3670,28 +3667,15 @@ function palEnsure(){let p=$('#pal');if(p)return p;p=document.createElement('div
     <path d="M0 600H390V844H0Z" fill="url(#pfloor)"/>${tiles}
     <path d="M150 600H240L262 844H128Z" fill="url(#prefl)" opacity=".9"/>
     <path d="M118 600H272L280 612H110Z" fill="#4a3f2c"/><path d="M110 612H280L290 628H100Z" fill="#3a3122"/><path d="M100 628H290L302 650H88Z" fill="#2c2519"/>
-   </g></svg></div>
-  <div class="pl ptor"><svg ${V}><defs><radialGradient id="pglow"><stop offset="0" stop-color="#ffb347" stop-opacity=".55"/><stop offset=".5" stop-color="#ff8a1e" stop-opacity=".16"/><stop offset="1" stop-color="#ff8a1e" stop-opacity="0"/></radialGradient></defs>${torch(118,455,'0s')}${torch(272,455,'-.7s')}</svg></div>
-  <div class="pl pmid"><svg ${V}><defs>${blur('pb2',1.7)}
-   <linearGradient id="pm" x1="0" x2="1"><stop offset="0" stop-color="#1f1a11"/><stop offset=".3" stop-color="#7d6d4f"/><stop offset=".5" stop-color="#9c8a65"/><stop offset=".75" stop-color="#4f4530"/><stop offset="1" stop-color="#17130c"/></linearGradient>
-   <linearGradient id="pmc" x1="0" x2="1"><stop offset="0" stop-color="#2f2818"/><stop offset=".45" stop-color="#b09c70"/><stop offset="1" stop-color="#2a2416"/></linearGradient>
-   <linearGradient id="pban" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--pc,#c9a04a)"/><stop offset="1" style="stop-color:color-mix(in srgb,var(--pc,#c9a04a) 35%,#000)"/></linearGradient>
-   <linearGradient id="pbsh" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>
-   <g filter="url(#pb2)">${col(84,26,186,420,'pm')}${col(280,26,186,420,'pm')}${ban(138,30,200,132,0)}${ban(222,30,200,132,1)}</g></svg></div>
-  <div class="pl pray"><svg ${V}><defs>${blur('pb4',7)}<linearGradient id="prg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7b0" stop-opacity=".5"/><stop offset=".7" stop-color="#ffe7b0" stop-opacity=".08"/><stop offset="1" stop-color="#ffe7b0" stop-opacity="0"/></linearGradient></defs>
-   <g filter="url(#pb4)"><path class="r1" d="M118 -10L160 -10L130 860L20 860Z" fill="url(#prg)"/><path class="r2" d="M176 -10L198 -10L220 860L150 860Z" fill="url(#prg)"/><path class="r3" d="M222 -10L246 -10L330 860L250 860Z" fill="url(#prg)"/></g></svg></div>
-  <div class="pl pfront"><svg ${V}><defs>${blur('pb3',3.4)}
-   <linearGradient id="pf" x1="0" x2="1"><stop offset="0" stop-color="#0d0b07"/><stop offset=".35" stop-color="#4d4330"/><stop offset=".55" stop-color="#5e523b"/><stop offset="1" stop-color="#0b0906"/></linearGradient>
-   <linearGradient id="pfc" x1="0" x2="1"><stop offset="0" stop-color="#14110b"/><stop offset=".5" stop-color="#6a5c40"/><stop offset="1" stop-color="#100d08"/></linearGradient></defs>
-   <g filter="url(#pb3)">${col(-6,52,96,780,'pf')}${col(344,52,96,780,'pf')}</g></svg></div>
-  <div class="pfog"><i></i><i></i></div><div class="pdust">${dust}</div><div class="pvig"></div>`;
+   </g>${torch(118,455,'0s')}${torch(272,455,'-.7s')}<g filter="url(#pb2)">${col(84,26,186,420,'pm')}${col(280,26,186,420,'pm')}${ban(138,30,200,132,0)}${ban(222,30,200,132,1)}</g><g opacity=".55"><g filter="url(#pb4)"><path d="M118 -10L160 -10L130 860L20 860Z" fill="url(#prg)"/><path d="M176 -10L198 -10L220 860L150 860Z" fill="url(#prg)"/><path d="M222 -10L246 -10L330 860L250 860Z" fill="url(#prg)"/></g></g><g filter="url(#pb3)">${col(-6,52,96,780,'pf')}${col(344,52,96,780,'pf')}</g></svg>`}
+function palEnsure(){let p=$('#pal');if(p)return p;p=document.createElement('div');p.id='pal';p.setAttribute('aria-hidden','true');
+  let dust='';for(let i=0;i<12;i++){const z=Math.random();dust+=`<i style="--x:${(Math.random()*100).toFixed(1)}%;--y:${(40+Math.random()*55).toFixed(1)}%;--d:${(10+Math.random()*9).toFixed(1)}s;--dl:-${(Math.random()*19).toFixed(1)}s;--s:${(2+z*3).toFixed(1)}px;--o:${(.35+z*.5).toFixed(2)};--sw:${(8+Math.random()*16).toFixed(0)}px"></i>`}
+  p.innerHTML=`<img class="pimg" alt="" decoding="async"><div class="prs"><i></i><i></i><i></i></div><svg class="ptor" viewBox="0 0 390 844" preserveAspectRatio="xMidYMax slice"><defs><radialGradient id="pglw"><stop offset="0" stop-color="#ffb347" stop-opacity=".5"/><stop offset="1" stop-color="#ff8a1e" stop-opacity="0"/></radialGradient></defs>${[[118,455,0],[272,455,.7]].map(([x,y,d])=>`<g style="--fd:-${d}s"><ellipse class="pgl" cx="${x}" cy="${y-6}" rx="40" ry="46" fill="url(#pglw)"/><path class="pfl" d="M${x} ${y-22}C${x+7} ${y-12} ${x+7} ${y-4} ${x} ${y-1}C${x-7} ${y-4} ${x-7} ${y-12} ${x} ${y-22}Z" fill="#ffb24a"/></g>`).join('')}</svg><div class="pdust">${dust}</div><div class="pvig"></div>`;
   document.body.prepend(p);return p}
-let PAL_SC=0;
-function palScroll(){if(PAL_SC)return;PAL_SC=requestAnimationFrame(()=>{PAL_SC=0;const p=$('#pal');if(p&&document.body.classList.contains('duelbg'))p.style.setProperty('--sy',Math.min(600,scrollY||0)+'px')})}
 function palUpdate(){const on=U.tab==='comm'&&!TU&&(U.cs||'rank')==='duel',was=document.body.classList.contains('duelbg');
-  if(on){const p=palEnsure();try{const R=rkMe();p.style.setProperty('--pc',rkPl(R.n)?RK_C(rkTi(R.p))[0]:'#c9a04a')}catch(e){}
-    if(!was){p.style.setProperty('--sy','0px');p.classList.remove('in');void p.offsetWidth;p.classList.add('in');window.addEventListener('scroll',palScroll,{passive:true})}}
-  else if(was)window.removeEventListener('scroll',palScroll);
+  if(on){const p=palEnsure();let pc='#c9a04a';try{const R=rkMe();if(rkPl(R.n))pc=RK_C(rkTi(R.p))[0]}catch(e){}
+    if(PAL.c!==pc){PAL.c=pc;PAL.url='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(palSvg(pc));p.querySelector('.pimg').src=PAL.url}
+    if(!was){p.classList.remove('in');void p.offsetWidth;p.classList.add('in')}}
   document.body.classList.toggle('duelbg',on)}
 function cnavRender(){try{palUpdate()}catch(e){}let c=$('#cnav');const on=U.tab==='comm'&&!TU;document.body.classList.toggle('cmode',on);
   if(!c){c=document.createElement('div');c.id='cnav';document.body.appendChild(c)}if(!on)return;U.cs=U.cs||'rank';
